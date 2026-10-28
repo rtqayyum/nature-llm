@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "reference_repository": "https://github.com/LLM-UTP/LLM-UTP.git",
+  "reference_commit": "50a4f5b0e76d09c952a01f07390bf57c77b22a26",
+  "zenodo_record": "19503649",
+  "lfs_files": [
+    {
+      "path": "Source Data/Source Data.zip",
+      "sha256": "d31fcc466abe1a50a22d3128ecfe2f7a65744adc63beeecf9f41b76f5605184d",
+      "size": 1057219628
+    },
+    {
+      "path": "checkpoint/03/best_model_dict.pth",
+      "sha256": "e300feed38eb7d49d1c36e2d2eb7f62f839d55b75f74d1f337fdf7368ce17273",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/04/best_model_dict.pth",
+      "sha256": "2913dbf87eaa2e8e3c9fc4589ba4098459a4f364b95eeb492baac4c7eeac0116",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/08/best_model_dict.pth",
+      "sha256": "7ab8ad41305afed35ed5fb51df17f8dd1820d717ce289a783101b6c547f0b4d7",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/bike/best_model_dict.pth",
+      "sha256": "4ef42dc90c1698d0854417f92911dcebb4f54fc31ea3c8ff6599adfc7c02c720",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/bj/best_model_dict.pth",
+      "sha256": "21d85de3ef447c47bbebc67ea6f3aa4103ea54e9ca754cd80bd4692e4e74fde3",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/bus/best_model_dict.pth",
+      "sha256": "c5d7466fba9e50b40453c234c259f33fd1683498270cf7d9411ba7a14c3e43dd",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/hsr/best_model_dict.pth",
+      "sha256": "db6ee768a1eb91992bcf5bcb0a1e9ab330600239eeaaa3d5ebb4f8efedc76558",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/hz/best_model_dict.pth",
+      "sha256": "c3ca4e3aae1fe4d02acf992acd13b6f881c2321d688885540fb51bb5f06a6861",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/nn/best_model_dict.pth",
+      "sha256": "364372bcc6f73aba5b4092f583f965f01070434ee248963245b0eb3cb6cab108",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/sh/best_model_dict.pth",
+      "sha256": "8946554c686bfbc4dd40aca58237fcdc6a90954ca42eee5899dc5151d03c3364",
+      "size": 328620944
+    },
+    {
+      "path": "checkpoint/taxi/best_model_dict.pth",
+      "sha256": "3af1fb86691449c92cffa1510bcd198c80760ff0bae1394aee3795ea884ef9c2",
+      "size": 328620944
+    },
+    {
+      "path": "data/stage1/03.npy",
+      "sha256": "3792273cc8f3e6940aa438bbfef2c10c4b5cc98e4b2cbf19e9f4543a5bbbd4eb",
+      "size": 150119552
+    },
+    {
+      "path": "data/stage1/04.npy",
+      "sha256": "3ea6b6edba14e269825fe20b7252aec126fa7e51d2f0b8a09b2c81b9c71eb09e",
+      "size": 83464832
+    },
+    {
+      "path": "data/stage1/08.npy",
+      "sha256": "fdaa35f938759b7ce35138b2bb68160b7fc1dc67f754eb7d35ffed44c54573db",
+      "size": 48568448
+    },
+    {
+      "path": "data/stage1/beijing.npy",
+      "sha256": "08f39ec3151234aa1d07799e20fe47018de6b0588d80672b927a7d7ef2445cd0",
+      "size": 7948928
+    },
+    {
+      "path": "data/stage1/bike.npy",
+      "sha256": "3e05892a1ec928808918780c0015c11d26801ced70576bb5b9b4122ef0b04354",
+      "size": 8970368
+    },
+    {
+      "path": "data/stage1/hangzhou.npy",
+      "sha256": "d00a730c69dab3b7bc4123547ae8c9883fedd8437421837a1f845b382bebbc38",
+      "size": 2112128
+    },
+    {
+      "path": "data/stage1/shanghai.npy",
+      "sha256": "9d96cc5e9a564fa3f23cf98c29dfd128eab462ea18a921bf2cc1e224da7cdfd2",
+      "size": 27979904
+    },
+    {
+      "path": "data/stage1/taxi.npy",
+      "sha256": "3e05892a1ec928808918780c0015c11d26801ced70576bb5b9b4122ef0b04354",
+      "size": 8970368
+    },
+    {
+      "path": "data/stage2/03fine-tuning.npy",
+      "sha256": "a41907eb0370097e861152ab3749d0bbb2419c38cee3a173710e49e9f16985c6",
+      "size": 150119552
+    },
+    {
+      "path": "data/stage2/04fine-tunning.npy",
+      "sha256": "623f3a85b17088cae6f8db2d72708251b7fe89e3fd7916d71ab4eb30a13684d6",
+      "size": 83464832
+    },
+    {
+      "path": "data/stage2/08fine-tuning.npy",
+      "sha256": "71f959ff523eeb3c850b08172b5e45d4e88f4786eaa63a8a544c0bc9c46ad9ad",
+      "size": 48568448
+    },
+    {
+      "path": "data/stage2/bikefine-tuning.npy",
+      "sha256": "b0746467968a391aec22c2beff1cf8bc04b7db8ede28777888314d88dd3c5cec",
+      "size": 8970368
+    },
+    {
+      "path": "data/stage2/bjfine-tuning.npy",
+      "sha256": "823ee0bb08d2e0a43ab2ded908b179624eaf2e5c7c589a8900495f420a6df1fb",
+      "size": 7948928
+    },
+    {
+      "path": "data/stage2/hzfine-tuning.npy",
+      "sha256": "00a06def85386831bf1766d30640a8df2306266c629384eef99d368316cef7cb",
+      "size": 2112128
+    },
+    {
+      "path": "data/stage2/shfine-tuning.npy",
+      "sha256": "45e9af6d82a2998c178ab6f90f4cb74cd56885f03f7ded18fd6e295fc3a30360",
+      "size": 27979904
+    },
+    {
+      "path": "data/stage2/taxifine-tuning.npy",
+      "sha256": "283a23c55172a2b3ed19fa6223eea6d6e3cd186b3fb36ab4665fb2fc68e057e7",
+      "size": 8970368
+    },
+    {
+      "path": "utils/earlystopping.py",
+      "sha256": "af2eacfa8e81475e3b23819d48eb6bf7519df5d9a0491f42b3cab243f3ad6654",
+      "size": 1908
+    },
+    {
+      "path": "utils/metrics.py",
+      "sha256": "e70be7c597a4ed7ce96b949ba57926bf79e136593403a00bfed0e47fdfcbf323",
+      "size": 1913
+    },
+    {
+      "path": "utils/utils.py",
+      "sha256": "c4626755fd112cf424d5f9caba70f384bb41d5c40353f4476a83f26c357d4262",
+      "size": 1732
+    }
+  ],
+  "gpt2": {
+    "repository": "openai-community/gpt2",
+    "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+    "files": [
+      {
+        "path": "config.json",
+        "size": 665,
+        "sha256": null,
+        "git_blob_sha1": "10c66461e4c109db5a2196bff4bb59be30396ed8"
+      },
+      {
+        "path": "merges.txt",
+        "size": 456318,
+        "sha256": null,
+        "git_blob_sha1": "226b0752cac7789c48f0cb3ec53eda48b7be36cc"
+      },
+      {
+        "path": "model.safetensors",
+        "size": 548105171,
+        "sha256": "248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707",
+        "git_blob_sha1": "44b36d6e32d13c8fb28b0feab0ac8bfefa7efeda"
+      },
+      {
+        "path": "tokenizer.json",
+        "size": 1355256,
+        "sha256": null,
+        "git_blob_sha1": "4b988bccc9dc5adacd403c00b4704976196548f8"
+      },
+      {
+        "path": "tokenizer_config.json",
+        "size": 26,
+        "sha256": null,
+        "git_blob_sha1": "be4d21d94f3b4687e5a54d84bf6ab46ed0f8defd"
+      },
+      {
+        "path": "vocab.json",
+        "size": 1042301,
+        "sha256": null,
+        "git_blob_sha1": "1f1d9aaca301414e7f6c9396df506798ff4eb9a6"
+      }
+    ]
+  }
+}

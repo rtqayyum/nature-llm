@@ -1,0 +1,15 @@
+# All downloaded data, weights, caches, environments and reports stay on HPC.
+work/
+.venv*/
+__pycache__/
+*.py[cod]
+.DS_Store
+*.npy
+*.npz
+*.pth
+*.pt
+*.safetensors
+*.part
+.env
+config/hpc.local.sh
+*.log

@@ -1,0 +1,5 @@
+# Optional: copy to hpc.local.sh only if the HPC needs site-specific settings.
+# module load python/3.11
+# export TRAFFIC_WORK_ROOT="/your/allocated/scratch/traffic-research"
+# Use a persistent allocated project/scratch location, not node-local /tmp.
+# No GPU, Slurm partition or account is needed by this acquisition script.
