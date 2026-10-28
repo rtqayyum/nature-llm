@@ -144,12 +144,25 @@ def main(argv=None):
     parser.add_argument("--project", type=Path, default=Path(default_project))
     parser.add_argument("--sync-only", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
+    parser.add_argument("--submit", action="store_true", help="Prepare Batch and submit acquisition to Slurm")
+    parser.add_argument("--interactive", action="store_true", help="Explicit small development/debug run outside Slurm")
+    parser.add_argument("--handoff", action="store_true", help="Pause only a validated unmanaged project downloader before submission")
     args = parser.parse_args(argv)
+    if args.interactive and args.submit:
+        raise ValueError("Choose --submit or --interactive")
+    if not args.sync_only and not args.interactive:
+        args.submit = True
     project = args.project.expanduser().resolve()
     project.mkdir(parents=True, exist_ok=True)
     work = Path(os.environ.get("TRAFFIC_WORK_ROOT", str(project / "work"))).expanduser().resolve()
+    work.relative_to(project)
+    if args.submit and work != project / "work":
+        raise ValueError("The Slurm profile preserves this project's existing work/ data root")
     work.mkdir(parents=True, exist_ok=True)
-    with (work / "acquisition.lock").open("a") as lock:
+    if args.handoff and not args.submit:
+        raise ValueError("--handoff requires --submit")
+    lock_name = "code_update.lock" if args.submit else "acquisition.lock"
+    with (work / lock_name).open("a") as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
@@ -163,6 +176,13 @@ def main(argv=None):
         print("Existing data/report directory:", work, flush=True)
     if args.sync_only:
         return 0
+    if args.submit:
+        command = [sys.executable, str(snapshot / "scripts/slurm_submit.py"), "--project", str(project), "--code", str(snapshot)]
+        if args.handoff:
+            command.append("--handoff")
+        if args.audit_only:
+            command.append("--audit-only")
+        return subprocess.call(command)
     env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(work)}
     # Newest code runs from its own verified version; the old checkout is preserved.
     command = ["bash", str(snapshot / "run.sh")]

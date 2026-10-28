@@ -5,6 +5,7 @@ This is an acquisition audit, not a forecasting/reproduction pass. No upstream
 Python or checkpoint pickle is executed. Downloaded bytes stay in --work.
 """
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime
 import hashlib
 import json
@@ -14,6 +15,7 @@ import re
 import shutil
 import sys
 import time
+import threading
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -31,6 +33,14 @@ PUBLIC = {
     "nyc_taxi": ("taxi.npy", "taxifine-tuning.npy", 64, 60),
 }
 USER_AGENT = "traffic-research-reproduction-audit/1.0"
+THREAD_LOG = threading.local()
+
+
+def emit(*values, **kwargs):
+    kwargs["file"] = getattr(THREAD_LOG, "stream", sys.stdout)
+    kwargs["flush"] = True
+    print(*values, **kwargs)
+
 
 
 def now():
@@ -135,7 +145,7 @@ def transfer(url, destination, expected_size, headers=None):
                 if offset > expected_size:
                     raise ValueError("Response is larger than pinned object size")
                 if time.monotonic() - progress_at > 15:
-                    print("  downloaded %.1f / %.1f MiB" % (offset / 2**20, expected_size / 2**20), flush=True)
+                    emit("  downloaded %.1f / %.1f MiB" % (offset / 2**20, expected_size / 2**20), flush=True)
                     progress_at = time.monotonic()
     if offset != expected_size:
         raise OSError("Incomplete object; retained partial download for retry")
@@ -162,7 +172,7 @@ def download_verified(asset, destination, locations, retries=4):
                     reason = "HTTP " + str(exc.code)
                 else:
                     reason = type(exc).__name__
-                print("  retryable download failure:", reason, flush=True)
+                emit("  retryable download failure:", reason, flush=True)
         if attempt + 1 < retries:
             time.sleep(min(2 ** attempt, 8))
     raise RuntimeError("All verified download attempts failed for " + asset["path"])
@@ -289,6 +299,7 @@ def main():
     for name in ("project", "work", "report"):
         parser.add_argument("--" + name, required=True, type=Path)
     parser.add_argument("--audit-only", action="store_true")
+    parser.add_argument("--workers", type=int, default=int(os.environ.get("TRAFFIC_DOWNLOAD_WORKERS", "1")))
     args = parser.parse_args()
     lock = json.loads((args.project / "config" / "sources.lock.json").read_text())
     repo = prepare_reference(args.work, lock, args.audit_only)
@@ -299,11 +310,27 @@ def main():
     remaining = sum(a["size"] for a, path, _ in planned if not path.is_file() or path.stat().st_size != a["size"])
     if not args.audit_only and shutil.disk_usage(args.work).free < remaining + 512 * 2**20:
         raise RuntimeError("Insufficient free filesystem space; approximately %.2f GiB plus quota headroom is needed" % (remaining / 2**30))
-    print("Pinned files:", len(planned), "Total expected %.2f GiB" % (sum(a["size"] for a, _, _ in planned) / 2**30), flush=True)
+    emit("Pinned files:", len(planned), "Total expected %.2f GiB" % (sum(a["size"] for a, _, _ in planned) / 2**30), flush=True)
+    if not 1 <= args.workers <= 40:
+        raise ValueError("Download worker count must be between 1 and 40")
     assets, failures = {}, []
-    for asset, destination, kind in planned:
+    worker_dir = Path(os.environ.get("TRAFFIC_WORKER_LOG_DIR", str(args.report / "workers")))
+    worker_dir.mkdir(parents=True, exist_ok=True)
+    def perform(index, item):
+        asset, destination, kind = item
+        worker_log = worker_dir / ("asset-%02d.log" % index)
+        with worker_log.open("a") as stream:
+            THREAD_LOG.stream = stream
+            try:
+                label, outcome = perform_asset(asset, destination, kind)
+                outcome["worker_log"] = str(worker_log)
+                return label, outcome
+            finally:
+                del THREAD_LOG.stream
+
+    def perform_asset(asset, destination, kind):
         label = asset["path"] if kind == "lfs" else "gpt2/" + asset["path"]
-        print("\nASSET", label, flush=True)
+        emit("\nASSET", label, flush=True)
         try:
             if args.audit_only:
                 actual = verify(destination, asset)
@@ -317,14 +344,29 @@ def main():
                     url = "https://huggingface.co/" + lock["gpt2"]["repository"] + "/resolve/" + lock["gpt2"]["revision"] + "/" + urllib.parse.quote(asset["path"])
                     locations = lambda u=url: [(u, {})]
                 result = download_verified(asset, destination, locations)
-            assets[label] = {**result, "local_path": str(destination), "verified_utc": now(),
+            outcome = {**result, "local_path": str(destination), "verified_utc": now(),
                              "checkpoint_strategy": "UNRESOLVED" if label.endswith(".pth") else None}
-            print(result["status"], flush=True)
+            emit(result["status"], flush=True)
         except Exception as exc:
-            failures.append({"path": label, "error": str(exc)})
-            assets[label] = {"status": "FAILED", "local_path": str(destination)}
-            print("FAILED:", label, "(continuing with other requested files)", flush=True)
-        atomic_json(args.report / "asset_progress.json", {"assets": assets, "failures": failures})
+            outcome = {"status": "FAILED", "local_path": str(destination), "error": str(exc)}
+            emit("FAILED:", label, "reason:", str(exc), "(continuing with other requested files)", flush=True)
+        return label, outcome
+
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        futures = {pool.submit(perform, index, item): item for index, item in enumerate(planned)}
+        for future in as_completed(futures):
+            label, outcome = future.result()
+            assets[label] = outcome
+            if outcome["status"] == "FAILED":
+                failures.append({"path": label, "error": outcome["error"], "worker_log": outcome["worker_log"]})
+            progress = {"assets": assets, "failures": failures, "total_assets": len(planned),
+                        "completed_assets": len(assets), "verified_assets": len(assets) - len(failures),
+                        "failed_assets": len(failures), "workers": args.workers,
+                        "verified_bytes": sum(value.get("size", 0) for value in assets.values()),
+                        "expected_bytes": sum(item[0]["size"] for item in planned)}
+            atomic_json(args.report / "asset_progress.json", progress)
+            emit("PROGRESS files=%d/%d verified=%d failed=%d latest=%s status=%s" %
+                 (len(assets), len(planned), progress["verified_assets"], len(failures), label, outcome["status"]))
     # Preserve the archive metadata, but do not mistake its pointer-only ZIP for full payloads.
     if not args.audit_only:
         try:

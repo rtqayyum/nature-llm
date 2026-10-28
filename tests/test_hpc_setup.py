@@ -85,7 +85,7 @@ class HPCSetupTests(unittest.TestCase):
              mock.patch.object(bootstrap, "resolve_source", return_value=(self.commit, self.files)), \
              mock.patch.object(bootstrap.urllib.request, "urlopen", return_value=io.BytesIO(self.archive)), \
              mock.patch.object(bootstrap.subprocess, "call", return_value=0) as launch:
-            result = bootstrap.main(["--project", str(project)])
+            result = bootstrap.main(["--project", str(project), "--interactive"])
         self.assertEqual(result, 0)
         self.assertEqual(launch.call_args.kwargs["env"]["TRAFFIC_WORK_ROOT"], str(project / "work"))
         self.assertEqual(launch.call_args.args[0][0], "bash")
@@ -100,7 +100,7 @@ class HPCSetupTests(unittest.TestCase):
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             with mock.patch.dict(os.environ, {}, clear=True), mock.patch.object(bootstrap, "resolve_source") as fetch:
                 with self.assertRaisesRegex(SystemExit, "Acquisition is running"):
-                    bootstrap.main(["--project", str(project)])
+                    bootstrap.main(["--project", str(project), "--interactive"])
                 fetch.assert_not_called()
 
 

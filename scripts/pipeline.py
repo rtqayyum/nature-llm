@@ -47,14 +47,17 @@ def main():
                 facts[name] = {"unavailable": type(exc).__name__}
         (args.report / "hpc_environment.json").write_text(json.dumps(facts, indent=2))
         print("CPU acquisition only. No reference or Qwen training is started.", flush=True)
-        env_dir = args.work / "audit_env"
+        env_dir = Path(os.environ.get("TRAFFIC_ENV_DIR", str(args.work / "audit_env"))).resolve()
+        stable_root = Path(os.environ.get("TRAFFIC_PROJECT_ROOT", str(args.work.parent))).resolve()
+        env_dir.relative_to(stable_root)
         python = env_dir / "bin" / "python"
         if not python.exists():
-            run([sys.executable, "-m", "venv", env_dir])
+            run([sys.executable, "-m", "venv", "--copies", env_dir])
+        run([python, "-c", "import sys; from pathlib import Path; assert Path(sys.prefix).resolve() == Path(sys.argv[1]).resolve(), 'Refusing to install outside the project environment'", env_dir])
         numpy_version = "1.24.4" if sys.version_info[:2] == (3, 8) else "1.26.4"
         probe = subprocess.run([str(python), "-c", "import numpy; assert numpy.__version__ == " + repr(numpy_version)])
         if probe.returncode:
-            run([python, "-m", "pip", "install", "--disable-pip-version-check", "numpy==" + numpy_version])
+            run([python, "-m", "pip", "--isolated", "install", "--no-user", "--disable-pip-version-check", "numpy==" + numpy_version])
         with (args.report / "audit_environment.txt").open("w") as stream:
             run([python, "-m", "pip", "freeze"], stdout=stream)
         command = [python, "-u", args.project / "scripts" / "acquire.py", "--project", args.project,
@@ -63,7 +66,7 @@ def main():
             command.append("--audit-only")
         result = subprocess.run(list(map(str, command)))
         exit_code = result.returncode
-        status["state"] = "COMPLETED" if exit_code == 0 else "NEEDS_ATTENTION"
+        status["state"] = "COMPLETED" if exit_code == 0 else "COMPLETED_WITH_REVIEW" if exit_code == 3 else "NEEDS_ATTENTION"
     except Exception as exc:
         status["state"] = "FAILED"
         status["error"] = str(exc)

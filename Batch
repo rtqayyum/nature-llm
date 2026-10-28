@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+#SBATCH --job-name=nutp-dl-audit
+#SBATCH --partition=longq
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=8G
+#SBATCH --time=23:00:00
+#SBATCH --chdir=/home/tariq.qayyum/nature-llm
+#SBATCH --output=/home/tariq.qayyum/nature-llm/logs/%x_%j.out
+#SBATCH --error=/home/tariq.qayyum/nature-llm/logs/%x_%j.err
+set -euo pipefail
+ROOT=/home/tariq.qayyum/nature-llm
+mkdir -p "$ROOT"/{logs,results,outputs,figures,tmp,.cache,.config,.local,work}
+export TRAFFIC_PROJECT_ROOT="$ROOT"
+export TRAFFIC_WORK_ROOT="$ROOT/work"
+export TRAFFIC_ENV_DIR="$ROOT/.venv"
+export TMPDIR="$ROOT/tmp"
+export TMP="$ROOT/tmp"
+export TEMP="$ROOT/tmp"
+export XDG_CACHE_HOME="$ROOT/.cache"
+export XDG_CONFIG_HOME="$ROOT/.config"
+export XDG_DATA_HOME="$ROOT/.local/share"
+export PIP_CACHE_DIR="$ROOT/.cache/pip"
+export PIP_CONFIG_FILE=/dev/null
+export PYTHONUSERBASE="$ROOT/.local"
+export PYTHONNOUSERSITE=1
+export PYTHONPYCACHEPREFIX="$ROOT/.cache/pycache"
+export CONDA_PKGS_DIRS="$ROOT/.cache/conda/pkgs"
+export CONDA_ENVS_PATH="$ROOT/.conda/envs"
+export HF_HOME="$ROOT/.cache/huggingface"
+export TORCH_HOME="$ROOT/.cache/torch"
+export MPLCONFIGDIR="$ROOT/.config/matplotlib"
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export TRAFFIC_DOWNLOAD_WORKERS="${SLURM_CPUS_PER_TASK:-4}"
+STATUS_PYTHON="$(command -v python3)"
+if [[ -z "${TRAFFIC_CODE_DIR:-}" ]]; then
+    TRAFFIC_CODE_DIR="$($STATUS_PYTHON -c 'import json; print(json.load(open("/home/tariq.qayyum/nature-llm/work/CURRENT_CODE.json"))["path"])')"
+fi
+export TRAFFIC_CODE_DIR
+PIPELINE_EXIT=-1
+finish() {
+    local shell_exit="$?"
+    trap - EXIT
+    "$STATUS_PYTHON" "$TRAFFIC_CODE_DIR/scripts/slurm_job.py" finalize --project "$ROOT" \
+      --raw-exit "$PIPELINE_EXIT" --shell-exit "$shell_exit" || true
+    exit "$shell_exit"
+}
+trap finish EXIT
+trap 'exit 143' TERM
+trap 'exit 130' INT
+if ! type module >/dev/null 2>&1; then
+    for init_file in /etc/profile.d/modules.sh /usr/share/Modules/init/bash /usr/share/lmod/lmod/init/bash; do
+        if [[ -r "$init_file" ]]; then
+            set +u
+            source "$init_file"
+            set -u
+            type module >/dev/null 2>&1 && break
+        fi
+    done
+fi
+module load anaconda3
+BASE_PYTHON=''
+for candidate in python3.11 python3.10 python3.12 python3.9 python3.8 python3; do
+    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c 'import sys; assert (3,8) <= sys.version_info[:2] <= (3,12)' 2>/dev/null; then
+        BASE_PYTHON="$(command -v "$candidate")"
+        break
+    fi
+done
+[[ -n "$BASE_PYTHON" ]] || { echo 'Python 3.8–3.12 unavailable after module load anaconda3' >&2; exit 2; }
+echo "START job=$SLURM_JOB_ID name=$SLURM_JOB_NAME node=$(hostname) cpus=$SLURM_CPUS_PER_TASK code=$TRAFFIC_CODE_DIR"
+set +e
+srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" "$BASE_PYTHON" -u \
+  "$TRAFFIC_CODE_DIR/scripts/slurm_job.py" run --project "$ROOT"
+PIPELINE_EXIT=$?
+set -e
+if [[ "$PIPELINE_EXIT" == 3 ]]; then
+    echo 'DOWNLOAD_COMPLETE_REVIEW_REQUIRED: assets are acquired; scientific duplicate-domain issue remains.'
+    exit 0
+fi
+exit "$PIPELINE_EXIT"

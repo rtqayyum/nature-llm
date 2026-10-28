@@ -9,62 +9,63 @@ train a model, submit a Slurm job or claim successful paper reproduction.
 The package contains code and source locks only. No datasets or weights need
 to pass through the Mac or this repository. All downloads happen on the HPC.
 
-## Run
+## Run on this HPC
 
-Use Python 3.8–3.12 and outbound HTTPS. No Git executable, Git module, sudo
-or administrator installation is required. The entry point is
-`scripts/bootstrap_hpc.py`. A standalone copy can be downloaded from this
-repository with Python and run as:
+Heavy work is submitted through Slurm. See [HPC_PROFILE.md](HPC_PROFILE.md)
+for the cluster profile and [AGENTS.md](AGENTS.md) for future project changes.
+The stable root remains /home/tariq.qayyum/nature-llm/ so existing downloads
+and reports are retained.
+
+Download the latest standalone scripts/bootstrap_hpc.py from GitHub into
+/home/tariq.qayyum/nature-llm/submit_hpc.py, then run:
 
 ```bash
-python3 "$HOME/nature-llm-bootstrap.py" --project "$HOME/nature-llm"
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py --project /home/tariq.qayyum/nature-llm --submit --handoff
 ```
 
-The bootstrap resolves this repository's latest committed main revision,
-downloads that exact source archive and verifies every file against GitHub's
-commit/tree inventory. Each source version is installed under
-`work/code_versions/COMMIT/`. It runs from that verified version and preserves
-the original checkout. `work/CURRENT_CODE.json` records the version in use.
+This performs a small code update and submits Batch through sbatch; it does
+not stream the full acquisition in the terminal. The real job ID is printed.
+Git is unnecessary. --handoff pauses only a positively identified unmanaged
+project downloader to resume its partial files in Slurm. It never cancels a
+Slurm job or signals an unrelated project. Repeat with --submit for recovery;
+an already pending/running download job is not duplicated.
 
-Data, models, logs, reports and the audit environment remain under the stable
-`work/` directory in the project folder. Repeating the bootstrap command updates
-code while retaining these assets. If you use a different allocated filesystem,
-export `TRAFFIC_WORK_ROOT` before the bootstrap command. Standard Python
-venv/pip support is needed for the isolated NumPy audit environment. If your
-cluster needs a Python module, the optional `config/hpc.local.sh` in the stable
-project folder is sourced by the launcher after source installation.
+Batch requests longq, one task with four CPUs, 8 GiB RAM and zero GPUs. Its
+23-hour time limit is capped by observed longq MaxTime when available. Four
+HTTP workers acquire independently named assets and write separate logs.
+The job then audits the arrays. srun launches exactly one pipeline process;
+the job does not launch forty copies of the same download.
 
-Allow at least 8 GiB of personal quota for this initial step and extra space
-for later experiments. The pinned large assets total about 5.5 GiB. A filesystem
-free-space check cannot determine personal HPC quota; the environment report
-includes `quota -s` output when available. Use the institution-permitted node
-for outbound transfers. No GPU is requested for this step.
+All environments, caches, temporary files and outputs remain under this
+project. Batch loads anaconda3 and creates .venv locally; dependencies are
+never installed into the shared Anaconda prefix. Existing work/audit_env is
+preserved. Use a node allowed by the institution for external transfers;
+compute-node HTTPS access has not yet been verified.
 
-The worker detaches from the SSH terminal and continues if it disconnects.
-The launcher displays its log while connected. Each run writes a separate
-dated report and preserves previous reports. It prints its PID, log path,
-report path and final status. No GPU allocation is requested for this step.
+Each GitHub code archive is verified against the exact committed tree and
+installed at work/code_versions/COMMIT/. A queued job pins that source path.
+The original checkout stays intact. The reference source and every dataset
+retain their pinned hashes; completed assets are checked and reused. Reserve
+at least 8 GiB of project quota for this acquisition, with more for training.
 
-## Update from GitHub
+Check the newest submitted job with:
 
-Repeat the standalone Python bootstrap command to fetch the latest verified
-code version and run this step. `--sync-only` installs code without starting
-acquisition. `--audit-only` writes an audit of existing assets without
-downloading dataset or model payloads; the bootstrap may still download new code.
-Inside a new version, `bash update_and_run.sh` calls the same bootstrap.
-Older checkouts that still require Git should use the standalone Python entry.
+```bash
+bash /home/tariq.qayyum/nature-llm/Check
+```
 
-Code updates stop while acquisition holds its work-directory lock. Existing
-code versions are checked for modifications, and changed source is preserved
-rather than silently overwritten. Dataset payloads use separate SHA256 checks;
-verified files are reused and partial downloads resume when byte ranges are
-supported. A server ignoring ranges triggers a restart of that object.
+Append a job ID to inspect an older recorded project job. Check displays
+queue/accounting reasons, exit codes, CPU/memory observations, asset worker
+counts, failed worker logs, recent output and result locations. The Batch
+logs are logs/nutp-dl-audit_JOB_ID.out/.err; per-asset logs have their own
+JOB_ID_workers directory. Final reports are under
+results/slurm_jobs/JOB_ID/report/ and the job summary is
+results/slurm_jobs/JOB_ID/JOB_REPORT.md. No training experiments are started.
 
-The same GitHub repository remains authoritative for code, configurations and
-tests. Raw datasets, checkpoints, environments, logs and local reports stay on
-the HPC. The HTTP bootstrap currently supports this public repository; no
-GitHub credentials are needed or stored. It uses GitHub's public API for the
-latest code inventory and reports service/network failures explicitly.
+--sync-only installs code without a job. --audit-only submits a job to verify
+existing assets without downloading dataset/model payloads. The explicit
+--interactive option is reserved for small development/debug checks, not
+long downloads or experiment grids.
 
 ## Data scope and verification
 
@@ -113,7 +114,8 @@ split origins and S1/S2/S3 checkpoint identity remain scientific audit tasks.
 
 ## Reports and exit codes
 
-`work/LATEST_REPORT.txt` identifies the latest run directory. Each report includes:
+`work/LATEST_REPORT.txt` identifies the latest pipeline report directory.
+`work/LAST_JOB_ID` identifies the latest submitted Slurm job. Each report includes:
 
 - `SUMMARY.md`: readable findings and next-step blockers.
 - `acquisition_audit.json`: arrays, duplicates, missing files and all verified hashes.
@@ -127,8 +129,10 @@ Exit 0 means the acquisition/array checks finished without detected duplicate
 domains. It never means training reproduction passed. Exit 2 means missing,
 invalid or failed assets; rerun to retry. Exit 3 means downloaded arrays passed
 structural checks but identical cross-domain payloads require scientific review.
-For this pinned release, the bike/taxi duplication makes exit 3 expected even
-after every download succeeds. Setup failures exit 1. No failure is silently
+For this pinned release, the bike/taxi duplication makes pipeline exit 3
+expected even after every download succeeds. Batch maps that specific review
+state to Slurm exit 0 and records COMPLETED_WITH_REVIEW; scientific progress
+remains blocked. Required-file failures remain nonzero Slurm exits. Setup failures exit 1. No failure is silently
 reported as a successful reproduction.
 
 `bash run.sh --audit-only` verifies existing files and writes a new report

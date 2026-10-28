@@ -13,3 +13,12 @@ __pycache__/
 .env
 config/hpc.local.sh
 *.log
+logs/
+results/
+outputs/
+figures/
+tmp/
+.cache/
+.config/
+.local/
+.conda-git/

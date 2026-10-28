@@ -169,12 +169,16 @@ class FullAuditTests(unittest.TestCase):
             lock = {"reference_repository": origin, "reference_commit": commit, "reference_files": files, "lfs_files": lfs,
                     "gpt2": {"revision": "fixture-revision", "files": [{"path": "config.json", **fp}]}}
             (project / "config" / "sources.lock.json").write_text(json.dumps(lock))
-            argv = ["acquire.py", "--project", str(project), "--work", str(work), "--report", str(report), "--audit-only"]
+            argv = ["acquire.py", "--project", str(project), "--work", str(work), "--report", str(report), "--audit-only", "--workers", "4"]
             with mock.patch.object(sys, "argv", argv), mock.patch.object(acquire, "request_json", side_effect=AssertionError("offline")):
                 result = acquire.main()
             audit = json.loads((report / "acquisition_audit.json").read_text())
             self.assertEqual(result, 3)
             self.assertEqual(len(audit["datasets"]), 16)
+            progress = json.loads((report / "asset_progress.json").read_text())
+            self.assertEqual(progress["completed_assets"], 17)
+            self.assertEqual(progress["workers"], 4)
+            self.assertEqual(len(list((report / "workers").glob("*.log"))), 17)
             self.assertEqual(audit["download_status"], "ALL_REQUESTED_ASSETS_VERIFIED")
             self.assertEqual(audit["duplicate_domains"][0]["datasets"], ["nyc_bike", "nyc_taxi"])
             self.assertFalse(audit["training_started"])

@@ -1,0 +1,47 @@
+# Nature LLM research execution
+
+GitHub is the source of truth. Commit completed changes to rtqayyum/nature-llm.
+The HPC does not have a Git executable or a Git module; updates and downloads
+use verified GitHub HTTPS snapshots through scripts/bootstrap_hpc.py.
+
+The established project root is /home/tariq.qayyum/nature-llm/. Keep source,
+environments, dependencies, temporary files, caches, logs, results, figures,
+reports and checkpoints inside it. Preserve existing work/ downloads. Do not
+move this project into /home/tariq.qayyum/hpc/ without an explicit migration.
+Never use another project's directories or modify /cm/shared/apps/anaconda3.
+
+Heavy work belongs in Slurm. Do not run lengthy downloads, audits, training or
+experiment grids on login terminals. Use longq for uncertain CPU runtimes;
+choose a shorter queue only when its policy and a measured runtime justify it.
+The user's default longq wall-time request is 23 hours, capped by an observed
+partition maximum when available. Load anaconda3 and create a project-local
+environment. Never install dependencies into the shared Anaconda prefix.
+
+The current download/audit Batch requests one task, four CPUs, 8 GiB RAM,
+zero GPUs and four download workers. It runs a foreground worker through srun.
+Completed hashes and partial downloads must survive retries. The original
+public data scope, hashes and source revisions stay fixed during this change.
+
+For future GPU training, the user reports gpuq can allocate one GPU and
+20 CPUs per job, with four concurrent jobs as the initial array limit and
+six possible when permitted. Up to 40 CPUs per CPU job are available in longq.
+These cluster capacities are user-supplied, not independently verified.
+Request a GPU only for work that needs CUDA. Parallelize independent seeds,
+folds or configurations with job arrays; do not duplicate shared downloads.
+Forty MPI tasks and one process with forty threads are different allocations.
+
+Use meaningful job names and unique paths per job/configuration/seed. Record
+the exact source version, environment, task progress and Slurm job ID. Provide
+submission, status, utilization, failure-log, report and recovery commands.
+Never cancel another project's job or signal an unvalidated process. The
+explicit --handoff option may pause only a recorded unmanaged downloader
+whose exact /proc command, project work path and session identity match.
+It never calls scancel and refuses scheduler-managed processes.
+
+Before publishing Batch changes: run bash -n, compile Python, run relevant
+synthetic tests and check containment, environment isolation and resources.
+Distinguish local synthetic checks, live public-source retrieval, actual HPC
+execution and unverified cluster policies/network access in the handoff.
+Successful data acquisition is not successful paper reproduction. Known
+duplicate-domain findings block Public8 research claims even when Slurm marks
+the download job complete. Genuine required-file failures exit nonzero.
