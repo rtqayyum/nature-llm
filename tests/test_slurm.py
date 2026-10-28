@@ -89,6 +89,15 @@ class SlurmTests(unittest.TestCase):
             job.main(["finalize", "--project", str(self.project), "--raw-exit", "2", "--shell-exit", "2"])
             self.assertEqual(json.loads(status_path.read_text())["execution_state"], "FAILED")
 
+    def test_review_completes_srun_step_but_preserves_pipeline_code(self):
+        with mock.patch.dict(os.environ, {"TRAFFIC_CODE_DIR": str(self.code), "SLURM_JOB_ID": "73001",
+                "TRAFFIC_WORK_ROOT": str(self.project / "work"), "TRAFFIC_ENV_DIR": str(self.project / ".venv")}), \
+             mock.patch("pipeline.main", return_value=3), mock.patch.object(sys, "argv", ["fixture"]):
+            result = job.main(["run", "--project", str(self.project)])
+        self.assertEqual(result, 0)
+        path = self.project / "results/slurm_jobs/73001/pipeline_result.json"
+        self.assertEqual(json.loads(path.read_text())["pipeline_exit_code"], 3)
+
     def test_cpu_utilization_accounts_for_allocated_cpus(self):
         row = "73001|job|COMPLETED|0:0|00:01:40|100|4|00:03:20|1G|None\n"
         self.assertEqual(cpu_utilization(row, "73001"), 50.0)

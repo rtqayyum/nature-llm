@@ -44,7 +44,12 @@ def main(argv=None):
         sys.argv = ["pipeline.py", "--project", str(code), "--work", str(work), "--report", str(report)]
         if os.environ.get("TRAFFIC_AUDIT_ONLY") == "1":
             sys.argv.append("--audit-only")
-        return pipeline_main()
+        result = pipeline_main()
+        (job / "pipeline_result.json").write_text(json.dumps({"pipeline_exit_code": result,
+            "execution_exit_code": 0 if result == 3 else result}, indent=2) + "\n")
+        # A completed download with a known scientific review requirement is
+        # operationally successful, including the srun step's accounting state.
+        return 0 if result == 3 else result
     state = "COMPLETED_WITH_REVIEW" if args.raw_exit == 3 and args.shell_exit == 0 else "COMPLETED" if args.shell_exit == 0 else "FAILED"
     status = {"job_id": job_id, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,

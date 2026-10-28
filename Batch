@@ -75,6 +75,9 @@ srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" "$BASE_PYTHON" -u \
   "$TRAFFIC_CODE_DIR/scripts/slurm_job.py" run --project "$ROOT"
 PIPELINE_EXIT=$?
 set -e
+if [[ "$PIPELINE_EXIT" == 0 && -f "$ROOT/results/slurm_jobs/$SLURM_JOB_ID/pipeline_result.json" ]]; then
+    PIPELINE_EXIT="$($STATUS_PYTHON -c 'import json,sys; print(json.load(open(sys.argv[1]))["pipeline_exit_code"])' "$ROOT/results/slurm_jobs/$SLURM_JOB_ID/pipeline_result.json")"
+fi
 if [[ "$PIPELINE_EXIT" == 3 ]]; then
     echo 'DOWNLOAD_COMPLETE_REVIEW_REQUIRED: assets are acquired; scientific duplicate-domain issue remains.'
     exit 0
