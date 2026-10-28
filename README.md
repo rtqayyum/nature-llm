@@ -12,6 +12,11 @@ to pass through the Mac or this repository. All downloads happen on the HPC.
 ## Run
 
 From a Linux HPC checkout, run `bash run.sh`. It uses Python 3.8–3.12 and git.
+The shell launchers check for Git before starting Python. If Git is missing,
+they try system Git locations and available `git`/`Git` environment modules.
+Standard Modules/Lmod initialization files are loaded when the module command
+is absent from a noninteractive SSH session. If no usable Git is found, setup
+stops with module information rather than a Python traceback. No sudo is used.
 It creates a separate NumPy audit environment; your reference-training and
 Qwen environments remain separate. Standard Python venv/pip support and
 outbound HTTPS are required. The script prints actionable errors when these
@@ -40,6 +45,14 @@ Verified existing payloads are reused; incomplete downloads resume when the
 server supports byte ranges. A server that ignores ranges triggers a complete
 restart of that object. No force resets, dataset deletion or automatic pushes
 from the HPC are used.
+
+If an old checkout cannot update because Git is absent, a separate copy of
+`scripts/hpc_bootstrap.sh` can be downloaded with Python's standard HTTPS
+support and executed with the checkout path as its argument. It locates or
+loads Git, checks the expected origin and local tracked edits, pulls the fix,
+and starts the normal updater. Only use this initial repair while acquisition
+is stopped. If the cluster has no usable Git module, its module listing is
+needed to select the institution-supported setup.
 
 For later code changes, the same repository remains authoritative. Code,
 configuration locks, tests and allowed documentation go in GitHub. Raw data,

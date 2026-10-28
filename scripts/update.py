@@ -3,11 +3,14 @@
 import fcntl
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
 
 def main():
+    if not shutil.which("git"):
+        raise SystemExit("Git is not on PATH. Run bash update_and_run.sh to try the HPC Git module, or configure config/hpc.local.sh.")
     project = Path(__file__).resolve().parents[1]
     work = Path(os.environ.get("TRAFFIC_WORK_ROOT", str(project / "work"))).expanduser().resolve()
     work.mkdir(parents=True, exist_ok=True)

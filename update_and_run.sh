@@ -6,6 +6,8 @@ cd "$PROJECT_DIR"
 if [[ -f config/hpc.local.sh ]]; then
     source config/hpc.local.sh
 fi
+source scripts/hpc_bootstrap.sh
+traffic_require_git || exit 2
 for candidate in python3.11 python3.10 python3.12 python3.9 python3.8 python3; do
     if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c 'import sys; assert (3,8) <= sys.version_info[:2] <= (3,12)' 2>/dev/null; then
         exec "$candidate" -u scripts/update.py "$@"
