@@ -11,25 +11,34 @@ to pass through the Mac or this repository. All downloads happen on the HPC.
 
 ## Run
 
-From a Linux HPC checkout, run `bash run.sh`. It uses Python 3.8–3.12 and git.
-The shell launchers check for Git before starting Python. If Git is missing,
-they try system Git locations and available `git`/`Git` environment modules.
-Standard Modules/Lmod initialization files are loaded when the module command
-is absent from a noninteractive SSH session. If no usable Git is found, setup
-stops with module information rather than a Python traceback. No sudo is used.
-It creates a separate NumPy audit environment; your reference-training and
-Qwen environments remain separate. Standard Python venv/pip support and
-outbound HTTPS are required. The script prints actionable errors when these
-are unavailable. If necessary, put your institution's Python module load in
-`config/hpc.local.sh`, using the supplied example.
+Use Python 3.8–3.12 and outbound HTTPS. No Git executable, Git module, sudo
+or administrator installation is required. The entry point is
+`scripts/bootstrap_hpc.py`. A standalone copy can be downloaded from this
+repository with Python and run as:
 
-The work directory defaults to `work/` under the checkout, which Git ignores.
-To use an allocated project/scratch filesystem, set `TRAFFIC_WORK_ROOT` in
-`config/hpc.local.sh`. The root filesystem free-space check cannot determine
-your personal HPC quota; the environment report includes `quota -s` output
-when available. Allow at least 8 GiB of quota for this initial step and extra
-space for future training. The pinned large assets total about 5.5 GiB.
-Use your HPC's permitted transfer/interactive node for outbound downloads.
+```bash
+python3 "$HOME/nature-llm-bootstrap.py" --project "$HOME/nature-llm"
+```
+
+The bootstrap resolves this repository's latest committed main revision,
+downloads that exact source archive and verifies every file against GitHub's
+commit/tree inventory. Each source version is installed under
+`work/code_versions/COMMIT/`. It runs from that verified version and preserves
+the original checkout. `work/CURRENT_CODE.json` records the version in use.
+
+Data, models, logs, reports and the audit environment remain under the stable
+`work/` directory in the project folder. Repeating the bootstrap command updates
+code while retaining these assets. If you use a different allocated filesystem,
+export `TRAFFIC_WORK_ROOT` before the bootstrap command. Standard Python
+venv/pip support is needed for the isolated NumPy audit environment. If your
+cluster needs a Python module, the optional `config/hpc.local.sh` in the stable
+project folder is sourced by the launcher after source installation.
+
+Allow at least 8 GiB of personal quota for this initial step and extra space
+for later experiments. The pinned large assets total about 5.5 GiB. A filesystem
+free-space check cannot determine personal HPC quota; the environment report
+includes `quota -s` output when available. Use the institution-permitted node
+for outbound transfers. No GPU is requested for this step.
 
 The worker detaches from the SSH terminal and continues if it disconnects.
 The launcher displays its log while connected. Each run writes a separate
@@ -38,27 +47,24 @@ report path and final status. No GPU allocation is requested for this step.
 
 ## Update from GitHub
 
-Use `bash update_and_run.sh` to fast-forward to the latest committed code and
-rerun this step. `bash update_and_run.sh --sync-only` only updates code.
-Updates refuse to discard local tracked edits or run during active acquisition.
-Verified existing payloads are reused; incomplete downloads resume when the
-server supports byte ranges. A server that ignores ranges triggers a complete
-restart of that object. No force resets, dataset deletion or automatic pushes
-from the HPC are used.
+Repeat the standalone Python bootstrap command to fetch the latest verified
+code version and run this step. `--sync-only` installs code without starting
+acquisition. `--audit-only` writes an audit of existing assets without
+downloading dataset or model payloads; the bootstrap may still download new code.
+Inside a new version, `bash update_and_run.sh` calls the same bootstrap.
+Older checkouts that still require Git should use the standalone Python entry.
 
-If an old checkout cannot update because Git is absent, a separate copy of
-`scripts/hpc_bootstrap.sh` can be downloaded with Python's standard HTTPS
-support and executed with the checkout path as its argument. It locates or
-loads Git, checks the expected origin and local tracked edits, pulls the fix,
-and starts the normal updater. Only use this initial repair while acquisition
-is stopped. If the cluster has no usable Git module, its module listing is
-needed to select the institution-supported setup.
+Code updates stop while acquisition holds its work-directory lock. Existing
+code versions are checked for modifications, and changed source is preserved
+rather than silently overwritten. Dataset payloads use separate SHA256 checks;
+verified files are reused and partial downloads resume when byte ranges are
+supported. A server ignoring ranges triggers a restart of that object.
 
-For later code changes, the same repository remains authoritative. Code,
-configuration locks, tests and allowed documentation go in GitHub. Raw data,
-checkpoints, environments, logs and local reports stay on the HPC. A private
-repository requires GitHub authentication configured on the HPC; never put a
-token or SSH private key in a command, script or repository.
+The same GitHub repository remains authoritative for code, configurations and
+tests. Raw datasets, checkpoints, environments, logs and local reports stay on
+the HPC. The HTTP bootstrap currently supports this public repository; no
+GitHub credentials are needed or stored. It uses GitHub's public API for the
+latest code inventory and reports service/network failures explicitly.
 
 ## Data scope and verification
 
@@ -67,8 +73,10 @@ The pinned upstream commit is
 [LLM-UTP/LLM-UTP](https://github.com/LLM-UTP/LLM-UTP).
 The publication is [Zhang et al.](https://doi.org/10.1038/s41467-026-73610-2).
 The archived release is [Zenodo 19503649](https://doi.org/10.5281/zenodo.19503649).
-`config/sources.lock.json` records exact Git LFS hashes and sizes inspected
-in that commit. The source ZIP in Zenodo contains pointers; the script obtains
+`config/sources.lock.json` records every original source blob identifier,
+plus exact Git LFS hashes and sizes inspected in that commit. The reference
+source archive is independently verified without executing Git. It is kept in
+`work/reference/snapshots/COMMIT/`; payload files are hydrated in that snapshot. The source ZIP in Zenodo contains pointers; the script obtains
 their actual objects and verifies SHA256 rather than treating the ZIP as all data.
 It does not substitute standard PEMS mirrors for the authors' prepared arrays.
 
@@ -132,5 +140,6 @@ independently recomputed metrics. That will be added as the next code change.
 
 `python3 -m unittest discover -s tests -v` checks downloader resumption,
 ignored ranges, corrupt payload rejection, array auditing and the scientific
-duplicate-domain gate using tiny synthetic fixtures. These checks are not
-traffic forecasting experiments and do not validate HPC connectivity.
+duplicate-domain gate using tiny synthetic fixtures. Checks also cover source archive integrity, path traversal, symlinks, source
+modification, update locking and an update with Git absent from PATH. These
+are code checks, not forecasting experiments or a claim of HPC connectivity.

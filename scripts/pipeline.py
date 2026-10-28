@@ -32,15 +32,14 @@ def main():
     status = {"started_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(), "state": "RUNNING"}
     exit_code = 1
     try:
-        if not shutil.which("git"):
-            raise RuntimeError("git is not available. Load your HPC git module and rerun.")
         facts = {"hostname": platform.node(), "platform": platform.platform(), "python": sys.version,
                  "work_root": str(args.work), "free_bytes": shutil.disk_usage(args.work).free,
                  "slurm_job_id": os.environ.get("SLURM_JOB_ID"),
                  "slurm_available": bool(shutil.which("sbatch")), "stage": "CPU download and audit only"}
+        source_marker = args.project / ".source_snapshot.json"
+        facts["code_source"] = json.loads(source_marker.read_text()) if source_marker.exists() else {"commit": "unrecorded local checkout"}
         for name, command in (("nvidia_smi", ["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader"]),
-                              ("quota", ["quota", "-s"]),
-                              ("code_commit", ["git", "-C", str(args.project), "rev-parse", "HEAD"])):
+                              ("quota", ["quota", "-s"])):
             try:
                 result = subprocess.run(command, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=15)
                 facts[name] = {"exit_code": result.returncode, "output": result.stdout[:6000]}

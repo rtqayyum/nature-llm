@@ -12,12 +12,13 @@ import os
 from pathlib import Path
 import re
 import shutil
-import subprocess
 import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
+
+from bootstrap_hpc import blob_sha, install_snapshot
 
 PUBLIC = {
     "beijing_metro": ("beijing.npy", "bjfine-tuning.npy", 276, 15),
@@ -167,45 +168,20 @@ def download_verified(asset, destination, locations, retries=4):
     raise RuntimeError("All verified download attempts failed for " + asset["path"])
 
 
-def git(repo, *arguments):
-    return subprocess.check_output(["git", "-C", str(repo), *arguments], text=True).strip()
-
-
 def prepare_reference(work, lock, audit_only=False):
-    repo = work / "reference" / "LLM-UTP"
-    if not (repo / ".git").exists():
-        if audit_only:
-            raise RuntimeError("Reference checkout missing; first run acquisition without --audit-only")
-        if repo.exists() and any(repo.iterdir()):
-            raise RuntimeError("Refusing to overwrite an unrelated reference directory")
-        repo.parent.mkdir(parents=True, exist_ok=True)
-        env = {**os.environ, "GIT_LFS_SKIP_SMUDGE": "1", "GIT_TERMINAL_PROMPT": "0"}
-        subprocess.run(["git", "clone", "--no-checkout", lock["reference_repository"], str(repo)],
-                       env=env, check=True, timeout=600)
-        subprocess.run(["git", "-C", str(repo), "checkout", "--detach", lock["reference_commit"]],
-                       env=env, check=True, timeout=300)
-    if git(repo, "rev-parse", "HEAD") != lock["reference_commit"]:
-        raise RuntimeError("Reference checkout commit differs from sources.lock.json; no reset was performed")
-    if git(repo, "remote", "get-url", "origin") != lock["reference_repository"]:
-        raise RuntimeError("Reference origin does not match the pinned repository")
-    tracked = git(repo, "ls-tree", "-r", "--name-only", "HEAD").splitlines()
-    pointer_lock = []
-    for name in tracked:
-        if "__pycache__" in Path(name).parts:
-            continue
-        size = int(git(repo, "cat-file", "-s", "HEAD:" + name))
-        if size < 1024:
-            content = git(repo, "show", "HEAD:" + name)
-            match = re.fullmatch(r"version https://git-lfs.github.com/spec/v1\noid sha256:([a-f0-9]{64})\nsize (\d+)", content)
-            if match:
-                pointer_lock.append({"path": name, "sha256": match[1], "size": int(match[2])})
-    if sorted(pointer_lock, key=lambda x: x["path"]) != sorted(lock["lfs_files"], key=lambda x: x["path"]):
-        raise RuntimeError("Tracked LFS pointer inventory differs from the bundled lock")
-    allowed_changes = {asset["path"] for asset in lock["lfs_files"]}
-    changed = git(repo, "diff", "--name-only", "HEAD").splitlines()
-    if set(changed) - allowed_changes:
-        raise RuntimeError("Upstream code has local edits; preserve them and use a fresh work directory")
-    return repo
+    # Git object identifiers are pinned, so no Git executable or API lookup
+    # is needed to verify the author reference source archive.
+    commit = lock["reference_commit"]
+    files = lock["reference_files"]
+    by_path = {item["path"]: item for item in files}
+    for asset in lock["lfs_files"]:
+        pointer = ("version https://git-lfs.github.com/spec/v1\n"
+                   "oid sha256:" + asset["sha256"] + "\nsize " + str(asset["size"]) + "\n").encode()
+        if blob_sha(pointer) != by_path[asset["path"]]["sha"]:
+            raise ValueError("LFS inventory differs from pinned original source: " + asset["path"])
+    repo = work / "reference" / "snapshots" / commit
+    return install_snapshot("LLM-UTP/LLM-UTP", commit, files, repo,
+                            mutable={item["path"] for item in lock["lfs_files"]}, audit_only=audit_only)
 
 
 def audit_array(path, expected_nodes):

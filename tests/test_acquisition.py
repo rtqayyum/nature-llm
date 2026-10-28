@@ -13,6 +13,7 @@ import unittest
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 spec = importlib.util.spec_from_file_location("acquire", ROOT / "scripts" / "acquire.py")
 acquire = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(acquire)
@@ -135,7 +136,8 @@ class FullAuditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             project, work, report = root / "project", root / "work", root / "report"
-            repo = work / "reference" / "LLM-UTP"
+            commit = "1" * 40
+            repo = work / "reference" / "snapshots" / commit
             (project / "config").mkdir(parents=True)
             repo.mkdir(parents=True)
             report.mkdir()
@@ -152,19 +154,19 @@ class FullAuditTests(unittest.TestCase):
                     lfs.append(asset)
                     bodies[relative] = content
                     path.write_text("version https://git-lfs.github.com/spec/v1\noid sha256:%s\nsize %d\n" % (asset["sha256"], asset["size"]))
-            for command in (["git", "init", "-q", str(repo)], ["git", "-C", str(repo), "add", "."],
-                            ["git", "-C", str(repo), "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid", "commit", "-qm", "Fixture"]):
-                subprocess.run(command, check=True)
-            origin = "https://example.invalid/reference.git"
-            subprocess.run(["git", "-C", str(repo), "remote", "add", "origin", origin], check=True)
-            commit = acquire.git(repo, "rev-parse", "HEAD")
+            files = [{"path": str(path.relative_to(repo)), "size": path.stat().st_size,
+                      "sha": acquire.blob_sha(path.read_bytes()), "mode": "100644"}
+                     for path in repo.rglob("*") if path.is_file()]
+            marker = {"repository": "LLM-UTP/LLM-UTP", "commit": commit, "files": files}
+            (repo / ".source_snapshot.json").write_text(json.dumps(marker))
+            origin = "https://github.com/LLM-UTP/LLM-UTP.git"
             for relative, content in bodies.items():
                 (repo / relative).write_bytes(content)
             modeldir = work / "models" / "gpt2" / "fixture-revision"
             modeldir.mkdir(parents=True)
             (modeldir / "config.json").write_text("{}")
             fp = acquire.fingerprint(modeldir / "config.json")
-            lock = {"reference_repository": origin, "reference_commit": commit, "lfs_files": lfs,
+            lock = {"reference_repository": origin, "reference_commit": commit, "reference_files": files, "lfs_files": lfs,
                     "gpt2": {"revision": "fixture-revision", "files": [{"path": "config.json", **fp}]}}
             (project / "config" / "sources.lock.json").write_text(json.dumps(lock))
             argv = ["acquire.py", "--project", str(project), "--work", str(work), "--report", str(report), "--audit-only"]
