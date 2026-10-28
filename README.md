@@ -69,6 +69,26 @@ long downloads or experiment grids.
 
 ## Data scope and verification
 
+Acquisition job 605458 completed on the HPC with all 37 assets verified.
+See [PROGRESS.md](PROGRESS.md) for the distinction between real execution,
+local synthetic checks and remaining scientific uncertainties.
+
+The next command, after refreshing submit_hpc.py from GitHub, is:
+
+```bash
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py --project /home/tariq.qayyum/nature-llm --stage pems08-audit --submit
+```
+
+This submits nutp-p08-preflight with one CPU, 4 GiB RAM and no GPU. It asks
+for 30 minutes in shortq when the observed queue limit supports that request,
+otherwise longq. The job reads existing arrays/checkpoint/source, writes exact
+origin ledgers, and checks scaling and static checkpoint metadata. It does
+not download data, deserialize tensors, run a model or train anything.
+Check displays five stage-specific checks and the report remains under the
+new job ID. Strict model compatibility and numerical inference remain later
+milestones. The known NYC source duplication does not block this isolated
+PEMS08 preflight.
+
 The pinned upstream commit is
 `50a4f5b0e76d09c952a01f07390bf57c77b22a26` in
 [LLM-UTP/LLM-UTP](https://github.com/LLM-UTP/LLM-UTP).

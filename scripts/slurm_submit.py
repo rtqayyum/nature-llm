@@ -17,6 +17,29 @@ import time
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
 
+def allocation(stage):
+    """Use shortq only when its observed maximum fits this small CPU audit."""
+    preflight = stage == "pems08-audit"
+    desired = 1800 if preflight else 23 * 3600
+    partitions = ("shortq", "longq") if preflight else ("longq",)
+    for partition in partitions:
+        try:
+            result = subprocess.run(["scontrol", "show", "partition", partition, "-o"], capture_output=True, text=True, timeout=20, check=True)
+            if "PartitionName=" + partition not in result.stdout:
+                continue
+            match = re.search(r"\bMaxTime=(\S+)", result.stdout)
+            if not match:
+                continue
+            maximum = seconds(match[1])
+            if partition == "shortq" and maximum is not None and maximum < desired:
+                continue
+            limit = min(desired, maximum) if maximum is not None else desired
+            return partition, limit, "Observed " + partition + " MaxTime=" + match[1]
+        except (OSError, ValueError, subprocess.SubprocessError):
+            continue
+    return "longq", desired, "Partition maximum unavailable; using supplied longq profile"
+
+
 def read_json(path):
     return json.loads(path.read_text())
 
@@ -100,6 +123,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit"], default="acquire")
     args = parser.parse_args(argv)
     project, code = args.project.resolve(), args.code.resolve()
     prepare(project, code)
@@ -112,7 +136,7 @@ def main(argv=None):
         if previous_id.isdigit() and recorded.exists() and read_json(recorded).get("project") == str(project):
             current = subprocess.run(["squeue", "--jobs", previous_id, "--noheader", "--format=%T"], capture_output=True, text=True, timeout=20)
             if current.returncode == 0 and current.stdout.strip():
-                print("Project download job", previous_id, "is already", current.stdout.strip(), "- no duplicate job submitted")
+                print("Project job", previous_id, "is already", current.stdout.strip(), "- no duplicate job submitted")
                 print("Check: bash " + str(project / "Check") + " " + previous_id)
                 return 0
     # Do not signal a live downloader until Slurm submission is available.
@@ -131,32 +155,26 @@ def main(argv=None):
                     time.sleep(0.5)
         if not acquired:
             raise SystemExit("An acquisition still holds this project's lock. No duplicate download job was submitted. Do not stop an unidentified process/job.")
-        limit, partition_evidence = 23 * 3600, "MaxTime not available; using supplied 23-hour default"
-        try:
-            result = subprocess.run(["scontrol", "show", "partition", "longq", "-o"], capture_output=True, text=True, timeout=20, check=True)
-            match = re.search(r"\bMaxTime=(\S+)", result.stdout)
-            if match:
-                maximum = seconds(match[1])
-                limit = min(limit, maximum) if maximum is not None else limit
-                partition_evidence = "Observed longq MaxTime=" + match[1]
-        except (OSError, ValueError, subprocess.SubprocessError):
-            pass
+        partition, limit, partition_evidence = allocation(args.stage)
+        preflight = args.stage == "pems08-audit"
+        job_name, cpus, memory = ("nutp-p08-preflight", 1, "4G") if preflight else ("nutp-dl-audit", 4, "8G")
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),
-               "TRAFFIC_AUDIT_ONLY": "1" if args.audit_only else "0"}
-        command = ["sbatch", "--parsable", "--time=" + request_time, "--export=ALL", str(project / "Batch")]
+               "TRAFFIC_AUDIT_ONLY": "1" if args.audit_only else "0", "TRAFFIC_STAGE": args.stage}
+        command = ["sbatch", "--parsable", "--job-name=" + job_name, "--partition=" + partition,
+            "--cpus-per-task=" + str(cpus), "--mem=" + memory, "--time=" + request_time, "--export=ALL", str(project / "Batch")]
         result = subprocess.run(command, env=env, text=True, capture_output=True, check=True)
         job_id = result.stdout.strip().split(";", 1)[0]
         if not job_id.isdigit():
             raise SystemExit("sbatch returned an unexpected identifier; inspect: " + result.stdout)
         directory = project / "results/slurm_jobs" / job_id
         directory.mkdir(parents=True, exist_ok=True)
-        submission = {"project": str(project), "job_id": job_id, "job_name": "nutp-dl-audit", "code": str(code),
-            "submitted_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(), "partition": "longq", "cpus": 4,
+        submission = {"project": str(project), "job_id": job_id, "job_name": job_name, "stage": args.stage, "code": str(code),
+            "submitted_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(), "partition": partition, "cpus": cpus,
             "gpus": 0, "time_limit": request_time, "partition_evidence": partition_evidence, "command": command}
         (directory / "submission.json").write_text(json.dumps(submission, indent=2) + "\n")
         (project / "work/LAST_JOB_ID").write_text(job_id + "\n")
-        print("SUBMITTED Slurm job", job_id, "name=nutp-dl-audit partition=longq cpus=4 gpus=0 time=" + request_time)
+        print("SUBMITTED Slurm job", job_id, "name=" + job_name, "partition=" + partition, "cpus=" + str(cpus), "gpus=0 time=" + request_time)
         print("Check: bash " + str(project / "Check") + " " + job_id)
         print("Report: " + str(directory / "report/SUMMARY.md"))
         return 0

@@ -8,6 +8,7 @@ not used for this already-running project.
 | Work | Queue | Tasks | CPUs per task | GPUs | Concurrency |
 |---|---|---|---|---|---|
 | Current acquisition and audit | longq | 1 | 4 | 0 | One job, four asset workers |
+| PEMS08 checkpoint and split preflight | shortq when observed limit supports 30 min, otherwise longq | 1 | 1 | 0 | One read-only job |
 | Future parallel CPU experiments | longq by default | Match implementation | Up to 40 in one process when useful | 0 | Profile first |
 | Future GPU training | gpuq | 1 | 20 | 1 | Start with four independent array jobs; six when permitted |
 
@@ -65,3 +66,19 @@ failed transfer of bytes. Missing/invalid required files, environment errors
 and command failures remain nonzero job exits. Slurm TIMEOUT, OUT_OF_MEMORY,
 NODE_FAIL and cancellation are checked through accounting even if an abrupt
 kill prevents a final JSON report.
+
+## PEMS08 next step
+
+Acquisition job 605458 has now completed successfully in the user-supplied
+HPC logs. Update the standalone bootstrap and add --stage pems08-audit
+--submit to run the next stage. It reuses project/.venv and the downloaded
+files, with no data/model transfers. The source snapshot and all outputs stay
+inside the existing project. The job name is nutp-p08-preflight, with 1 CPU,
+4 GiB RAM, no GPU and a requested 30-minute limit. Selection uses shortq only
+when its observed maximum supports this duration, with longq as fallback.
+
+Check reports five preflight checks rather than 37 download workers. Results
+are results/slurm_jobs/JOB_ID/report/pems08_audit.json, SUMMARY.md,
+origin_ledgers/*.csv and first_test_window.npz. Recovery repeats the same
+stage command. Strict checkpoint loading and actual prediction are later
+steps; a completed static audit is not a reproduced numerical result.

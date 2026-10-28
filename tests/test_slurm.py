@@ -26,17 +26,17 @@ class SlurmTests(unittest.TestCase):
 
     def fake_slurm(self, args, **kwargs):
         if args[0] == "scontrol":
-            return subprocess.CompletedProcess(args, 0, "PartitionName=longq MaxTime=12:00:00", "")
+            return subprocess.CompletedProcess(args, 0, "PartitionName=" + args[3] + " MaxTime=" + ("01:00:00" if args[3] == "shortq" else "12:00:00"), "")
         if args[0] == "sbatch":
             return subprocess.CompletedProcess(args, 0, "73001\n", "")
         if args[0] == "squeue":
             return subprocess.CompletedProcess(args, 0, "PENDING\n", "")
         raise AssertionError(args)
 
-    def submit_fixture(self):
+    def submit_fixture(self, stage="acquire"):
         with mock.patch.object(submit, "ROOT", self.project), mock.patch.object(submit.shutil, "which", return_value="/fake/sbatch"), \
              mock.patch.object(submit.subprocess, "run", side_effect=self.fake_slurm) as execute:
-            result = submit.main(["--project", str(self.project), "--code", str(self.code)])
+            result = submit.main(["--project", str(self.project), "--code", str(self.code), "--stage", stage])
         return result, execute
 
     def test_submit_caps_walltime_and_records_synthetic_job(self):
@@ -55,6 +55,14 @@ class SlurmTests(unittest.TestCase):
         result, execute = self.submit_fixture()
         self.assertEqual(result, 0)
         self.assertFalse(any(call.args[0][0] == "sbatch" for call in execute.call_args_list))
+
+    def test_pems08_uses_observed_short_queue_and_one_cpu(self):
+        result, execute = self.submit_fixture("pems08-audit")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["stage"], record["partition"], record["cpus"], record["time_limit"]), ("pems08-audit", "shortq", 1, "00:30:00"))
+        sbatch = next(call for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertIn("--job-name=nutp-p08-preflight", sbatch.args[0])
+        self.assertEqual(sbatch.kwargs["env"]["TRAFFIC_STAGE"], "pems08-audit")
 
     def test_custom_entrypoint_is_never_overwritten(self):
         (self.project / "Batch").write_text("user content\n")
@@ -101,6 +109,8 @@ class SlurmTests(unittest.TestCase):
     def test_cpu_utilization_accounts_for_allocated_cpus(self):
         row = "73001|job|COMPLETED|0:0|00:01:40|100|4|00:03:20|1G|None\n"
         self.assertEqual(cpu_utilization(row, "73001"), 50.0)
+        completed = "605458|job|COMPLETED|0:0|00:00:52|52|4|00:18.812||None\n"
+        self.assertEqual(cpu_utilization(completed, "605458"), 9.04)
 
     def test_cpu_batch_requests_one_process_no_gpu_and_local_environment(self):
         batch = (ROOT / "Batch").read_text()

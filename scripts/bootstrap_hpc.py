@@ -144,6 +144,7 @@ def main(argv=None):
     parser.add_argument("--project", type=Path, default=Path(default_project))
     parser.add_argument("--sync-only", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit"], default="acquire")
     parser.add_argument("--submit", action="store_true", help="Prepare Batch and submit acquisition to Slurm")
     parser.add_argument("--interactive", action="store_true", help="Explicit small development/debug run outside Slurm")
     parser.add_argument("--handoff", action="store_true", help="Pause only a validated unmanaged project downloader before submission")
@@ -177,13 +178,15 @@ def main(argv=None):
     if args.sync_only:
         return 0
     if args.submit:
-        command = [sys.executable, str(snapshot / "scripts/slurm_submit.py"), "--project", str(project), "--code", str(snapshot)]
+        command = [sys.executable, str(snapshot / "scripts/slurm_submit.py"), "--project", str(project), "--code", str(snapshot), "--stage", args.stage]
         if args.handoff:
             command.append("--handoff")
         if args.audit_only:
             command.append("--audit-only")
         return subprocess.call(command)
     env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(work)}
+    if args.stage != "acquire":
+        raise ValueError("PEMS08 preflight runs through --submit")
     # Newest code runs from its own verified version; the old checkout is preserved.
     command = ["bash", str(snapshot / "run.sh")]
     if args.audit_only:

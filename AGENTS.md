@@ -45,3 +45,9 @@ execution and unverified cluster policies/network access in the handoff.
 Successful data acquisition is not successful paper reproduction. Known
 duplicate-domain findings block Public8 research claims even when Slurm marks
 the download job complete. Genuine required-file failures exit nonzero.
+
+User-supplied real HPC logs confirm acquisition job 605458 completed with
+37/37 assets verified and zero failures. Do not repeat acquisition as the next
+scientific step. See PROGRESS.md. The next implemented stage is pems08-audit,
+a read-only CPU preflight that does not import Torch or execute checkpoint
+pickle reducers. It creates no forecasts and makes no reproduction claim.

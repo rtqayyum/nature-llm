@@ -55,7 +55,7 @@ def main():
             run([sys.executable, "-m", "venv", "--copies", env_dir])
         run([python, "-c", "import sys; from pathlib import Path; assert Path(sys.prefix).resolve() == Path(sys.argv[1]).resolve(), 'Refusing to install outside the project environment'", env_dir])
         numpy_version = "1.24.4" if sys.version_info[:2] == (3, 8) else "1.26.4"
-        probe = subprocess.run([str(python), "-c", "import numpy; assert numpy.__version__ == " + repr(numpy_version)])
+        probe = subprocess.run([str(python), "-c", "import numpy; assert numpy.__version__ == " + repr(numpy_version)], capture_output=True, text=True)
         if probe.returncode:
             run([python, "-m", "pip", "--isolated", "install", "--no-user", "--disable-pip-version-check", "numpy==" + numpy_version])
         with (args.report / "audit_environment.txt").open("w") as stream:

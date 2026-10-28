@@ -24,7 +24,10 @@ def cpu_utilization(accounting, job_id):
             try:
                 elapsed, cpus = int(fields[5]), int(fields[6])
                 # CPU durations can contain fractional seconds.
-                total_cpu = seconds(fields[7].split(".", 1)[0])
+                whole, _, fractional = fields[7].partition(".")
+                total_cpu = seconds(whole)
+                if total_cpu is not None and fractional:
+                    total_cpu += float("0." + fractional)
                 if elapsed > 0 and cpus > 0 and total_cpu is not None:
                     return round(100 * total_cpu / (elapsed * cpus), 2)
             except (ValueError, TypeError):
@@ -59,11 +62,21 @@ def main():
     status_path = job / "job_status.json"
     status = json.loads(status_path.read_text()) if status_path.exists() else {"execution_state": "No final job report yet; use queue/accounting state"}
     print("PROJECT STATUS:", json.dumps(status, indent=2))
+    stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
-          (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    print("Training experiments completed: 0 (this job is download/audit only)")
+    if stage == "pems08-audit":
+        preflight_file = job / "report/preflight_progress.json"
+        preflight = json.loads(preflight_file.read_text()) if preflight_file.exists() else {}
+        print("PEMS08 PREFLIGHT checks=%s/%s" % (preflight.get("completed_checks", 0), preflight.get("total_checks", 5)))
+        details = job / "report/pems08_audit.json"
+        if details.exists():
+            print("PREFLIGHT SUMMARY:", json.dumps({key: value for key, value in json.loads(details.read_text()).items()
+                if key in ("execution_status", "error", "overlaps", "observations")}, indent=2))
+    else:
+        print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
+              (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
+    print("Training experiments completed: 0 (this job performs audit/preflight only)")
     if progress:
         print("Verified asset GiB: %.3f / %.3f" % (progress["verified_bytes"] / 2**30, progress["expected_bytes"] / 2**30))
     for failure in progress.get("failures", []):

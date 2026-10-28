@@ -79,7 +79,7 @@ if [[ "$PIPELINE_EXIT" == 0 && -f "$ROOT/results/slurm_jobs/$SLURM_JOB_ID/pipeli
     PIPELINE_EXIT="$($STATUS_PYTHON -c 'import json,sys; print(json.load(open(sys.argv[1]))["pipeline_exit_code"])' "$ROOT/results/slurm_jobs/$SLURM_JOB_ID/pipeline_result.json")"
 fi
 if [[ "$PIPELINE_EXIT" == 3 ]]; then
-    echo 'DOWNLOAD_COMPLETE_REVIEW_REQUIRED: assets are acquired; scientific duplicate-domain issue remains.'
+    echo "STAGE_COMPLETE_REVIEW_REQUIRED: stage=${TRAFFIC_STAGE:-acquire}; inspect the scientific report."
     exit 0
 fi
 exit "$PIPELINE_EXIT"
