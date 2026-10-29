@@ -65,7 +65,37 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "public8-infer":
+    if stage == "release-diagnose":
+        path = job / "report/diagnostic_progress.json"
+        progress_diag = json.loads(path.read_text()) if path.exists() else {}
+        print("DIAGNOSTIC CASES completed=%s/%s failed=%s" % (progress_diag.get("completed_cases", 0),
+            progress_diag.get("total_cases", "pending plan"), progress_diag.get("failed_cases", 0)))
+        for key, row in progress_diag.get("cases", {}).items():
+            print("CASE", key, row["state"], row.get("reason", ""))
+            if row.get("report"):
+                directory = Path(row["report"])
+                directory.resolve().relative_to(project)
+                detail = directory / "inference_progress.json"
+                if detail.exists():
+                    item = json.loads(detail.read_text())
+                    print("  phase=%s batches=%s/%s resumed=%s" % (item.get("phase"),
+                        item.get("completed_batches"), item.get("total_batches"), item.get("resumed_batches")))
+            if row["state"] == "FAILED" and row.get("stderr"):
+                error = Path(row["stderr"])
+                error.resolve().relative_to(project)
+                print("FAILED WORKER LOG:", error)
+                if error.exists():
+                    print("\n".join(error.read_text(errors="replace").splitlines()[-10:]))
+        path = job / "report/diagnostic_result.json"
+        if path.exists():
+            result = json.loads(path.read_text())
+            for key, row in result["cases"].items():
+                print("CASE RESULT", key, row["state"], json.dumps(row.get("metrics_author", {})))
+            print("IDENTICAL-CASE ALIASES:", json.dumps(result["aliases"]))
+            for pair in result["paired_comparisons"]:
+                print("PAIRED", pair["dataset"], pair["factor"], "common_origins=", pair.get("common_origins"),
+                    "mean_prediction_difference=", pair.get("mean_absolute_prediction_difference"), pair.get("error", ""))
+    elif stage == "public8-infer":
         environment = job / "report/reference_environment_status.json"
         if environment.exists():
             print("REFERENCE ENVIRONMENT:", json.dumps(json.loads(environment.read_text()), indent=2))

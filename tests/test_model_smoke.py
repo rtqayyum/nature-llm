@@ -108,7 +108,11 @@ class OriginalModelSmoke(unittest.TestCase):
     def test_beijing_preflight_inference_and_resume(self):
         self.synthetic_roundtrip("bj")
 
-    def synthetic_roundtrip(self, dataset):
+    @unittest.skipUnless(os.environ.get("TRAFFIC_TEST_REFERENCE_METRICS"), "Needs separately verified original metric source")
+    def test_released_input_and_split_controls_with_original_model(self):
+        self.synthetic_roundtrip("pems08", diagnostic=True)
+
+    def synthetic_roundtrip(self, dataset, diagnostic=False):
         import torch
         import numpy as np
         from transformers import GPT2Config, GPT2Model
@@ -151,7 +155,10 @@ class OriginalModelSmoke(unittest.TestCase):
             del model
             values = (np.arange(nodes * length * channels, dtype="float64") % (scale + 1)).reshape(nodes, length, channels)
             np.save(repo / profile["stage2"], values)
-            np.save(repo / profile["stage1"], values)
+            first_stage = values.copy()
+            if diagnostic:
+                first_stage[..., 1] += 0.25
+            np.save(repo / profile["stage1"], first_stage)
             mutable = [profile["stage1"], profile["stage2"], profile["checkpoint"], "utils/metrics.py"]
             lfs, files = [], []
             for path in sorted(repo.rglob("*")):
@@ -175,13 +182,17 @@ class OriginalModelSmoke(unittest.TestCase):
             (preflight / "pems08_audit.json").write_text(json.dumps({"execution_status": "COMPLETED_WITH_REVIEW",
                 "assets": {item["path"]: item for item in lfs}, "splits": {"finetune": splits}}))
             identity = None
-            for number in (2, 3):
+            runs = [(None, 2), (None, 3)] if not diagnostic else [
+                ("stage2-finetune", 2), ("stage1-finetune", 3), ("stage2-pretrain", 4),
+                ("stage1-pretrain", 5), ("stage1-pretrain", 6)]
+            identities = {}
+            for variant, number in runs:
                 report = project / "results/slurm_jobs" / str(number) / "report"
                 report.mkdir(parents=True)
                 (report / "reference_environment_freeze.txt").write_text("Synthetic integration fixture; torch=2.0.0+cpu transformers=4.35.0\n")
                 with (report / "run.log").open("w") as log:
                     result = subprocess.run([sys.executable, str(ROOT / "scripts/pems08_infer.py"), "--project", str(project),
-                        "--code", str(code), "--report", str(report)] + (["--dataset", "bj", "--preflight"] if dataset == "bj" else []), env={**os.environ, "SLURM_CPUS_PER_TASK": "2"}, stdout=log, stderr=subprocess.STDOUT)
+                        "--code", str(code), "--report", str(report)] + (["--dataset", dataset, "--preflight", "--release-variant", variant] if diagnostic else (["--dataset", "bj", "--preflight"] if dataset == "bj" else [])), env={**os.environ, "SLURM_CPUS_PER_TASK": "2"}, stdout=log, stderr=subprocess.STDOUT)
                 self.assertEqual(result.returncode, 3, (report / "run.log").read_text()[-4000:])
                 output = json.loads((report / "inference_result.json").read_text())
                 self.assertTrue(output["strict_load_performed"])
@@ -196,10 +207,25 @@ class OriginalModelSmoke(unittest.TestCase):
                     self.assertEqual(audited["overlaps"]["finetune_train_val_scored_target_origins"], 0)
                     self.assertTrue((report / "preflight_SUMMARY.md").exists())
                 progress = json.loads((report / "inference_progress.json").read_text())
-                if identity is not None:
-                    self.assertEqual(output["run_identity"], identity)
-                    self.assertEqual(progress["resumed_batches"], expected_origins // 16)
-                identity = output["run_identity"]
+                if diagnostic:
+                    self.assertEqual(output["evaluation_scope"], "RELEASE_VARIANT_DIAGNOSTIC")
+                    self.assertEqual(output["input_stage"], variant.split("-")[0])
+                    with np.load(Path(output["output_store"]) / "forecasts.npz", allow_pickle=False) as forecasts:
+                        start = 16071 if variant.endswith("pretrain") else 16070
+                        self.assertEqual(int(forecasts["target_indices"][0]), start)
+                    if variant in identities:
+                        self.assertEqual(output["run_identity"], identities[variant])
+                        self.assertEqual(progress["resumed_batches"], expected_origins // 16)
+                    else:
+                        self.assertEqual(progress["resumed_batches"], 0)
+                    identities[variant] = output["run_identity"]
+                else:
+                    if identity is not None:
+                        self.assertEqual(output["run_identity"], identity)
+                        self.assertEqual(progress["resumed_batches"], expected_origins // 16)
+                    identity = output["run_identity"]
+            if diagnostic:
+                self.assertEqual(len(set(identities.values())), 4)
             self.assertTrue(all(file_sha(repo / item["path"]) == item["sha256"] for item in lfs))
 
 

@@ -55,7 +55,7 @@ def main(argv=None):
                     raise SystemExit("Another project worker is accessing these assets; preflight stopped without changing them")
                 result = subprocess.call([str(python), "-u", str(code / "scripts/pems08_audit.py"),
                     "--project", str(root), "--code", str(code), "--report", str(report)])
-        elif stage in ("pems08-infer", "beijing-infer", "public8-infer"):
+        elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose"):
             with (work / "acquisition.lock").open("a") as lock:
                 try:
                     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -64,7 +64,7 @@ def main(argv=None):
                 try:
                     from reference_env import ensure
                     python = ensure(root, code, report)
-                    script = "public8_infer.py" if stage == "public8-infer" else "pems08_infer.py"
+                    script = {"public8-infer": "public8_infer.py", "release-diagnose": "release_diagnose.py"}.get(stage, "pems08_infer.py")
                     arguments = [str(python), "-u", str(code / "scripts" / script),
                         "--project", str(root), "--code", str(code), "--report", str(report)]
                     if stage == "beijing-infer":
@@ -91,6 +91,7 @@ def main(argv=None):
         "pems08-infer": "Released-checkpoint CPU evaluation complete; training strategy and paper comparison remain unresolved",
         "beijing-infer": "Beijing Metro checkpoint evaluation complete; training strategy and timestamp provenance remain unresolved",
         "public8-infer": "Public checkpoint evaluations complete; review per-dataset comparisons and provenance before training",
+        "release-diagnose": "Fixed released-input/split diagnostic complete; inspect all controls before a reproduction decision",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,

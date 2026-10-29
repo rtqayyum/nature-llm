@@ -67,3 +67,13 @@ at once after the first numerical evaluation. It evaluates eight public
 stage-two targets with four isolated CPU subprocesses, four threads each,
 in one Slurm job. Keep execution evidence and result payloads on the HPC.
 Do not request new GPU training or substitute restricted example datasets.
+
+After public checkpoint evaluation, the current step is release-diagnose.
+Use only the fixed released stage1/stage2 inputs and pretrain/finetune routes
+for the three investigated datasets. Write the source-defined plan before
+metrics. Retain every case, deduplicate only identical input/range contracts,
+and compare common target IDs with equal raw truth. Never select a diagnostic
+case as the baseline because it matches a paper number. Store forecasts apart
+from faithful runs. Raw channel differences, missing inputs, strict-load or
+paired-check failures must stop the relevant diagnostic. Training remains a
+later step; execution evidence stays in the HPC reports, outside GitHub.

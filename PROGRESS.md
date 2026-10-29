@@ -87,3 +87,20 @@ real-framework checks passed separately. They validate all eight original
 loader ranges using synthetic time-index arrays, synthetic model strict
 loading/forward behavior, PEMS08 and Beijing complete inference/resume,
 and aggregate failure isolation. Shell syntax and compilation passed.
+
+## Fixed release diagnostics prepared
+
+The next stage is release-diagnose. It investigates three public release
+comparisons together using source-defined inputs and split routes, without
+new training. A frozen plan records all four input/route combinations per
+dataset; identical Beijing range contracts produce two aliases, leaving ten
+unique cases. Original faithful runs remain separate. Common-origin paired
+scores, normalization extrema and all per-case metrics are retained, with no
+score-based baseline selection. Detailed execution evidence stays on HPC.
+
+Diagnostic implementation validation: 53 ordinary unit/contract checks and
+five pinned-framework checks passed separately. Synthetic checks cover all
+four release input/split combinations, independent scoring, saved-batch
+recovery, matched-target comparisons, corrupt archives and worker failures.
+Bash syntax and Python compilation passed. These are local implementation
+checks; diagnostic measurements await HPC execution.

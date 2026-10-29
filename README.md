@@ -10,6 +10,50 @@ The next authorized step is evaluating all eight public targets together.
 Training strategy, timestamp provenance and independent retraining remain
 separate scientific checks. Execution results stay on the HPC.
 
+## Next: fixed released-input and split diagnostics
+
+After the public checkpoint evaluations, investigate discrepancies using:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage release-diagnose --submit
+```
+
+Refresh the standalone launcher from the reviewed GitHub commit first.
+This submits nutp-release-diag: 12 CPUs, 24 GiB RAM, zero GPUs, 30 minutes
+in shortq when supported, otherwise longq. Three isolated workers use four
+threads each. Existing verified assets and the reference environment are
+reused. No training or data acquisition starts.
+
+The job also verifies the existing Source Data ZIP and inventories its member
+names/sizes without extracting files, to identify any original forecast data.
+The plan is written and hashed before model evaluation. It contains exactly
+the released stage1/stage2 supplied arrays crossed with the pretrain/finetune
+split routes for PEMS04, Shanghai and Beijing. Identical input/range cases
+are aliases, giving ten unique evaluations. The target checkpoint, original
+model, effective batches, scoring and inverse scaling stay fixed. Input
+changes retain each supplied array's original full-array normalization; the
+recorded extrema show whether normalization also changed.
+
+Every result is retained; no best paper-matching setting is selected as a
+replacement baseline. Paired results align by target index and verify raw
+truth equality. Split-route comparisons report common-origin scores because
+both the evaluated cohort and inner-batch grouping can change. The original
+faithful evaluations remain separate from these diagnostic variants.
+
+Check shows completed cases, resumed batches, failures, metrics and paired
+prediction differences. Reports are results/slurm_jobs/JOB_ID/report/
+SUMMARY.md, diagnostic_plan.json and diagnostic_result.json, plus cases/CASE/.
+Logs are logs/nutp-release-diag_JOB_ID.out/.err and the corresponding
+_JOB_ID_workers/ directory. Forecasts are stored separately in
+outputs/release_diagnostics/SLUG/VARIANT/RUN_HASH/.
+Repeat the same stage command for recovery; verified compatible shards resume.
+A required case or paired-comparison failure makes the job nonzero.
+These controls can expose release sensitivity, but cannot prove which
+preprocessing or checkpoint strategy produced the paper's table.
+
 ## Run all eight public checkpoint evaluations
 
 Refresh scripts/bootstrap_hpc.py from a reviewed GitHub commit into

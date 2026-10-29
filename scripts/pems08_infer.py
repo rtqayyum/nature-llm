@@ -64,10 +64,14 @@ def matching_preflight(project, expected, dataset="pems08", current_report=None)
     raise ValueError("No completed " + PROFILES[dataset]["title"] + " preflight matches these existing asset hashes")
 
 
-def run(project, code, report, dataset="pems08"):
+def run(project, code, report, dataset="pems08", release_variant=None):
     profile = PROFILES[dataset]
     title, slug = profile["title"], profile["slug"]
     nodes = profile["shape"][0]
+    variants = {"stage2-finetune", "stage1-finetune", "stage2-pretrain", "stage1-pretrain"}
+    if release_variant is not None and release_variant not in variants:
+        raise ValueError("Unknown predeclared released-input/split diagnostic")
+    input_stage, route = (release_variant or "stage2-finetune").split("-")
     project, code, report = project.resolve(), code.resolve(), report.resolve()
     code.relative_to(project)
     report.relative_to(project)
@@ -96,7 +100,7 @@ def run(project, code, report, dataset="pems08"):
         torch.manual_seed(11)
         lock = json.loads((code / "config/sources.lock.json").read_text())
         repo = prepare_reference(project / "work", lock, audit_only=True)
-        selected = [profile["stage2"], profile["checkpoint"], "utils/metrics.py"]
+        selected = [profile[input_stage], profile["checkpoint"], "utils/metrics.py"]
         assets = {}
         for name in selected:
             item = next(item for item in lock["lfs_files"] if item["path"] == name)
@@ -122,17 +126,19 @@ def run(project, code, report, dataset="pems08"):
             "prediction_script_time_interval": 15, "native_interval_minutes": profile["interval_minutes"],
             "time_interval_note": "The released script's 15 is retained as an unused loader attribute; arrays are not resampled",
             "normalization": "author full-array minmax across both channels", "inverse": "prediction * registry max_inflow, negative predictions clipped",
-            "dataset": dataset, "checkpoint_strategy": "UNRESOLVED", "reference_commit": lock["reference_commit"],
+            "dataset": dataset, "input_stage": input_stage, "split_route": route,
+            "release_variant": release_variant, "normalization_minimum": float(values.min()),
+            "normalization_maximum": float(values.max()), "checkpoint_strategy": "UNRESOLVED", "reference_commit": lock["reference_commit"],
             "gpt2_base_revision": lock["gpt2"]["revision"], "preflight_report": str(preflight_path)}
         atomic_json(report / "evaluation_config.json", config)
-        expected = derive_splits((repo / "data/unified_dataset.py").read_text(), registry, values, "finetune")["test"]
-        test_set = dataset_module.UnifiedTrafficDataset(dataset_key=dataset, stage="predict", split="test", time_interval=15,
-            tg_in_one_day=registry["finetune"]["tg_in_one_day"], time_lag=12, pre_len=1, inflow_data=values,
-            split_config=registry["finetune"]["split_config"], inner_batch_size=16)
+        expected = derive_splits((repo / "data/unified_dataset.py").read_text(), registry, values, route)["test"]
+        test_set = dataset_module.UnifiedTrafficDataset(dataset_key=dataset, stage="predict" if route == "finetune" else "pretrain", split="test", time_interval=15,
+            tg_in_one_day=registry[route]["tg_in_one_day"], time_lag=12, pre_len=1, inflow_data=values,
+            split_config=registry[route]["split_config"], inner_batch_size=16)
         if (test_set.start_index, test_set.end_index, len(test_set) * 16) != (
                 expected["start_target_index"], expected["end_target_index_exclusive"], expected["scored_windows"]):
             raise ValueError("Actual author loader origins differ from the independently audited ranges")
-        preflight_test = preflight["splits"]["finetune"]["test"]
+        preflight_test = preflight["splits"][route]["test"]
         if any(expected[key] != preflight_test[key] for key in ("start_target_index", "end_target_index_exclusive", "scored_windows")):
             raise ValueError("Actual evaluation origins differ from completed preflight")
         update("strict_checkpoint_load", total_batches=len(test_set), total_origins=len(test_set) * 16)
@@ -181,6 +187,8 @@ def run(project, code, report, dataset="pems08"):
             "dataset_profile": profile}
         run_hash = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
         store = project / "outputs" / (slug + "_reference_cpu") / run_hash
+        if release_variant is not None:
+            store = project / "outputs/release_diagnostics" / slug / release_variant / run_hash
         store.mkdir(parents=True, exist_ok=True)
         atomic_json(store / "identity.json", identity)
         update("forecasting", output_store=str(store), strict_load=True, inference_performed=True)
@@ -229,7 +237,10 @@ def run(project, code, report, dataset="pems08"):
             raise ValueError("Author and independent metric implementations disagree beyond declared numeric tolerance")
         atomic_npz(store / "forecasts.npz", target_indices=targets, truth=truth, predictions=prediction, normalized_predictions=np.concatenate(all_normalized))
         result = {"execution_status": "COMPLETED_WITH_REVIEW", "scientific_status": "REPRODUCTION_NOT_ESTABLISHED",
-            "dataset": dataset, "checkpoint_strategy": "UNRESOLVED", "inference_performed": True, "training_performed": False,
+            "dataset": dataset, "release_variant": release_variant,
+            "evaluation_scope": "RELEASE_VARIANT_DIAGNOSTIC" if release_variant else "FAITHFUL_RELEASE_DEFAULT",
+            "input_stage": input_stage, "split_route": route,
+            "checkpoint_strategy": "UNRESOLVED", "inference_performed": True, "training_performed": False,
             "strict_load_performed": True, "device": "cpu", "metrics_author": measured, "metrics_independent": independent,
             "paper_anchor_comparisons": anchor_comparison(measured, profile["anchors"]), "scored_origins": len(targets), "nodes": truth.shape[1],
             "scored_target_cells": int(truth.size), "author_test_tail_dropped": expected["dropped_tail_windows"],
@@ -238,6 +249,8 @@ def run(project, code, report, dataset="pems08"):
                 "Training strategy/checkpoint identity and absolute test timestamps remain unresolved",
                 "Original full-array scaling, mask conventions and dropped tail are preserved; this is not a clean-protocol result",
                 "Rounding agreement with a paper row alone does not establish reproduction"]}
+        if release_variant:
+            result["limitations"].append("Predeclared released-input/split diagnostic; no best-matching variant is selected as a replacement baseline")
         atomic_json(report / "inference_result.json", result)
         atomic_json(store / "completed.json", result)
         update("COMPLETED_WITH_REVIEW")
@@ -264,6 +277,7 @@ if __name__ == "__main__":
         parser.add_argument("--" + name, required=True, type=Path)
     parser.add_argument("--dataset", choices=list(PROFILES), default="pems08")
     parser.add_argument("--preflight", action="store_true")
+    parser.add_argument("--release-variant", choices=["stage2-finetune", "stage1-finetune", "stage2-pretrain", "stage1-pretrain"])
     args = parser.parse_args()
     if args.preflight:
         from pems08_audit import run as preflight
@@ -272,4 +286,4 @@ if __name__ == "__main__":
             sys.exit(status)
         summary = args.report / "SUMMARY.md"
         (args.report / "preflight_SUMMARY.md").write_bytes(summary.read_bytes())
-    sys.exit(run(args.project, args.code, args.report, args.dataset))
+    sys.exit(run(args.project, args.code, args.report, args.dataset, args.release_variant))

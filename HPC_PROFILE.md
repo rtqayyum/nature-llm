@@ -132,3 +132,24 @@ Check prints all eight worker states, batch progress, metrics, failures and
 CPU/memory accounting. Repeat the same submit command after a failure;
 matching saved shards are verified and reused. Source/environment changes
 produce a new run identity and preserve older outputs.
+
+## Fixed release diagnostic job
+
+Stage release-diagnose submits nutp-release-diag, one task, 12 CPUs,
+24 GiB RAM, zero GPUs, 30 minutes. It uses shortq if observed MaxTime fits,
+otherwise longq. srun launches a controller with three isolated child
+processes, four threads each. The reference environment is checked once.
+Existing pinned datasets, GPT-2 files and target checkpoints are reused.
+Ten unique source-defined input/split cases have separate logs and reports.
+The whole job fails if any required case or paired validation fails.
+
+Reports: results/slurm_jobs/JOB_ID/report/{SUMMARY.md,diagnostic_plan.json,
+diagnostic_result.json}, and cases/CASE/ for full metadata.
+Logs: logs/nutp-release-diag_JOB_ID.out/.err and
+logs/nutp-release-diag_JOB_ID_workers/CASE.out/.err.
+Predictions: outputs/release_diagnostics/SLUG/VARIANT/RUN_HASH/.
+Check displays per-case progress and errors. Repeat the same submission stage
+for recovery; intact predictions resume under the same run identity.
+This is a CPU checkpoint investigation, not training reproduction. No original
+metric, layer, inverse transformation, checkpoint key or arbitrary split is
+changed to force agreement. All diagnostics stay labeled and separately saved.
