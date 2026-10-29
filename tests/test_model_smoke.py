@@ -76,6 +76,31 @@ class OriginalModelSmoke(unittest.TestCase):
     def test_full_synthetic_inference_and_resume(self):
         self.synthetic_roundtrip("pems08")
 
+    def test_training_batch_smoke_on_original_architecture(self):
+        import torch
+        from transformers import GPT2Config, GPT2Model
+        from pems08_infer import module_from
+        from gpu_smoke import fit_batch
+        original = Path(os.environ["TRAFFIC_TEST_REFERENCE_SOURCE"])
+        temporary_root = ROOT / "tmp/synthetic_smoke"
+        temporary_root.mkdir(parents=True, exist_ok=True)
+        torch.set_num_threads(2)
+        torch.manual_seed(11)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            root = Path(directory)
+            base = root / "synthetic_base"
+            config = GPT2Config(vocab_size=32, n_positions=512, n_ctx=512, n_embd=768, n_layer=6, n_head=12, n_inner=32)
+            GPT2Model(config).save_pretrained(base, safe_serialization=True)
+            module = module_from(original / "model/LLM_UTP.py", "_training_smoke_original")
+            model = module.TrafficPredictionModel(8, 12, 64, [1, 2, 4], 12, 0, str(base), 768)
+            inputs = torch.rand(1, 16, 8, 12, 2)
+            target = torch.full((16, 8, 1), .25)
+            before = model.output_linear[-1].weight.detach().clone()
+            result = fit_batch(model, inputs, target, root / "checkpoints", {"fixture": "synthetic"}, lambda **kw: None)
+            self.assertTrue(result["overfit_smoke_pass"])
+            self.assertEqual(result["optimizer_steps"], 30)
+            self.assertFalse(torch.equal(before, model.output_linear[-1].weight.detach()))
+
     def test_all_public_original_loader_ranges_and_targets(self):
         import gc
         import numpy as np

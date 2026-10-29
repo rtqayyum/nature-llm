@@ -71,7 +71,7 @@ def main(argv=None):
                     (report / "source_inspection.json").write_text(json.dumps({"execution_status": "FAILED", "error": str(exc), "items": {}}, indent=2))
                     (report / "SUMMARY.md").write_text("# Source inspection setup failed\n\n" + str(exc) + "\n")
                     print("SOURCE_SETUP_FAILED:", str(exc), flush=True)
-        elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "causality-audit"):
+        elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "causality-audit", "gpu-smoke"):
             with (work / "acquisition.lock").open("a") as lock:
                 try:
                     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -79,8 +79,8 @@ def main(argv=None):
                     raise SystemExit("Another project worker is accessing these assets")
                 try:
                     from reference_env import ensure
-                    python = ensure(root, code, report)
-                    script = {"public8-infer": "public8_infer.py", "release-diagnose": "release_diagnose.py", "causality-audit": "causality_audit.py"}.get(stage, "pems08_infer.py")
+                    python = ensure(root, code, report, flavor="gpu" if stage == "gpu-smoke" else "cpu")
+                    script = {"public8-infer": "public8_infer.py", "release-diagnose": "release_diagnose.py", "causality-audit": "causality_audit.py", "gpu-smoke": "gpu_smoke.py"}.get(stage, "pems08_infer.py")
                     arguments = [str(python), "-u", str(code / "scripts" / script),
                         "--project", str(root), "--code", str(code), "--report", str(report)]
                     if stage == "beijing-infer":
@@ -110,6 +110,7 @@ def main(argv=None):
         "release-diagnose": "Fixed released-input/split diagnostic complete; inspect all controls before a reproduction decision",
         "source-inspect": "Source workbook and RAR directory inspection complete; verify experiment correspondence before reproduction claims",
         "causality-audit": "Real-checkpoint input-dependence and zero-update gradient audit complete; keep faithful and causal training tracks distinct",
+        "gpu-smoke": "Independent training-batch smoke complete; no causal baseline or benchmark training result is established",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,
@@ -117,6 +118,16 @@ def main(argv=None):
               "training_experiments_completed": 0,
               "reason": review_reasons.get(stage, "Scientific review required") if state == "COMPLETED_WITH_REVIEW" else
                         "Inspect Slurm accounting, stderr and report/" if state == "FAILED" else "Stage completed"}
+    if stage == "gpu-smoke":
+        progress_path = report / "gpu_smoke_progress.json"
+        smoke = json.loads(progress_path.read_text()) if progress_path.exists() else {}
+        status["training_smoke_fits_completed"] = smoke.get("completed_datasets", 0)
+        status["training_experiments_completed"] = smoke.get("completed_datasets", 0)
+        status["benchmark_experiments_completed"] = 0
+        status["training_smoke_optimizer_steps"] = sum(row.get("completed_steps", 0) for row in smoke.get("datasets", {}).values())
+        status["new_training_smoke_optimizer_steps"] = sum(row.get("new_optimizer_steps", max(0, row.get("completed_steps", 0) - row.get("resumed_from_step", 0)))
+            for row in smoke.get("datasets", {}).values())
+        status["training_performed"] = status["new_training_smoke_optimizer_steps"] > 0
     (job / "job_status.json").write_text(json.dumps(status, indent=2) + "\n")
     (job / "JOB_REPORT.md").write_text("# Traffic reproduction job\n\nStage: " + stage + "\n\nExecution: " + state + "\n\n" + status["reason"] +
         "\n\nScientific status: REPRODUCTION_NOT_ESTABLISHED\n\nDetailed report: " + str(report / "SUMMARY.md") + "\n")

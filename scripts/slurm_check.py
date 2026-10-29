@@ -65,7 +65,26 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "causality-audit":
+    if stage == "gpu-smoke":
+        environment = job / "report/gpu_environment_status.json"
+        if environment.exists():
+            print("GPU ENVIRONMENT:", json.dumps(json.loads(environment.read_text()), indent=2))
+        runtime = job / "report/gpu_runtime.json"
+        if runtime.exists():
+            print("GPU RUNTIME:", json.dumps(json.loads(runtime.read_text()), indent=2))
+        path = job / "report/gpu_smoke_progress.json"
+        smoke = json.loads(path.read_text()) if path.exists() else {}
+        print("TRAINING SMOKE FITS completed=%s/2 failed=%s" % (smoke.get("completed_datasets", 0), smoke.get("failed_datasets", 0)))
+        for key, row in smoke.get("datasets", {}).items():
+            print("SMOKE", key, row["state"], "updates=", row.get("completed_steps", 0), "/", row.get("total_steps", 30), row.get("error", ""))
+        path = job / "report/gpu_smoke_summary.json"
+        if path.exists():
+            summary = json.loads(path.read_text())
+            if summary.get("error"):
+                print("GPU SMOKE ERROR:", summary["error"])
+            for key, row in summary.get("datasets", {}).items():
+                print("SMOKE RESULT", key, json.dumps(row))
+    elif stage == "causality-audit":
         path = job / "report/causality_progress.json"
         probe_progress = json.loads(path.read_text()) if path.exists() else {}
         print("CAUSALITY DATASETS completed=%s/8 failed=%s" % (probe_progress.get("completed_datasets", 0), probe_progress.get("failed_datasets", 0)))
@@ -202,7 +221,10 @@ def main():
     else:
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    print("Training experiments completed: 0 (reference inference/audits do not train parameters)")
+    if stage == "gpu-smoke":
+        print("Benchmark experiments completed: 0. Training smoke fits perform real updates on training batches only.")
+    else:
+        print("Training experiments completed: 0 (reference inference/audits do not train parameters)")
     if progress:
         print("Verified asset GiB: %.3f / %.3f" % (progress["verified_bytes"] / 2**30, progress["expected_bytes"] / 2**30))
     for failure in progress.get("failures", []):

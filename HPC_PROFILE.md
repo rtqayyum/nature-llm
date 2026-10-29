@@ -188,3 +188,22 @@ Logs: logs/nutp-causal-audit_JOB_ID.out/.err and its _workers/ folder.
 Check prints progress, effects, gradient counts and failure reasons. Repeat
 submission to retry; original checkpoints and earlier reports remain unchanged.
 These are engineering probes, not training experiments or accuracy evaluations.
+
+## GPU training smoke
+
+Stage gpu-smoke requests nutp-s3-gpu-smoke, gpuq, one GPU, 20 CPUs,
+16 GiB host RAM, two hours capped by observed MaxTime. It installs/checks
+.venv-reference-gpu with torch 2.0.0+cu118 and pinned reference dependencies.
+CUDA/Triton/extension caches are project-local; shared Conda is unchanged.
+The first run downloads CUDA packages, but existing data/base files are reused.
+PEMS08 and Beijing run sequentially, 30 updates each on one training batch.
+No test evaluation, full epoch, joint training or clean-protocol claim occurs.
+
+Reports: results/slurm_jobs/JOB_ID/report/{SUMMARY.md,gpu_smoke_summary.json,
+gpu_runtime.json,nvidia-smi.txt}. Parent logs: logs/nutp-s3-gpu-smoke_JOB_ID.out
+and .err. Dataset result/error logs are in the corresponding _workers/ folder.
+Checkpoints are outputs/gpu_smoke/SLUG/RUN_HASH/step-NNNN.pt with a verified
+LATEST.json pointer. Repeat submission to resume model, optimizer and RNG.
+Check shows real update counts separately from benchmark experiment counts.
+A failed CUDA check, nonfinite gradient or failed fixed overfit criterion
+makes the job nonzero; successful smoke fits remain subject to science review.

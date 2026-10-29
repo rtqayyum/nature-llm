@@ -134,3 +134,23 @@ zero-update backward pass. Bash syntax and Python compilation also passed.
 The all-eight real-checkpoint probe remains unexecuted locally. Source archive
 scalar-output identity remains open; available RAR-reader paths are recorded
 on HPC for a possible targeted comparison.
+
+## First independent GPU smoke prepared
+
+The gpu-smoke stage begins real weight updates on one fixed training batch
+for PEMS08 and one metro pilot. It preserves released behavior for an explicit
+engineering check, including the known batch/scaling limitations, and starts
+from a pinned base plus fresh seeded forecasting layers. Target checkpoints
+are not reused as initialization. No benchmark training result or full paper
+reproduction follows from a smoke pass. Execution evidence remains on HPC.
+
+Local tests cover isolated CUDA installation commands, one-GPU scheduling,
+training versus benchmark accounting, checkpoint/optimizer/dropout-RNG resume,
+and 30-step fitting of the original architecture with synthetic weights/data.
+The real GPU/CUDA runtime and source-data smoke behavior remain unverified.
+
+Validation for this change: 67 ordinary unit/contract checks passed, plus two
+focused CPU framework checks for original-architecture synthetic fitting and
+exact optimizer/dropout-RNG recovery. Bash syntax, compilation and source
+containment checks passed. CUDA execution and real-data smoke loss reduction
+remain unverified until the GPU job runs.

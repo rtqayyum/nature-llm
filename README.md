@@ -10,6 +10,55 @@ The next authorized step is evaluating all eight public targets together.
 Training strategy, timestamp provenance and independent retraining remain
 separate scientific checks. Execution results stay on the HPC.
 
+## Next: independent GPU training-batch smoke
+
+Refresh the launcher from a reviewed commit, then submit:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage gpu-smoke --submit
+```
+
+This requests nutp-s3-gpu-smoke in gpuq: one GPU, 20 CPUs, 16 GiB host RAM
+and a two-hour ceiling capped by the observed queue maximum. The first run
+installs the pinned torch 2.0.0 CUDA 11.8 build into .venv-reference-gpu.
+Core author package versions match the separate CPU environment. Existing
+datasets/base weights are reused; only CUDA framework dependencies download.
+At least 8 GiB of free filesystem space is checked before creating the GPU
+environment. CUDA, Triton and Torch extension caches remain project-local.
+
+Following the pilot protocol, PEMS08 and Beijing run sequentially on one GPU.
+Each receives a fresh seeded author encoder/head plus the pinned GPT-2 base.
+No released target checkpoint is loaded. The original stage-one array,
+pretraining training-range origins, full-array normalization, constructor
+freeze policy, batch size, implicit softmax and Adam learning rate are retained.
+This is a released-behavior engineering smoke, not a causal baseline or a
+claim of exact original S3 training reproduction. CPU fallback is refused.
+
+Thirty Adam updates fit one fixed training minibatch per dataset. Initial
+and final MSE use evaluation mode on that same training batch. The locked
+smoke criterion requires finite gradients and at least a 10% MSE reduction.
+It is an engineering check, not validation/test improvement. No test forecast
+or full epoch is evaluated. Full model/optimizer/RNG checkpoints are saved
+at updates 10, 20 and 30 with hashes and experiment identity for recovery.
+Original assets and previous forecast results stay untouched.
+
+Check displays environment setup, actual GPU/runtime, per-dataset update
+counts, batch losses, resumed steps and failures. It distinguishes real smoke
+weight updates from completed benchmark experiments. Driver details are saved
+in nvidia-smi.txt. Report: results/slurm_jobs/JOB_ID/report/SUMMARY.md and
+gpu_smoke_summary.json. Checkpoints: outputs/gpu_smoke/SLUG/RUN_HASH/.
+Individual result/error logs use the job's _workers/ folder. Repeat the same
+submit command after failure; compatible checkpoints resume. CUDA/driver
+compatibility and real-data overfit behavior remain to be verified on HPC.
+
+This closes the initial reproduction investigation with its limitations
+recorded. Later independent pilots and the proposed method need a separately
+specified causal protocol. A smoke pass cannot remove the known batch,
+scaling, preprocessing or provenance limitations of the released baseline.
+
 ## Training preparation: causality and gradient audit
 
 Refresh the launcher, then submit --stage causality-audit --submit.

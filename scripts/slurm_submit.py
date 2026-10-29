@@ -20,8 +20,8 @@ ROOT = Path("/home/tariq.qayyum/nature-llm")
 def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
     preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit")
-    desired = 1800 if preflight else 23 * 3600
-    partitions = ("shortq", "longq") if preflight else ("longq",)
+    desired = 2 * 3600 if stage == "gpu-smoke" else 1800 if preflight else 23 * 3600
+    partitions = ("gpuq",) if stage == "gpu-smoke" else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
             result = subprocess.run(["scontrol", "show", "partition", partition, "-o"], capture_output=True, text=True, timeout=20, check=True)
@@ -37,7 +37,7 @@ def allocation(stage):
             return partition, limit, "Observed " + partition + " MaxTime=" + match[1]
         except (OSError, ValueError, subprocess.SubprocessError):
             continue
-    return "longq", desired, "Partition maximum unavailable; using supplied longq profile"
+    return ("gpuq" if stage == "gpu-smoke" else "longq"), desired, "Partition maximum unavailable; using supplied profile"
 
 
 def read_json(path):
@@ -123,7 +123,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke"], default="acquire")
     args = parser.parse_args(argv)
     project, code = args.project.resolve(), args.code.resolve()
     prepare(project, code)
@@ -162,13 +162,16 @@ def main(argv=None):
                     "public8-infer": ("nutp-public8-infer", 16, "32G"),
                     "release-diagnose": ("nutp-release-diag", 12, "24G"),
                     "source-inspect": ("nutp-source-inspect", 1, "4G"),
-                    "causality-audit": ("nutp-causal-audit", 4, "16G")}
+                    "causality-audit": ("nutp-causal-audit", 4, "16G"),
+                    "gpu-smoke": ("nutp-s3-gpu-smoke", 20, "16G")}
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),
                "TRAFFIC_AUDIT_ONLY": "1" if args.audit_only else "0", "TRAFFIC_STAGE": args.stage}
         command = ["sbatch", "--parsable", "--job-name=" + job_name, "--partition=" + partition,
             "--cpus-per-task=" + str(cpus), "--mem=" + memory, "--time=" + request_time, "--export=ALL", str(project / "Batch")]
+        if args.stage == "gpu-smoke":
+            command.insert(-1, "--gres=gpu:1")
         result = subprocess.run(command, env=env, text=True, capture_output=True, check=True)
         job_id = result.stdout.strip().split(";", 1)[0]
         if not job_id.isdigit():
@@ -177,10 +180,10 @@ def main(argv=None):
         directory.mkdir(parents=True, exist_ok=True)
         submission = {"project": str(project), "job_id": job_id, "job_name": job_name, "stage": args.stage, "code": str(code),
             "submitted_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(), "partition": partition, "cpus": cpus,
-            "gpus": 0, "time_limit": request_time, "partition_evidence": partition_evidence, "command": command}
+            "gpus": 1 if args.stage == "gpu-smoke" else 0, "time_limit": request_time, "partition_evidence": partition_evidence, "command": command}
         (directory / "submission.json").write_text(json.dumps(submission, indent=2) + "\n")
         (project / "work/LAST_JOB_ID").write_text(job_id + "\n")
-        print("SUBMITTED Slurm job", job_id, "name=" + job_name, "partition=" + partition, "cpus=" + str(cpus), "gpus=0 time=" + request_time)
+        print("SUBMITTED Slurm job", job_id, "name=" + job_name, "partition=" + partition, "cpus=" + str(cpus), "gpus=" + str(submission["gpus"]) + " time=" + request_time)
         print("Check: bash " + str(project / "Check") + " " + job_id)
         print("Report: " + str(directory / "report/SUMMARY.md"))
         return 0

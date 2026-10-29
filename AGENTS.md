@@ -95,3 +95,13 @@ origins, never optimizer updates; verify parameter versions unchanged.
 Do not present synthetic counterfactuals as measured traffic accuracy or a
 clean-protocol pass. Keep any future faithful and causal retraining separate.
 Actual HPC evidence remains outside GitHub.
+
+Current next stage: gpu-smoke, the first actual weight-update engineering
+check. This is authorized training preparation on PEMS08 and Beijing under
+the pilot protocol, superseding the earlier audit-only stage restrictions.
+Use one GPU/20 CPUs in gpuq, project-local .venv-reference-gpu and caches.
+Do not silently replace the released softmax/scaling/freeze policy. Start
+from the pinned base plus seeded fresh encoder/head, not target checkpoints.
+Fit a training minibatch only, save optimizer/RNG checkpoints and report
+smoke updates separately from benchmark experiments. A separate causal
+protocol remains necessary before new-method performance comparisons.

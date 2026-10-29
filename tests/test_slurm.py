@@ -112,6 +112,29 @@ class SlurmTests(unittest.TestCase):
         self.assertIn("--job-name=nutp-causal-audit", call.args[0])
         self.assertIn("--mem=16G", call.args[0])
 
+    def test_gpu_smoke_requests_one_gpu_only_in_gpuq(self):
+        _, execute = self.submit_fixture("gpu-smoke")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["partition"], record["cpus"], record["gpus"], record["time_limit"]), ("gpuq", 20, 1, "02:00:00"))
+        call = next(call for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertIn("--gres=gpu:1", call.args[0])
+        self.assertIn("--job-name=nutp-s3-gpu-smoke", call.args[0])
+
+    def test_gpu_smoke_final_status_counts_real_updates_separately_from_benchmarks(self):
+        directory = self.project / "results/slurm_jobs/73001/report"
+        directory.mkdir(parents=True)
+        (directory / "gpu_smoke_progress.json").write_text(json.dumps({"completed_datasets": 1,
+            "datasets": {"pems08": {"completed_steps": 30, "new_optimizer_steps": 10, "resumed_from_step": 20},
+                         "bj": {"completed_steps": 12, "resumed_from_step": 0}}}))
+        with mock.patch.dict(os.environ, {"TRAFFIC_CODE_DIR": str(self.code), "SLURM_JOB_ID": "73001", "TRAFFIC_STAGE": "gpu-smoke"}):
+            job.main(["finalize", "--project", str(self.project), "--raw-exit", "2", "--shell-exit", "2"])
+        status = json.loads((directory.parent / "job_status.json").read_text())
+        self.assertEqual(status["training_smoke_fits_completed"], 1)
+        self.assertEqual(status["training_smoke_optimizer_steps"], 42)
+        self.assertEqual(status["new_training_smoke_optimizer_steps"], 22)
+        self.assertTrue(status["training_performed"])
+        self.assertEqual(status["benchmark_experiments_completed"], 0)
+
     def test_custom_entrypoint_is_never_overwritten(self):
         (self.project / "Batch").write_text("user content\n")
         with mock.patch.object(submit, "ROOT", self.project), self.assertRaisesRegex(ValueError, "preserved"):
