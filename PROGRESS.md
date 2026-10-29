@@ -37,3 +37,30 @@ strict model loading or prediction and cannot certify the training strategy.
 The completed preflight report will determine the next checkpoint-inference
 configuration. Faithful released-code behavior and a later clean protocol
 must remain separate.
+
+## PEMS08 preflight completed
+
+The researcher supplied completed logs for job 605954, nutp-p08-preflight,
+on shortq: COMPLETED, exit 0:0, elapsed 3 seconds, one CPU, no GPU, all five
+checks complete and empty stderr. The report shows 12 constructed
+train/validation target origins in common and three after dropping incomplete
+inner batches. Fine-tuning test start is one row earlier than the pretraining
+route. The full checkpoint/scaling JSON was not pasted; the next job reads
+that existing artifact directly and requires matching asset hashes.
+Checkpoint training strategy and absolute timestamp provenance remain unknown.
+
+## First numerical checkpoint evaluation ready
+
+The next stage is pems08-infer, nutp-p08-infer-cpu: longq, one task/eight CPU
+threads, 16 GiB RAM, zero GPUs, a 23-hour ceiling capped by the observed queue
+maximum. This first evaluation profiles CPU inference time. It creates a
+separate project-local CPU environment with author-pinned core versions and
+reuses the existing data, GPT-2 files and checkpoint. Dependencies download;
+research assets do not download again.
+
+It strictly loads the checkpoint into the unchanged model, tests one batch
+and active-block execution, then scores all 1776 original test origins if
+those checks pass. Shards carry identity/hash/target checks for recovery.
+Author metrics are recalculated independently from the saved forecasts.
+No actual HPC inference result exists yet. Local synthetic-weight checks
+with the real pinned framework validate implementation, not traffic accuracy.

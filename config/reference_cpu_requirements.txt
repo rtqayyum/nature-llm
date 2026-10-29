@@ -1,0 +1,10 @@
+# Author-pinned core versions; optional plotting/vision packages are unused.
+numpy==1.24.0
+scipy==1.10.0
+transformers==4.35.0
+tqdm==4.65.0
+# Explicit compatibility pins; these were not specified by the author README.
+scikit-learn==1.2.2
+huggingface-hub==0.17.3
+tokenizers==0.14.1
+safetensors==0.4.1

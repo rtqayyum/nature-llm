@@ -65,7 +65,22 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "pems08-audit":
+    if stage == "pems08-infer":
+        environment_file = job / "report/reference_environment_status.json"
+        if environment_file.exists():
+            print("REFERENCE ENVIRONMENT:", json.dumps(json.loads(environment_file.read_text()), indent=2))
+        inference_file = job / "report/inference_progress.json"
+        if inference_file.exists():
+            print("INFERENCE PROGRESS:", json.dumps(json.loads(inference_file.read_text()), indent=2))
+        result_file = job / "report/inference_result.json"
+        if result_file.exists():
+            result = json.loads(result_file.read_text())
+            print("INFERENCE RESULT:", json.dumps({key: value for key, value in result.items()
+                if key in ("execution_status", "error", "metrics_author", "metrics_independent", "scored_origins", "checkpoint_strategy", "strict_load_performed", "output_store", "limitations")}, indent=2))
+            if result.get("paper_anchor_comparisons"):
+                print("DIAGNOSTIC PAPER ROUNDING (not a reproduction pass):", json.dumps({key: value["same_two_decimal_rounding"]
+                    for key, value in result["paper_anchor_comparisons"].items()}))
+    elif stage == "pems08-audit":
         preflight_file = job / "report/preflight_progress.json"
         preflight = json.loads(preflight_file.read_text()) if preflight_file.exists() else {}
         print("PEMS08 PREFLIGHT checks=%s/%s" % (preflight.get("completed_checks", 0), preflight.get("total_checks", 5)))
@@ -76,7 +91,7 @@ def main():
     else:
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    print("Training experiments completed: 0 (this job performs audit/preflight only)")
+    print("Training experiments completed: 0 (reference inference/audits do not train parameters)")
     if progress:
         print("Verified asset GiB: %.3f / %.3f" % (progress["verified_bytes"] / 2**30, progress["expected_bytes"] / 2**30))
     for failure in progress.get("failures", []):

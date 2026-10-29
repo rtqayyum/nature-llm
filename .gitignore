@@ -22,3 +22,4 @@ tmp/
 .config/
 .local/
 .conda-git/
+.tools/

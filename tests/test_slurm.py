@@ -64,6 +64,14 @@ class SlurmTests(unittest.TestCase):
         self.assertIn("--job-name=nutp-p08-preflight", sbatch.args[0])
         self.assertEqual(sbatch.kwargs["env"]["TRAFFIC_STAGE"], "pems08-audit")
 
+    def test_first_inference_is_cpu_only_with_eight_threads(self):
+        _, execute = self.submit_fixture("pems08-infer")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["stage"], record["partition"], record["cpus"], record["gpus"]), ("pems08-infer", "longq", 8, 0))
+        call = next(call for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertIn("--job-name=nutp-p08-infer-cpu", call.args[0])
+        self.assertFalse(any("gres" in part for part in call.args[0]))
+
     def test_custom_entrypoint_is_never_overwritten(self):
         (self.project / "Batch").write_text("user content\n")
         with mock.patch.object(submit, "ROOT", self.project), self.assertRaisesRegex(ValueError, "preserved"):

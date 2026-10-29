@@ -61,14 +61,22 @@ if ! type module >/dev/null 2>&1; then
     done
 fi
 module load anaconda3
+# Do not inherit imports from another project or the login shell's packages.
+unset PYTHONPATH
 BASE_PYTHON=''
+MAX_PYTHON_MINOR=12
+if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer ]]; then
+    MAX_PYTHON_MINOR=11
+    export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
+    export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"
+fi
 for candidate in python3.11 python3.10 python3.12 python3.9 python3.8 python3; do
-    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c 'import sys; assert (3,8) <= sys.version_info[:2] <= (3,12)' 2>/dev/null; then
+    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c 'import sys; assert (3,8) <= sys.version_info[:2] <= (3,int(sys.argv[1]))' "$MAX_PYTHON_MINOR" 2>/dev/null; then
         BASE_PYTHON="$(command -v "$candidate")"
         break
     fi
 done
-[[ -n "$BASE_PYTHON" ]] || { echo 'Python 3.8–3.12 unavailable after module load anaconda3' >&2; exit 2; }
+[[ -n "$BASE_PYTHON" ]] || { echo "Required Python 3.8–3.$MAX_PYTHON_MINOR unavailable after module load anaconda3" >&2; exit 2; }
 echo "START job=$SLURM_JOB_ID name=$SLURM_JOB_NAME node=$(hostname) cpus=$SLURM_CPUS_PER_TASK code=$TRAFFIC_CODE_DIR"
 set +e
 srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" "$BASE_PYTHON" -u \

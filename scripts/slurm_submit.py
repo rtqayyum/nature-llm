@@ -123,12 +123,12 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer"], default="acquire")
     args = parser.parse_args(argv)
     project, code = args.project.resolve(), args.code.resolve()
     prepare(project, code)
     if not shutil.which("sbatch"):
-        raise SystemExit("sbatch is unavailable in this session; use the cluster login/submission node")
+        raise SystemExit("sbatch is unavailable; use the cluster login node and run module load slurm before retrying")
     last = project / "work/LAST_JOB_ID"
     if last.exists():
         previous_id = last.read_text().strip()
@@ -156,8 +156,9 @@ def main(argv=None):
         if not acquired:
             raise SystemExit("An acquisition still holds this project's lock. No duplicate download job was submitted. Do not stop an unidentified process/job.")
         partition, limit, partition_evidence = allocation(args.stage)
-        preflight = args.stage == "pems08-audit"
-        job_name, cpus, memory = ("nutp-p08-preflight", 1, "4G") if preflight else ("nutp-dl-audit", 4, "8G")
+        profiles = {"acquire": ("nutp-dl-audit", 4, "8G"), "pems08-audit": ("nutp-p08-preflight", 1, "4G"),
+                    "pems08-infer": ("nutp-p08-infer-cpu", 8, "16G")}
+        job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),
                "TRAFFIC_AUDIT_ONLY": "1" if args.audit_only else "0", "TRAFFIC_STAGE": args.stage}

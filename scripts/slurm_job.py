@@ -55,6 +55,22 @@ def main(argv=None):
                     raise SystemExit("Another project worker is accessing these assets; preflight stopped without changing them")
                 result = subprocess.call([str(python), "-u", str(code / "scripts/pems08_audit.py"),
                     "--project", str(root), "--code", str(code), "--report", str(report)])
+        elif stage == "pems08-infer":
+            with (work / "acquisition.lock").open("a") as lock:
+                try:
+                    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except BlockingIOError:
+                    raise SystemExit("Another project worker is accessing these assets")
+                try:
+                    from reference_env import ensure
+                    python = ensure(root, code, report)
+                    result = subprocess.call([str(python), "-u", str(code / "scripts/pems08_infer.py"),
+                        "--project", str(root), "--code", str(code), "--report", str(report)])
+                except Exception as exc:
+                    result = 2
+                    (report / "inference_result.json").write_text(json.dumps({"execution_status": "FAILED", "error": str(exc)}, indent=2))
+                    (report / "SUMMARY.md").write_text("# Reference environment or inference setup failed\n\n" + str(exc) + "\n")
+                    print("REFERENCE_SETUP_FAILED:", str(exc), flush=True)
         else:
             from pipeline import main as pipeline_main
             sys.argv = ["pipeline.py", "--project", str(code), "--work", str(work), "--report", str(report)]
@@ -67,11 +83,14 @@ def main(argv=None):
         # operationally successful, including the srun step's accounting state.
         return 0 if result == 3 else result
     state = "COMPLETED_WITH_REVIEW" if args.raw_exit == 3 and args.shell_exit == 0 else "COMPLETED" if args.shell_exit == 0 else "FAILED"
+    review_reasons = {"pems08-audit": "PEMS08 split/scaling/checkpoint provenance need review",
+        "pems08-infer": "Released-checkpoint CPU evaluation complete; training strategy and paper comparison remain unresolved",
+        "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,
               "scientific_status": "REPRODUCTION_NOT_ESTABLISHED", "report": str(report),
               "training_experiments_completed": 0,
-              "reason": ("PEMS08 split/scaling/checkpoint provenance need review" if stage == "pems08-audit" else "Known duplicate source domains need review") if state == "COMPLETED_WITH_REVIEW" else
+              "reason": review_reasons.get(stage, "Scientific review required") if state == "COMPLETED_WITH_REVIEW" else
                         "Inspect Slurm accounting, stderr and report/" if state == "FAILED" else "Stage completed"}
     (job / "job_status.json").write_text(json.dumps(status, indent=2) + "\n")
     (job / "JOB_REPORT.md").write_text("# Traffic reproduction job\n\nStage: " + stage + "\n\nExecution: " + state + "\n\n" + status["reason"] +

@@ -69,6 +69,66 @@ long downloads or experiment grids.
 
 ## Data scope and verification
 
+PEMS08 preflight job 605954 completed with all five checks passed. The next
+stage is the first numerical checkpoint evaluation:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py --project /home/tariq.qayyum/nature-llm --stage pems08-infer --submit
+```
+
+Refresh submit_hpc.py from GitHub before using the new stage option. This
+submits nutp-p08-infer-cpu in longq with eight CPU threads, 16 GiB RAM and
+zero GPUs. The 23-hour ceiling is capped by an observed partition maximum;
+it is not a measured runtime. Core packages use the author's versions in a
+separate .venv-reference-cpu. Only dependencies download; verified research
+assets remain local. The CPU build is explicitly a diagnostic runtime
+difference from the publication's GPU execution.
+
+The job requires a matching completed preflight, loads weights_only=True and
+strict=True, evaluates the unchanged author model/loader on 1776 origins,
+and recomputes metrics independently from saved prediction shards. Missing
+keys, shape differences, changed target coverage or metric disagreement stop
+the run. It preserves the original full-array scaling, WMAPE convention,
+inner batch size/order and dropped tail. It never alters code or masks to
+reach a paper value. Runtime and original-block execution are recorded.
+
+Check shows environment setup, completed/resumed batches, metrics and
+diagnostic paper-row rounding. Actual outputs are
+outputs/pems08_reference_cpu/RUN_HASH/, with per-job configuration, strict
+load diagnostics, runtime, environment freeze and inference_result.json
+under results/slurm_jobs/JOB_ID/report/. Repeating the same stage resumes
+compatible completed shards. A completed numerical run remains subject to
+checkpoint-strategy and paper-protocol review; no training is performed.
+
+Local validation includes synthetic-weight checks with the real pinned CPU
+framework. A small synthetic vocabulary/MLP reduces test cost; those checks
+validate code flow, scoring and complete-shard recovery, not traffic accuracy
+or compatibility of the untested real released checkpoint.
+
+The user's Slurm logs confirm both acquisition 605458 and preflight 605954
+completed successfully. The next numerical job is submitted after refreshing
+submit_hpc.py from GitHub:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py --project /home/tariq.qayyum/nature-llm --stage pems08-infer --submit
+```
+
+This uses longq, eight CPUs, 16 GiB RAM and no GPU, with a 23-hour ceiling
+capped by an observed queue maximum. It installs the pinned CPU reference
+runtime in .venv-reference-cpu, then strictly loads the released checkpoint
+and evaluates the exact original scoring origins if compatibility checks pass.
+Dataset/base/checkpoint files are reused, and model/loader/metric source stays
+unchanged. The first batch is checked twice; all prediction shards are saved
+for restart and metrics are checked independently from saved outputs.
+The job makes no training or full paper-reproduction claim.
+
+Results are results/slurm_jobs/JOB_ID/report/inference_result.json and
+SUMMARY.md; persistent forecasts are outputs/pems08_reference_cpu/RUN_HASH/.
+Use Check as before; repeat the stage command for recovery. See
+HPC_PROFILE.md for environment and scientific comparison limitations.
+
 Acquisition job 605458 completed on the HPC with all 37 assets verified.
 See [PROGRESS.md](PROGRESS.md) for the distinction between real execution,
 local synthetic checks and remaining scientific uncertainties.

@@ -9,6 +9,7 @@ not used for this already-running project.
 |---|---|---|---|---|---|
 | Current acquisition and audit | longq | 1 | 4 | 0 | One job, four asset workers |
 | PEMS08 checkpoint and split preflight | shortq when observed limit supports 30 min, otherwise longq | 1 | 1 | 0 | One read-only job |
+| First released-checkpoint evaluation | longq | 1 | 8 | 0 | One CPU job with fixed batch order |
 | Future parallel CPU experiments | longq by default | Match implementation | Up to 40 in one process when useful | 0 | Profile first |
 | Future GPU training | gpuq | 1 | 20 | 1 | Start with four independent array jobs; six when permitted |
 
@@ -82,3 +83,33 @@ are results/slurm_jobs/JOB_ID/report/pems08_audit.json, SUMMARY.md,
 origin_ledgers/*.csv and first_test_window.npz. Recovery repeats the same
 stage command. Strict checkpoint loading and actual prediction are later
 steps; a completed static audit is not a reproduced numerical result.
+
+## First numerical checkpoint evaluation
+
+Preflight job 605954 is complete in user-supplied HPC logs. After refreshing
+submit_hpc.py, submit --stage pems08-infer --submit. This requests longq,
+eight CPUs, 16 GiB RAM, zero GPUs and up to 23 hours (queue maximum capped).
+The job is named nutp-p08-infer-cpu. It loads anaconda3, selects Python 3.8
+through 3.11, and creates .venv-reference-cpu. PyTorch 2.0.0+cpu comes from
+the official PyTorch CPU wheel index. Core author versions are pinned;
+additional compatibility pins and the full installed freeze are recorded.
+The shared Conda installation and existing audit .venv remain unchanged.
+
+Only packages download. The original model, loader, metric implementation,
+checkpoint, data and official GPT-2 files are used from verified local paths.
+Missing/unexpected keys or incompatible tensor shapes stop execution; strict
+loading is never relaxed. Full-array normalization, inverse scaling, masks,
+16-window batch order and dropped tail are retained. CPU/device differences
+from the publication and unresolved checkpoint training strategy remain
+explicit limitations, even if paper-row rounding agrees.
+
+Check reports reference-environment phase, strict-load/inference progress,
+completed/resumed batches, measured and independently checked metrics, and
+diagnostic paper-row rounding. Training experiments remain zero.
+Predictions/shards: outputs/pems08_reference_cpu/RUN_HASH/.
+Job details: results/slurm_jobs/JOB_ID/report/inference_result.json,
+evaluation_config.json, strict_load.json, runtime.json and SUMMARY.md.
+Environment: report/reference_environment_freeze.txt.
+If interrupted, repeat the same stage command. Compatible completed shards
+are verified and reused; changed data/code/environment identity gets its own
+store. A corrupted completed shard is reported rather than silently reused.

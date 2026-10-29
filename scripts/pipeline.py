@@ -57,7 +57,7 @@ def main():
         numpy_version = "1.24.4" if sys.version_info[:2] == (3, 8) else "1.26.4"
         probe = subprocess.run([str(python), "-c", "import numpy; assert numpy.__version__ == " + repr(numpy_version)], capture_output=True, text=True)
         if probe.returncode:
-            run([python, "-m", "pip", "--isolated", "install", "--no-user", "--disable-pip-version-check", "numpy==" + numpy_version])
+            run([python, "-m", "pip", "--isolated", "--cache-dir", stable_root / ".cache/pip", "install", "--no-user", "--disable-pip-version-check", "numpy==" + numpy_version])
         with (args.report / "audit_environment.txt").open("w") as stream:
             run([python, "-m", "pip", "freeze"], stdout=stream)
         command = [python, "-u", args.project / "scripts" / "acquire.py", "--project", args.project,

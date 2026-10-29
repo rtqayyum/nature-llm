@@ -48,6 +48,16 @@ the download job complete. Genuine required-file failures exit nonzero.
 
 User-supplied real HPC logs confirm acquisition job 605458 completed with
 37/37 assets verified and zero failures. Do not repeat acquisition as the next
-scientific step. See PROGRESS.md. The next implemented stage is pems08-audit,
-a read-only CPU preflight that does not import Torch or execute checkpoint
-pickle reducers. It creates no forecasts and makes no reproduction claim.
+scientific step. User logs also confirm preflight job 605954 completed all
+five checks in shortq with exit 0. See PROGRESS.md. The next stage is
+pems08-infer: a CPU diagnostic evaluation in .venv-reference-cpu with
+torch 2.0.0+cpu and transformers 4.35.0. It requires matching completed
+preflight hashes, loads weights_only=True and strict=True, and preserves the
+author's model/loader/metric source. Stop on any key or shape mismatch. Never
+strip prefixes, discard buffers, change active layers, repair splits or change
+the implicit softmax to force agreement. Batch size/order are immutable.
+Save and verify prediction shards for recovery. Paper-row rounding agreement
+is diagnostic, not proof of checkpoint strategy or training reproduction.
+CPU evaluation differs from the paper's GPU runtime and must be labeled.
+No training occurs in this stage. On a fresh login session, module load slurm
+is the researcher-demonstrated setup before submission commands.
