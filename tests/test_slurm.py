@@ -97,6 +97,13 @@ class SlurmTests(unittest.TestCase):
         self.assertIn("--job-name=nutp-release-diag", call.args[0])
         self.assertIn("--mem=24G", call.args[0])
 
+    def test_source_inspection_is_small_cpu_only(self):
+        _, execute = self.submit_fixture("source-inspect")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["partition"], record["cpus"], record["gpus"], record["time_limit"]), ("shortq", 1, 0, "00:30:00"))
+        call = next(call for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertIn("--job-name=nutp-source-inspect", call.args[0])
+
     def test_custom_entrypoint_is_never_overwritten(self):
         (self.project / "Batch").write_text("user content\n")
         with mock.patch.object(submit, "ROOT", self.project), self.assertRaisesRegex(ValueError, "preserved"):

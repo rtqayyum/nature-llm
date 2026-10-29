@@ -65,7 +65,38 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "release-diagnose":
+    if stage == "source-inspect":
+        path = job / "report/source_environment_status.json"
+        if path.exists():
+            print("SOURCE ENVIRONMENT:", json.dumps(json.loads(path.read_text()), indent=2))
+        path = job / "report/source_progress.json"
+        source_progress = json.loads(path.read_text()) if path.exists() else {}
+        print("SOURCE ITEMS completed=%s/3 failed=%s" % (source_progress.get("completed_items", 0), source_progress.get("failed_items", 0)))
+        for key, row in source_progress.get("items", {}).items():
+            print("SOURCE ITEM", key, row["state"], "copied=", row.get("bytes_copied"), "/", row.get("expected_bytes"), row.get("error", ""))
+            if row["state"] == "FAILED" and row.get("log"):
+                log = Path(row["log"])
+                log.resolve().relative_to(project)
+                print("FAILED ITEM LOG:", log)
+                if log.exists():
+                    print("\n".join(log.read_text(errors="replace").splitlines()[-10:]))
+        path = job / "report/source_inspection.json"
+        if path.exists():
+            result = json.loads(path.read_text())
+            if result.get("error"):
+                print("SOURCE ERROR:", result["error"])
+            workbook = result.get("items", {}).get("workbook", {})
+            for sheet in workbook.get("sheets", []):
+                print("WORKBOOK SHEET:", sheet["title"], "rows=", sheet["rows"], "columns=", sheet["columns"],
+                    "nonempty=", sheet["nonempty_cells"], "missing_formula_caches=", sheet["formulas_without_cached_values"])
+            for row in workbook.get("keyword_rows", [])[:20]:
+                print("WORKBOOK KEYWORD ROW:", json.dumps(row, ensure_ascii=False))
+            for key in ("shanghai_archive", "bus_archive"):
+                archive = result.get("items", {}).get(key, {})
+                print("RAR DIRECTORY:", key, archive.get("state"), "members=", archive.get("member_count"), archive.get("error", ""))
+                for row in archive.get("members", [])[:30]:
+                    print("  ", row["name"], "bytes=", row["bytes"])
+    elif stage == "release-diagnose":
         path = job / "report/diagnostic_progress.json"
         progress_diag = json.loads(path.read_text()) if path.exists() else {}
         print("DIAGNOSTIC CASES completed=%s/%s failed=%s" % (progress_diag.get("completed_cases", 0),

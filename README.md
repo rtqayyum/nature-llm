@@ -10,6 +10,46 @@ The next authorized step is evaluating all eight public targets together.
 Training strategy, timestamp provenance and independent retraining remain
 separate scientific checks. Execution results stay on the HPC.
 
+## Current step: inspect released Source Data
+
+Refresh the standalone launcher from a reviewed commit, then submit:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage source-inspect --submit
+```
+
+This submits nutp-source-inspect, one CPU, 4 GiB RAM, zero GPUs, 30 minutes
+in shortq when supported, otherwise longq. The job uses the existing pinned
+Source Data ZIP. It copies the workbook and two RAR containers into a separate
+hash-keyed project cache, adding roughly 1 GB of storage. It checks ZIP CRCs,
+records copied-file hashes, verifies completed copies and checks partial
+prefixes before resuming. Original data and predictions stay unchanged.
+
+The project-local .venv-source-audit contains pinned openpyxl/rarfile packages.
+It is separate from the reference environment so inspection does not change
+forecast-cache identities. Only the small inspection dependencies may download.
+No Git or external RAR extraction program is needed for directory listing.
+
+Every workbook sheet is exported as cached-value CSV and cell JSONL, recording
+original formulas and missing cached values without recalculation. Sheet
+names, previews and metric/dataset keyword rows are indexed. RAR member names,
+compressed sizes, declared payload sizes and password flags are recorded.
+RAR payloads are not decompressed, and attention tensors are not loaded.
+File names and Supplementary Figure labels do not establish correspondence
+with the main paper table; that needs inspection of actual experiment metadata.
+
+Reports: results/slurm_jobs/JOB_ID/report/SUMMARY.md, source_inspection.json,
+workbook/workbook_inventory.json, sheet CSV/JSONL files and separate RAR
+inventories. Copied containers: work/source_data_inspection/SOURCE_ZIP_SHA/.
+Logs: logs/nutp-source-inspect_JOB_ID.out/.err and its _workers/ item logs.
+Use Check for sheet names, archive members, copy progress and failure reasons.
+Recovery: repeat source-inspect submission; verified complete copies are reused
+and valid partial copies continue. Required failures make Slurm exit nonzero.
+The report remains subject to scientific review; no inference or training runs.
+
 ## Next: fixed released-input and split diagnostics
 
 After the public checkpoint evaluations, investigate discrepancies using:

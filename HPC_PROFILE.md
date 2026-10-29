@@ -153,3 +153,21 @@ for recovery; intact predictions resume under the same run identity.
 This is a CPU checkpoint investigation, not training reproduction. No original
 metric, layer, inverse transformation, checkpoint key or arbitrary split is
 changed to force agreement. All diagnostics stay labeled and separately saved.
+
+## Source workbook and archive inspection
+
+Stage source-inspect: nutp-source-inspect, one CPU, 4 GiB RAM, no GPU,
+30 minutes in shortq when supported, otherwise longq. One srun worker loads
+Anaconda and creates a separate .venv-source-audit with pinned small parser
+dependencies; reference inference packages are unchanged. The job verifies
+the existing ZIP and copies roughly 1 GB of RAR containers into a project
+cache for seekable metadata inspection. Nested payloads are not extracted.
+The workbook is read with cached values; source formulas are recorded and
+missing caches disclosed. Partial/complete container copies are verified.
+
+Report: results/slurm_jobs/JOB_ID/report/SUMMARY.md and source_inspection.json.
+Sheet metadata and exports: report/workbook/. RAR listings have separate
+*_archive_inventory.json files. Item logs are in the job's _workers/ log folder.
+Copied containers remain in work/source_data_inspection/SOURCE_ZIP_SHA/.
+Check displays per-item status, copy bytes, sheets, keywords and archive names.
+Repeat the same submit command to resume. Required failures return nonzero.

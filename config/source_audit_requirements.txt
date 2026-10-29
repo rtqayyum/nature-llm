@@ -1,0 +1,4 @@
+# Separate inspection environment; reference inference dependencies stay fixed.
+openpyxl==3.1.5
+et_xmlfile==2.0.0
+rarfile==4.2

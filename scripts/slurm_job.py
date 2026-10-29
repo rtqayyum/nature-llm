@@ -55,6 +55,22 @@ def main(argv=None):
                     raise SystemExit("Another project worker is accessing these assets; preflight stopped without changing them")
                 result = subprocess.call([str(python), "-u", str(code / "scripts/pems08_audit.py"),
                     "--project", str(root), "--code", str(code), "--report", str(report)])
+        elif stage == "source-inspect":
+            with (work / "acquisition.lock").open("a") as lock:
+                try:
+                    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except BlockingIOError:
+                    raise SystemExit("Another project worker is accessing these assets")
+                try:
+                    from source_audit_env import ensure
+                    python = ensure(root, code, report)
+                    result = subprocess.call([str(python), "-u", str(code / "scripts/source_inspect.py"),
+                        "--project", str(root), "--code", str(code), "--report", str(report)])
+                except Exception as exc:
+                    result = 2
+                    (report / "source_inspection.json").write_text(json.dumps({"execution_status": "FAILED", "error": str(exc), "items": {}}, indent=2))
+                    (report / "SUMMARY.md").write_text("# Source inspection setup failed\n\n" + str(exc) + "\n")
+                    print("SOURCE_SETUP_FAILED:", str(exc), flush=True)
         elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose"):
             with (work / "acquisition.lock").open("a") as lock:
                 try:
@@ -92,6 +108,7 @@ def main(argv=None):
         "beijing-infer": "Beijing Metro checkpoint evaluation complete; training strategy and timestamp provenance remain unresolved",
         "public8-infer": "Public checkpoint evaluations complete; review per-dataset comparisons and provenance before training",
         "release-diagnose": "Fixed released-input/split diagnostic complete; inspect all controls before a reproduction decision",
+        "source-inspect": "Source workbook and RAR directory inspection complete; verify experiment correspondence before reproduction claims",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,

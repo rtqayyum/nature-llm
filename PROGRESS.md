@@ -104,3 +104,15 @@ four release input/split combinations, independent scoring, saved-batch
 recovery, matched-target comparisons, corrupt archives and worker failures.
 Bash syntax and Python compilation passed. These are local implementation
 checks; diagnostic measurements await HPC execution.
+
+## Source evidence inspection prepared
+
+Stage source-inspect reads the pinned Source Data workbook and lists the
+nested RAR directories together. It preserves original archives, uses a
+separate parser environment, records formulas/caches without evaluation,
+and keeps member metadata separate from claims about original forecasts.
+All actual execution details remain in HPC reports. Local verification passed
+60 unit/contract checks, including real parsers on synthetic ZIP/RAR/workbook
+fixtures, all-required-items success, partial resume and required failure.
+Five unrelated optional framework checks were skipped for this change.
+Shell syntax and Python compilation passed. Real source inspection is pending.

@@ -77,3 +77,11 @@ case as the baseline because it matches a paper number. Store forecasts apart
 from faithful runs. Raw channel differences, missing inputs, strict-load or
 paired-check failures must stop the relevant diagnostic. Training remains a
 later step; execution evidence stays in the HPC reports, outside GitHub.
+
+The next source-evidence step is source-inspect. Inspect the existing workbook
+and nested RAR directories in Slurm with a separate .venv-source-audit.
+Keep full workbook cells, formulas/caches, directory metadata and per-item
+failures on HPC. Do not assume Supplementary Figure archive predictions
+match main-table cohorts. Never unpickle attention tensors or silently expand
+nested payloads in this stage. Preserve original archives and forecast stores;
+new container copies use verified, resumable project-local cache paths.

@@ -144,7 +144,7 @@ def main(argv=None):
     parser.add_argument("--project", type=Path, default=Path(default_project))
     parser.add_argument("--sync-only", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect"], default="acquire")
     parser.add_argument("--submit", action="store_true", help="Prepare Batch and submit acquisition to Slurm")
     parser.add_argument("--interactive", action="store_true", help="Explicit small development/debug run outside Slurm")
     parser.add_argument("--handoff", action="store_true", help="Pause only a validated unmanaged project downloader before submission")
