@@ -64,3 +64,26 @@ those checks pass. Shards carry identity/hash/target checks for recovery.
 Author metrics are recalculated independently from the saved forecasts.
 No actual HPC inference result exists yet. Local synthetic-weight checks
 with the real pinned framework validate implementation, not traffic accuracy.
+
+## All public checkpoint evaluations
+
+The researcher requested all datasets at once after the first numerical
+checkpoint evaluation. Stage public8-infer submits a CPU-only job with
+four independent dataset workers and separate reports/logs. It evaluates
+all eight public stage-two targets with the unchanged reference protocol.
+The job checks the project reference environment once and reuses existing
+research assets. No new model training occurs.
+
+Dataset-specific hash/split/scaling preflights, strict checkpoint loading,
+active-block checks, prediction shards and independent metric calculations
+are required. The combined report retains paper-row differences for review.
+Any required worker failure makes the whole job nonzero without discarding
+other results. Repeating the same stage resumes compatible saved shards.
+Stage-one bike/taxi duplicates remain a joint-training blocker; restricted
+examples are excluded. Actual execution evidence remains in HPC reports.
+
+Local validation: 46 ordinary unit/contract checks and four optional
+real-framework checks passed separately. They validate all eight original
+loader ranges using synthetic time-index arrays, synthetic model strict
+loading/forward behavior, PEMS08 and Beijing complete inference/resume,
+and aggregate failure isolation. Shell syntax and compilation passed.

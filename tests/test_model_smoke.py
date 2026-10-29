@@ -42,7 +42,7 @@ class OriginalModelSmoke(unittest.TestCase):
             base = root / "synthetic_gpt2"
             # Small synthetic vocabulary/MLP reduce test cost; no real traffic
             # metrics or pretrained-language-model claim follows from this test.
-            config = GPT2Config(vocab_size=32, n_positions=256, n_ctx=256, n_embd=768, n_layer=6, n_head=12, n_inner=32)
+            config = GPT2Config(vocab_size=32, n_positions=512, n_ctx=512, n_embd=768, n_layer=6, n_head=12, n_inner=32)
             GPT2Model(config).save_pretrained(base, safe_serialization=True)
             model = module.TrafficPredictionModel(170, 12, 64, [1, 2, 4], 12, 0, str(base), 768)
             checkpoint = root / "synthetic_state.pth"
@@ -66,6 +66,49 @@ class OriginalModelSmoke(unittest.TestCase):
 
     @unittest.skipUnless(os.environ.get("TRAFFIC_TEST_REFERENCE_METRICS"), "Needs separately verified original metric source")
     def test_full_synthetic_inference_and_resume(self):
+        self.synthetic_roundtrip("pems08")
+
+    def test_all_public_original_loader_ranges_and_targets(self):
+        import gc
+        import numpy as np
+        from pems08_infer import module_from
+        from pems08_audit import derive_splits, literal_assignment
+        from bootstrap_hpc import blob_sha
+        from reference_datasets import PROFILES, PUBLIC_ORDER
+        original = Path(os.environ["TRAFFIC_TEST_REFERENCE_SOURCE"])
+        lock = json.loads((ROOT / "config/sources.lock.json").read_text())
+        for name in ("data/unified_dataset.py", "data/dataset_registry.py"):
+            expected = next(row["sha"] for row in lock["reference_files"] if row["path"] == name)
+            self.assertEqual(blob_sha((original / name).read_bytes()), expected)
+        module = module_from(original / "data/unified_dataset.py", "_all_public_loader_test")
+        registry = literal_assignment((original / "data/dataset_registry.py").read_text(), "DATASET_REGISTRY")
+        # Independently calculated from released lengths and registry routes.
+        expected_ranges = {"pems03": (23587, 26207, 2608), "pems04": (15292, 16991, 1696),
+            "pems08": (16070, 17855, 1776), "sh": (4686, 5214, 528), "bj": (1512, 1800, 288),
+            "hz": (1334, 1650, 304), "bike": (7884, 8760, 864), "taxi": (7884, 8760, 864)}
+        total = 0
+        for key in PUBLIC_ORDER:
+            with self.subTest(dataset=key):
+                shape = PROFILES[key]["shape"]
+                values = np.broadcast_to(np.arange(shape[1], dtype="float32")[None, :, None], shape)
+                route = registry[key]["finetune"]
+                audited = derive_splits((original / "data/unified_dataset.py").read_text(), registry[key], values, "finetune")["test"]
+                start, end, count = expected_ranges[key]
+                self.assertEqual((audited["start_target_index"], audited["end_target_index_exclusive"], audited["scored_windows"]), (start, end, count))
+                dataset = module.UnifiedTrafficDataset(key, "predict", "test", 15, route["tg_in_one_day"], 12, 1, values, route["split_config"], 16)
+                self.assertEqual((dataset.start_index, dataset.end_index, len(dataset) * 16), (start, end, count))
+                self.assertEqual(float(dataset[0][2][0, 0, 0]), start)
+                self.assertEqual(float(dataset[len(dataset) - 1][2][-1, 0, 0]), start + count - 1)
+                total += count
+                del dataset, values
+                gc.collect()
+        self.assertEqual(total, 8928)
+
+    @unittest.skipUnless(os.environ.get("TRAFFIC_TEST_REFERENCE_METRICS"), "Needs separately verified original metric source")
+    def test_beijing_preflight_inference_and_resume(self):
+        self.synthetic_roundtrip("bj")
+
+    def synthetic_roundtrip(self, dataset):
         import torch
         import numpy as np
         from transformers import GPT2Config, GPT2Model
@@ -73,6 +116,10 @@ class OriginalModelSmoke(unittest.TestCase):
         from pems08_audit import derive_splits, literal_assignment
         from bootstrap_hpc import blob_sha
         from reference_contract import file_sha
+        from reference_datasets import PROFILES
+        profile = PROFILES[dataset]
+        nodes, length, channels = profile["shape"]
+        scale = 1147 if dataset == "pems08" else 4744
         original = Path(os.environ["TRAFFIC_TEST_REFERENCE_SOURCE"])
         metrics = Path(os.environ["TRAFFIC_TEST_REFERENCE_METRICS"])
         published = json.loads((ROOT / "config/sources.lock.json").read_text())
@@ -88,23 +135,24 @@ class OriginalModelSmoke(unittest.TestCase):
             (code / "scripts/reference_contract.py").write_bytes((ROOT / "scripts/reference_contract.py").read_bytes())
             commit = "d" * 40
             repo = project / "work/reference/snapshots" / commit
-            for name in ("model", "data/stage2", "utils", "checkpoint/08"):
+            for name in ("model", "data/stage1", "data/stage2", "utils", str(Path(profile["checkpoint"]).parent)):
                 (repo / name).mkdir(parents=True, exist_ok=True)
             for name in ("model/LLM_UTP.py", "data/unified_dataset.py", "data/dataset_registry.py"):
                 (repo / name).write_bytes((original / name).read_bytes())
             (repo / "utils/metrics.py").write_bytes(metrics.read_bytes())
             base = project / "work/models/gpt2/synthetic"
-            config = GPT2Config(vocab_size=32, n_positions=256, n_ctx=256, n_embd=768, n_layer=6, n_head=12, n_inner=32)
+            config = GPT2Config(vocab_size=32, n_positions=512, n_ctx=512, n_embd=768, n_layer=6, n_head=12, n_inner=32)
             torch.set_num_threads(2)
             torch.manual_seed(11)
             GPT2Model(config).save_pretrained(base, safe_serialization=True)
             module = module_from(repo / "model/LLM_UTP.py", "_full_synthetic_author")
-            model = module.TrafficPredictionModel(170, 12, 64, [1, 2, 4], 12, 0, str(base), 768)
-            torch.save(model.state_dict(), repo / "checkpoint/08/best_model_dict.pth")
+            model = module.TrafficPredictionModel(nodes, 12, 64, [1, 2, 4], 12, 0, str(base), 768)
+            torch.save(model.state_dict(), repo / profile["checkpoint"])
             del model
-            values = (np.arange(170 * 17856 * 2, dtype="float64") % 1148).reshape(170, 17856, 2)
-            np.save(repo / "data/stage2/08fine-tuning.npy", values)
-            mutable = ["data/stage2/08fine-tuning.npy", "checkpoint/08/best_model_dict.pth", "utils/metrics.py"]
+            values = (np.arange(nodes * length * channels, dtype="float64") % (scale + 1)).reshape(nodes, length, channels)
+            np.save(repo / profile["stage2"], values)
+            np.save(repo / profile["stage1"], values)
+            mutable = [profile["stage1"], profile["stage2"], profile["checkpoint"], "utils/metrics.py"]
             lfs, files = [], []
             for path in sorted(repo.rglob("*")):
                 if not path.is_file():
@@ -122,7 +170,7 @@ class OriginalModelSmoke(unittest.TestCase):
             (code / "config/sources.lock.json").write_text(json.dumps(lock))
             preflight = project / "results/slurm_jobs/1/report"
             preflight.mkdir(parents=True)
-            registry = literal_assignment((repo / "data/dataset_registry.py").read_text(), "DATASET_REGISTRY")["pems08"]
+            registry = literal_assignment((repo / "data/dataset_registry.py").read_text(), "DATASET_REGISTRY")[dataset]
             splits = derive_splits((repo / "data/unified_dataset.py").read_text(), registry, values, "finetune")
             (preflight / "pems08_audit.json").write_text(json.dumps({"execution_status": "COMPLETED_WITH_REVIEW",
                 "assets": {item["path"]: item for item in lfs}, "splits": {"finetune": splits}}))
@@ -133,15 +181,24 @@ class OriginalModelSmoke(unittest.TestCase):
                 (report / "reference_environment_freeze.txt").write_text("Synthetic integration fixture; torch=2.0.0+cpu transformers=4.35.0\n")
                 with (report / "run.log").open("w") as log:
                     result = subprocess.run([sys.executable, str(ROOT / "scripts/pems08_infer.py"), "--project", str(project),
-                        "--code", str(code), "--report", str(report)], env={**os.environ, "SLURM_CPUS_PER_TASK": "2"}, stdout=log, stderr=subprocess.STDOUT)
+                        "--code", str(code), "--report", str(report)] + (["--dataset", "bj", "--preflight"] if dataset == "bj" else []), env={**os.environ, "SLURM_CPUS_PER_TASK": "2"}, stdout=log, stderr=subprocess.STDOUT)
                 self.assertEqual(result.returncode, 3, (report / "run.log").read_text()[-4000:])
                 output = json.loads((report / "inference_result.json").read_text())
                 self.assertTrue(output["strict_load_performed"])
-                self.assertEqual((output["scored_origins"], output["nodes"]), (1776, 170))
+                expected_origins = 1776 if dataset == "pems08" else 288
+                self.assertEqual((output["scored_origins"], output["nodes"]), (expected_origins, nodes))
+                if dataset == "bj":
+                    audited = json.loads((report / "beijing_audit.json").read_text())
+                    row = audited["splits"]["finetune"]["test"]
+                    self.assertEqual((row["start_target_index"], row["end_target_index_exclusive"], row["dropped_tail_windows"]), (1512, 1800, 0))
+                    train = audited["splits"]["finetune"]["train"]
+                    self.assertEqual((train["start_target_index"], train["end_target_index_exclusive"], train["scored_windows"]), (503, 1007, 496))
+                    self.assertEqual(audited["overlaps"]["finetune_train_val_scored_target_origins"], 0)
+                    self.assertTrue((report / "preflight_SUMMARY.md").exists())
                 progress = json.loads((report / "inference_progress.json").read_text())
                 if identity is not None:
                     self.assertEqual(output["run_identity"], identity)
-                    self.assertEqual(progress["resumed_batches"], 111)
+                    self.assertEqual(progress["resumed_batches"], expected_origins // 16)
                 identity = output["run_identity"]
             self.assertTrue(all(file_sha(repo / item["path"]) == item["sha256"] for item in lfs))
 

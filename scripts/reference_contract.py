@@ -28,12 +28,12 @@ def inverse_author(normalized, scale):
     return np.maximum(result, np.float32(0))
 
 
-def anchor_comparison(measured):
+def anchor_comparison(measured, anchors=None):
     return {strategy: {"published": values,
         "absolute_differences": {name: float(abs(measured[name] - value)) for name, value in values.items()},
         "same_two_decimal_rounding": {name: format(measured[name], ".2f") == format(value, ".2f") for name, value in values.items()},
         "interpretation": "Diagnostic only; checkpoint training strategy and published test-origin provenance remain unresolved"}
-        for strategy, values in ANCHORS.items()}
+        for strategy, values in (ANCHORS if anchors is None else anchors).items()}
 
 
 def atomic_npz(path, **arrays):

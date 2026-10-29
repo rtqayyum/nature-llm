@@ -19,7 +19,7 @@ ROOT = Path("/home/tariq.qayyum/nature-llm")
 
 def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
-    preflight = stage == "pems08-audit"
+    preflight = stage in ("pems08-audit", "beijing-infer")
     desired = 1800 if preflight else 23 * 3600
     partitions = ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
@@ -123,7 +123,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer"], default="acquire")
     args = parser.parse_args(argv)
     project, code = args.project.resolve(), args.code.resolve()
     prepare(project, code)
@@ -157,7 +157,9 @@ def main(argv=None):
             raise SystemExit("An acquisition still holds this project's lock. No duplicate download job was submitted. Do not stop an unidentified process/job.")
         partition, limit, partition_evidence = allocation(args.stage)
         profiles = {"acquire": ("nutp-dl-audit", 4, "8G"), "pems08-audit": ("nutp-p08-preflight", 1, "4G"),
-                    "pems08-infer": ("nutp-p08-infer-cpu", 8, "16G")}
+                    "pems08-infer": ("nutp-p08-infer-cpu", 8, "16G"),
+                    "beijing-infer": ("nutp-bj-infer-cpu", 4, "8G"),
+                    "public8-infer": ("nutp-public8-infer", 16, "32G")}
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),

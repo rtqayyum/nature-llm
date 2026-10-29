@@ -65,7 +65,7 @@ module load anaconda3
 unset PYTHONPATH
 BASE_PYTHON=''
 MAX_PYTHON_MINOR=12
-if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer ]]; then
+if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer || "${TRAFFIC_STAGE:-acquire}" == beijing-infer || "${TRAFFIC_STAGE:-acquire}" == public8-infer ]]; then
     MAX_PYTHON_MINOR=11
     export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"

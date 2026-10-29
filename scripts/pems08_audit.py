@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only PEMS08 checkpoint/split preflight. No Torch import or unpickling.
+"""Read-only released-checkpoint/split preflight. No Torch import or unpickling.
 
 The pinned loader's integer range methods are evaluated without importing its
 Torch modules. Tensor values, strict model loading and prediction remain later
@@ -20,6 +20,7 @@ import zipfile
 import numpy as np
 
 from acquire import atomic_json, prepare_reference, verify
+from reference_datasets import PROFILES
 
 
 def literal_assignment(source, name):
@@ -32,6 +33,7 @@ def literal_assignment(source, name):
 def loader_class(source):
     names = {"_total_len", "_build_start_end", "_ratio_tail", "_ratio_window", "__len__"}
     original = next(node for node in ast.parse(source).body if isinstance(node, ast.ClassDef) and node.name == "UnifiedTrafficDataset")
+    names |= {node.name for node in original.body if isinstance(node, ast.FunctionDef) and node.name in {"_days_to_steps", "_fixed_days_tail", "_window_from_end"}}
     functions = [copy.deepcopy(node) for node in original.body if isinstance(node, ast.FunctionDef) and node.name in names]
     if {node.name for node in functions} != names:
         raise ValueError("Pinned loader's split methods are incomplete")
@@ -50,6 +52,7 @@ def derive_splits(source, registry, values, stage, lookback=12, horizon=1, batch
         instance.split_config = registry[stage]["split_config"]
         instance.time_lag, instance.pre_len = lookback, horizon
         instance.inner_batch_size, instance.split = batch, split
+        instance.tg_in_one_day = registry[stage].get("tg_in_one_day")
         start, end = instance._build_start_end()
         start, end = max(0, start), min(end, values.shape[1])
         if start < lookback or end > values.shape[1] - horizon + 1 or end <= start:
@@ -99,14 +102,14 @@ def checkpoint_metadata(path):
             "tensor_shapes": "not decoded by this static preflight"}
 
 
-def channel_stats(values):
-    if values.ndim != 3 or values.shape[0] != 170 or values.shape[2] != 2:
-        raise ValueError("Expected PEMS08 node,time,feature array with 170 nodes and two channels")
+def channel_stats(values, nodes=170):
+    if values.ndim != 3 or values.shape[0] != nodes or values.shape[2] != 2:
+        raise ValueError("Expected node,time,feature array with %d nodes and two channels" % nodes)
     result = []
     for channel in range(values.shape[2]):
         data = values[:, :, channel]
         if not np.isfinite(data).all():
-            raise ValueError("PEMS08 contains nonfinite values")
+            raise ValueError("Array contains nonfinite values")
         result.append({"channel": channel, "minimum": float(data.min()), "maximum": float(data.max()),
             "zeros": int((data == 0).sum()), "negative_values": int((data < 0).sum())})
     return result
@@ -121,12 +124,14 @@ def write_origins(path, row):
                              int(target < row["scored_end_target_index_exclusive"])])
 
 
-def run(project, code, report):
+def run(project, code, report, dataset="pems08"):
+    profile = PROFILES[dataset]
+    title, slug = profile["title"], profile["slug"]
     project, code, report = project.resolve(), code.resolve(), report.resolve()
     code.relative_to(project)
     report.relative_to(project)
     report.mkdir(parents=True, exist_ok=True)
-    progress = {"stage": "pems08-audit", "completed_checks": 0, "total_checks": 5, "checks": []}
+    progress = {"stage": slug + "-audit", "completed_checks": 0, "total_checks": 5, "checks": []}
     def complete(label):
         progress["checks"].append(label)
         progress["completed_checks"] += 1
@@ -135,7 +140,7 @@ def run(project, code, report):
     try:
         lock = json.loads((code / "config/sources.lock.json").read_text())
         repo = prepare_reference(project / "work", lock, audit_only=True)
-        paths = ["data/stage1/08.npy", "data/stage2/08fine-tuning.npy", "checkpoint/08/best_model_dict.pth", "utils/metrics.py"]
+        paths = [profile["stage1"], profile["stage2"], profile["checkpoint"], "utils/metrics.py"]
         assets = {}
         for name in paths:
             expected = next(item for item in lock["lfs_files"] if item["path"] == name)
@@ -146,16 +151,16 @@ def run(project, code, report):
         complete("reference_and_selected_asset_hashes")
         stage1 = np.load(repo / paths[0], mmap_mode="r", allow_pickle=False)
         stage2 = np.load(repo / paths[1], mmap_mode="r", allow_pickle=False)
-        arrays = {"stage1": {"shape": list(stage1.shape), "dtype": str(stage1.dtype), "channels": channel_stats(stage1)},
-                  "stage2": {"shape": list(stage2.shape), "dtype": str(stage2.dtype), "channels": channel_stats(stage2)}}
+        arrays = {"stage1": {"shape": list(stage1.shape), "dtype": str(stage1.dtype), "channels": channel_stats(stage1, profile["shape"][0])},
+                  "stage2": {"shape": list(stage2.shape), "dtype": str(stage2.dtype), "channels": channel_stats(stage2, profile["shape"][0])}}
         if stage1.shape != stage2.shape:
             raise ValueError("Stage-one/stage-two shapes differ; resolve before comparing their origin indices")
         arrays["stage_comparison"] = {"channel_0_identical": bool(np.array_equal(stage1[..., 0], stage2[..., 0])),
             "channel_1_identical": bool(np.array_equal(stage1[..., 1], stage2[..., 1])),
             "raw_channel_max_absolute_difference": float(np.abs(stage1[..., 0].astype("float64") - stage2[..., 0]).max())}
-        complete("pems08_arrays_and_stage_alignment")
+        complete(slug + "_arrays_and_stage_alignment")
         registry_source = (repo / "data/dataset_registry.py").read_text()
-        registry = literal_assignment(registry_source, "DATASET_REGISTRY")["pems08"]
+        registry = literal_assignment(registry_source, "DATASET_REGISTRY")[dataset]
         loader_source = (repo / "data/unified_dataset.py").read_text()
         splits = {"pretrain": derive_splits(loader_source, registry, stage1, "pretrain"),
                   "finetune": derive_splits(loader_source, registry, stage2, "finetune")}
@@ -194,19 +199,19 @@ def run(project, code, report):
             "Released constructor retains six GPT-2 blocks; its forward loop executes two. Strict tensor loading is not tested here.",
             "The release normalizes the supplied full array; faithful and clean evaluation must be reported separately.",
             "All split coordinates are indices, not verified timestamps. Do not infer dates or repair gaps silently.",
-            "Published S1 anchors are MAE 11.87, RMSE 18.53 and WMAPE 5.16%; no metric is reproduced in this job."]
+            "Published S1 diagnostic anchors: " + json.dumps(profile["anchors"]["S1"]) + "; no metric is reproduced in this preflight."]
         if overlaps["finetune_train_val_scored_target_origins"]:
             observations.append("The released finetune split routes overlap train/validation target indices; report and resolve this before independent training claims.")
         if not scaling["inverse_matches_minmax_algebra"]:
             observations.append("The prediction script's inverse scaling differs from the algebraic inverse of its loader normalization; do not silently substitute a corrected scaler.")
-        result = {"stage": "pems08-audit", "execution_status": "COMPLETED_WITH_REVIEW",
+        result = {"stage": slug + "-audit", "execution_status": "COMPLETED_WITH_REVIEW",
             "scientific_status": "REPRODUCTION_NOT_ESTABLISHED", "reference_commit": lock["reference_commit"],
             "assets": assets, "arrays": arrays, "registry": registry, "splits": splits, "overlaps": overlaps,
             "scaling_and_metrics": scaling, "checkpoint": checkpoint, "observations": observations,
             "inference_performed": False, "training_performed": False, "downloads_performed": False,
-            "proposed_prediction_task": "12 native 5-minute observations -> next 5-minute node flow"}
-        atomic_json(report / "pems08_audit.json", result)
-        lines = ["# PEMS08 checkpoint and split preflight", "", "Execution: COMPLETED_WITH_REVIEW", "Scientific status: REPRODUCTION_NOT_ESTABLISHED", "",
+            "dataset": dataset, "proposed_prediction_task": "12 native observations -> next node flow; nominal interval %d minutes, timestamp continuity unverified" % profile["interval_minutes"]}
+        atomic_json(report / (slug + "_audit.json"), result)
+        lines = ["# " + title + " checkpoint and split preflight", "", "Execution: COMPLETED_WITH_REVIEW", "Scientific status: REPRODUCTION_NOT_ESTABLISHED", "",
             "| Route | Split | Start | End exclusive | Constructed | Scored | Dropped |",
             "|---|---|---:|---:|---:|---:|---:|"]
         for stage, rows in splits.items():
@@ -215,13 +220,13 @@ def run(project, code, report):
         lines += ["", "## Target overlaps", "", json.dumps(overlaps, indent=2), "", "## Scaling", "", json.dumps(scaling, indent=2),
             "", "## Checkpoint", "", "Stored GPT block indices from static metadata: " + str(checkpoint["gpt_block_indices_in_serialized_names"]),
             "No tensor deserialization, strict load, inference or training was performed.", "", "## Interpretation", ""] + ["- " + item for item in observations]
-        lines += ["", "Details: pems08_audit.json; origin_ledgers/; first_test_window.npz.", "Next: review these discrepancies and implement strictly identified checkpoint inference.", ""]
+        lines += ["", "Details: " + slug + "_audit.json; origin_ledgers/; first_test_window.npz.", "Next: review these discrepancies and implement strictly identified checkpoint inference.", ""]
         (report / "SUMMARY.md").write_text("\n".join(lines))
         print((report / "SUMMARY.md").read_text(), flush=True)
         return 3
     except Exception as exc:
-        atomic_json(report / "pems08_audit.json", {"execution_status": "FAILED", "error": str(exc), "scientific_status": "REPRODUCTION_NOT_ESTABLISHED"})
-        (report / "SUMMARY.md").write_text("# PEMS08 preflight failed\n\n" + str(exc) + "\n")
+        atomic_json(report / (slug + "_audit.json"), {"execution_status": "FAILED", "error": str(exc), "scientific_status": "REPRODUCTION_NOT_ESTABLISHED"})
+        (report / "SUMMARY.md").write_text("# " + title + " preflight failed\n\n" + str(exc) + "\n")
         print("PREFLIGHT_FAILED:", str(exc), flush=True)
         return 2
 

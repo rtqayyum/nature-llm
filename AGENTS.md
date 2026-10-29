@@ -61,3 +61,9 @@ is diagnostic, not proof of checkpoint strategy or training reproduction.
 CPU evaluation differs from the paper's GPU runtime and must be labeled.
 No training occurs in this stage. On a fresh login session, module load slurm
 is the researcher-demonstrated setup before submission commands.
+
+The current authorized next step is public8-infer, requested as all datasets
+at once after the first numerical evaluation. It evaluates eight public
+stage-two targets with four isolated CPU subprocesses, four threads each,
+in one Slurm job. Keep execution evidence and result payloads on the HPC.
+Do not request new GPU training or substitute restricted example datasets.

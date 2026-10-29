@@ -55,7 +55,7 @@ def main(argv=None):
                     raise SystemExit("Another project worker is accessing these assets; preflight stopped without changing them")
                 result = subprocess.call([str(python), "-u", str(code / "scripts/pems08_audit.py"),
                     "--project", str(root), "--code", str(code), "--report", str(report)])
-        elif stage == "pems08-infer":
+        elif stage in ("pems08-infer", "beijing-infer", "public8-infer"):
             with (work / "acquisition.lock").open("a") as lock:
                 try:
                     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -64,8 +64,12 @@ def main(argv=None):
                 try:
                     from reference_env import ensure
                     python = ensure(root, code, report)
-                    result = subprocess.call([str(python), "-u", str(code / "scripts/pems08_infer.py"),
-                        "--project", str(root), "--code", str(code), "--report", str(report)])
+                    script = "public8_infer.py" if stage == "public8-infer" else "pems08_infer.py"
+                    arguments = [str(python), "-u", str(code / "scripts" / script),
+                        "--project", str(root), "--code", str(code), "--report", str(report)]
+                    if stage == "beijing-infer":
+                        arguments += ["--dataset", "bj", "--preflight"]
+                    result = subprocess.call(arguments)
                 except Exception as exc:
                     result = 2
                     (report / "inference_result.json").write_text(json.dumps({"execution_status": "FAILED", "error": str(exc)}, indent=2))
@@ -85,6 +89,8 @@ def main(argv=None):
     state = "COMPLETED_WITH_REVIEW" if args.raw_exit == 3 and args.shell_exit == 0 else "COMPLETED" if args.shell_exit == 0 else "FAILED"
     review_reasons = {"pems08-audit": "PEMS08 split/scaling/checkpoint provenance need review",
         "pems08-infer": "Released-checkpoint CPU evaluation complete; training strategy and paper comparison remain unresolved",
+        "beijing-infer": "Beijing Metro checkpoint evaluation complete; training strategy and timestamp provenance remain unresolved",
+        "public8-infer": "Public checkpoint evaluations complete; review per-dataset comparisons and provenance before training",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,

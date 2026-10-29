@@ -113,3 +113,22 @@ Environment: report/reference_environment_freeze.txt.
 If interrupted, repeat the same stage command. Compatible completed shards
 are verified and reused; changed data/code/environment identity gets its own
 store. A corrupted completed shard is reported rather than silently reused.
+
+## Eight public checkpoint evaluations
+
+Current stage: public8-infer. Submit via bootstrap --stage public8-infer --submit.
+Allocation: nutp-public8-infer, longq, one task, 16 CPUs, 32 GiB RAM, no GPU,
+23 hours capped by observed MaxTime. srun launches a controller with four
+independent dataset workers, four CPU threads each; maximum sixteen threads.
+It checks .venv-reference-cpu once, then reuses existing verified assets.
+The complete eight-domain workload has not been timed on the cluster.
+
+Logs: logs/nutp-public8-infer_JOB_ID.out/.err and
+logs/nutp-public8-infer_JOB_ID_workers/SLUG.out/.err.
+Reports: results/slurm_jobs/JOB_ID/report/SUMMARY.md, public8_result.json,
+and datasets/SLUG/{inference_result.json,SUMMARY.md,preflight_SUMMARY.md}.
+Forecasts: outputs/SLUG_reference_cpu/RUN_HASH/.
+Check prints all eight worker states, batch progress, metrics, failures and
+CPU/memory accounting. Repeat the same submit command after a failure;
+matching saved shards are verified and reused. Source/environment changes
+produce a new run identity and preserve older outputs.

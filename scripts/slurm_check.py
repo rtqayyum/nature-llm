@@ -65,7 +65,36 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "pems08-infer":
+    if stage == "public8-infer":
+        environment = job / "report/reference_environment_status.json"
+        if environment.exists():
+            print("REFERENCE ENVIRONMENT:", json.dumps(json.loads(environment.read_text()), indent=2))
+        path = job / "report/public8_progress.json"
+        batch = json.loads(path.read_text()) if path.exists() else {}
+        print("PUBLIC DATASETS completed=%s/8 failed=%s" % (batch.get("completed_datasets", 0), batch.get("failed_datasets", 0)))
+        for key, row in batch.get("datasets", {}).items():
+            print("DATASET", key, row["state"], row.get("reason", ""))
+            if row.get("report"):
+                directory = Path(row["report"])
+                directory.resolve().relative_to(project)
+                detail = directory / "inference_progress.json"
+                if detail.exists():
+                    item = json.loads(detail.read_text())
+                    print("  phase=%s batches=%s/%s origins=%s resumed=%s" % (item.get("phase"),
+                        item.get("completed_batches"), item.get("total_batches"), item.get("completed_origins"), item.get("resumed_batches")))
+            if row["state"] == "FAILED" and row.get("stderr"):
+                error = Path(row["stderr"])
+                error.resolve().relative_to(project)
+                print("FAILED WORKER LOG:", error)
+                if error.exists():
+                    print("\n".join(error.read_text(errors="replace").splitlines()[-10:]))
+        path = job / "report/public8_result.json"
+        if path.exists():
+            for row in json.loads(path.read_text())["datasets"]:
+                print("DATASET RESULT", row["title"], row["state"], json.dumps(row.get("metrics_author", {})))
+                if row.get("paper_anchor_comparisons"):
+                    print("  S1 rounding (diagnostic only):", json.dumps(row["paper_anchor_comparisons"]["S1"]["same_two_decimal_rounding"]))
+    elif stage in ("pems08-infer", "beijing-infer"):
         environment_file = job / "report/reference_environment_status.json"
         if environment_file.exists():
             print("REFERENCE ENVIRONMENT:", json.dumps(json.loads(environment_file.read_text()), indent=2))
@@ -76,7 +105,7 @@ def main():
         if result_file.exists():
             result = json.loads(result_file.read_text())
             print("INFERENCE RESULT:", json.dumps({key: value for key, value in result.items()
-                if key in ("execution_status", "error", "metrics_author", "metrics_independent", "scored_origins", "checkpoint_strategy", "strict_load_performed", "output_store", "limitations")}, indent=2))
+                if key in ("dataset", "execution_status", "error", "metrics_author", "metrics_independent", "scored_origins", "checkpoint_strategy", "strict_load_performed", "output_store", "limitations")}, indent=2))
             if result.get("paper_anchor_comparisons"):
                 print("DIAGNOSTIC PAPER ROUNDING (not a reproduction pass):", json.dumps({key: value["same_two_decimal_rounding"]
                     for key, value in result["paper_anchor_comparisons"].items()}))

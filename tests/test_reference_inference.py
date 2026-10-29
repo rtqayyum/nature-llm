@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from reference_contract import independent_metrics, inverse_author, save_batch, load_batch, anchor_comparison
 from pems08_infer import matching_preflight, strict_diagnostics
 import reference_env
+from reference_datasets import PROFILES
 
 
 class ReferenceTests(unittest.TestCase):
@@ -74,6 +75,21 @@ class ReferenceTests(unittest.TestCase):
             self.assertIn("/1/", str(path))
             with self.assertRaisesRegex(ValueError, "No completed"):
                 matching_preflight(root, {"checkpoint": {"sha256": "unknown"}})
+
+    def test_metro_preflight_and_anchor_are_not_pems08(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            report = root / "results/slurm_jobs/1/report"
+            report.mkdir(parents=True)
+            fixture = {"execution_status": "COMPLETED_WITH_REVIEW", "assets": {"checkpoint": {"sha256": "correct"}}}
+            (report / "pems08_audit.json").write_text(json.dumps(fixture))
+            with self.assertRaisesRegex(ValueError, "No completed Beijing"):
+                matching_preflight(root, {"checkpoint": {"sha256": "correct"}}, "bj")
+            (report / "beijing_audit.json").write_text(json.dumps(fixture))
+            self.assertEqual(matching_preflight(root, {"checkpoint": {"sha256": "correct"}}, "bj")[0].name, "beijing_audit.json")
+        result = anchor_comparison({"MAE": 23.48, "RMSE": 42.06, "WMAPE_percent": 8.82}, PROFILES["bj"]["anchors"])
+        self.assertTrue(all(result["S1"]["same_two_decimal_rounding"].values()))
+        self.assertFalse(any(result["S2"]["same_two_decimal_rounding"].values()))
 
     def test_environment_install_uses_only_project_prefix(self):
         with tempfile.TemporaryDirectory() as directory:
