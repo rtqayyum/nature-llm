@@ -65,7 +65,28 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "source-inspect":
+    if stage == "causality-audit":
+        path = job / "report/causality_progress.json"
+        probe_progress = json.loads(path.read_text()) if path.exists() else {}
+        print("CAUSALITY DATASETS completed=%s/8 failed=%s" % (probe_progress.get("completed_datasets", 0), probe_progress.get("failed_datasets", 0)))
+        for key, row in probe_progress.get("datasets", {}).items():
+            print("PROBE", key, row["state"], row.get("error", ""))
+            if row["state"] == "FAILED" and row.get("stderr"):
+                path = Path(row["stderr"])
+                path.resolve().relative_to(project)
+                if path.exists():
+                    print("FAILED PROBE LOG:", path, "\n" + "\n".join(path.read_text(errors="replace").splitlines()[-10:]))
+        path = job / "report/causality_summary.json"
+        if path.exists():
+            details = json.loads(path.read_text())
+            if details.get("error"):
+                print("CAUSALITY ERROR:", details["error"])
+            print("ARCHIVE READER CANDIDATES (capability unverified):", json.dumps(details.get("archive_reader_candidates", {})))
+            for key, row in details.get("datasets", {}).items():
+                print("PROBE RESULT", key, json.dumps({field: row[field] for field in (
+                    "execution_status", "error", "first_target_future_input_dependence_observed", "counterfactuals",
+                    "declared_trainable_elements", "elements_receiving_gradients", "optimizer_steps", "parameter_versions_unchanged") if field in row}))
+    elif stage == "source-inspect":
         path = job / "report/source_environment_status.json"
         if path.exists():
             print("SOURCE ENVIRONMENT:", json.dumps(json.loads(path.read_text()), indent=2))

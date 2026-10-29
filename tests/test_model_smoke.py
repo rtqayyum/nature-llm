@@ -64,6 +64,14 @@ class OriginalModelSmoke(unittest.TestCase):
             with torch.no_grad():
                 self.assertTrue(torch.allclose(output, model(inputs), rtol=1e-5, atol=1e-6))
 
+            from causality_audit import probe
+            measured, saved = probe(model, inputs, inputs, torch.zeros(16, 170, 1), 1147)
+            self.assertEqual(measured["optimizer_steps"], 0)
+            self.assertTrue(measured["parameter_versions_unchanged"])
+            self.assertEqual([row["shape"] for row in measured["softmax_without_explicit_dimension"]], [[16, 170, 256], [16, 170, 256]])
+            self.assertTrue(measured["first_target_future_input_dependence_observed"])
+            self.assertEqual(saved["future_time_mask"].shape, (16, 12))
+
     @unittest.skipUnless(os.environ.get("TRAFFIC_TEST_REFERENCE_METRICS"), "Needs separately verified original metric source")
     def test_full_synthetic_inference_and_resume(self):
         self.synthetic_roundtrip("pems08")

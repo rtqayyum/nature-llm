@@ -10,6 +10,47 @@ The next authorized step is evaluating all eight public targets together.
 Training strategy, timestamp provenance and independent retraining remain
 separate scientific checks. Execution results stay on the HPC.
 
+## Training preparation: causality and gradient audit
+
+Refresh the launcher, then submit --stage causality-audit --submit.
+This uses nutp-causal-audit: four CPUs, 16 GiB RAM, no GPU, 30 minutes
+in shortq when supported, otherwise longq. Two isolated workers use two
+threads each and audit all eight public released checkpoints together.
+Existing data, base files, weights and the CPU reference environment are reused.
+
+For the first test forecast, all its own history and all companion observations
+available at its issue time stay fixed. Only later companion observations are
+replaced by two predeclared normalized values (zero and one). Both normalized
+and clipped flow-output differences are recorded. Implicit-softmax call shapes
+are traced without changing the mathematical operation. An unchanged repeated
+pass checks numerical stability. These are synthetic counterfactuals on real
+checkpoints, not new forecast accuracy measurements. A negative result on one
+batch does not prove causality for all possible inputs.
+
+A separate gradient probe uses the first complete training-route batch with
+the release's stage-two input and normalization. It records each named
+parameter's requires_grad flag, gradient presence and nonzero-gradient flag.
+No optimizer is created, no update is performed, and parameter versions must
+remain unchanged. This diagnoses the released constructor's effective policy;
+it does not silently select a paper-consistent S3 training policy.
+
+Reports: results/slurm_jobs/JOB_ID/report/SUMMARY.md and causality_summary.json.
+Per-dataset causality_result.json, strict_load.json and probe_predictions.npz
+are under report/datasets/SLUG/. Logs use nutp-causal-audit_JOB_ID and its
+_workers/ folder. Check prints dataset states, future-input differences,
+parameter counts and required failures. Repeat the same stage command after
+failure; prior reports remain intact. No data/weight files are changed.
+
+Available RAR-reader executable paths are recorded for a possible targeted
+inspection of scalar-output tensors. Their capability and the tensors'
+experiment identity remain unverified. No nested archive is expanded here.
+
+The next independent training pilot must keep faithful released-code behavior
+and a separately specified causal protocol distinct. Cross-window dependence,
+precomputed channel provenance, scaling, split boundaries and trainable-parameter
+policy must remain explicit. A diagnostic finding does not by itself establish
+paper-wide leakage, explain all metric differences, or prove the new method.
+
 ## Current step: inspect released Source Data
 
 Refresh the standalone launcher from a reviewed commit, then submit:

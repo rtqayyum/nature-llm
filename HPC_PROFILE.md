@@ -171,3 +171,20 @@ Sheet metadata and exports: report/workbook/. RAR listings have separate
 Copied containers remain in work/source_data_inspection/SOURCE_ZIP_SHA/.
 Check displays per-item status, copy bytes, sheets, keywords and archive names.
 Repeat the same submit command to resume. Required failures return nonzero.
+
+## Causality and gradient audit
+
+Stage causality-audit requests nutp-causal-audit, four CPUs, 16 GiB RAM,
+zero GPUs, 30 minutes in shortq when supported, otherwise longq. One srun
+controller runs two independent dataset processes, two threads each, covering
+eight public checkpoints. It reuses .venv-reference-cpu and existing assets.
+Each worker strictly loads weights, preserves a fixed forecast's history,
+perturbs only later companion inputs and records clipped-output differences.
+It also performs a training-range backward pass without an optimizer or update.
+
+Reports are results/slurm_jobs/JOB_ID/report/{SUMMARY.md,causality_summary.json}
+and per-dataset metadata/predictions under report/datasets/SLUG/.
+Logs: logs/nutp-causal-audit_JOB_ID.out/.err and its _workers/ folder.
+Check prints progress, effects, gradient counts and failure reasons. Repeat
+submission to retry; original checkpoints and earlier reports remain unchanged.
+These are engineering probes, not training experiments or accuracy evaluations.

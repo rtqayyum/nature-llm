@@ -85,3 +85,13 @@ failures on HPC. Do not assume Supplementary Figure archive predictions
 match main-table cohorts. Never unpickle attention tensors or silently expand
 nested payloads in this stage. Preserve original archives and forecast stores;
 new container copies use verified, resumable project-local cache paths.
+
+Training preparation now includes causality-audit on all eight checkpoints.
+Keep the first target's history and every observation available at its issue
+time fixed; change only later observations in companion windows. Trace
+implicit softmax shapes without changing the calculation. Record normalized
+and clipped-output changes. Gradient diagnostics must use training-route
+origins, never optimizer updates; verify parameter versions unchanged.
+Do not present synthetic counterfactuals as measured traffic accuracy or a
+clean-protocol pass. Keep any future faithful and causal retraining separate.
+Actual HPC evidence remains outside GitHub.

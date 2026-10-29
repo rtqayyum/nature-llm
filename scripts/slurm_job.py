@@ -71,7 +71,7 @@ def main(argv=None):
                     (report / "source_inspection.json").write_text(json.dumps({"execution_status": "FAILED", "error": str(exc), "items": {}}, indent=2))
                     (report / "SUMMARY.md").write_text("# Source inspection setup failed\n\n" + str(exc) + "\n")
                     print("SOURCE_SETUP_FAILED:", str(exc), flush=True)
-        elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose"):
+        elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "causality-audit"):
             with (work / "acquisition.lock").open("a") as lock:
                 try:
                     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -80,7 +80,7 @@ def main(argv=None):
                 try:
                     from reference_env import ensure
                     python = ensure(root, code, report)
-                    script = {"public8-infer": "public8_infer.py", "release-diagnose": "release_diagnose.py"}.get(stage, "pems08_infer.py")
+                    script = {"public8-infer": "public8_infer.py", "release-diagnose": "release_diagnose.py", "causality-audit": "causality_audit.py"}.get(stage, "pems08_infer.py")
                     arguments = [str(python), "-u", str(code / "scripts" / script),
                         "--project", str(root), "--code", str(code), "--report", str(report)]
                     if stage == "beijing-infer":
@@ -109,6 +109,7 @@ def main(argv=None):
         "public8-infer": "Public checkpoint evaluations complete; review per-dataset comparisons and provenance before training",
         "release-diagnose": "Fixed released-input/split diagnostic complete; inspect all controls before a reproduction decision",
         "source-inspect": "Source workbook and RAR directory inspection complete; verify experiment correspondence before reproduction claims",
+        "causality-audit": "Real-checkpoint input-dependence and zero-update gradient audit complete; keep faithful and causal training tracks distinct",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,

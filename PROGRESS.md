@@ -116,3 +116,21 @@ All actual execution details remain in HPC reports. Local verification passed
 fixtures, all-required-items success, partial resume and required failure.
 Five unrelated optional framework checks were skipped for this change.
 Shell syntax and Python compilation passed. Real source inspection is pending.
+
+## Training preparation audit ready
+
+The causality-audit stage measures a fixed forecast's dependence on later
+companion-window inputs with unchanged original weights and operations.
+Eight dataset workers are scheduled two at a time. A training-origin gradient
+probe records declared versus effective trainable parameters without updates.
+Results remain HPC evidence; no clean protocol or independent training
+reproduction follows automatically from these probes. Future training must
+separate faithful release behavior from a predeclared causal implementation.
+
+Local validation for the causality audit passed 64 unit/contract checks and
+three pinned-runtime model checks: positive/negative synthetic dependence
+controls and the original author model with synthetic weights, including a
+zero-update backward pass. Bash syntax and Python compilation also passed.
+The all-eight real-checkpoint probe remains unexecuted locally. Source archive
+scalar-output identity remains open; available RAR-reader paths are recorded
+on HPC for a possible targeted comparison.
