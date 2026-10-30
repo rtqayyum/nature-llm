@@ -101,6 +101,37 @@ class OriginalModelSmoke(unittest.TestCase):
             self.assertEqual(result["optimizer_steps"], 30)
             self.assertFalse(torch.equal(before, model.output_linear[-1].weight.detach()))
 
+    def test_epoch_trainer_with_unchanged_author_architecture(self):
+        import torch
+        from transformers import GPT2Config, GPT2Model
+        from pems08_infer import module_from
+        from reference_train import fit
+        torch.set_num_threads(2)
+        torch.manual_seed(11)
+        original = Path(os.environ["TRAFFIC_TEST_REFERENCE_SOURCE"])
+        with tempfile.TemporaryDirectory(dir=ROOT / "tmp") as directory:
+            root = Path(directory)
+            base = root / "synthetic_base"
+            GPT2Model(GPT2Config(vocab_size=32, n_positions=512, n_ctx=512, n_embd=768,
+                n_layer=6, n_head=12, n_inner=32)).save_pretrained(base, safe_serialization=True)
+            module = module_from(original / "model/LLM_UTP.py", "_epoch_train_original")
+            model = module.TrafficPredictionModel(8, 12, 64, [1, 2, 4], 12, 0, str(base), 768)
+            inputs = torch.rand(1, 16, 8, 12, 2)
+            target = torch.full((16, 8, 1), .25)
+            class Batches:
+                def __len__(self):
+                    return 2
+                def get(self, index, device):
+                    return inputs.to(device), target.to(device)
+            config = {"learning_rate": .0001, "max_epochs": 3, "patience": 100,
+                "checkpoint_batches": 50, "checkpoint_seconds": 300, "progress_batches": 1}
+            result = fit(model, Batches(), Batches(), root / "store", {"seed": 11}, config, lambda **kw: None)
+            self.assertTrue(result["training_complete"])
+            self.assertEqual(result["updates"], 6)
+            model.load_state_dict(torch.load(root / "store" / result["best"]["file"], weights_only=True), strict=True)
+            model.eval()
+            self.assertTrue(torch.isfinite(model(inputs)).all())
+
     def test_all_public_original_loader_ranges_and_targets(self):
         import gc
         import numpy as np

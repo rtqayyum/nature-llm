@@ -3,6 +3,7 @@
 import argparse
 import datetime
 import json
+import re
 from pathlib import Path
 import subprocess
 
@@ -42,12 +43,16 @@ def main():
     args = parser.parse_args()
     project = args.project.resolve()
     job_id = args.job_id or (project / "work/LAST_JOB_ID").read_text().strip()
-    if not job_id.isdigit():
+    if not re.fullmatch(r"[0-9]+(?:_[0-9]+)?", job_id):
         raise SystemExit("A numeric project Slurm job ID is required")
     job = project / "results/slurm_jobs" / job_id
     submission = json.loads((job / "submission.json").read_text())
     if Path(submission["project"]).resolve() != project or submission["job_id"] != job_id:
         raise SystemExit("Job is not recorded as belonging to this project")
+    if submission.get("stage") == "reference-train3" and "array_job_id" not in submission:
+        from training_check import summarize
+        summarize(project, job_id, submission, command)
+        return
     queue = command(["squeue", "--jobs", job_id, "--noheader", "--format=%i|%T|%R"])
     accounting = command(["sacct", "-j", job_id, "--parsable2", "--noheader",
         "--format=JobIDRaw,JobName,State,ExitCode,Elapsed,ElapsedRaw,AllocCPUS,TotalCPU,MaxRSS,Reason"])
@@ -65,7 +70,12 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "gpu-smoke":
+    if stage == "reference-train3":
+        for name in ("gpu_environment_status.json", "gpu_runtime.json", "training_progress.json", "training_result.json"):
+            path = job / "report" / name
+            if path.exists():
+                print(name + ":", json.dumps(json.loads(path.read_text()), indent=2))
+    elif stage == "gpu-smoke":
         environment = job / "report/gpu_environment_status.json"
         if environment.exists():
             print("GPU ENVIRONMENT:", json.dumps(json.loads(environment.read_text()), indent=2))
@@ -221,7 +231,9 @@ def main():
     else:
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    if stage == "gpu-smoke":
+    if stage == "reference-train3":
+        print("Training experiment status is shown above; interim losses are not held-out test results.")
+    elif stage == "gpu-smoke":
         print("Benchmark experiments completed: 0. Training smoke fits perform real updates on training batches only.")
     else:
         print("Training experiments completed: 0 (reference inference/audits do not train parameters)")

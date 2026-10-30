@@ -105,3 +105,21 @@ from the pinned base plus seeded fresh encoder/head, not target checkpoints.
 Fit a training minibatch only, save optimizer/RNG checkpoints and report
 smoke updates separately from benchmark experiments. A separate causal
 protocol remains necessary before new-method performance comparisons.
+
+
+Current authorization: skip the one-seed timing pilot and run three seeds
+(11,22,33) for independent single-domain PEMS08/Beijing reference training.
+Use reference-train3, one dataset/seed per array task, at most four active,
+one GPU/five CPUs/16 GiB per task, gpuq with a 10-day request capped by its
+observed maximum. Preserve released stage1/pretrain inputs and architecture;
+no clean/causal or exact published S3 claim. Keep test evaluation after
+validation checkpoint selection. Save live progress, losses, model/Adam/RNG
+recovery, prediction shards and per-run/aggregate reports. Serialize shared
+environment setup only, never hold its lock through concurrent training.
+All future launcher submissions read persistent work/notification_preferences.json.
+The user explicitly authorizes job-event emails to the configured address.
+Set it initially through TRAFFIC_MAIL_USER; keep the address/preferences and
+actual mail receipt status on HPC, outside version control. Request Slurm
+BEGIN/END/FAIL/REQUEUE/TIME_LIMIT and per-array-task messages. A submission
+receipt uses local sendmail/mailx/mail; report missing mail support honestly.
+Never claim delivery merely because Slurm/local mail accepted a request.

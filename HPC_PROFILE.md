@@ -207,3 +207,55 @@ LATEST.json pointer. Repeat submission to resume model, optimizer and RNG.
 Check shows real update counts separately from benchmark experiment counts.
 A failed CUDA check, nonfinite gradient or failed fixed overfit criterion
 makes the job nonzero; successful smoke fits remain subject to science review.
+
+
+## Three-seed single-domain training and notifications
+
+Stage reference-train3 submits nutp-s3-3seed with six array tasks: PEMS08
+seeds 11/22/33 then Beijing seeds 11/22/33. Maximum active tasks: four.
+Each task requests gpuq, one GPU, five CPUs, 16 GiB host RAM and up to 10 days,
+capped by observed partition MaxTime. Setup reuses .venv-reference-gpu and
+verified local data/base weights. At least 3 GiB free per starting task is
+checked; allow roughly 12 GiB free for all checkpoint stores together.
+Runtime/early stopping and scheduler availability remain to be measured.
+
+The locked protocol config is config/reference_training.json: original
+architecture/freeze policy, FP32 Adam 1e-4, inner 16/outer 1, full-array
+normalization, stage1/pretrain split route, maximum 1000 epochs, patience
+100, validation selection beginning at epoch two as in main_run.py. Only
+whole inner batches shuffle, using documented epoch-specific seeds. Lazy
+batches match the released loader without materializing every window.
+This is independent single-domain reference training; it is not an exact
+published S3 claim or a causal benchmark. Stage2/finetune cohorts are distinct.
+
+Live training_progress.json updates each ten batches and at phase changes.
+Human reports remain available while running. Full model/Adam/dropout RNG
+checkpoints save every epoch and after five minutes checked at 50-batch
+boundaries. Two most recent states and their referenced validation-best
+weights are retained. Each run locks only its own identity directory.
+Resubmission resumes compatible saved cursors/order and verifies hashes.
+Test forecasts evaluate the best validation checkpoint only after training
+finishes; prediction shards resume and verify. Test results are not used
+for checkpoint selection or hyperparameter changes.
+
+Logs: logs/nutp-s3-3seed_ARRAYID_TASK.out/.err.
+Task reports: results/slurm_jobs/ARRAYID_TASK/report/.
+Checkpoints/loss histories/test shards:
+outputs/reference_training/SLUG/seed-SEED/RUN_HASH/.
+Check ARRAYID summarizes all tasks and saves aggregate SUMMARY.md and
+TRAINING_SUMMARY.json in results/slurm_jobs/ARRAYID/report/. Partial means
+and sample standard deviations identify how many seeds actually finished.
+Check ARRAYID_TASK shows one task; squeue/sacct remain authoritative for
+TIMEOUT/CANCELLED/OOM when a process cannot write its own final status.
+Repeat the launcher submission after the old array ends to resume all
+unfinished runs; verified completed runs reuse results without fitting.
+
+Set TRAFFIC_MAIL_USER on the first launcher submission; it persists as a
+private project-local work/notification_preferences.json for every future
+launcher stage. Mail flags include BEGIN, END, FAIL, REQUEUE, INVALID_DEPEND,
+TIME_LIMIT, TIME_LIMIT_80 and ARRAY_TASKS. Slurm has no queued/submitted mail
+event: the launcher attempts a queued receipt using local sendmail/mailx/mail
+and records availability/acceptance in submission.json. Receipt acceptance
+is not delivery confirmation. Without a local mail service the queued
+receipt is unavailable; cluster-admin Slurm mail configuration controls
+scheduler-event delivery. No SMTP password or external account is required.

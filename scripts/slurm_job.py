@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 import subprocess
 import fcntl
+import re
 
 
 def stamp():
@@ -28,8 +29,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     root = args.project.resolve()
     code = contained(root, Path(os.environ["TRAFFIC_CODE_DIR"]))
-    job_id = os.environ.get("SLURM_JOB_ID", "")
-    if not job_id.isdigit():
+    job_id = os.environ.get("TRAFFIC_JOB_KEY", os.environ.get("SLURM_JOB_ID", ""))
+    if not re.fullmatch(r"[0-9]+(?:_[0-9]+)?", job_id):
         raise SystemExit("A real Slurm job ID is required; use sbatch, not bash Batch")
     job = root / "results" / "slurm_jobs" / job_id
     report = job / "report"
@@ -43,8 +44,24 @@ def main(argv=None):
         workers.mkdir(parents=True, exist_ok=True)
         os.environ["TRAFFIC_WORKER_LOG_DIR"] = str(workers)
         (job / "started.json").write_text(json.dumps({"started_utc": stamp(), "job_id": job_id,
+             "actual_slurm_job_id": os.environ["SLURM_JOB_ID"],
              "code": str(code), "work": str(work), "report": str(report)}, indent=2))
-        if stage == "pems08-audit":
+        if stage == "reference-train3":
+            # Only environment preparation is serialized. Training tasks must
+            # not hold the global acquisition/environment lock while fitting.
+            try:
+                from reference_env import ensure
+                with (work / "acquisition.lock").open("a") as lock:
+                    fcntl.flock(lock, fcntl.LOCK_EX)
+                    python = ensure(root, code, report, flavor="gpu")
+                result = subprocess.call([str(python), "-u", str(code / "scripts/reference_train.py"),
+                    "--project", str(root), "--code", str(code), "--report", str(report)])
+            except Exception as exc:
+                result = 2
+                (report / "training_progress.json").write_text(json.dumps({"phase": "FAILED", "error": str(exc)}, indent=2))
+                (report / "SUMMARY.md").write_text("# Training setup failed\n\n" + str(exc) + "\n")
+                print("TRAINING_SETUP_FAILED:", str(exc), flush=True)
+        elif stage == "pems08-audit":
             python = root / ".venv/bin/python"
             if not python.exists():
                 raise SystemExit("Project .venv is missing; complete acquisition setup before this preflight")
@@ -111,6 +128,7 @@ def main(argv=None):
         "source-inspect": "Source workbook and RAR directory inspection complete; verify experiment correspondence before reproduction claims",
         "causality-audit": "Real-checkpoint input-dependence and zero-update gradient audit complete; keep faithful and causal training tracks distinct",
         "gpu-smoke": "Independent training-batch smoke complete; no causal baseline or benchmark training result is established",
+        "reference-train3": "Independent single-domain training complete; inspect held-out metrics and protocol limitations",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,
@@ -118,6 +136,13 @@ def main(argv=None):
               "training_experiments_completed": 0,
               "reason": review_reasons.get(stage, "Scientific review required") if state == "COMPLETED_WITH_REVIEW" else
                         "Inspect Slurm accounting, stderr and report/" if state == "FAILED" else "Stage completed"}
+    if stage == "reference-train3":
+        path = report / "training_progress.json"
+        progress = json.loads(path.read_text()) if path.exists() else {}
+        status.update(training_experiments_completed=int((report / "training_result.json").exists()),
+            training_performed=progress.get("new_optimizer_steps", 0) > 0,
+            training_optimizer_steps=progress.get("optimizer_steps", 0),
+            new_optimizer_steps=progress.get("new_optimizer_steps", 0))
     if stage == "gpu-smoke":
         progress_path = report / "gpu_smoke_progress.json"
         smoke = json.loads(progress_path.read_text()) if progress_path.exists() else {}

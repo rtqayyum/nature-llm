@@ -1,0 +1,19 @@
+{
+  "protocol": "released-single-domain-stage1-pretrain-v1",
+  "datasets": ["pems08", "bj"],
+  "seeds": [11, 22, 33],
+  "max_concurrent_tasks": 4,
+  "max_epochs": 1000,
+  "patience": 100,
+  "learning_rate": 0.0001,
+  "checkpoint_batches": 50,
+  "checkpoint_seconds": 300,
+  "progress_batches": 10,
+  "inner_batch": 16,
+  "outer_batch": 1,
+  "array": "stage1",
+  "route": "pretrain",
+  "precision": "float32",
+  "selection": "lowest validation MSE; early stopping begins after epoch 1, as in main_run.py",
+  "interpretation": "Independent single-domain reference training; exact published S3 settings unresolved; retains released scaling and cross-window dependence"
+}

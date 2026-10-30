@@ -12,6 +12,11 @@
 set -euo pipefail
 ROOT=/home/tariq.qayyum/nature-llm
 mkdir -p "$ROOT"/{logs,results,outputs,figures,tmp,.cache,.config,.local,work}
+TRAFFIC_JOB_KEY="$SLURM_JOB_ID"
+if [[ -n "${SLURM_ARRAY_JOB_ID:-}" ]]; then
+    TRAFFIC_JOB_KEY="${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}"
+fi
+export TRAFFIC_JOB_KEY
 export TRAFFIC_PROJECT_ROOT="$ROOT"
 export TRAFFIC_WORK_ROOT="$ROOT/work"
 export TRAFFIC_ENV_DIR="$ROOT/.venv"
@@ -70,7 +75,7 @@ module load anaconda3
 unset PYTHONPATH
 BASE_PYTHON=''
 MAX_PYTHON_MINOR=12
-if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer || "${TRAFFIC_STAGE:-acquire}" == beijing-infer || "${TRAFFIC_STAGE:-acquire}" == public8-infer || "${TRAFFIC_STAGE:-acquire}" == release-diagnose || "${TRAFFIC_STAGE:-acquire}" == causality-audit || "${TRAFFIC_STAGE:-acquire}" == gpu-smoke ]]; then
+if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer || "${TRAFFIC_STAGE:-acquire}" == beijing-infer || "${TRAFFIC_STAGE:-acquire}" == public8-infer || "${TRAFFIC_STAGE:-acquire}" == release-diagnose || "${TRAFFIC_STAGE:-acquire}" == causality-audit || "${TRAFFIC_STAGE:-acquire}" == gpu-smoke || "${TRAFFIC_STAGE:-acquire}" == reference-train3 ]]; then
     MAX_PYTHON_MINOR=11
     export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"
@@ -88,8 +93,8 @@ srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" "$BASE_PYTHON" -u \
   "$TRAFFIC_CODE_DIR/scripts/slurm_job.py" run --project "$ROOT"
 PIPELINE_EXIT=$?
 set -e
-if [[ "$PIPELINE_EXIT" == 0 && -f "$ROOT/results/slurm_jobs/$SLURM_JOB_ID/pipeline_result.json" ]]; then
-    PIPELINE_EXIT="$($STATUS_PYTHON -c 'import json,sys; print(json.load(open(sys.argv[1]))["pipeline_exit_code"])' "$ROOT/results/slurm_jobs/$SLURM_JOB_ID/pipeline_result.json")"
+if [[ "$PIPELINE_EXIT" == 0 && -f "$ROOT/results/slurm_jobs/$TRAFFIC_JOB_KEY/pipeline_result.json" ]]; then
+    PIPELINE_EXIT="$($STATUS_PYTHON -c 'import json,sys; print(json.load(open(sys.argv[1]))["pipeline_exit_code"])' "$ROOT/results/slurm_jobs/$TRAFFIC_JOB_KEY/pipeline_result.json")"
 fi
 if [[ "$PIPELINE_EXIT" == 3 ]]; then
     echo "STAGE_COMPLETE_REVIEW_REQUIRED: stage=${TRAFFIC_STAGE:-acquire}; inspect the scientific report."

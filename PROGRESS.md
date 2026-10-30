@@ -154,3 +154,29 @@ focused CPU framework checks for original-architecture synthetic fitting and
 exact optimizer/dropout-RNG recovery. Bash syntax, compilation and source
 containment checks passed. CUDA execution and real-data smoke loss reduction
 remain unverified until the GPU job runs.
+
+
+## Three-seed reference training prepared
+
+The single-seed timing pilot is skipped at the researcher's request.
+reference-train3 now defines six isolated dataset/seed tasks on the two
+planned public pilot domains. It saves live phase/batch/epoch reports,
+validation losses, retained strict model/optimizer/RNG checkpoints and
+validation-selected held-out forecast shards. Array concurrency is four,
+with five CPUs and one GPU per task. Full-array normalization and known
+cross-window dependence remain explicitly labeled released behavior.
+
+A project-local notification preference applies to every subsequent
+launcher stage. Slurm lifecycle mail and separate best-effort queued
+receipts record their configuration/acceptance without asserting delivery.
+Actual experiment evidence and email configuration remain outside GitHub.
+Local synthetic resume, loader and scheduler checks do not establish CUDA
+training convergence, cluster mail delivery or published S3 equivalence.
+
+
+Validation: 72 ordinary checks passed (85 discovered, 13 optional checks
+skipped in the default runtime). Four focused pinned-Torch CPU checks passed:
+released-loader batch equivalence, exact mid-epoch optimizer/dropout recovery,
+validation-only patience selection, and multi-epoch fitting with the unchanged
+author architecture and synthetic base/data. Bash syntax, Python compilation
+and diff checks passed. Full CUDA training and HPC mail delivery are unverified.

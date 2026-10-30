@@ -5,12 +5,71 @@ through GitHub; all datasets, weights, environments, caches and experiment
 outputs remain on the HPC under /home/tariq.qayyum/nature-llm/.
 No Mac dataset upload or Git executable on the HPC is required.
 
-A first public checkpoint evaluation has been completed by the researcher.
-The next authorized step is evaluating all eight public targets together.
-Training strategy, timestamp provenance and independent retraining remain
-separate scientific checks. Execution results stay on the HPC.
+Public checkpoint evaluation and diagnostic stages precede independent
+reference training. Training strategy, timestamp provenance and causal
+evaluation remain separate scientific checks. Execution results stay on HPC.
 
-## Next: independent GPU training-batch smoke
+## Current: three-seed single-domain reference training
+
+Set the authorized notification address on the HPC once, then submit:
+
+```bash
+module load slurm
+export TRAFFIC_MAIL_USER=YOUR_EMAIL_ADDRESS
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage reference-train3 --submit
+bash /home/tariq.qayyum/nature-llm/Check
+```
+
+This skips the one-seed pilot and submits six array tasks: PEMS08 and Beijing,
+three seeds each (11,22,33), with at most four active. Each requests **one GPU,
+five CPUs, 16 GiB RAM and up to 10 days**, capped by gpuq's observed maximum.
+Existing data/base weights and the GPU environment are reused. This trains
+the released model independently; it does not test our proposed new method.
+
+The explicit released-behavior protocol uses stage1/pretrain ranges, Adam
+1e-4, FP32, up to 1000 epochs and patience 100. Whole contiguous 16-window
+batches shuffle; their internal grouping remains unchanged. Original
+full-array scaling, implicit softmax and constructor freeze policy remain.
+The original training strategy/seeds are unresolved, so no exact published
+S3 or causal-baseline claim follows. Test evaluation waits until training
+finishes and uses only the best validation model, selected from epoch two.
+
+Progress updates every ten batches; epoch loss history is saved as CSV/JSON.
+Full optimizer/RNG checkpoints save each epoch and periodically after five
+minutes at 50-batch boundaries. Two recent states plus referenced best weights
+are retained; allow roughly 12 GiB free for all six checkpoint stores.
+Reuse the same submission command after timeout/failure: compatible states
+resume, while verified completed experiments reuse their results.
+
+Check shows all six tasks, live losses/updates, scheduler failures, CPU/memory
+statistics, recent logs and final metrics when available. It refreshes the
+aggregate human/machine reports at results/slurm_jobs/ARRAYID/report/
+SUMMARY.md and TRAINING_SUMMARY.json. Per-task reports use ARRAYID_TASK.
+Each run's checkpoints, loss history and forecasts live under
+outputs/reference_training/SLUG/seed-SEED/RUN_HASH/.
+Logs use logs/nutp-s3-3seed_ARRAYID_TASK.out and .err.
+
+The email address persists privately in work/notification_preferences.json
+for **every future launcher submission**, including CPU stages. Slurm is
+asked for per-task begin/end/failure/requeue/dependency/time-limit messages.
+A separate queued receipt uses local sendmail/mailx/mail if available; its
+acceptance/failure is printed and recorded. Slurm has no queued-mail event,
+and actual delivery depends on the HPC mail configuration. No delivery is
+claimed until verified by the recipient.
+
+To check repeatedly and inspect failures:
+
+```bash
+watch -n 30 bash /home/tariq.qayyum/nature-llm/Check
+squeue -u tariq.qayyum
+J=$(cat /home/tariq.qayyum/nature-llm/work/LAST_JOB_ID)
+sacct -j "$J" --format=JobID,JobName,State,ExitCode,Elapsed,MaxRSS,AllocTRES%30
+tail -n 30 /home/tariq.qayyum/nature-llm/logs/nutp-s3-3seed_"${J}"_*.err
+```
+
+## Earlier: independent GPU training-batch smoke
 
 Refresh the launcher from a reviewed commit, then submit:
 

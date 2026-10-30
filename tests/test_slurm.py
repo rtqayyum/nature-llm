@@ -120,6 +120,24 @@ class SlurmTests(unittest.TestCase):
         self.assertIn("--gres=gpu:1", call.args[0])
         self.assertIn("--job-name=nutp-s3-gpu-smoke", call.args[0])
 
+    def test_training_array_records_six_tasks_and_persistent_email_flags(self):
+        (self.code / "config").mkdir()
+        (self.code / "config/reference_training.json").write_bytes((ROOT / "config/reference_training.json").read_bytes())
+        with mock.patch.dict(os.environ, {"TRAFFIC_MAIL_USER": "researcher@example.org"}), \
+             mock.patch("job_notifications.queued_receipt", return_value={"state": "UNAVAILABLE"}):
+            _, execute = self.submit_fixture("reference-train3")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["partition"], record["cpus"], record["gpus"]), ("gpuq", 5, 1))
+        self.assertEqual(len(record["array_tasks"]), 6)
+        call = next(call for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertIn("--array=0-5%4", call.args[0])
+        self.assertIn("--mail-user=researcher@example.org", call.args[0])
+        self.assertTrue(any(value.startswith("--mail-type=") and "FAIL" in value and "ARRAY_TASKS" in value for value in call.args[0]))
+        task = json.loads((self.project / "results/slurm_jobs/73001_5/submission.json").read_text())
+        self.assertEqual((task["dataset"], task["seed"], task["array_job_id"]), ("bj", 33, "73001"))
+        from job_notifications import preferences
+        self.assertEqual(preferences(self.project)["mail_user"], "researcher@example.org")
+
     def test_gpu_smoke_final_status_counts_real_updates_separately_from_benchmarks(self):
         directory = self.project / "results/slurm_jobs/73001/report"
         directory.mkdir(parents=True)
@@ -134,6 +152,22 @@ class SlurmTests(unittest.TestCase):
         self.assertEqual(status["new_training_smoke_optimizer_steps"], 22)
         self.assertTrue(status["training_performed"])
         self.assertEqual(status["benchmark_experiments_completed"], 0)
+
+    def test_training_worker_releases_shared_lock_and_uses_its_array_task_directory(self):
+        import fcntl
+        self.project.joinpath("work").mkdir(exist_ok=True)
+        def train(arguments):
+            self.assertTrue(any(value.endswith("/reference_train.py") for value in arguments))
+            with (self.project / "work/acquisition.lock").open("a") as lock:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            return 3
+        with mock.patch.dict(os.environ, {"TRAFFIC_CODE_DIR": str(self.code), "TRAFFIC_JOB_KEY": "73001_2",
+                "SLURM_JOB_ID": "73099", "TRAFFIC_STAGE": "reference-train3"}), \
+             mock.patch("reference_env.ensure", return_value=self.project / ".venv-reference-gpu/bin/python"), \
+             mock.patch.object(job.subprocess, "call", side_effect=train):
+            self.assertEqual(job.main(["run", "--project", str(self.project)]), 0)
+        path = self.project / "results/slurm_jobs/73001_2/pipeline_result.json"
+        self.assertEqual(json.loads(path.read_text())["pipeline_exit_code"], 3)
 
     def test_custom_entrypoint_is_never_overwritten(self):
         (self.project / "Batch").write_text("user content\n")
