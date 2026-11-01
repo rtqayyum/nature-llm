@@ -1,5 +1,23 @@
 # Research execution progress
 
+## Shared-data preflight passed on the HPC
+
+User-supplied accounting and project reports confirm job 612029, ectt-data-check,
+completed with exit 0:0 in nine seconds using five CPUs and no GPU. All eight
+canonical stage-two channel-zero datasets passed the numerical contract;
+there were zero failed domains and no canonical raw duplicate groups. The
+35-family registry and origin/access ledgers were written. This is real HPC
+evidence reported by the user, not a direct remote inspection.
+
+The validated study identity is
+d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2.
+No inference or training ran. Raw sensor provenance and absolute timestamps
+remain unverified. The next stage is ectt-stat-check: five CPUs, zero GPUs,
+30 minutes capped by the observed queue limit. It tests synthetic streams;
+independent S01 review and benchmark training remain pending. The subsequent
+engineering GPU pilot requests one GPU and five CPUs. Only one study job may
+be active. This evidence update does not alter the validated study identity.
+
 ## Sequential ECTT admission implemented
 
 The user authorizes staged implementation/execution with one GPU and five

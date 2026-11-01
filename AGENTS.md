@@ -202,3 +202,10 @@ complete. Use the new shared-stage identities; do not relabel causal-train3.
 Notifications are required for study submissions. GitHub publication is
 authorized. Direct HPC SSH currently has no route; provide exact download,
 submission, check/report and recovery commands without inventing job IDs.
+
+User-reported HPC evidence now confirms ectt-preflight job 612029 completed
+0:0 in nine seconds: 8/8 domains validated, zero failures, no canonical raw
+duplicates. Study identity d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2
+must remain usable. Next is ectt-stat-check (five CPUs, no GPU), then the
+one-GPU/five-CPU engineering pilot. Do not repeat data acquisition or call
+numerical admission a complete provenance, causality or benchmark validation.
