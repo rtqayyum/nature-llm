@@ -70,7 +70,30 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "reference-train3":
+    if stage == "baseline-rescore":
+        path = job / "report/rescore_progress.json"
+        item = json.loads(path.read_text()) if path.exists() else {}
+        print("BASELINE RESCORE phase=%s completed=%s/%s failed=%s" %
+            (item.get("phase", "QUEUED_OR_SETUP"), item.get("completed_tasks", 0), item.get("total_tasks", "?"), item.get("failed_tasks", 0)))
+        for key, row in item.get("tasks", {}).items():
+            print("RESCORE TASK", key, row.get("phase"), "batches=%s/%s" %
+                (row.get("completed_batches", 0), row.get("total_batches", "?")), row.get("error", ""))
+            if row.get("traceback"):
+                path = Path(row["traceback"])
+                path.resolve().relative_to(project)
+                print("FAILURE TRACEBACK:", path)
+                if path.exists():
+                    print("\n".join(path.read_text().splitlines()[-10:]))
+        path = job / "report/rescore_summary.json"
+        if path.exists():
+            result = json.loads(path.read_text())
+            for row in result.get("tasks", []):
+                print("RESCORED", row["source_task"], "minimum=", row["minimum"], "maximum=", row["maximum"],
+                    "legacy=", json.dumps(row["legacy_metrics"]["author"]), "corrected=", json.dumps(row["corrected_metrics"]["author"]))
+            print("RESCORE AGGREGATES:", json.dumps(result.get("aggregates", {}), indent=2))
+            if result.get("error"):
+                print("RESCORE ERROR:", result["error"])
+    elif stage == "reference-train3":
         for name in ("gpu_environment_status.json", "gpu_runtime.json", "training_progress.json", "training_result.json"):
             path = job / "report" / name
             if path.exists():
@@ -231,7 +254,9 @@ def main():
     else:
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    if stage == "reference-train3":
+    if stage == "baseline-rescore":
+        print("No new training or inference: existing saved normalized forecasts were rescored; original runs preserved.")
+    elif stage == "reference-train3":
         print("Training experiment status is shown above; interim losses are not held-out test results.")
     elif stage == "gpu-smoke":
         print("Benchmark experiments completed: 0. Training smoke fits perform real updates on training batches only.")

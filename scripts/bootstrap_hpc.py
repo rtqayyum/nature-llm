@@ -144,11 +144,16 @@ def main(argv=None):
     parser.add_argument("--project", type=Path, default=Path(default_project))
     parser.add_argument("--sync-only", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore"], default="acquire")
     parser.add_argument("--submit", action="store_true", help="Prepare Batch and submit acquisition to Slurm")
     parser.add_argument("--interactive", action="store_true", help="Explicit small development/debug run outside Slurm")
     parser.add_argument("--handoff", action="store_true", help="Pause only a validated unmanaged project downloader before submission")
+    parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     args = parser.parse_args(argv)
+    if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
+        parser.error("baseline-rescore requires --source-array with a numeric project training array ID")
+    if args.source_array and args.stage != "baseline-rescore":
+        parser.error("--source-array is only valid with baseline-rescore")
     if args.interactive and args.submit:
         raise ValueError("Choose --submit or --interactive")
     if not args.sync_only and not args.interactive:
@@ -179,6 +184,8 @@ def main(argv=None):
         return 0
     if args.submit:
         command = [sys.executable, str(snapshot / "scripts/slurm_submit.py"), "--project", str(project), "--code", str(snapshot), "--stage", args.stage]
+        if args.source_array:
+            command += ["--source-array", args.source_array]
         if args.handoff:
             command.append("--handoff")
         if args.audit_only:

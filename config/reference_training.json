@@ -14,6 +14,7 @@
   "array": "stage1",
   "route": "pretrain",
   "precision": "float32",
+  "inverse_transform": "TRAINING_MINMAX_AFFINE_V1",
   "selection": "lowest validation MSE; early stopping begins after epoch 1, as in main_run.py",
   "interpretation": "Independent single-domain reference training; exact published S3 settings unresolved; retains released scaling and cross-window dependence"
 }

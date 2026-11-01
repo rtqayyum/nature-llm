@@ -88,7 +88,7 @@ def main(argv=None):
                     (report / "source_inspection.json").write_text(json.dumps({"execution_status": "FAILED", "error": str(exc), "items": {}}, indent=2))
                     (report / "SUMMARY.md").write_text("# Source inspection setup failed\n\n" + str(exc) + "\n")
                     print("SOURCE_SETUP_FAILED:", str(exc), flush=True)
-        elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "causality-audit", "gpu-smoke"):
+        elif stage in ("pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "causality-audit", "gpu-smoke", "baseline-rescore"):
             with (work / "acquisition.lock").open("a") as lock:
                 try:
                     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -97,9 +97,11 @@ def main(argv=None):
                 try:
                     from reference_env import ensure
                     python = ensure(root, code, report, flavor="gpu" if stage == "gpu-smoke" else "cpu")
-                    script = {"public8-infer": "public8_infer.py", "release-diagnose": "release_diagnose.py", "causality-audit": "causality_audit.py", "gpu-smoke": "gpu_smoke.py"}.get(stage, "pems08_infer.py")
+                    script = {"public8-infer": "public8_infer.py", "release-diagnose": "release_diagnose.py", "causality-audit": "causality_audit.py", "gpu-smoke": "gpu_smoke.py", "baseline-rescore": "baseline_rescore.py"}.get(stage, "pems08_infer.py")
                     arguments = [str(python), "-u", str(code / "scripts" / script),
                         "--project", str(root), "--code", str(code), "--report", str(report)]
+                    if stage == "baseline-rescore":
+                        arguments += ["--source-array", os.environ.get("TRAFFIC_SOURCE_ARRAY", "")]
                     if stage == "beijing-infer":
                         arguments += ["--dataset", "bj", "--preflight"]
                     result = subprocess.call(arguments)
@@ -129,6 +131,7 @@ def main(argv=None):
         "causality-audit": "Real-checkpoint input-dependence and zero-update gradient audit complete; keep faithful and causal training tracks distinct",
         "gpu-smoke": "Independent training-batch smoke complete; no causal baseline or benchmark training result is established",
         "reference-train3": "Independent single-domain training complete; inspect held-out metrics and protocol limitations",
+        "baseline-rescore": "Saved baseline forecasts rescored with verified min-max inverse; causal protocol and exact S3 reproduction remain unresolved",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
               "shell_exit_code": args.shell_exit, "pipeline_exit_code": args.raw_exit,
@@ -143,6 +146,11 @@ def main(argv=None):
             training_performed=progress.get("new_optimizer_steps", 0) > 0,
             training_optimizer_steps=progress.get("optimizer_steps", 0),
             new_optimizer_steps=progress.get("new_optimizer_steps", 0))
+    if stage == "baseline-rescore":
+        path = report / "rescore_progress.json"
+        progress = json.loads(path.read_text()) if path.exists() else {}
+        status.update(rescored_experiments_completed=progress.get("completed_tasks", 0),
+            rescored_experiments_failed=progress.get("failed_tasks", 0), training_performed=False, model_inference_performed=False)
     if stage == "gpu-smoke":
         progress_path = report / "gpu_smoke_progress.json"
         smoke = json.loads(progress_path.read_text()) if progress_path.exists() else {}

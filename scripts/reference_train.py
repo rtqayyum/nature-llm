@@ -18,7 +18,7 @@ from acquire import atomic_json, prepare_reference, verify
 from pems08_audit import derive_splits, literal_assignment, write_origins
 from pems08_infer import module_from
 from reference_contract import (anchor_comparison, file_sha, independent_metrics,
-                                load_batch, save_batch)
+                                load_batch, save_batch, inverse_minmax)
 from reference_datasets import PROFILES
 
 
@@ -305,7 +305,7 @@ def run(project, code, report):
             forecasts = store / "test_predictions"
             forecasts.mkdir(exist_ok=True)
             scale = registry[task["dataset"]]["finetune"]["max_inflow"]
-            truth_list, prediction_list = [], []
+            truth_list, prediction_list, normalized_list = [], [], []
             with torch.no_grad():
                 for index in range(len(batches["test"])):
                     start = splits["test"]["start_target_index"] + index * 16
@@ -319,16 +319,30 @@ def run(project, code, report):
                         shard = load_batch(forecasts, index, targets, truth, scale)
                     truth_list.append(shard["truth"])
                     prediction_list.append(shard["predictions"])
+                    normalized_list.append(shard["normalized_predictions"])
                     if (index + 1) % 10 == 0 or index + 1 == len(batches["test"]):
                         update(phase="TESTING_SELECTED_CHECKPOINT", test_batches_completed=index + 1)
-            truth, prediction = np.concatenate(truth_list), np.concatenate(prediction_list)
+            truth, legacy_prediction = np.concatenate(truth_list), np.concatenate(prediction_list)
+            normalized_prediction = np.concatenate(normalized_list)
+            prediction = inverse_minmax(normalized_prediction, lower, upper)
+            # Historical max-only shards remain a separately labeled diagnostic.
+            # This canonical export contains the correct physical-unit forecasts.
+            from reference_contract import atomic_npz
+            atomic_npz(store / "test_forecasts.npz", truth=truth, predictions=prediction,
+                normalized_predictions=normalized_prediction,
+                target_indices=np.arange(splits["test"]["start_target_index"], splits["test"]["scored_end_target_index_exclusive"]))
             metrics = module_from(repo / "utils/metrics.py", "_train_author_metrics")
             rmse, r2, mae, wmape = metrics.Metrics(truth, prediction).evaluate_performance()
             measured = {"MAE": float(mae), "RMSE": float(rmse), "WMAPE_percent": float(wmape) * 100, "R2": float(r2)}
             independent = independent_metrics(truth, prediction)
             if not all(np.isclose(measured[key], value, rtol=1e-5, atol=1e-6) for key, value in independent.items()):
                 raise ValueError("Author and independent metrics disagree")
-            result = {**task, "execution_status": "COMPLETED_WITH_REVIEW", "scientific_status": "REPRODUCTION_NOT_ESTABLISHED",
+            legacy_rmse, legacy_r2, legacy_mae, legacy_wmape = metrics.Metrics(truth, legacy_prediction).evaluate_performance()
+            result = {**task, "inverse_transform": "TRAINING_MINMAX_AFFINE_V1",
+                "forecasts": str(store / "test_forecasts.npz"), "prediction_shards_transform": "LEGACY_MAX_ONLY_DIAGNOSTIC",
+                "legacy_metrics_author": {"MAE": float(legacy_mae), "RMSE": float(legacy_rmse),
+                    "WMAPE_percent": float(legacy_wmape) * 100, "R2": float(legacy_r2)},
+                "execution_status": "COMPLETED_WITH_REVIEW", "scientific_status": "REPRODUCTION_NOT_ESTABLISHED",
                 "epochs": state["epoch"], "optimizer_steps": state["updates"], "best": best,
                 "stop_reason": "patience" if state["bad_epochs"] >= config["patience"] else "max_epochs",
                 "metrics_author": measured, "metrics_independent": independent, "output_store": str(store),

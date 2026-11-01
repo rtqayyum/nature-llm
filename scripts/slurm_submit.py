@@ -21,7 +21,7 @@ ROOT = Path("/home/tariq.qayyum/nature-llm")
 
 def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
-    preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit")
+    preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore")
     desired = 10 * 86400 if stage == "reference-train3" else 2 * 3600 if stage == "gpu-smoke" else 1800 if preflight else 23 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
@@ -125,8 +125,13 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore"], default="acquire")
+    parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     args = parser.parse_args(argv)
+    if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
+        parser.error("baseline-rescore requires --source-array with a numeric project training array ID")
+    if args.source_array and args.stage != "baseline-rescore":
+        parser.error("--source-array is only valid with baseline-rescore")
     project, code = args.project.resolve(), args.code.resolve()
     prepare(project, code)
     if not shutil.which("sbatch"):
@@ -166,11 +171,13 @@ def main(argv=None):
                     "source-inspect": ("nutp-source-inspect", 1, "4G"),
                     "causality-audit": ("nutp-causal-audit", 4, "16G"),
                     "gpu-smoke": ("nutp-s3-gpu-smoke", 20, "16G"),
-                    "reference-train3": ("nutp-s3-3seed", 5, "16G")}
+                    "reference-train3": ("nutp-s3-3seed", 5, "16G"),
+                    "baseline-rescore": ("nutp-baseline-fix", 2, "8G")}
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),
-               "TRAFFIC_AUDIT_ONLY": "1" if args.audit_only else "0", "TRAFFIC_STAGE": args.stage}
+               "TRAFFIC_AUDIT_ONLY": "1" if args.audit_only else "0", "TRAFFIC_STAGE": args.stage,
+               "TRAFFIC_SOURCE_ARRAY": args.source_array or ""}
         command = ["sbatch", "--parsable", "--job-name=" + job_name, "--partition=" + partition,
             "--cpus-per-task=" + str(cpus), "--mem=" + memory, "--time=" + request_time, "--export=ALL", str(project / "Batch")]
         if args.stage in GPU_STAGES:
@@ -196,6 +203,8 @@ def main(argv=None):
         submission = {"project": str(project), "job_id": job_id, "job_name": job_name, "stage": args.stage, "code": str(code),
             "submitted_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(), "partition": partition, "cpus": cpus,
             "gpus": 1 if args.stage in GPU_STAGES else 0, "time_limit": request_time, "partition_evidence": partition_evidence, "command": command}
+        if args.source_array:
+            submission["source_array"] = args.source_array
         if tasks:
             submission["array_tasks"] = tasks
             submission["max_concurrent_tasks"] = config["max_concurrent_tasks"]

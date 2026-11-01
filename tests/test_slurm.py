@@ -33,10 +33,13 @@ class SlurmTests(unittest.TestCase):
             return subprocess.CompletedProcess(args, 0, "PENDING\n", "")
         raise AssertionError(args)
 
-    def submit_fixture(self, stage="acquire"):
+    def submit_fixture(self, stage="acquire", source_array=None):
         with mock.patch.object(submit, "ROOT", self.project), mock.patch.object(submit.shutil, "which", return_value="/fake/sbatch"), \
              mock.patch.object(submit.subprocess, "run", side_effect=self.fake_slurm) as execute:
-            result = submit.main(["--project", str(self.project), "--code", str(self.code), "--stage", stage])
+            arguments = ["--project", str(self.project), "--code", str(self.code), "--stage", stage]
+            if source_array:
+                arguments += ["--source-array", source_array]
+            result = submit.main(arguments)
         return result, execute
 
     def test_submit_caps_walltime_and_records_synthetic_job(self):
@@ -138,6 +141,20 @@ class SlurmTests(unittest.TestCase):
         from job_notifications import preferences
         self.assertEqual(preferences(self.project)["mail_user"], "researcher@example.org")
 
+    def test_baseline_correction_requests_a_small_cpu_job_with_explicit_source_array(self):
+        _, execute = self.submit_fixture("baseline-rescore", "70000")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["partition"], record["cpus"], record["gpus"], record["time_limit"]), ("shortq", 2, 0, "00:30:00"))
+        self.assertEqual(record["source_array"], "70000")
+        call = next(call for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertEqual(call.kwargs["env"]["TRAFFIC_SOURCE_ARRAY"], "70000")
+        self.assertFalse(any(value.startswith("--gres") or value.startswith("--array") for value in call.args[0]))
+
+    def test_baseline_rescore_requires_a_source_array_before_any_submission(self):
+        with self.assertRaises(SystemExit), mock.patch.object(submit.subprocess, "run") as execute:
+            submit.main(["--project", str(self.project), "--code", str(self.code), "--stage", "baseline-rescore"])
+        execute.assert_not_called()
+
     def test_gpu_smoke_final_status_counts_real_updates_separately_from_benchmarks(self):
         directory = self.project / "results/slurm_jobs/73001/report"
         directory.mkdir(parents=True)
@@ -168,6 +185,26 @@ class SlurmTests(unittest.TestCase):
             self.assertEqual(job.main(["run", "--project", str(self.project)]), 0)
         path = self.project / "results/slurm_jobs/73001_2/pipeline_result.json"
         self.assertEqual(json.loads(path.read_text())["pipeline_exit_code"], 3)
+
+    def test_rescore_worker_uses_cpu_environment_and_reports_no_training_or_inference(self):
+        (self.project / "work").mkdir(exist_ok=True)
+        report = self.project / "results/slurm_jobs/73001/report"
+        def rescore(arguments):
+            self.assertTrue(any(value.endswith("/baseline_rescore.py") for value in arguments))
+            self.assertEqual(arguments[-2:], ["--source-array", "70000"])
+            (report / "rescore_progress.json").write_text(json.dumps({"completed_tasks": 6, "failed_tasks": 0}))
+            return 3
+        with mock.patch.dict(os.environ, {"TRAFFIC_CODE_DIR": str(self.code), "SLURM_JOB_ID": "73001",
+                "TRAFFIC_STAGE": "baseline-rescore", "TRAFFIC_SOURCE_ARRAY": "70000"}), \
+             mock.patch("reference_env.ensure", return_value=self.project / ".venv-reference-cpu/bin/python") as ensure, \
+             mock.patch.object(job.subprocess, "call", side_effect=rescore):
+            self.assertEqual(job.main(["run", "--project", str(self.project)]), 0)
+            self.assertEqual(ensure.call_args.kwargs["flavor"], "cpu")
+            job.main(["finalize", "--project", str(self.project), "--raw-exit", "3", "--shell-exit", "0"])
+        status = json.loads((report.parent / "job_status.json").read_text())
+        self.assertEqual(status["rescored_experiments_completed"], 6)
+        self.assertFalse(status["training_performed"])
+        self.assertFalse(status["model_inference_performed"])
 
     def test_custom_entrypoint_is_never_overwritten(self):
         (self.project / "Batch").write_text("user content\n")

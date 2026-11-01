@@ -180,3 +180,30 @@ released-loader batch equivalence, exact mid-epoch optimizer/dropout recovery,
 validation-only patience selection, and multi-epoch fitting with the unchanged
 author architecture and synthetic base/data. Bash syntax, Python compilation
 and diff checks passed. Full CUDA training and HPC mail delivery are unverified.
+
+
+## Baseline inverse-scaling correction prepared
+
+The historical single-domain evaluator reused the released stage-two
+max-only inverse for full-array min-max normalized training data. Those
+expressions are equal only for a zero minimum with matching maximum.
+A negative minimum requires the complete affine inverse. Historical outputs
+are retained, and baseline-rescore defines a hash-verified CPU-only replay
+and correction of saved normalized forecasts without retraining or inference.
+Future reference_train results use the corrected inverse and explicit primary
+forecast export; faithful released-checkpoint inverse_author stays unchanged.
+
+Correction tests cover negative/zero/positive minima, invalid scalers,
+clipping, all-task source preservation, derived-shard recovery, corrupted
+normalized forecasts and incorrect raw truth despite a rewritten checksum.
+Runtime evidence/results remain on HPC. Scaling correction alone does not
+establish a causal baseline or resolve exact published training settings.
+
+
+Validation: 80 ordinary checks passed (93 discovered, 13 optional checks
+skipped by the default runtime). Five rescore checks also passed with the
+verified original author metric source under the pinned CPU environment.
+Focused training/resume/early-stop/loader and unchanged-architecture epoch
+checks passed. Bash syntax, Python compilation and diff checks passed.
+No actual saved HPC forecasts were available locally; real correction scores
+remain unverified until baseline-rescore executes on the cluster.

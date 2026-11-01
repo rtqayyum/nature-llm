@@ -28,6 +28,22 @@ def inverse_author(normalized, scale):
     return np.maximum(result, np.float32(0))
 
 
+def inverse_minmax(normalized, minimum, maximum):
+    """Invert the recorded training scaler, then preserve nonnegative clipping.
+
+    Keep inverse_author unchanged: it describes the released stage-two rule
+    and remains necessary for faithful checkpoint and historical comparisons.
+    """
+    minimum, maximum = float(minimum), float(maximum)
+    values = np.asarray(normalized, dtype="float32")
+    if not np.isfinite([minimum, maximum]).all() or maximum <= minimum or not np.isfinite(values).all():
+        raise ValueError("Invalid min-max scaler or nonfinite normalized predictions")
+    result = values * np.float32(maximum - minimum) + np.float32(minimum)
+    if not np.isfinite(result).all():
+        raise ValueError("Inverse scaling produced nonfinite predictions")
+    return np.maximum(result, np.float32(0))
+
+
 def anchor_comparison(measured, anchors=None):
     return {strategy: {"published": values,
         "absolute_differences": {name: float(abs(measured[name] - value)) for name, value in values.items()},

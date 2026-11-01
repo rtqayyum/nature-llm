@@ -9,7 +9,53 @@ Public checkpoint evaluation and diagnostic stages precede independent
 reference training. Training strategy, timestamp provenance and causal
 evaluation remain separate scientific checks. Execution results stay on HPC.
 
-## Current: three-seed single-domain reference training
+## Current: correct the saved reference baseline
+
+Refresh the launcher from the reviewed correction commit. To rescore an
+existing training array, substitute its actual ID below:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage baseline-rescore --source-array ARRAY_ID --submit
+bash /home/tariq.qayyum/nature-llm/Check
+```
+
+This requests nutp-baseline-fix: **two CPUs, zero GPUs, 8 GiB RAM and
+30 minutes**, using shortq when its maximum fits. It reuses the existing CPU
+environment, datasets and saved normalized forecasts; no training or model
+inference is performed. Existing project mail preferences apply automatically.
+The launcher prints the new Slurm job ID; Check shows all source cases,
+progress, old/corrected metrics, failures, utilization and output locations.
+
+The old evaluator normalized with the full training array's minimum/maximum
+but reused a max-only inverse from the stage-two prediction script. A negative
+minimum makes those operations inconsistent. The correction applies
+`z * (maximum - minimum) + minimum`, then the same nonnegative clipping.
+Before rescoring it verifies source status/contracts/code/data/model hashes,
+forecast checksums and exact original raw truth/origins, and replays old
+scores. Zero-minimum controls must stay unchanged. Author and independently
+implemented metrics must agree. This is a deterministic algebra correction,
+not a test-selected scaler adjustment.
+
+Reports: results/slurm_jobs/NEW_JOB_ID/report/SUMMARY.md and
+rescore_summary.json. Each source task has its own report/tasks/ directory
+and separate worker log. New forecasts retain normalized predictions, raw
+truth, target indices and both inverse variants under
+outputs/baseline_rescore/RUN_HASH/. Original training outputs are preserved.
+Repeat the same rescore command after failure to reuse verified derived
+shards. Do not resubmit reference-train3 merely to fix its historical scores.
+
+This job also reports source/target route differences and overlap counts.
+It does **not** repair full-array scaling, cross-window future dependence or
+unresolved S3 provenance. Complete the baseline protocol checks before
+launching comparisons with the proposed method. Future reference training
+now exports correct physical-unit forecasts to test_forecasts.npz and labels
+its primary metrics with TRAINING_MINMAX_AFFINE_V1; legacy max-only shards
+remain diagnostic. Released-checkpoint inference stays historically faithful.
+
+## Three-seed single-domain reference training
 
 Set the authorized notification address on the HPC once, then submit:
 

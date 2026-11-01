@@ -123,3 +123,20 @@ actual mail receipt status on HPC, outside version control. Request Slurm
 BEGIN/END/FAIL/REQUEUE/TIME_LIMIT and per-array-task messages. A submission
 receipt uses local sendmail/mailx/mail; report missing mail support honestly.
 Never claim delivery merely because Slurm/local mail accepted a request.
+
+
+Current authorization: correct baseline evaluation before proceeding to the
+proposed method. baseline-rescore is a CPU-only saved-forecast correction,
+with explicit --source-array and no optimizer/model inference. Verify source
+contracts, data and selected-model hashes, old forecast checksums, exact raw
+truth and target coverage, then replay historical max-only scores and apply
+the recorded training min/max inverse followed by unchanged zero clipping.
+Preserve every source run/report/checkpoint. New derived forecasts and
+reports use separate project-local paths and resume by verified hashes.
+Zero-minimum examples must retain identical scores; negative minima require
+the full affine inverse. Future reference_train results use the correct
+inverse and export canonical physical-unit forecasts with an explicit version.
+Leave inverse_author unchanged for faithful released-checkpoint evaluation.
+A scaling correction does not remove full-array fitting or cross-window
+future dependence. Never call this a clean baseline or certified S3 result.
+Reconcile the baseline protocol before launching new-method comparisons.

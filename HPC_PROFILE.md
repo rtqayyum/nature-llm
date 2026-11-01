@@ -259,3 +259,44 @@ and records availability/acceptance in submission.json. Receipt acceptance
 is not delivery confirmation. Without a local mail service the queued
 receipt is unavailable; cluster-admin Slurm mail configuration controls
 scheduler-event delivery. No SMTP password or external account is required.
+
+
+## Baseline inverse-scaling correction
+
+Stage baseline-rescore requires --source-array ARRAY_ID of a completed,
+registered reference-train3 array. It submits nutp-baseline-fix with two CPUs,
+8 GiB RAM, zero GPUs, 30 minutes in shortq when the observed maximum fits
+(longq otherwise). It reuses .venv-reference-cpu and the acquired assets.
+No model/checkpoint deserialization, model inference or optimizer updates
+occur. Small-array metrics and file/hash checks are the CPU work.
+
+The job verifies each source task's completed status, dataset/seed, immutable
+training code/helper hashes, data identity/extrema, exact split coordinates,
+validation-selected model hash, saved normalized forecast shard hashes and
+raw truth/target indices. It replays the original max-only score as a gate,
+then applies z*(maximum-minimum)+minimum and clips negative flow to zero.
+No scaler, clipping rule, input cohort or checkpoint is chosen from test
+performance. A zero-minimum/matching-maximum control must be unchanged.
+Author and independent metric implementations must agree for both variants.
+
+Original training reports, checkpoints and source forecast shards stay intact.
+Task logs: logs/nutp-baseline-fix_JOB_ID_workers/SOURCE_TASK.log/.err.
+Task reports: results/slurm_jobs/JOB_ID/report/tasks/SOURCE_TASK/.
+Aggregate reports: results/slurm_jobs/JOB_ID/report/SUMMARY.md and
+rescore_summary.json. Live state: rescore_progress.json. Corrected and
+historical forecasts together: outputs/baseline_rescore/RUN_HASH/batch-NNNN.npz,
+with verified source/derived hashes and identity.json/rescore_result.json.
+The report includes source-versus-target split-route/overlap audits and
+explicit unresolved causal/provenance gates. Genuine required-case failures
+return nonzero; successful rescoring remains COMPLETED_WITH_REVIEW.
+Repeat the same rescore submission to resume verified derived shards.
+Do not rerun reference-train3 just to correct historical metrics: a new trainer
+source hash intentionally produces a different training experiment identity.
+
+Future reference training uses TRAINING_MINMAX_AFFINE_V1 for its primary
+metrics and canonical test_forecasts.npz export. Max-only source shards and
+legacy_metrics_author remain labeled diagnostic data. Released-checkpoint
+inference continues to use inverse_author for historical fidelity.
+Rescoring does not repair original full-array normalization or cross-window
+future dependence and does not establish published S3 reproduction. These
+must be addressed before comparing the proposed new method.
