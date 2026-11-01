@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-01",
+  "protocol": "ectt-verification-aware-v2",
+  "status": "DESIGN_FROZEN_IMPLEMENTATION_AND_HPC_PREFLIGHT_PENDING",
+  "sha256": {
+    "config/ectt_protocol_v1.json": "1c8bc34a67cda3b2a5b33186df058f501ef3cd109e67ad92494066e4d4b1d214",
+    "research/ECTT_V2_DESIGN.md": "f59cad87a8097d2a04b749aa98daea3ab35bf383918dd8e56112a86f6489e587",
+    "research/RELATED_WORK.md": "9acf87f63bcf53809005f6c1e5f51bd440c9fbc36c24da16dc42f292a1f6eaea",
+    "research/CLAIM_LEDGER.md": "51ceccb9e1c8e135a3f5f14940c4cde70a0dfc83c86b5fbe7b0031161ef781e1"
+  }
+}

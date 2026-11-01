@@ -11,6 +11,18 @@ evaluation remain separate scientific checks. Execution results stay on HPC.
 
 ## Current: finish the reproducibility assessment
 
+Update, 1 November 2026: user-supplied logs confirm review job 610996
+completed with exit 0 and no failed sections. The available-data assessment
+is complete with limitations; full paper reproduction remains unestablished.
+The user now authorizes literature review, mechanism design and a shared
+evaluation contract. See [research/ECTT_V2_DESIGN.md](research/ECTT_V2_DESIGN.md),
+[research/RELATED_WORK.md](research/RELATED_WORK.md),
+[research/CLAIM_LEDGER.md](research/CLAIM_LEDGER.md) and
+[config/ectt_protocol_v1.json](config/ectt_protocol_v1.json).
+This is a frozen research design, not an implemented/validated new method.
+No new training or HPC submission is part of this design update. The older
+causal-train3 stage remains on hold and is not the new eight-domain protocol.
+
 The user reaffirmed reproducibility tests before any proposed method. The
 causal adaptation is on hold; the launcher refuses new causal-train3
 submissions while config/reproduction_review.json records REPRODUCIBILITY_FIRST.

@@ -171,3 +171,14 @@ Do not equate paper-row rounding matches or better scores with reproduction,
 or silently change trainability/data/batch behavior to force agreement.
 See REPRODUCIBILITY.md. No proposed-method work or causal launch is authorized
 until the reproducibility assessment and experiment scope are reviewed.
+
+Latest authorization: after successful user-reported reproduction-review job
+610996, the user requests related-work review, a defensible mechanism and
+falsifiable hypotheses, and a frozen matched evaluation protocol. This
+authorizes research design and versioned documents/configuration, not launching
+training or calling a new method validated. research/ECTT_V2_DESIGN.md and
+config/ectt_protocol_v1.json define the candidate verification-aware ECTT study.
+Retain the old causal-stage submission hold. New benchmark implementation
+must use a separate stage/identity: all eight canonical stage-two raw channels,
+shared source/target ledgers and explicit limits on calendar/causality claims.
+Do not call existing sequential statistics or Qwen substitution new inventions.

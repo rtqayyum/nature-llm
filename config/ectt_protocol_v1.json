@@ -1,0 +1,1176 @@
+{
+  "protocol": "ectt-verification-aware-v2",
+  "version": 1,
+  "frozen_utc": "2026-11-01",
+  "status": "DESIGN_FROZEN_IMPLEMENTATION_AND_HPC_PREFLIGHT_PENDING",
+  "execution_authorized": false,
+  "reproduction_disposition": {
+    "job_id": "610996",
+    "scope": "available-data assessment completed with review; full paper reproduction not established",
+    "preserve_original_runs": true
+  },
+  "primary_question": "Does source-episodic training for verifiability reduce target evidence requirements and total-system error beyond ordinary training followed by the identical sequential verifier?",
+  "datasets": {
+    "pems03": {
+      "path": "data/stage2/03fine-tuning.npy",
+      "container_sha256": "a41907eb0370097e861152ab3749d0bbb2419c38cee3a173710e49e9f16985c6",
+      "shape": [
+        358,
+        26208,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        15724
+      ],
+      "source_train_targets": [
+        12,
+        15724
+      ],
+      "source_validation_targets": [
+        15724,
+        18345
+      ],
+      "test_targets": [
+        20966,
+        26208
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            20966,
+            20966
+          ],
+          "verification_raw": [
+            20966,
+            20966
+          ],
+          "support_target_rows": [
+            20966,
+            20966
+          ],
+          "verification_target_rows": [
+            20966,
+            20966
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 209,
+          "support_raw": [
+            20757,
+            20861
+          ],
+          "verification_raw": [
+            20861,
+            20966
+          ],
+          "support_target_rows": [
+            20769,
+            20861
+          ],
+          "verification_target_rows": [
+            20861,
+            20966
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.05": {
+          "raw_rows": 1048,
+          "support_raw": [
+            19918,
+            20442
+          ],
+          "verification_raw": [
+            20442,
+            20966
+          ],
+          "support_target_rows": [
+            19930,
+            20442
+          ],
+          "verification_target_rows": [
+            20442,
+            20966
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 2096,
+          "support_raw": [
+            18870,
+            19918
+          ],
+          "verification_raw": [
+            19918,
+            20966
+          ],
+          "support_target_rows": [
+            18882,
+            19918
+          ],
+          "verification_target_rows": [
+            19918,
+            20966
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 5,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "pems03"
+    },
+    "pems04": {
+      "path": "data/stage2/04fine-tunning.npy",
+      "container_sha256": "623f3a85b17088cae6f8db2d72708251b7fe89e3fd7916d71ab4eb30a13684d6",
+      "shape": [
+        307,
+        16992,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        10195
+      ],
+      "source_train_targets": [
+        12,
+        10195
+      ],
+      "source_validation_targets": [
+        10195,
+        11894
+      ],
+      "test_targets": [
+        13593,
+        16992
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            13593,
+            13593
+          ],
+          "verification_raw": [
+            13593,
+            13593
+          ],
+          "support_target_rows": [
+            13593,
+            13593
+          ],
+          "verification_target_rows": [
+            13593,
+            13593
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 135,
+          "support_raw": [
+            13458,
+            13525
+          ],
+          "verification_raw": [
+            13525,
+            13593
+          ],
+          "support_target_rows": [
+            13470,
+            13525
+          ],
+          "verification_target_rows": [
+            13525,
+            13593
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.05": {
+          "raw_rows": 679,
+          "support_raw": [
+            12914,
+            13253
+          ],
+          "verification_raw": [
+            13253,
+            13593
+          ],
+          "support_target_rows": [
+            12926,
+            13253
+          ],
+          "verification_target_rows": [
+            13253,
+            13593
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 1359,
+          "support_raw": [
+            12234,
+            12913
+          ],
+          "verification_raw": [
+            12913,
+            13593
+          ],
+          "support_target_rows": [
+            12246,
+            12913
+          ],
+          "verification_target_rows": [
+            12913,
+            13593
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 5,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "pems04"
+    },
+    "pems08": {
+      "path": "data/stage2/08fine-tuning.npy",
+      "container_sha256": "71f959ff523eeb3c850b08172b5e45d4e88f4786eaa63a8a544c0bc9c46ad9ad",
+      "shape": [
+        170,
+        17856,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        10713
+      ],
+      "source_train_targets": [
+        12,
+        10713
+      ],
+      "source_validation_targets": [
+        10713,
+        12499
+      ],
+      "test_targets": [
+        14284,
+        17856
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            14284,
+            14284
+          ],
+          "verification_raw": [
+            14284,
+            14284
+          ],
+          "support_target_rows": [
+            14284,
+            14284
+          ],
+          "verification_target_rows": [
+            14284,
+            14284
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 142,
+          "support_raw": [
+            14142,
+            14213
+          ],
+          "verification_raw": [
+            14213,
+            14284
+          ],
+          "support_target_rows": [
+            14154,
+            14213
+          ],
+          "verification_target_rows": [
+            14213,
+            14284
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.05": {
+          "raw_rows": 714,
+          "support_raw": [
+            13570,
+            13927
+          ],
+          "verification_raw": [
+            13927,
+            14284
+          ],
+          "support_target_rows": [
+            13582,
+            13927
+          ],
+          "verification_target_rows": [
+            13927,
+            14284
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 1428,
+          "support_raw": [
+            12856,
+            13570
+          ],
+          "verification_raw": [
+            13570,
+            14284
+          ],
+          "support_target_rows": [
+            12868,
+            13570
+          ],
+          "verification_target_rows": [
+            13570,
+            14284
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 5,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "pems08"
+    },
+    "sh": {
+      "path": "data/stage2/shfine-tuning.npy",
+      "container_sha256": "45e9af6d82a2998c178ab6f90f4cb74cd56885f03f7ded18fd6e295fc3a30360",
+      "shape": [
+        288,
+        6072,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        3643
+      ],
+      "source_train_targets": [
+        12,
+        3643
+      ],
+      "source_validation_targets": [
+        3643,
+        4250
+      ],
+      "test_targets": [
+        4857,
+        6072
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            4857,
+            4857
+          ],
+          "verification_raw": [
+            4857,
+            4857
+          ],
+          "support_target_rows": [
+            4857,
+            4857
+          ],
+          "verification_target_rows": [
+            4857,
+            4857
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 48,
+          "support_raw": [
+            4809,
+            4833
+          ],
+          "verification_raw": [
+            4833,
+            4857
+          ],
+          "support_target_rows": [
+            4821,
+            4833
+          ],
+          "verification_target_rows": [
+            4833,
+            4857
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.05": {
+          "raw_rows": 242,
+          "support_raw": [
+            4615,
+            4736
+          ],
+          "verification_raw": [
+            4736,
+            4857
+          ],
+          "support_target_rows": [
+            4627,
+            4736
+          ],
+          "verification_target_rows": [
+            4736,
+            4857
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 485,
+          "support_raw": [
+            4372,
+            4614
+          ],
+          "verification_raw": [
+            4614,
+            4857
+          ],
+          "support_target_rows": [
+            4384,
+            4614
+          ],
+          "verification_target_rows": [
+            4614,
+            4857
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 15,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "sh"
+    },
+    "bj": {
+      "path": "data/stage2/bjfine-tuning.npy",
+      "container_sha256": "823ee0bb08d2e0a43ab2ded908b179624eaf2e5c7c589a8900495f420a6df1fb",
+      "shape": [
+        276,
+        1800,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        1080
+      ],
+      "source_train_targets": [
+        12,
+        1080
+      ],
+      "source_validation_targets": [
+        1080,
+        1260
+      ],
+      "test_targets": [
+        1440,
+        1800
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            1440,
+            1440
+          ],
+          "verification_raw": [
+            1440,
+            1440
+          ],
+          "support_target_rows": [
+            1440,
+            1440
+          ],
+          "verification_target_rows": [
+            1440,
+            1440
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 14,
+          "support_raw": [
+            1426,
+            1433
+          ],
+          "verification_raw": [
+            1433,
+            1440
+          ],
+          "support_target_rows": [
+            1433,
+            1433
+          ],
+          "verification_target_rows": [
+            1438,
+            1440
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.05": {
+          "raw_rows": 72,
+          "support_raw": [
+            1368,
+            1404
+          ],
+          "verification_raw": [
+            1404,
+            1440
+          ],
+          "support_target_rows": [
+            1380,
+            1404
+          ],
+          "verification_target_rows": [
+            1404,
+            1440
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 144,
+          "support_raw": [
+            1296,
+            1368
+          ],
+          "verification_raw": [
+            1368,
+            1440
+          ],
+          "support_target_rows": [
+            1308,
+            1368
+          ],
+          "verification_target_rows": [
+            1368,
+            1440
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 15,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "bj"
+    },
+    "hz": {
+      "path": "data/stage2/hzfine-tuning.npy",
+      "container_sha256": "00a06def85386831bf1766d30640a8df2306266c629384eef99d368316cef7cb",
+      "shape": [
+        80,
+        1650,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        990
+      ],
+      "source_train_targets": [
+        12,
+        990
+      ],
+      "source_validation_targets": [
+        990,
+        1155
+      ],
+      "test_targets": [
+        1320,
+        1650
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            1320,
+            1320
+          ],
+          "verification_raw": [
+            1320,
+            1320
+          ],
+          "support_target_rows": [
+            1320,
+            1320
+          ],
+          "verification_target_rows": [
+            1320,
+            1320
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 13,
+          "support_raw": [
+            1307,
+            1313
+          ],
+          "verification_raw": [
+            1313,
+            1320
+          ],
+          "support_target_rows": [
+            1313,
+            1313
+          ],
+          "verification_target_rows": [
+            1319,
+            1320
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.05": {
+          "raw_rows": 66,
+          "support_raw": [
+            1254,
+            1287
+          ],
+          "verification_raw": [
+            1287,
+            1320
+          ],
+          "support_target_rows": [
+            1266,
+            1287
+          ],
+          "verification_target_rows": [
+            1287,
+            1320
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 132,
+          "support_raw": [
+            1188,
+            1254
+          ],
+          "verification_raw": [
+            1254,
+            1320
+          ],
+          "support_target_rows": [
+            1200,
+            1254
+          ],
+          "verification_target_rows": [
+            1254,
+            1320
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 15,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "hz"
+    },
+    "bike": {
+      "path": "data/stage2/bikefine-tuning.npy",
+      "container_sha256": "b0746467968a391aec22c2beff1cf8bc04b7db8ede28777888314d88dd3c5cec",
+      "shape": [
+        64,
+        8760,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        5256
+      ],
+      "source_train_targets": [
+        12,
+        5256
+      ],
+      "source_validation_targets": [
+        5256,
+        6132
+      ],
+      "test_targets": [
+        7008,
+        8760
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            7008,
+            7008
+          ],
+          "verification_raw": [
+            7008,
+            7008
+          ],
+          "support_target_rows": [
+            7008,
+            7008
+          ],
+          "verification_target_rows": [
+            7008,
+            7008
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 70,
+          "support_raw": [
+            6938,
+            6973
+          ],
+          "verification_raw": [
+            6973,
+            7008
+          ],
+          "support_target_rows": [
+            6950,
+            6973
+          ],
+          "verification_target_rows": [
+            6973,
+            7008
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.05": {
+          "raw_rows": 350,
+          "support_raw": [
+            6658,
+            6833
+          ],
+          "verification_raw": [
+            6833,
+            7008
+          ],
+          "support_target_rows": [
+            6670,
+            6833
+          ],
+          "verification_target_rows": [
+            6833,
+            7008
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 700,
+          "support_raw": [
+            6308,
+            6658
+          ],
+          "verification_raw": [
+            6658,
+            7008
+          ],
+          "support_target_rows": [
+            6320,
+            6658
+          ],
+          "verification_target_rows": [
+            6658,
+            7008
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 60,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "nyc_demand"
+    },
+    "taxi": {
+      "path": "data/stage2/taxifine-tuning.npy",
+      "container_sha256": "283a23c55172a2b3ed19fa6223eea6d6e3cd186b3fb36ab4665fb2fc68e057e7",
+      "shape": [
+        64,
+        8760,
+        2
+      ],
+      "raw_channel": 0,
+      "source_train_raw": [
+        0,
+        5256
+      ],
+      "source_train_targets": [
+        12,
+        5256
+      ],
+      "source_validation_targets": [
+        5256,
+        6132
+      ],
+      "test_targets": [
+        7008,
+        8760
+      ],
+      "budgets": {
+        "0.0": {
+          "raw_rows": 0,
+          "support_raw": [
+            7008,
+            7008
+          ],
+          "verification_raw": [
+            7008,
+            7008
+          ],
+          "support_target_rows": [
+            7008,
+            7008
+          ],
+          "verification_target_rows": [
+            7008,
+            7008
+          ],
+          "eligible_for_learned_adaptation": false
+        },
+        "0.01": {
+          "raw_rows": 70,
+          "support_raw": [
+            6938,
+            6973
+          ],
+          "verification_raw": [
+            6973,
+            7008
+          ],
+          "support_target_rows": [
+            6950,
+            6973
+          ],
+          "verification_target_rows": [
+            6973,
+            7008
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.05": {
+          "raw_rows": 350,
+          "support_raw": [
+            6658,
+            6833
+          ],
+          "verification_raw": [
+            6833,
+            7008
+          ],
+          "support_target_rows": [
+            6670,
+            6833
+          ],
+          "verification_target_rows": [
+            6833,
+            7008
+          ],
+          "eligible_for_learned_adaptation": true
+        },
+        "0.1": {
+          "raw_rows": 700,
+          "support_raw": [
+            6308,
+            6658
+          ],
+          "verification_raw": [
+            6658,
+            7008
+          ],
+          "support_target_rows": [
+            6320,
+            6658
+          ],
+          "verification_target_rows": [
+            6658,
+            7008
+          ],
+          "eligible_for_learned_adaptation": true
+        }
+      },
+      "native_interval_minutes_nominal": 60,
+      "calendar_status": "unverified; no elapsed-time or holiday claim",
+      "source_exclusion_group": "nyc_demand"
+    }
+  },
+  "development_targets": [
+    "pems08",
+    "bj"
+  ],
+  "confirmatory_targets": [
+    "pems03",
+    "pems04",
+    "sh",
+    "hz",
+    "bike",
+    "taxi"
+  ],
+  "data": {
+    "source_lock_sha256": "dbb370d27d02b5979d74c22b84f9e16de240cd7e850afde89ebf7e8660c921fd",
+    "canonical_stage": "stage2",
+    "feature_channel": 0,
+    "released_auxiliary_channel_used": false,
+    "timestamp_status": "unverified; row-index benchmark only until authoritative mapping exists",
+    "history_steps": 12,
+    "primary_horizon_steps": 1,
+    "stride": 1,
+    "drop_tail": false,
+    "features": [
+      "raw channel zero",
+      "within-window causal prefix mean",
+      "observed/missing mask"
+    ],
+    "missing_policy": "zero is observed; never infer missingness from zero; nonfinite observed targets fail preflight; no interpolated targets",
+    "scaler": "global min/max fitted on source training or target support only; correct affine inverse; do not clip normalized test inputs",
+    "physical_prediction_clipping": "negative predictions clipped to zero for every method",
+    "test_history": "rolling observed history allowed; no test-label fitting or selector updates in primary track"
+  },
+  "partitions": {
+    "source_train_fraction": 0.6,
+    "source_validation_end_fraction": 0.7,
+    "target_pretest_end_fraction": 0.8,
+    "test_end_fraction": 1.0,
+    "rounding": "floor(T*fraction), half-open raw row intervals",
+    "sparse_target_budgets": [
+      0.0,
+      0.01,
+      0.05,
+      0.1
+    ],
+    "primary_budget": 0.05,
+    "allocation": "B=floor(q*floor(.8*T)); last B pretest raw rows; first floor(B/2) support, remainder verification; all read values counted by unique row-node-role ledger",
+    "minimum_support_rows": 24,
+    "minimum_verification_origins": 12,
+    "infeasible_budget_action": "retain row with reason; persistence fallback, no learned deployment decision; no extra labels",
+    "budget_interpretation": "budget limits additional target values used for fitting/scaling/verification; ordinary rolling input histories are shared covariates, separately logged; 0% means no extra target supervision"
+  },
+  "folds": {
+    "primary": "leave one domain out; NYC bike and taxi always excluded together from sources",
+    "mode_out_secondary": {
+      "road": [
+        "pems03",
+        "pems04",
+        "pems08"
+      ],
+      "metro": [
+        "bj",
+        "sh",
+        "hz"
+      ],
+      "nyc_demand": [
+        "bike",
+        "taxi"
+      ]
+    },
+    "exclusions": "exclude complete target domain from all traffic pretraining, early stopping, episode generation and hyperparameter selection; previous target checkpoints forbidden",
+    "no_unseen_calendar_claim": true,
+    "pretraining_overlap": "off-the-shelf traffic/time-series checkpoints with unknown target overlap are contextual results, not strict held-out evidence"
+  },
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "model": {
+    "backbone": "Qwen/Qwen2.5-1.5B",
+    "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+    "base_not_instruct": true,
+    "retained_and_active_layers": 28,
+    "numerical_interface": "nodewise four temporal patch tokens of three rows each, input projection and per-origin permutation-equivariant pooled spatial context; numerical head, no text serialization/generation",
+    "lora": {
+      "rank": 8,
+      "alpha": 16,
+      "dropout": 0.0,
+      "modules": [
+        "q_proj",
+        "v_proj"
+      ],
+      "all_other_backbone_weights_frozen": true
+    },
+    "source_training": "train projection, numerical head, pooled spatial encoder and LoRA on eligible source domains",
+    "target_adaptation": "freeze source encoder/backbone; fit a fresh bottleneck-32 residual head on support only",
+    "required_capacity_controls": [
+      "same Qwen with ordinary forecasting objective",
+      "same Qwen with zero verification penalty",
+      "compact nonlanguage transformer",
+      "randomly initialized Qwen architecture with identical frozen/trainable policy"
+    ],
+    "no_7B_grid_before_1_5B_pilot": true
+  },
+  "training_design": {
+    "source_optimizer": "AdamW",
+    "source_learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "source_max_epochs": 100,
+    "source_patience": 10,
+    "gradient_clip_norm": 1.0,
+    "target_updates": 200,
+    "target_learning_rate": 0.001,
+    "target_early_stopping": "none; fixed support-only updates",
+    "mechanism_coefficients": {
+      "verification_margin_weight": 1.0,
+      "prefixes": [
+        16,
+        32,
+        64
+      ],
+      "epsilon": 0.01,
+      "smooth_hinge_temperature": 0.01
+    },
+    "development_grid_limit_per_family": 12,
+    "selection": "source/development validation only; equal family search allowance; no confirmatory test selection",
+    "microbatch": "engineering choice from memory profile; identical effective batch for matched mechanism controls; hash before runs",
+    "environment": "separate project-local Qwen environment; never alter the completed reference environments",
+    "source_episode_gradient": "first-order episodic surrogate: support-fit residual head then stop gradients through the adaptation optimizer; outer-update source modules on episode verification/suffix objectives; same schedule in gamma=0 control",
+    "precision": "BF16 backbone on supported GPU, FP32 optimizer/numerical head and saved outputs, FP64 verifier/statistics; memory/profile admission required; equal precision in matched mechanism arms"
+  },
+  "verifier": {
+    "candidate_pair": "frozen strong local L versus frozen transferred T",
+    "decision_unit": "whole target domain x horizon; no treating nodes as independent trials",
+    "difference": "D_i=(mean_node_abs_error(T_i)-mean_node_abs_error(L_i))/s; s=max(chronological support-validation MAE of the selected local model,1); source-validation local error if no support",
+    "predictable_envelope": "b_i=mean_node_abs(T_i-L_i)/s; |D_i|<=b_i by reverse triangle inequality",
+    "CS": "two-sided Gaussian-mixture Hoeffding confidence sequence for average forecast-origin conditional loss difference",
+    "width": "sqrt((V_n+rho)*log((V_n+rho)/(rho*delta^2)))/n; V_n=sum_i b_i^2",
+    "rho": 0.01,
+    "delta_per_stream": 0.05,
+    "multiple_policy": "one T/L candidate pair in primary; no simultaneous study-wide 95% claim; extra candidate families require explicit alpha allocation",
+    "accept": "first n>=12 with upper CS < -0.01; freeze selected candidate before test",
+    "fallback": "local prediction at every origin if unaccepted; no abstention or deletion of difficult origins",
+    "allowed_guarantee": "time-uniform evidence for average conditional paired risk on the observed verification prefix under documented measurability/bound conditions",
+    "forbidden_guarantees": [
+      "unconditional future-block protection under arbitrary shift",
+      "finite-sample guarantee for raw RMSE or WMAPE from an MAE certificate",
+      "a new confidence-sequence theorem",
+      "independent-sensor sample size",
+      "source evidence counted as target labels"
+    ]
+  },
+  "primary_comparisons": [
+    "verification-aware Qwen plus CS versus ordinary-training Qwen plus identical CS",
+    "verification-aware Qwen plus CS versus same-candidate learned routing",
+    "verification-aware Qwen plus CS versus fixed-prefix selection with the same available labels"
+  ],
+  "mandatory_baselines": [
+    "persistence",
+    "ridge autoregression",
+    "compact graph-free temporal/spatial predictor",
+    "causal shared-data LLM-UTP adaptation",
+    "ordinary-training Qwen transfer",
+    "unconditional transfer",
+    "ordinary learned gate",
+    "fixed-prefix selector",
+    "untrained/source-informed betting comparator with identical candidates",
+    "same-verifier mechanism ablations"
+  ],
+  "external_comparators": [
+    "TESTAM",
+    "CompactST",
+    "FlexST",
+    "OpenCity",
+    "ST-FGDIR",
+    "MURECAST"
+  ],
+  "external_eligibility": "pin official code and train/source exclusions; no target test data in pretrained checkpoints; metadata unavailable => explicit common-data adaptation or ineligible with reason, never invented timestamps/graphs",
+  "fallback_selection": "source/development-frozen recipe; within support use first 70% for fitting and final 30% for chronological family selection among persistence/ridge/compact predictor; refit selected family on support; never weaken local model to make verification easier",
+  "metrics": {
+    "raw": [
+      "MAE",
+      "RMSE",
+      "WMAPE_percent"
+    ],
+    "wmape": "100*sum(abs(pred-truth))/sum(abs(truth)); zero denominator undefined; zeros remain observed",
+    "primary_utility": "macro across six confirmatory target domains of full-test MAE divided by the same local-fallback test MAE; unweighted across domains",
+    "evidence": "restricted first-certificate count min(tau,B_E+1), censored flag, total unique target values, activation, verification statistic, all-test excess error and harm tail",
+    "compute": [
+      "all GPU hours including source pretraining, local fitting and verifier overhead",
+      "peak CPU/GPU memory",
+      "latency",
+      "trainable/effective parameter counts"
+    ],
+    "zero_fallback_MAE": "relative statistic undefined if fallback test MAE is zero; retain fold and report raw paired differences, no epsilon or silent exclusion",
+    "restricted_evidence_fraction": "min(first_certificate_origin,B_E+1)/(B_E+1), with censor flag; paired within-domain comparison then macro average",
+    "material_harm": "test normalized paired MAE difference >0.01 using the fixed support-validation error scale; report frequency over all origins and among accepted origins, positive-part mean and 90th percentile"
+  },
+  "statistics": {
+    "training_seeds_are_not_domains": true,
+    "paired_bootstrap_replicates": 2000,
+    "block_steps": 144,
+    "sensitivity_blocks": [
+      72,
+      288
+    ],
+    "block_interpretation": "row blocks, not calendar days; common resampling indices across methods; hold seeds paired",
+    "interval_level": 0.95,
+    "short_series": "fewer than eight test blocks => domain interval descriptive/unstable; do not count nodes as replicate subjects",
+    "primary_inference": "conditional on these benchmark domains; no global-city population claim; two co-primary endpoints use simultaneous 97.5% marginal paired row-block bootstrap intervals, explicitly empirical",
+    "co_primary_endpoints": [
+      "all-test macro relative-MAE effect versus ordinary-training Qwen plus identical CS",
+      "restricted certificate-time effect versus ordinary-training Qwen plus identical CS"
+    ]
+  },
+  "success_criteria": {
+    "utility": "at least 2% macro reduction versus ordinary-training Qwen plus identical verifier, with paired interval excluding zero; a prespecified target, not a forecast",
+    "verification": "lower restricted evidence count without increased harmful test-transfer or reduced useful activation; unaccepted cases included",
+    "activation_floor": 0.2,
+    "noninferiority_margin_relative_MAE": 0.01,
+    "failure": "same-verifier ordinary training matches it, gain only from larger backbone, always-fallback explains safety, short evidence yields no useful acceptance, or canonical-data gates fail"
+  },
+  "secondary": {
+    "outages": {
+      "node_fractions": [
+        0.1,
+        0.3,
+        0.5
+      ],
+      "temporal_block_steps": [
+        1,
+        3,
+        6
+      ],
+      "mask_seeds": [
+        101,
+        202,
+        303
+      ],
+      "targets_unchanged": true,
+      "primary_synthetic_stress_fraction": 0.3,
+      "new_regime_certificate": "none without new eligible evidence"
+    },
+    "label_delay": "exploratory selector-update delay only; never pretend a value visible in history is hidden; no inherited multi-horizon guarantee",
+    "multi_horizon": "only after contiguous timestamp/service support is verified and horizon-specific source/target contracts and delayed-filtration proof are locked",
+    "five_seed_extension": [
+      44,
+      55
+    ],
+    "extension_rule": "all primary comparison arms on all six confirmatory domains, regardless of outcomes; not selective significant-seed addition"
+  },
+  "required_admission": [
+    "raw channel-zero semantics and hashes",
+    "duplicate checks on canonical raw channels",
+    "source-target exclusions incl NYC grouping",
+    "all support/verification/test target ledgers disjoint",
+    "no transforms fitted after support/source training",
+    "single-versus-batched prediction invariance",
+    "future-label mutation test",
+    "model hashes fixed throughout verification",
+    "unique value access ledger",
+    "independent saved-forecast metrics"
+  ],
+  "prior_exposure": "earlier checkpoint/test aggregates were inspected; new held-out method protocol has no confirmatory method runs yet, but these are not pristine unseen benchmarks",
+  "amendment": "Any model/data/protocol change increments version and is committed before confirmatory methods run. Failed/infeasible folds remain reported; no silent replacement.",
+  "hpc": {
+    "project": "/home/tariq.qayyum/nature-llm",
+    "gpu_per_job": 1,
+    "cpus_per_gpu_job": 5,
+    "concurrent_gpu_tasks_max": 4,
+    "mail": "existing saved project preferences",
+    "checkpoint": "model, optimizer, RNG, cursor every epoch and at five-minute boundaries; preserve all prediction and decision ledgers"
+  }
+}

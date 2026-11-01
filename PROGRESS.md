@@ -1,5 +1,32 @@
 # Research execution progress
 
+## Reproducibility assessment completed; research design frozen
+
+User-supplied HPC output confirms job 610996 completed in six seconds with
+exit 0:0, four reviewed sections and zero failures. It checked eight checkpoint
+results and six corrected independent-training results. All three optional
+supporting reports were available. The disposition is partial numerical
+agreement with full-paper reproduction not established. This is reported real
+HPC execution, not a direct remote inspection or a new model experiment.
+
+The user now requests related work, mechanism/hypothesis design and a shared
+evaluation protocol. Research documents preserve the earlier ECTT direction
+but distinguish candidate learning for verifiability from established routing,
+calibration, sequential model comparison and label-efficient risk control.
+config/ectt_protocol_v1.json freezes eight canonical stage-two raw-data profiles,
+source exclusion groups, row splits, sparse target label budgets, primary
+comparisons and limits on theoretical/future-risk claims. Read its design status:
+mechanical preflight, implementation and mathematical review remain pending.
+No new-method training/inference, dataset download or job submission was done.
+
+Design validation checks the eight frozen stage-two container hashes against
+the acquisition lock, source/validation/test boundaries, disjoint support and
+verification ranges, primary 5% budget eligibility, development/confirmatory
+target separation, grouped NYC exclusions and the three-seed registry. Exact
+artifact hashes are recorded in research/PROTOCOL_HASHES.json. These checks
+validate the design records, not dataset semantics, mathematical proof or
+forecasting performance.
+
 ## Current: reproducibility assessment before new-method work
 
 The user reaffirmed the original ordering after causal-baseline preparation:
