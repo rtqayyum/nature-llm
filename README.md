@@ -9,7 +9,54 @@ Public checkpoint evaluation and diagnostic stages precede independent
 reference training. Training strategy, timestamp provenance and causal
 evaluation remain separate scientific checks. Execution results stay on HPC.
 
-## Current: correct the saved reference baseline
+## Current: run the index-causal reference baseline
+
+Refresh the launcher from the reviewed commit, then submit on the HPC:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage causal-train3 --submit
+bash /home/tariq.qayyum/nature-llm/Check
+```
+
+This submits **six independent tasks**, PEMS08/Beijing x seeds 11,22,33.
+Each requests **one GPU, five CPUs, 16 GiB RAM and up to ten days**, capped
+by gpuq's observed maximum. At most four tasks run together. The GPU
+allocation, environment, checkpoints and automatic email setup use the
+existing project workflow; datasets/base weights are reused.
+
+This is a causal adaptation of the reference, not our proposed method or
+exact published S3. [CAUSAL_BASELINE.md](CAUSAL_BASELINE.md) locks the changes:
+training-only scaler fitting; raw channel zero plus a prefix-mean trend reset
+within each 12-step history; fusion softmax over features instead of across
+forecast windows; and correct min-max inversion. Keep the original raw
+observation order, native intervals, target cohorts, author constructor
+freeze policy and validation-only checkpoint selection. The source files and
+previous outputs remain intact. Absolute timestamps/service gaps are unverified.
+
+Before training and after validation selects the model, mandatory causal
+checks replace future companion windows, permute the batch and compare
+single-origin versus batched forecasts. Future raw values must not affect
+training scaler/available features. A failed check stops the task; no
+threshold/model is chosen using test accuracy. The actual checks and a
+method-independent data-contract hash are saved for later fair comparisons.
+
+Progress/checkpoint recovery works as in three-seed reference training.
+Outputs: outputs/causal_reference/SLUG/seed-SEED/RUN_HASH/.
+Reports: results/slurm_jobs/ARRAYID_TASK/report/, including causality_checks.json,
+data_contract.json, training_result.json and origin ledgers. Check ARRAYID
+refreshes the aggregate report at results/slurm_jobs/ARRAYID/report/.
+Logs: logs/nutp-causal-3seed_ARRAYID_TASK.out/.err. Repeat the same submission
+after failure/timeout to resume compatible states. Inspect any causal-check
+failure before changing the locked protocol. Existing mail preferences apply.
+
+Local checks use synthetic traffic/base weights and the pinned CPU framework;
+one end-to-end fixture mocks CUDA admission and remains CPU-only. Real CUDA
+causality gates and dataset scores must be verified on the cluster.
+
+## Earlier: correct the saved reference baseline
 
 Refresh the launcher from the reviewed correction commit. To rescore an
 existing training array, substitute its actual ID below:

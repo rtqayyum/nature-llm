@@ -14,7 +14,7 @@ import sys
 import time
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3")
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3")
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -22,7 +22,7 @@ ROOT = Path("/home/tariq.qayyum/nature-llm")
 def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
     preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore")
-    desired = 10 * 86400 if stage == "reference-train3" else 2 * 3600 if stage == "gpu-smoke" else 1800 if preflight else 23 * 3600
+    desired = 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage == "gpu-smoke" else 1800 if preflight else 23 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -125,7 +125,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3"], default="acquire")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     args = parser.parse_args(argv)
     if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
@@ -172,7 +172,8 @@ def main(argv=None):
                     "causality-audit": ("nutp-causal-audit", 4, "16G"),
                     "gpu-smoke": ("nutp-s3-gpu-smoke", 20, "16G"),
                     "reference-train3": ("nutp-s3-3seed", 5, "16G"),
-                    "baseline-rescore": ("nutp-baseline-fix", 2, "8G")}
+                    "baseline-rescore": ("nutp-baseline-fix", 2, "8G"),
+                    "causal-train3": ("nutp-causal-3seed", 5, "16G")}
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),
@@ -188,8 +189,8 @@ def main(argv=None):
             command[1:1] = ["--mail-user=" + notification_settings["mail_user"],
                             "--mail-type=" + notification_settings["mail_type"]]
         tasks = []
-        if args.stage == "reference-train3":
-            config = read_json(code / "config/reference_training.json")
+        if args.stage in ("reference-train3", "causal-train3"):
+            config = read_json(code / "config" / ("causal_reference.json" if args.stage == "causal-train3" else "reference_training.json"))
             tasks = [{"dataset": dataset, "seed": seed} for dataset in config["datasets"] for seed in config["seeds"]]
             command[1:1] = ["--array=0-%d%%%d" % (len(tasks) - 1, config["max_concurrent_tasks"]),
                 "--output=" + str(project / "logs/%x_%A_%a.out"),
@@ -206,6 +207,7 @@ def main(argv=None):
         if args.source_array:
             submission["source_array"] = args.source_array
         if tasks:
+            submission["protocol"] = config["protocol"]
             submission["array_tasks"] = tasks
             submission["max_concurrent_tasks"] = config["max_concurrent_tasks"]
             for index, task in enumerate(tasks):

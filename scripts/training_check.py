@@ -10,7 +10,8 @@ from slurm_submit import seconds
 
 def summarize(project, group_id, submission, command):
     group = project / "results/slurm_jobs" / group_id
-    print("Reference training array", group_id, "tasks=", len(submission["array_tasks"]))
+    causal = submission.get("stage") == "causal-train3"
+    print("Index-causal reference array" if causal else "Reference training array", group_id, "tasks=", len(submission["array_tasks"]))
     accounting = {}
     for arguments in (["squeue", "--jobs", group_id, "--array", "--noheader", "--format=%i|%T|%R"],
         ["sacct", "-j", group_id, "--parsable2", "--noheader", "--format=JobID%40,JobName,State%30,ExitCode,Elapsed,AllocCPUS,TotalCPU,MaxRSS,Reason"]):
@@ -64,12 +65,22 @@ def summarize(project, group_id, submission, command):
             print("  FAILURE:", progress["error"], "traceback:", report / "failure_traceback.txt")
         if result:
             print("  TEST:", json.dumps(result["metrics_author"]))
+            if causal:
+                print("  CAUSAL STATUS:", result.get("protocol_status"), "data contract:", result.get("data_contract_sha256"))
+        if causal:
+            checks = report / "causality_checks.json"
+            if checks.exists():
+                gates = json.loads(checks.read_text())
+                print("  CAUSAL GATES:", json.dumps({name: value.get("passed") for name, value in gates.items() if name != "model_policy"}))
         for suffix in ("out", "err"):
             log = Path(row["stdout" if suffix == "out" else "stderr"])
             if log.exists():
                 print("  RECENT", suffix, "\n" + "\n".join(log.read_text(errors="replace").splitlines()[-3:]))
     aggregates = {}
     for dataset, values in results.items():
+        if causal and (len({row.get("data_contract_sha256") for row in values}) != 1 or
+                       any(row.get("protocol_status") != "CAUSAL_INDEX_GATES_PASSED" or not row.get("data_contract_sha256") for row in values)):
+            raise ValueError("Causal results cannot be aggregated: mismatched data contracts or missing causality gates")
         aggregates[dataset] = {"completed_seeds": len(values), "expected_seeds": len(submission["array_tasks"]) // len({t["dataset"] for t in submission["array_tasks"]}),
             "metrics": {name: {"mean": statistics.mean(row["metrics_author"][name] for row in values),
                 "sample_std": statistics.stdev(row["metrics_author"][name] for row in values) if len(values) > 1 else None}
@@ -84,12 +95,13 @@ def summarize(project, group_id, submission, command):
         stream.write(json.dumps(summary, indent=2) + "\n")
         temporary = Path(stream.name)
     temporary.replace(output / "TRAINING_SUMMARY.json")
-    lines = ["# Three-seed single-domain reference training", "", "Completed %s/%s experiments; reported application failures %s." %
+    lines = ["# Three-seed index-causal reference baseline" if causal else "# Three-seed single-domain reference training", "", "Completed %s/%s experiments; reported application failures %s." %
         (summary["completed_experiments"], len(rows), failures), "", "| Task | Dataset | Seed | Phase | Epoch | Updates |", "|---|---|---:|---|---:|---:|"]
     for row in rows:
         p = row["progress"]
         lines.append("| %s | %s | %s | %s | %s | %s |" % (row["task_id"], row["dataset"], row["seed"], p["phase"], p.get("epoch", 0), p.get("optimizer_steps", 0)))
     lines += ["", "Provisional completed-seed aggregates:", "", "```json", json.dumps(aggregates, indent=2), "```", "", summary["interpretation"],
+        "Training-only scaling, within-window prefix trend and feature-axis fusion softmax. Ordered-row causality gates required; timestamps/service gaps unverified. This is a reference adaptation, not exact S3 reproduction." if causal else
         "Released scaling and cross-window dependence retained. Exact published S3 settings unresolved."]
     (output / "SUMMARY.md").write_text("\n".join(lines) + "\n")
     print("\nEXPERIMENTS completed=%s/%s reported_failed=%s" % (summary["completed_experiments"], len(rows), failures))

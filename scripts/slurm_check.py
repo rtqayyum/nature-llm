@@ -49,7 +49,7 @@ def main():
     submission = json.loads((job / "submission.json").read_text())
     if Path(submission["project"]).resolve() != project or submission["job_id"] != job_id:
         raise SystemExit("Job is not recorded as belonging to this project")
-    if submission.get("stage") == "reference-train3" and "array_job_id" not in submission:
+    if submission.get("stage") in ("reference-train3", "causal-train3") and "array_job_id" not in submission:
         from training_check import summarize
         summarize(project, job_id, submission, command)
         return
@@ -93,8 +93,8 @@ def main():
             print("RESCORE AGGREGATES:", json.dumps(result.get("aggregates", {}), indent=2))
             if result.get("error"):
                 print("RESCORE ERROR:", result["error"])
-    elif stage == "reference-train3":
-        for name in ("gpu_environment_status.json", "gpu_runtime.json", "training_progress.json", "training_result.json"):
+    elif stage in ("reference-train3", "causal-train3"):
+        for name in ("gpu_environment_status.json", "gpu_runtime.json", "training_progress.json", "training_result.json", "causality_checks.json"):
             path = job / "report" / name
             if path.exists():
                 print(name + ":", json.dumps(json.loads(path.read_text()), indent=2))
@@ -256,7 +256,7 @@ def main():
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
     if stage == "baseline-rescore":
         print("No new training or inference: existing saved normalized forecasts were rescored; original runs preserved.")
-    elif stage == "reference-train3":
+    elif stage in ("reference-train3", "causal-train3"):
         print("Training experiment status is shown above; interim losses are not held-out test results.")
     elif stage == "gpu-smoke":
         print("Benchmark experiments completed: 0. Training smoke fits perform real updates on training batches only.")

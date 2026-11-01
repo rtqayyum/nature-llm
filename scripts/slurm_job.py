@@ -46,7 +46,7 @@ def main(argv=None):
         (job / "started.json").write_text(json.dumps({"started_utc": stamp(), "job_id": job_id,
              "actual_slurm_job_id": os.environ["SLURM_JOB_ID"],
              "code": str(code), "work": str(work), "report": str(report)}, indent=2))
-        if stage == "reference-train3":
+        if stage in ("reference-train3", "causal-train3"):
             # Only environment preparation is serialized. Training tasks must
             # not hold the global acquisition/environment lock while fitting.
             try:
@@ -54,8 +54,11 @@ def main(argv=None):
                 with (work / "acquisition.lock").open("a") as lock:
                     fcntl.flock(lock, fcntl.LOCK_EX)
                     python = ensure(root, code, report, flavor="gpu")
-                result = subprocess.call([str(python), "-u", str(code / "scripts/reference_train.py"),
-                    "--project", str(root), "--code", str(code), "--report", str(report)])
+                arguments = [str(python), "-u", str(code / "scripts/reference_train.py"),
+                    "--project", str(root), "--code", str(code), "--report", str(report)]
+                if stage == "causal-train3":
+                    arguments.append("--causal")
+                result = subprocess.call(arguments)
             except Exception as exc:
                 result = 2
                 (report / "training_progress.json").write_text(json.dumps({"phase": "FAILED", "error": str(exc)}, indent=2))
@@ -131,6 +134,7 @@ def main(argv=None):
         "causality-audit": "Real-checkpoint input-dependence and zero-update gradient audit complete; keep faithful and causal training tracks distinct",
         "gpu-smoke": "Independent training-batch smoke complete; no causal baseline or benchmark training result is established",
         "reference-train3": "Independent single-domain training complete; inspect held-out metrics and protocol limitations",
+        "causal-train3": "Index-causal reference adaptation evaluated; inspect causal gates, results and timestamp limitations",
         "baseline-rescore": "Saved baseline forecasts rescored with verified min-max inverse; causal protocol and exact S3 reproduction remain unresolved",
         "acquire": "Known duplicate source domains need review"}
     status = {"job_id": job_id, "stage": stage, "finished_utc": stamp(), "execution_state": state,
@@ -139,13 +143,18 @@ def main(argv=None):
               "training_experiments_completed": 0,
               "reason": review_reasons.get(stage, "Scientific review required") if state == "COMPLETED_WITH_REVIEW" else
                         "Inspect Slurm accounting, stderr and report/" if state == "FAILED" else "Stage completed"}
-    if stage == "reference-train3":
+    if stage in ("reference-train3", "causal-train3"):
         path = report / "training_progress.json"
         progress = json.loads(path.read_text()) if path.exists() else {}
         status.update(training_experiments_completed=int((report / "training_result.json").exists()),
             training_performed=progress.get("new_optimizer_steps", 0) > 0,
             training_optimizer_steps=progress.get("optimizer_steps", 0),
             new_optimizer_steps=progress.get("new_optimizer_steps", 0))
+    if stage == "causal-train3":
+        path = report / "training_result.json"
+        result = json.loads(path.read_text()) if path.exists() else {}
+        status["causal_protocol_status"] = result.get("protocol_status", "NOT_ESTABLISHED")
+        status["paper_reproduction_claim"] = False
     if stage == "baseline-rescore":
         path = report / "rescore_progress.json"
         progress = json.loads(path.read_text()) if path.exists() else {}

@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import random
 import shutil
+import sys
 import time
 import traceback
 
@@ -197,16 +198,21 @@ def fit(model, train, validation, store, identity, config, update, stop_after_up
     return state
 
 
-def run(project, code, report):
+def run(project, code, report, causal=False):
     import torch, transformers
     project, code, report = project.resolve(), code.resolve(), report.resolve()
     code.relative_to(project)
     report.relative_to(project)
     report.mkdir(parents=True, exist_ok=True)
-    config = json.loads((code / "config/reference_training.json").read_text())
+    config = json.loads((code / "config" / ("causal_reference.json" if causal else "reference_training.json")).read_text())
+    if causal and any(config[key] != value for key, value in {"inner_batch": 16, "outer_batch": 1,
+        "lookback_steps": 12, "horizon_steps": 1, "fusion_softmax_dimension": -1,
+        "route": "pretrain", "array": "stage1-channel0-only", "precision": "float32"}.items()):
+        raise ValueError("Causal configuration differs from the locked implementation")
     task_index = int(os.environ["SLURM_ARRAY_TASK_ID"])
     task = task_plan(config)[task_index]
-    progress = {**task, "task_index": task_index, "phase": "PREFLIGHT", "optimizer_steps": 0}
+    progress = {**task, "task_index": task_index, "phase": "PREFLIGHT", "optimizer_steps": 0,
+        "protocol": config["protocol"], "method": "CAUSAL_REFERENCE_ADAPTATION" if causal else "RELEASED_REFERENCE_TRAINING"}
     store = None
     def update(**fields):
         progress.update(fields)
@@ -214,13 +220,15 @@ def run(project, code, report):
         atomic_json(report / "training_progress.json", progress)
         if store:
             atomic_json(store / "progress.json", progress)
-        (report / "SUMMARY.md").write_text("# Single-domain reference training\n\n" +
+        (report / "SUMMARY.md").write_text(("# Index-causal reference baseline\n\n" if causal else "# Single-domain reference training\n\n") +
             "Live status; no test metric until validation-selected training finishes.\n\n```json\n" + json.dumps(progress, indent=2) + "\n```\n")
         print("TRAIN_PROGRESS", json.dumps(progress), flush=True)
     try:
         update()
         if (str(torch.__version__), transformers.__version__, np.__version__) != ("2.0.0+cu118", "4.35.0", "1.24.0"):
             raise ValueError("Pinned CUDA reference runtime required")
+        if causal and sys.version_info < (3, 9):
+            raise ValueError("Causal source auditing requires Python 3.9+ in the project GPU environment")
         if not torch.cuda.is_available() or torch.cuda.device_count() != 1:
             raise ValueError("Expected exactly one visible CUDA GPU; no CPU fallback")
         torch.set_num_threads(int(os.environ.get("SLURM_CPUS_PER_TASK", "5")))
@@ -233,12 +241,12 @@ def run(project, code, report):
         torch.manual_seed(task["seed"])
         torch.cuda.manual_seed_all(task["seed"])
         hardware = {"gpu": torch.cuda.get_device_name(0), "capability": list(torch.cuda.get_device_capability(0)),
-            "torch": str(torch.__version__), "cuda": torch.version.cuda, "cudnn": torch.backends.cudnn.version()}
+            "torch": str(torch.__version__), "cuda": torch.version.cuda, "cudnn": torch.backends.cudnn.version(), "python": sys.version.split()[0]}
         atomic_json(report / "gpu_runtime.json", hardware)
         lock = json.loads((code / "config/sources.lock.json").read_text())
         repo = prepare_reference(project / "work", lock, audit_only=True)
         profile = PROFILES[task["dataset"]]
-        for name in (profile["stage1"], "utils/metrics.py"):
+        for name in (profile["stage1"], "utils/metrics.py") + ((profile["stage2"],) if causal else ()):
             expected = next(row for row in lock["lfs_files"] if row["path"] == name)
             if not verify(repo / name, expected):
                 raise ValueError("Required released file hash failed: " + name)
@@ -251,10 +259,32 @@ def run(project, code, report):
             raise ValueError("Invalid source array shape/values")
         registry = literal_assignment((repo / "data/dataset_registry.py").read_text(), "DATASET_REGISTRY")
         splits = derive_splits((repo / "data/unified_dataset.py").read_text(), registry[task["dataset"]], values, config["route"])
-        lower, upper = float(values.min()), float(values.max())
-        if upper <= lower:
-            raise ValueError("Degenerate full-array scaler")
-        normalized = (values - lower) / (upper - lower)
+        causal_checks, data_contract = {}, None
+        if causal:
+            from causal_protocol import (CausalBatches, data_gates, train_scaler,
+                install_fusion, model_gates, patched_forward, load_forecast, save_forecast)
+            raw = values[:, :, 0]
+            stage2 = np.load(repo / profile["stage2"], mmap_mode="r", allow_pickle=False)
+            if not np.array_equal(raw, stage2[:, :, 0]):
+                raise ValueError("Stage-one/two raw flow channels differ; no automatic dataset substitution")
+            scaler = train_scaler(raw, splits)
+            lower, upper = scaler["minimum"], scaler["maximum"]
+            causal_checks["data"] = data_gates(raw, splits, scaler)
+            _, patch = patched_forward((repo / "model/LLM_UTP.py").read_text())
+            data_contract = {"protocol": config["data_protocol"], "dataset": task["dataset"],
+                "raw_source_sha256": file_sha(repo / profile["stage1"]), "raw_channel": 0,
+                "ignored_released_channel": 1, "lookback": 12, "horizon": 1, "inner_batch": 16,
+                "native_interval_minutes": profile["interval_minutes"], "splits": splits, "scaler": scaler,
+                "trend": config["trend"],
+                "metric_conventions": "MAE/RMSE all cells; released WMAPE numerator truth>0; nonnegative physical clipping",
+                "timestamp_status": "row order assumed chronological; absolute dates/service gaps unverified"}
+            data_contract_hash = hashlib.sha256(json.dumps(data_contract, sort_keys=True).encode()).hexdigest()
+            atomic_json(report / "data_contract.json", {"sha256": data_contract_hash, **data_contract})
+        else:
+            lower, upper = float(values.min()), float(values.max())
+            if upper <= lower:
+                raise ValueError("Degenerate full-array scaler")
+            normalized = (values - lower) / (upper - lower)
         scheduling = {"datasets", "seeds", "max_concurrent_tasks", "checkpoint_batches", "checkpoint_seconds", "progress_batches"}
         identity = {**task, "config": {key: value for key, value in config.items() if key not in scheduling},
             "source_sha256": file_sha(repo / profile["stage1"]),
@@ -264,8 +294,13 @@ def run(project, code, report):
                 ("reference_contract.py", "pems08_audit.py", "pems08_infer.py", "reference_datasets.py")},
             "environment_sha256": file_sha(report / "reference_environment_freeze.txt"), "runtime": hardware,
             "initialization": "official pinned GPT-2 plus fresh seeded author encoder/head; no released target checkpoint"}
+        if causal:
+            identity.update(causal_protocol_sha256=file_sha(code / "scripts/causal_protocol.py"),
+                data_contract_sha256=data_contract_hash, scaler=scaler,
+                patched_forward_sha256=patch["patched_forward_sha256"],
+                training_loop_sha256=file_sha(Path(__file__)))
         run_hash = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
-        store = project / "outputs/reference_training" / profile["slug"] / ("seed-%s" % task["seed"]) / run_hash
+        store = project / ("outputs/causal_reference" if causal else "outputs/reference_training") / profile["slug"] / ("seed-%s" % task["seed"]) / run_hash
         store.resolve().relative_to(project)
         store.mkdir(parents=True, exist_ok=True)
         with (store / "run.lock").open("a") as run_lock:
@@ -275,6 +310,9 @@ def run(project, code, report):
                 raise ValueError("This exact dataset/seed experiment is already running")
             atomic_json(store / "identity.json", identity)
             atomic_json(report / "training_contract.json", identity)
+            if causal:
+                atomic_json(store / "data_contract.json", {"sha256": data_contract_hash, **data_contract})
+                (store / "causal_fusion_forward.py").write_text(patch["source"])
             update(output_store=str(store), train_batches=splits["train"]["inner_batches"],
                 validation_batches=splits["val"]["inner_batches"], test_batches=splits["test"]["inner_batches"])
             for split, row in splits.items():
@@ -286,6 +324,14 @@ def run(project, code, report):
                 result = json.loads((store / "training_result.json").read_text())
                 if file_sha(store / result["best"]["file"]) != result["best"]["sha256"]:
                     raise ValueError("Completed experiment's selected model digest mismatch")
+                if causal:
+                    if (result.get("protocol_status") != "CAUSAL_INDEX_GATES_PASSED" or
+                        result.get("data_contract_sha256") != data_contract_hash or
+                        any(result.get(key) != value for key, value in task.items()) or
+                        not all(result.get("causality_checks", {}).get(key, {}).get("passed") for key in ("data", "before_training", "selected_model")) or
+                        file_sha(store / "test_forecasts.npz") != result["forecasts_sha256"]):
+                        raise ValueError("Completed causal result lacks valid gates/forecast integrity")
+                    atomic_json(report / "causality_checks.json", result["causality_checks"])
                 atomic_json(report / "training_result.json", result)
                 update(phase="COMPLETED_WITH_REVIEW", result=result, reused_completed_result=True,
                     optimizer_steps=result["optimizer_steps"], completed_epochs=result["epochs"], new_optimizer_steps=0)
@@ -295,13 +341,36 @@ def run(project, code, report):
             os.environ.update(TRANSFORMERS_OFFLINE="1", HF_HUB_OFFLINE="1")
             original = module_from(repo / "model/LLM_UTP.py", "_train_author_model")
             model = original.TrafficPredictionModel(profile["shape"][0], 12, 64, [1, 2, 4], 12, 0, str(base), 768).cuda()
-            batches = {key: WindowBatches(normalized, values, row) for key, row in splits.items()}
+            if causal:
+                installed = install_fusion(model, original, (repo / "model/LLM_UTP.py").read_text())
+                if installed["patched_forward_sha256"] != identity["patched_forward_sha256"]:
+                    raise ValueError("Installed fusion patch differs from locked source")
+                batches = {key: CausalBatches(raw, row, scaler) for key, row in splits.items()}
+                causal_checks["model_policy"] = {"total_parameters": sum(p.numel() for p in model.parameters()),
+                    "declared_trainable_parameters": sum(p.numel() for p in model.parameters() if p.requires_grad),
+                    "retained_gpt_blocks": len(model.gpt2.h), "executed_gpt_blocks": 2,
+                    "freeze_policy": "unchanged author constructor; named parameter keys/flags preserved",
+                    "fusion_patch": {key: value for key, value in installed.items() if key != "source"}}
+                update(phase="CAUSAL_PREFLIGHT")
+                probe_inputs, _ = batches["train"].get(0, "cuda:0")
+                causal_checks["before_training"] = model_gates(model, probe_inputs, atol=config["probe_atol"], rtol=config["probe_rtol"])
+                atomic_json(report / "causality_checks.json", causal_checks)
+            else:
+                batches = {key: WindowBatches(normalized, values, row) for key, row in splits.items()}
             state = fit(model, batches["train"], batches["val"], store, identity, config, update)
+            if causal:
+                causal_checks["model_policy"]["elements_receiving_gradients_final_update"] = sum(
+                    p.numel() for p in model.parameters() if p.grad is not None) or None
             best = state["best"]
             if file_sha(store / best["file"]) != best["sha256"]:
                 raise ValueError("Best model digest mismatch")
             model.load_state_dict(torch.load(store / best["file"], map_location="cpu", weights_only=True), strict=True)
             model.eval()
+            if causal:
+                update(phase="CAUSAL_SELECTED_MODEL_CHECK")
+                causal_checks["selected_model"] = model_gates(model, probe_inputs, atol=config["probe_atol"], rtol=config["probe_rtol"])
+                atomic_json(report / "causality_checks.json", causal_checks)
+                atomic_json(store / "causality_checks.json", causal_checks)
             forecasts = store / "test_predictions"
             forecasts.mkdir(exist_ok=True)
             scale = registry[task["dataset"]]["finetune"]["max_inflow"]
@@ -311,12 +380,17 @@ def run(project, code, report):
                     start = splits["test"]["start_target_index"] + index * 16
                     targets = np.arange(start, start + 16)
                     truth = np.array([values[:, i, 0] for i in targets], dtype="float32")
-                    shard = load_batch(forecasts, index, targets, truth, scale)
+                    shard_path = forecasts / ("batch-%04d.npz" % index)
+                    shard = load_forecast(shard_path, targets, truth, scaler) if causal else load_batch(forecasts, index, targets, truth, scale)
                     if shard is None:
                         x, _ = batches["test"].get(index, "cuda:0")
                         prediction = model(x).squeeze(-1).cpu().numpy()
-                        save_batch(forecasts, index, targets, truth, prediction, scale)
-                        shard = load_batch(forecasts, index, targets, truth, scale)
+                        if causal:
+                            save_forecast(shard_path, targets, truth, prediction, scaler)
+                            shard = load_forecast(shard_path, targets, truth, scaler)
+                        else:
+                            save_batch(forecasts, index, targets, truth, prediction, scale)
+                            shard = load_batch(forecasts, index, targets, truth, scale)
                     truth_list.append(shard["truth"])
                     prediction_list.append(shard["predictions"])
                     normalized_list.append(shard["normalized_predictions"])
@@ -337,21 +411,37 @@ def run(project, code, report):
             independent = independent_metrics(truth, prediction)
             if not all(np.isclose(measured[key], value, rtol=1e-5, atol=1e-6) for key, value in independent.items()):
                 raise ValueError("Author and independent metrics disagree")
-            legacy_rmse, legacy_r2, legacy_mae, legacy_wmape = metrics.Metrics(truth, legacy_prediction).evaluate_performance()
+            if not causal:
+                legacy_rmse, legacy_r2, legacy_mae, legacy_wmape = metrics.Metrics(truth, legacy_prediction).evaluate_performance()
             result = {**task, "inverse_transform": "TRAINING_MINMAX_AFFINE_V1",
                 "forecasts": str(store / "test_forecasts.npz"), "prediction_shards_transform": "LEGACY_MAX_ONLY_DIAGNOSTIC",
                 "legacy_metrics_author": {"MAE": float(legacy_mae), "RMSE": float(legacy_rmse),
-                    "WMAPE_percent": float(legacy_wmape) * 100, "R2": float(legacy_r2)},
+                    "WMAPE_percent": float(legacy_wmape) * 100, "R2": float(legacy_r2)} if not causal else None,
                 "execution_status": "COMPLETED_WITH_REVIEW", "scientific_status": "REPRODUCTION_NOT_ESTABLISHED",
                 "epochs": state["epoch"], "optimizer_steps": state["updates"], "best": best,
                 "stop_reason": "patience" if state["bad_epochs"] >= config["patience"] else "max_epochs",
                 "metrics_author": measured, "metrics_independent": independent, "output_store": str(store),
                 "scored_origins": len(truth), "source_array": "stage1", "split_route": config["route"],
-                "paper_comparisons_diagnostic_only": anchor_comparison(measured, profile["anchors"]),
+                "paper_comparisons_diagnostic_only": anchor_comparison(measured, profile["anchors"]) if not causal else None,
                 "limitations": ["Independent single-domain released-behavior experiment; exact published S3 settings unresolved",
                     "Original full-array scaling and cross-window dependence retained; not a causal baseline",
                     "Test cohort is the recorded stage1/pretrain route; not interchangeable with stage2/finetune results",
                     "Epoch-specific batch-shuffle seeds are explicit; original author seeds/order are unknown"]}
+            if causal:
+                # The source-behavior comparisons do not apply to this changed
+                # preprocessing/architecture protocol. No paper-row scoring gate.
+                for key in ("legacy_metrics_author", "paper_comparisons_diagnostic_only"):
+                    result.pop(key, None)
+                result.update(method="CAUSAL_REFERENCE_ADAPTATION", protocol=config["protocol"],
+                    protocol_status="CAUSAL_INDEX_GATES_PASSED", causality_checks=causal_checks,
+                    data_contract_sha256=data_contract_hash, forecasts_sha256=file_sha(store / "test_forecasts.npz"),
+                    prediction_shards_transform="TRAINING_MINMAX_AFFINE_V1", source_array="stage1-channel0-only",
+                    paper_reproduction_claim=False,
+                    limitations=["Causal adaptation: training-only scaler, within-window prefix trend, feature-axis fusion softmax",
+                        "Evaluation assumes released row order is chronological; absolute timestamps and service gaps remain unverified",
+                        "Not an exact reproduction of published S3; results are not interchangeable with released-behavior scores",
+                        "Finite causality probes are required before training and after validation-only checkpoint selection",
+                        "Future proposed-method comparisons must share this data contract and scored origins"])
             atomic_json(store / "training_result.json", result)
             atomic_json(store / "COMPLETED.json", {"result_sha256": file_sha(store / "training_result.json")})
             atomic_json(report / "training_result.json", result)
@@ -367,5 +457,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     for name in ("project", "code", "report"):
         parser.add_argument("--" + name, type=Path, required=True)
+    parser.add_argument("--causal", action="store_true", help="Use the locked causal reference adaptation")
     args = parser.parse_args()
-    raise SystemExit(run(args.project, args.code, args.report))
+    raise SystemExit(run(args.project, args.code, args.report, causal=args.causal))

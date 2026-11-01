@@ -75,18 +75,22 @@ module load anaconda3
 unset PYTHONPATH
 BASE_PYTHON=''
 MAX_PYTHON_MINOR=12
-if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer || "${TRAFFIC_STAGE:-acquire}" == beijing-infer || "${TRAFFIC_STAGE:-acquire}" == public8-infer || "${TRAFFIC_STAGE:-acquire}" == release-diagnose || "${TRAFFIC_STAGE:-acquire}" == causality-audit || "${TRAFFIC_STAGE:-acquire}" == gpu-smoke || "${TRAFFIC_STAGE:-acquire}" == reference-train3 || "${TRAFFIC_STAGE:-acquire}" == baseline-rescore ]]; then
+MIN_PYTHON_MINOR=8
+if [[ "${TRAFFIC_STAGE:-acquire}" == causal-train3 ]]; then
+    MIN_PYTHON_MINOR=9
+fi
+if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer || "${TRAFFIC_STAGE:-acquire}" == beijing-infer || "${TRAFFIC_STAGE:-acquire}" == public8-infer || "${TRAFFIC_STAGE:-acquire}" == release-diagnose || "${TRAFFIC_STAGE:-acquire}" == causality-audit || "${TRAFFIC_STAGE:-acquire}" == gpu-smoke || "${TRAFFIC_STAGE:-acquire}" == reference-train3 || "${TRAFFIC_STAGE:-acquire}" == baseline-rescore || "${TRAFFIC_STAGE:-acquire}" == causal-train3 ]]; then
     MAX_PYTHON_MINOR=11
     export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"
 fi
 for candidate in python3.11 python3.10 python3.12 python3.9 python3.8 python3; do
-    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c 'import sys; assert (3,8) <= sys.version_info[:2] <= (3,int(sys.argv[1]))' "$MAX_PYTHON_MINOR" 2>/dev/null; then
+    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c 'import sys; assert (3,int(sys.argv[2])) <= sys.version_info[:2] <= (3,int(sys.argv[1]))' "$MAX_PYTHON_MINOR" "$MIN_PYTHON_MINOR" 2>/dev/null; then
         BASE_PYTHON="$(command -v "$candidate")"
         break
     fi
 done
-[[ -n "$BASE_PYTHON" ]] || { echo "Required Python 3.8–3.$MAX_PYTHON_MINOR unavailable after module load anaconda3" >&2; exit 2; }
+[[ -n "$BASE_PYTHON" ]] || { echo "Required Python 3.$MIN_PYTHON_MINOR–3.$MAX_PYTHON_MINOR unavailable after module load anaconda3" >&2; exit 2; }
 echo "START job=$SLURM_JOB_ID name=$SLURM_JOB_NAME node=$(hostname) cpus=$SLURM_CPUS_PER_TASK code=$TRAFFIC_CODE_DIR"
 set +e
 srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" "$BASE_PYTHON" -u \

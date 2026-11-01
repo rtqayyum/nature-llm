@@ -150,6 +150,20 @@ class SlurmTests(unittest.TestCase):
         self.assertEqual(call.kwargs["env"]["TRAFFIC_SOURCE_ARRAY"], "70000")
         self.assertFalse(any(value.startswith("--gres") or value.startswith("--array") for value in call.args[0]))
 
+    def test_causal_baseline_is_six_independent_one_gpu_tasks(self):
+        (self.code / "config").mkdir()
+        (self.code / "config/causal_reference.json").write_bytes((ROOT / "config/causal_reference.json").read_bytes())
+        _, execute = self.submit_fixture("causal-train3")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["partition"], record["cpus"], record["gpus"]), ("gpuq", 5, 1))
+        self.assertEqual(record["protocol"], "index-causal-reference-v1")
+        self.assertEqual(len(record["array_tasks"]), 6)
+        call = next(call for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertIn("--array=0-5%4", call.args[0])
+        self.assertIn("--gres=gpu:1", call.args[0])
+        self.assertNotIn("--gres=gpu:4", call.args[0])
+        self.assertIn("--job-name=nutp-causal-3seed", call.args[0])
+
     def test_baseline_rescore_requires_a_source_array_before_any_submission(self):
         with self.assertRaises(SystemExit), mock.patch.object(submit.subprocess, "run") as execute:
             submit.main(["--project", str(self.project), "--code", str(self.code), "--stage", "baseline-rescore"])
@@ -205,6 +219,26 @@ class SlurmTests(unittest.TestCase):
         self.assertEqual(status["rescored_experiments_completed"], 6)
         self.assertFalse(status["training_performed"])
         self.assertFalse(status["model_inference_performed"])
+
+    def test_causal_worker_dispatches_flag_and_keeps_baseline_status_separate(self):
+        (self.project / "work").mkdir(exist_ok=True)
+        report = self.project / "results/slurm_jobs/73001_0/report"
+        def train(arguments):
+            self.assertEqual(arguments[-1], "--causal")
+            (report / "training_progress.json").write_text(json.dumps({"optimizer_steps": 10, "new_optimizer_steps": 10}))
+            (report / "training_result.json").write_text(json.dumps({"protocol_status": "CAUSAL_INDEX_GATES_PASSED"}))
+            return 3
+        with mock.patch.dict(os.environ, {"TRAFFIC_CODE_DIR": str(self.code), "SLURM_JOB_ID": "73099",
+                "TRAFFIC_JOB_KEY": "73001_0", "TRAFFIC_STAGE": "causal-train3"}), \
+             mock.patch("reference_env.ensure", return_value=self.project / ".venv-reference-gpu/bin/python") as ensure, \
+             mock.patch.object(job.subprocess, "call", side_effect=train):
+            self.assertEqual(job.main(["run", "--project", str(self.project)]), 0)
+            self.assertEqual(ensure.call_args.kwargs["flavor"], "gpu")
+            job.main(["finalize", "--project", str(self.project), "--raw-exit", "3", "--shell-exit", "0"])
+        status = json.loads((report.parent / "job_status.json").read_text())
+        self.assertEqual(status["causal_protocol_status"], "CAUSAL_INDEX_GATES_PASSED")
+        self.assertFalse(status["paper_reproduction_claim"])
+        self.assertTrue(status["training_performed"])
 
     def test_custom_entrypoint_is_never_overwritten(self):
         (self.project / "Batch").write_text("user content\n")

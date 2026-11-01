@@ -300,3 +300,40 @@ inference continues to use inverse_author for historical fidelity.
 Rescoring does not repair original full-array normalization or cross-window
 future dependence and does not establish published S3 reproduction. These
 must be addressed before comparing the proposed new method.
+
+
+## Index-causal reference baseline
+
+Stage causal-train3 uses nutp-causal-3seed with six independently scheduled
+array tasks (PEMS08/Beijing x 11,22,33), maximum four active. Every task
+requests gpuq, one GPU, five CPUs, 16 GiB RAM, up to ten days capped by the
+observed maximum. An allocation never requires four GPUs together. Existing
+project-local .venv-reference-gpu/assets are reused. Python 3.9–3.11 is
+required for the audited source transformation. Shared Conda stays untouched.
+
+The locked choices and data-access assumptions are in CAUSAL_BASELINE.md.
+It is an explicitly changed reference, not exact S3 reproduction or the new
+method. Training-only scaling, raw flow plus within-window prefix means,
+feature-axis fusion and correct inverse scaling define the new protocol.
+Scored origins remain fixed. Finite causal checks run before optimization
+and on the validation-selected model; any failure stops with nonzero status.
+Environment setup alone is serialized; each experiment has its own run lock.
+
+Report files in results/slurm_jobs/ARRAYID_TASK/report include training_contract,
+data_contract, causality_checks, training_progress, training_result JSONs,
+origin CSV ledgers and SUMMARY.md. Each run also records declared/observed
+parameter counts and the generated fusion forward source/hash. Checkpoints,
+loss histories and verified physical forecast shards are separate under
+outputs/causal_reference/SLUG/seed-SEED/RUN_HASH/; test_forecasts.npz is the
+canonical selected-model export. Allow roughly 12 GiB free for retained
+checkpoint stores across six tasks, as for the released-behavior training.
+
+Logs: logs/nutp-causal-3seed_ARRAYID_TASK.out/.err. Check ARRAYID shows all
+tasks, live phases/epoch losses, causal checks, failures, CPU/memory and final
+metrics; report/SUMMARY.md and TRAINING_SUMMARY.json aggregate the array.
+Reject aggregation if completed seeds name different data contract hashes.
+Repeat the causal-train3 submission after timeout/failure to resume compatible
+states or reuse verified completed results. Existing mail preferences apply
+to queued receipts and per-task scheduler lifecycle notifications.
+Actual CUDA gate behavior and training accuracy remain unverified until HPC
+execution. Local synthetic CPU tests and mocked CUDA admission are separate.

@@ -140,3 +140,19 @@ Leave inverse_author unchanged for faithful released-checkpoint evaluation.
 A scaling correction does not remove full-array fitting or cross-window
 future dependence. Never call this a clean baseline or certified S3 result.
 Reconcile the baseline protocol before launching new-method comparisons.
+
+
+Current authorization: execute the separate index-causal reference baseline
+before the proposed method. Use causal-train3 and config/causal_reference.json,
+with PEMS08/Beijing x seeds 11/22/33, one GPU/five CPUs/16 GiB per task,
+max four active and up to ten days capped by gpuq maximum. See
+CAUSAL_BASELINE.md for the locked protocol. Source row order is assumed;
+calendar/service-gap metadata remains unverified. Do not claim exact S3.
+Use raw channel zero only, require stage-one/two raw equality, fit min/max
+on scored training support only, rebuild prefix means inside each 12-row
+window and apply a two-call feature-axis fusion softmax patch. Leave original
+source and released-behavior outputs intact. Pretraining and selected-model
+causality gates must pass; failure is nonzero, never tune gates on test scores.
+Use separate outputs/causal_reference stores, corrected physical-unit shards,
+method-independent data contract hashes, live losses and strict recovery.
+No proposed-method/Qwen training or downloads are authorized by this stage.

@@ -207,3 +207,30 @@ Focused training/resume/early-stop/loader and unchanged-architecture epoch
 checks passed. Bash syntax, Python compilation and diff checks passed.
 No actual saved HPC forecasts were available locally; real correction scores
 remain unverified until baseline-rescore executes on the cluster.
+
+
+## Separate index-causal baseline prepared
+
+The authorized causal reference adaptation now has a locked protocol in
+CAUSAL_BASELINE.md and config/causal_reference.json. It uses the same two
+pilot domains/seeds and scored cohorts, training-only scaler support, raw
+channel zero plus within-window prefix trend and an audited two-call fusion
+softmax dimension change. Constructor parameter keys/freeze flags remain.
+Data-access mutation checks and model companion/permutation/single-origin
+checks must pass before fitting and after selecting the validation-best model.
+The known source behavior remains available in its own immutable snapshots.
+
+No causal accuracy is asserted locally. The new outputs, forecast schema and
+array reports are distinct from earlier training/rescore stores. Absolute
+timestamps/service gaps are still unverified; row-order causality and exact
+paper reproduction are separate claims. No proposed method has been started.
+
+
+Validation: 88 ordinary checks passed (104 discovered, 16 optional checks
+skipped by the default runtime). Nine focused causal tests passed with pinned
+Torch CPU, including the unchanged-source negative control, adapted-model
+causality, exact interrupted-run recovery, held-out data perturbations,
+forecast integrity and completed-result reuse. The end-to-end fixture mocks
+CUDA admission but runs model/data on CPU; it is not real GPU execution.
+Bash syntax, Python compilation and diff checks passed. Real CUDA gates and
+accuracy remain unverified until the new HPC tasks execute.
