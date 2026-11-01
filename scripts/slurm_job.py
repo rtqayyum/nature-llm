@@ -49,7 +49,16 @@ def main(argv=None):
         (job / "started.json").write_text(json.dumps({"started_utc": stamp(), "job_id": job_id,
              "actual_slurm_job_id": os.environ["SLURM_JOB_ID"],
              "code": str(code), "work": str(work), "report": str(report)}, indent=2))
-        if stage == "reproduction-review":
+        if stage.startswith('ectt-'):
+            try:
+                from ectt_workflow import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report / 'ectt_progress.json').write_text(json.dumps({'phase': 'FAILED', 'error': str(exc)}, indent=2))
+                (report / 'SUMMARY.md').write_text('# ECTT setup failed\n\n'+str(exc)+'\n')
+                print('ECTT_SETUP_FAILED:', str(exc), flush=True)
+        elif stage == "reproduction-review":
             # Read-only historical evidence consolidation; no environment or
             # research-asset downloads and no Torch import are necessary.
             result = subprocess.call([sys.executable, "-u", str(code / "scripts/reproduction_review.py"),
@@ -186,9 +195,18 @@ def main(argv=None):
         status["new_training_smoke_optimizer_steps"] = sum(row.get("new_optimizer_steps", max(0, row.get("completed_steps", 0) - row.get("resumed_from_step", 0)))
             for row in smoke.get("datasets", {}).values())
         status["training_performed"] = status["new_training_smoke_optimizer_steps"] > 0
+    if stage.startswith('ectt-'):
+        path = report / 'ectt_result.json'
+        result = json.loads(path.read_text()) if path.exists() else {}
+        fit = result.get('fit', {})
+        status.update(scientific_status='METHOD_NOT_EVALUATED', benchmark_experiments_completed=0,
+            training_performed=result.get('training_performed', False),
+            training_smoke_optimizer_steps=fit.get('optimizer_steps', 0),
+            new_training_smoke_optimizer_steps=fit.get('new_optimizer_steps', 0),
+            reason='ECTT admission stage only; full benchmark training and S01 independent review remain pending' if args.shell_exit == 0 else 'Inspect ECTT progress, worker logs and Slurm accounting')
     (job / "job_status.json").write_text(json.dumps(status, indent=2) + "\n")
     (job / "JOB_REPORT.md").write_text("# Traffic reproduction job\n\nStage: " + stage + "\n\nExecution: " + state + "\n\n" + status["reason"] +
-        "\n\nScientific status: REPRODUCTION_NOT_ESTABLISHED\n\nDetailed report: " + str(report / "SUMMARY.md") + "\n")
+        "\n\nScientific status: " + status['scientific_status'] + "\n\nDetailed report: " + str(report / "SUMMARY.md") + "\n")
     print("FINAL_STATUS", json.dumps(status), flush=True)
     return 0
 

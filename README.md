@@ -9,7 +9,18 @@ Public checkpoint evaluation and diagnostic stages precede independent
 reference training. Training strategy, timestamp provenance and causal
 evaluation remain separate scientific checks. Execution results stay on HPC.
 
-## Current: finish the reproducibility assessment
+## Current: sequential shared-data study admission
+
+The user authorizes implementation and sequential execution of the agreed
+35-family plan. [ECTT_EXECUTION.md](ECTT_EXECUTION.md) documents the runnable
+data/statistical admission and one-GPU numerical Qwen pilot. GPU jobs request
+one GPU/five CPUs; CPU-only admission requests five CPUs. Only one study job
+may be active. New stages are ectt-preflight, ectt-stat-check, ectt-gpu-pilot
+and the manual ectt-next selector. No full benchmark kernel is represented
+as implemented; S01 independent review and matched baseline training remain
+pending. Existing reference jobs, outputs and environments are preserved.
+
+## Earlier: finish the reproducibility assessment
 
 Update, 1 November 2026: user-supplied logs confirm review job 610996
 completed with exit 0 and no failed sections. The available-data assessment

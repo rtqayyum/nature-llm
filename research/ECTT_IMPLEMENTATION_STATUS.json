@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-02",
+  "source_parent_commit": "75b6b8a4ffb2590b6e4bd1438b89b6406ff7cbf4",
+  "study_identity": "d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2",
+  "families": 35,
+  "unique_core_source_fits_planned": 42,
+  "eligible_core_adaptations_planned": 132,
+  "implemented_stages": [
+    "ectt-preflight",
+    "ectt-stat-check",
+    "ectt-gpu-pilot"
+  ],
+  "unimplemented": "Full matched baseline and method benchmark kernels, external adapters and final analysis kernels",
+  "independent_statistical_review": "PENDING",
+  "local_validation": {
+    "unittest_suite": {
+      "tests": 132,
+      "skipped": 22,
+      "status": "PASSED"
+    },
+    "tiny_cpu_qwen_lora_tests": {
+      "tests": 3,
+      "status": "PASSED"
+    },
+    "bash_n": "PASSED",
+    "python_3_9_syntax": "PASSED",
+    "frozen_scientific_artifact_hashes_unchanged": true
+  },
+  "execution_evidence": {
+    "real_hpc_jobs_submitted": 0,
+    "official_model_weights_downloaded_locally": false,
+    "real_datasets_downloaded_locally": false,
+    "ssh_result": "Network is unreachable",
+    "full_size_CUDA_verified": false,
+    "email_delivery_verified": false
+  },
+  "scope": "Planning and admission implementation. Synthetic/tiny-model checks are not traffic benchmark results."
+}

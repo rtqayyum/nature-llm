@@ -1,5 +1,22 @@
 # Research execution progress
 
+## Sequential ECTT admission implemented
+
+The user authorizes staged implementation/execution with one GPU and five
+CPUs per training job, one job at a time. The full 35-family registry now emits
+42 unique core source-fit plans and 132 eligible adaptation plans, preserving
+the paired NYC source exclusion and infeasible small budgets. Those are design
+counts, not completed experiments. New runnable stages audit shared data,
+simulate the existing verifier, then exercise numerical Qwen/LoRA on support
+windows only. The full benchmark kernels and independent S01 review remain
+explicitly pending; the next-stage command cannot submit them.
+
+Code, numeric contracts and every partial result are versioned or hash-bound.
+Synthetic data, mocked scheduler and tiny CPU Qwen tests validate software;
+they are not traffic results or CUDA execution. The actual university SSH
+attempt returned Network is unreachable. No new HPC job has been submitted
+from this environment, and no real execution ID is asserted.
+
 ## Project master protocol consolidated
 
 On 2 November 2026 the user requested one durable plan and a Word document

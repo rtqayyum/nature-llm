@@ -14,15 +14,16 @@ import sys
 import time
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3")
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot")
+ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
 
 def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
-    preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore", "reproduction-review")
-    desired = 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage == "gpu-smoke" else 1800 if preflight else 23 * 3600
+    preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore", "reproduction-review", "ectt-preflight", "ectt-stat-check")
+    desired = 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage in ("gpu-smoke", "ectt-gpu-pilot") else 1800 if preflight else 23 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -125,7 +126,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"]+list(ECTT_STAGES), default="acquire")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     args = parser.parse_args(argv)
     if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
@@ -133,6 +134,11 @@ def main(argv=None):
     if args.source_array and args.stage != "baseline-rescore":
         parser.error("--source-array is only valid with baseline-rescore")
     project, code = args.project.resolve(), args.code.resolve()
+    if args.stage in ECTT_STAGES:
+        from ectt_workflow import next_stage, require_previous
+        if args.stage == "ectt-next":
+            args.stage = next_stage(project, code)
+        require_previous(project, code, args.stage)
     phase_path = code / "config/reproduction_review.json"
     if args.stage == "causal-train3" and phase_path.exists() and read_json(phase_path)["phase"] == "REPRODUCIBILITY_FIRST":
         parser.error("causal-train3 is on hold under the user's reproducibility-first plan; use --stage reproduction-review")
@@ -165,6 +171,15 @@ def main(argv=None):
                     time.sleep(0.5)
         if not acquired:
             raise SystemExit("An acquisition still holds this project's lock. No duplicate download job was submitted. Do not stop an unidentified process/job.")
+        if args.stage in ECTT_STAGES:
+            recorded_ids = {p.parent.name for p in (project / 'results/slurm_jobs').glob('*/submission.json')
+                if p.parent.name.isdigit() and read_json(p).get('stage') in ECTT_STAGES}
+            if recorded_ids:
+                live = subprocess.run(['squeue', '--noheader', '--format=%A'], capture_output=True, text=True, timeout=20, check=True)
+                active = recorded_ids.intersection(live.stdout.split())
+                if active:
+                    print('Study job already active; serial execution preserved:', ','.join(sorted(active)))
+                    return 0
         partition, limit, partition_evidence = allocation(args.stage)
         profiles = {"acquire": ("nutp-dl-audit", 4, "8G"), "pems08-audit": ("nutp-p08-preflight", 1, "4G"),
                     "pems08-infer": ("nutp-p08-infer-cpu", 8, "16G"),
@@ -178,6 +193,11 @@ def main(argv=None):
                     "baseline-rescore": ("nutp-baseline-fix", 2, "8G"),
                     "causal-train3": ("nutp-causal-3seed", 5, "16G"),
                     "reproduction-review": ("nutp-repro-review", 1, "2G")}
+        if args.stage in ECTT_STAGES:
+            from ectt_common import load_contract
+            _, study_execution = load_contract(code)
+            row = study_execution['stages'][args.stage]
+            profiles[args.stage] = (row['job_name'], row['cpus'], row['memory'])
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),
@@ -189,6 +209,8 @@ def main(argv=None):
             command.insert(-1, "--gres=gpu:1")
         from job_notifications import preferences, queued_receipt
         notification_settings = preferences(project)
+        if args.stage in ECTT_STAGES and not notification_settings:
+            raise ValueError('Study submissions require saved email preferences or TRAFFIC_MAIL_USER; no silent notification omission')
         if notification_settings:
             command[1:1] = ["--mail-user=" + notification_settings["mail_user"],
                             "--mail-type=" + notification_settings["mail_type"]]

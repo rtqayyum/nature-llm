@@ -1,0 +1,24 @@
+{
+  "schema": "ECTT_EXECUTION_V1",
+  "execution_authorized": true,
+  "authorization_scope": "User requests sequential staged execution on 2 November 2026; this release submits implemented admission stages only.",
+  "scientific_contract": "config/ectt_protocol_v1.json",
+  "scientific_contract_sha256": "1c8bc34a67cda3b2a5b33186df058f501ef3cd109e67ad92494066e4d4b1d214",
+  "master_record": "research/MASTER_PROTOCOL_RECORD.json",
+  "maximum_active_study_jobs": 1,
+  "automatic_chaining": false,
+  "implemented_stage_order": ["ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot"],
+  "stages": {
+    "ectt-preflight": {"job_name": "ectt-data-check", "cpus": 5, "gpus": 0, "memory": "8G", "seconds": 1800, "families": ["D01", "D02", "D03"]},
+    "ectt-stat-check": {"job_name": "ectt-stat-check", "cpus": 5, "gpus": 0, "memory": "8G", "seconds": 1800, "families": ["S02"]},
+    "ectt-gpu-pilot": {"job_name": "ectt-qwen-pilot", "cpus": 5, "gpus": 1, "memory": "32G", "seconds": 7200, "families": ["P01", "P02"]}
+  },
+  "pilot": {"dataset": "pems08", "seed": 11, "budget": "0.05", "optimizer_steps": 6, "save_every_steps": 1, "window_origins": 2, "gradient_clip": 1.0},
+  "statistical_simulation": {"seed": 20261102, "streams": 2000, "origins": 256},
+  "training_resources": {"partition": "gpuq", "gpus_per_task": 1, "cpus_per_task": 5, "maximum_active_tasks": 1, "maximum_seconds": 864000},
+  "admission": {
+    "S01": "Independent mathematical review remains required; synthetic coverage checks do not clear it.",
+    "engineering_pilot": "Real training-support updates only; no test or verification labels, no benchmark claim.",
+    "benchmark_kernels": "PLANNED_NOT_IMPLEMENTED; the next stage stops after engineering admission rather than claiming the full training grid is ready."
+  }
+}

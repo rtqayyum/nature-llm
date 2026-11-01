@@ -70,7 +70,10 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "reproduction-review":
+    if stage.startswith('ectt-'):
+        from ectt_workflow import show
+        show(job / 'report')
+    elif stage == "reproduction-review":
         for name in ("reproduction_progress.json", "reproduction_review.json"):
             path = job / "report" / name
             if path.exists():
@@ -266,7 +269,9 @@ def main():
     else:
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    if stage == "baseline-rescore":
+    if stage.startswith('ectt-'):
+        print('Admission/engineering stage only; actual optimizer updates, if any, are shown in ECTT RESULT.')
+    elif stage == "baseline-rescore":
         print("No new training or inference: existing saved normalized forecasts were rescored; original runs preserved.")
     elif stage in ("reference-train3", "causal-train3"):
         print("Training experiment status is shown above; interim losses are not held-out test results.")

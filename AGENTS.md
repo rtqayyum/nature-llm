@@ -191,3 +191,14 @@ engineering pilot and fair shared-data baselines before ECTT comparisons.
 The Word document and master plan do not authorize submitting the full grid.
 Keep config/ectt_protocol_v1.json as the exact numeric contract; any scientific
 conflict or change needs a documented version amendment before affected runs.
+
+Latest user authorization supersedes the design-only restriction: implement
+the experiment schedule and run stages one by one. Every new GPU task uses
+one GPU/five CPUs, with one active study job. CPU-only admission uses five
+CPUs without a GPU. Read ECTT_EXECUTION.md. This release implements admission
+and engineering stages, with all 35 experiment families registered; it must
+not claim unimplemented full benchmark kernels or independent S01 review are
+complete. Use the new shared-stage identities; do not relabel causal-train3.
+Notifications are required for study submissions. GitHub publication is
+authorized. Direct HPC SSH currently has no route; provide exact download,
+submission, check/report and recovery commands without inventing job IDs.
