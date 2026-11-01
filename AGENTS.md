@@ -209,3 +209,10 @@ duplicates. Study identity d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea
 must remain usable. Next is ectt-stat-check (five CPUs, no GPU), then the
 one-GPU/five-CPU engineering pilot. Do not repeat data acquisition or call
 numerical admission a complete provenance, causality or benchmark validation.
+
+User-reported HPC job 612030 (ectt-stat-check) is now completed 0:0, with all
+three synthetic scenarios passed. It does not clear independent S01 review.
+The next implemented stage is ectt-gpu-pilot, one GPU/five CPUs in gpuq,
+two hours subject to queue maximum. It is a six-update PEMS08 support-only
+engineering pilot, not full baseline/method training or a traffic accuracy
+claim. Preserve the validated d70d0aa... study identity during status updates.

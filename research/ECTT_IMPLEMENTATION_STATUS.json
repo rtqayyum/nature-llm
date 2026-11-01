@@ -27,7 +27,7 @@
     "frozen_scientific_artifact_hashes_unchanged": true
   },
   "execution_evidence": {
-    "real_hpc_jobs_submitted": 1,
+    "real_hpc_jobs_submitted": 2,
     "official_model_weights_downloaded_locally": false,
     "real_datasets_downloaded_locally": false,
     "ssh_result": "Network is unreachable",
@@ -53,9 +53,45 @@
         "absolute_timestamps_verified": false,
         "raw_sensor_provenance_verified": false,
         "finished_utc": "2026-11-01T23:43:32.508886+00:00"
+      },
+      {
+        "job_id": "612030",
+        "stage": "ectt-stat-check",
+        "job_name": "ectt-stat-check",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 3,
+        "cpus": 5,
+        "gpus": 0,
+        "execution_kind": "SYNTHETIC",
+        "streams_per_scenario": 2000,
+        "origins_per_stream": 256,
+        "training_performed": false,
+        "model_inference_performed": false,
+        "finished_utc": "2026-11-01T23:49:44.593845+00:00",
+        "scenarios": [
+          {
+            "name": "rademacher_null",
+            "coverage_failure_fraction": 0.0005,
+            "accepted_fraction": 0.0,
+            "passed": true
+          },
+          {
+            "name": "predictable_envelope_null",
+            "coverage_failure_fraction": 0.002,
+            "accepted_fraction": 0.0005,
+            "passed": true
+          },
+          {
+            "name": "negative_mean_alternative",
+            "coverage_failure_fraction": 0.0,
+            "accepted_fraction": 1.0,
+            "passed": true
+          }
+        ]
       }
     ]
   },
   "scope": "Planning and admission implementation. Synthetic/tiny-model checks are not traffic benchmark results.",
-  "next_stage": "ectt-stat-check"
+  "next_stage": "ectt-gpu-pilot"
 }

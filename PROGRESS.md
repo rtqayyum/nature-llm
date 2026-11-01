@@ -1,5 +1,25 @@
 # Research execution progress
 
+## Synthetic verifier checks passed on the HPC
+
+User-supplied accounting and reports confirm job 612030, ectt-stat-check,
+completed 0:0 in three seconds using five CPUs and no GPU. All three fixed
+scenarios passed, with 2000 streams of 256 origins per scenario. Coverage
+failure fractions were 0.0005 for the Rademacher null, 0.0020 for the predictable
+envelope null and 0.0000 for the negative-mean alternative. Acceptance fractions
+were 0.0000, 0.0005 and 1.0000 respectively. These are synthetic outcomes from
+an actual HPC execution, not real traffic metrics or a mathematical proof.
+
+The study identity remains
+d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2.
+Next is ectt-gpu-pilot: one GPU/five CPUs, 32 GiB host memory and two hours
+capped by gpuq maximum. It prepares a separate pinned environment and Qwen
+weights inside the project, then performs six engineering optimizer updates
+on two PEMS08 training-support origins. It checks origin/node invariance,
+checkpoint recovery and runtime/memory without test evaluation or a full
+ECTT objective. Independent S01 review and all benchmark kernels remain
+pending. Existing data and completed admission artifacts are reused.
+
 ## Shared-data preflight passed on the HPC
 
 User-supplied accounting and project reports confirm job 612029, ectt-data-check,
