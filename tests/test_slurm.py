@@ -169,6 +169,29 @@ class SlurmTests(unittest.TestCase):
             submit.main(["--project", str(self.project), "--code", str(self.code), "--stage", "baseline-rescore"])
         execute.assert_not_called()
 
+    def test_reproduction_review_is_a_one_cpu_job_with_no_gpu_or_array(self):
+        _, execute = self.submit_fixture("reproduction-review")
+        record = json.loads((self.project / "results/slurm_jobs/73001/submission.json").read_text())
+        self.assertEqual((record["partition"], record["cpus"], record["gpus"], record["time_limit"]), ("shortq", 1, 0, "00:30:00"))
+        command = next(call.args[0] for call in execute.call_args_list if call.args[0][0] == "sbatch")
+        self.assertIn("--job-name=nutp-repro-review", command)
+        self.assertFalse(any(value.startswith("--gres") or value.startswith("--array") for value in command))
+
+    def test_reproducibility_first_phase_blocks_new_causal_submission(self):
+        (self.code / "config").mkdir()
+        (self.code / "config/reproduction_review.json").write_bytes((ROOT / "config/reproduction_review.json").read_bytes())
+        with self.assertRaises(SystemExit), mock.patch.object(submit.subprocess, "run") as execute:
+            self.submit_fixture("causal-train3")
+        execute.assert_not_called()
+
+    def test_review_dispatch_uses_standard_library_worker_without_reference_setup(self):
+        with mock.patch.dict(os.environ, {"TRAFFIC_CODE_DIR": str(self.code), "SLURM_JOB_ID": "73001",
+                "TRAFFIC_STAGE": "reproduction-review"}), mock.patch.object(job.subprocess, "call", return_value=3) as execute:
+            self.assertEqual(job.main(["run", "--project", str(self.project)]), 0)
+        self.assertIn(str(self.code / "scripts/reproduction_review.py"), execute.call_args.args[0])
+        result = json.loads((self.project / "results/slurm_jobs/73001/pipeline_result.json").read_text())
+        self.assertEqual(result, {"pipeline_exit_code": 3, "execution_exit_code": 0})
+
     def test_gpu_smoke_final_status_counts_real_updates_separately_from_benchmarks(self):
         directory = self.project / "results/slurm_jobs/73001/report"
         directory.mkdir(parents=True)

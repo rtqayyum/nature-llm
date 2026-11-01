@@ -37,6 +37,9 @@ def main(argv=None):
     report.mkdir(parents=True, exist_ok=True)
     stage = os.environ.get("TRAFFIC_STAGE", "acquire")
     if args.mode == "run":
+        phase_path = code / "config/reproduction_review.json"
+        if stage == "causal-train3" and phase_path.exists() and json.loads(phase_path.read_text())["phase"] == "REPRODUCIBILITY_FIRST":
+            raise SystemExit("Causal adaptation is on hold; submit reproduction-review first")
         work = contained(root, Path(os.environ.get("TRAFFIC_WORK_ROOT", str(root / "work"))))
         contained(root, Path(os.environ.get("TRAFFIC_ENV_DIR", str(root / ".venv"))))
         job_name = os.environ.get("SLURM_JOB_NAME", "nutp-p08-preflight" if stage == "pems08-audit" else "nutp-dl-audit")
@@ -46,7 +49,12 @@ def main(argv=None):
         (job / "started.json").write_text(json.dumps({"started_utc": stamp(), "job_id": job_id,
              "actual_slurm_job_id": os.environ["SLURM_JOB_ID"],
              "code": str(code), "work": str(work), "report": str(report)}, indent=2))
-        if stage in ("reference-train3", "causal-train3"):
+        if stage == "reproduction-review":
+            # Read-only historical evidence consolidation; no environment or
+            # research-asset downloads and no Torch import are necessary.
+            result = subprocess.call([sys.executable, "-u", str(code / "scripts/reproduction_review.py"),
+                "--project", str(root), "--code", str(code), "--report", str(report)])
+        elif stage in ("reference-train3", "causal-train3"):
             # Only environment preparation is serialized. Training tasks must
             # not hold the global acquisition/environment lock while fitting.
             try:
@@ -126,6 +134,7 @@ def main(argv=None):
         return 0 if result == 3 else result
     state = "COMPLETED_WITH_REVIEW" if args.raw_exit == 3 and args.shell_exit == 0 else "COMPLETED" if args.shell_exit == 0 else "FAILED"
     review_reasons = {"pems08-audit": "PEMS08 split/scaling/checkpoint provenance need review",
+        "reproduction-review": "Historical reproduction evidence consolidated; review protocol gaps before further experiments or method design",
         "pems08-infer": "Released-checkpoint CPU evaluation complete; training strategy and paper comparison remain unresolved",
         "beijing-infer": "Beijing Metro checkpoint evaluation complete; training strategy and timestamp provenance remain unresolved",
         "public8-infer": "Public checkpoint evaluations complete; review per-dataset comparisons and provenance before training",
@@ -160,6 +169,13 @@ def main(argv=None):
         progress = json.loads(path.read_text()) if path.exists() else {}
         status.update(rescored_experiments_completed=progress.get("completed_tasks", 0),
             rescored_experiments_failed=progress.get("failed_tasks", 0), training_performed=False, model_inference_performed=False)
+    if stage == "reproduction-review":
+        path = report / "reproduction_review.json"
+        result = json.loads(path.read_text()) if path.exists() else {}
+        status.update(training_performed=False, model_inference_performed=False, rescoring_performed=False,
+            full_paper_reproduction=False, checkpoint_datasets_reviewed=len(result.get("checkpoint_datasets", [])),
+            training_experiments_reviewed=len(result.get("training_experiments", [])),
+            causal_adaptation_on_hold=True, proposed_method_started=False)
     if stage == "gpu-smoke":
         progress_path = report / "gpu_smoke_progress.json"
         smoke = json.loads(progress_path.read_text()) if progress_path.exists() else {}

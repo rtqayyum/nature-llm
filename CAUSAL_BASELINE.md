@@ -1,5 +1,10 @@
 # Index-causal reference baseline, version 1
 
+Status: ON HOLD. The user reaffirmed reproducibility tests before method
+development. See REPRODUCIBILITY.md. The current launcher refuses new
+causal-train3 submissions under the reproducibility-first phase. This code
+and its synthetic checks remain available; no job is cancelled by this hold.
+
 This is a causal adaptation of the released LLM-UTP architecture, not the
 proposed new method and not an exact reproduction of published S3. The
 corrected released-behavior runs remain separate. The following choices are

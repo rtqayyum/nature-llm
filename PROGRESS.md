@@ -1,5 +1,32 @@
 # Research execution progress
 
+## Current: reproducibility assessment before new-method work
+
+The user reaffirmed the original ordering after causal-baseline preparation:
+reproducibility tests first, proposed solution afterward. The causal adaptation
+is on hold and new launcher submissions are blocked by the recorded phase.
+No existing jobs are cancelled. Earlier reference and corrected reports remain.
+
+reproduction-review prepares a small CPU evidence-consolidation job. It reads
+the explicitly named historical checkpoint/diagnostic/training/correction
+results, verifies linked hashes and emits numerical comparison CSVs, protocol
+reconciliation, per-seed aggregates and an evidence manifest. It does no new
+training, inference or rescoring. Actual HPC assessment execution is pending.
+Missing required artifacts fail the job; optional reports are clearly labeled.
+The old checkpoint format is checked against its exact historical worker.
+Source/paper ambiguities remain limitations, not invitations to tune test scores.
+See REPRODUCIBILITY.md for scope, author-evidence questions and phase exit.
+
+Local validation: the default suite ran 113 checks, with 94 passing and 19
+optional dependency/framework checks skipped. Six focused synthetic review
+checks passed, including complete evidence consolidation and repeatability,
+corrupt selected weights, missing required jobs, diagnostic substitution,
+old-format source identity and path/finite-score rejection. Slurm fixtures
+verify one-CPU/no-GPU submission, standard-library dispatch and the causal
+submission hold. Bash syntax, Python compilation and whitespace checks pass;
+six pinned author source hashes and the historical checkpoint worker were
+verified locally. No new real HPC measurements were made by these tests.
+
 ## Acquisition completed
 
 The researcher supplied completed HPC logs for Slurm job 605458, named

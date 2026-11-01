@@ -70,7 +70,19 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == "baseline-rescore":
+    if stage == "reproduction-review":
+        for name in ("reproduction_progress.json", "reproduction_review.json"):
+            path = job / "report" / name
+            if path.exists():
+                item = json.loads(path.read_text())
+                if name == "reproduction_review.json":
+                    item = {key: item[key] for key in ("execution_status", "scientific_status", "error",
+                        "checkpoint_all_three_rounding_matches", "corrected_aggregates", "causal_adaptation_on_hold", "next_decision") if key in item}
+                print(name + ":", json.dumps(item, indent=2))
+        path = job / "report/failure_traceback.txt"
+        if path.exists():
+            print("REVIEW FAILURE:\n" + "\n".join(path.read_text().splitlines()[-10:]))
+    elif stage == "baseline-rescore":
         path = job / "report/rescore_progress.json"
         item = json.loads(path.read_text()) if path.exists() else {}
         print("BASELINE RESCORE phase=%s completed=%s/%s failed=%s" %

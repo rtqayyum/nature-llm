@@ -21,7 +21,7 @@ ROOT = Path("/home/tariq.qayyum/nature-llm")
 
 def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
-    preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore")
+    preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore", "reproduction-review")
     desired = 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage == "gpu-smoke" else 1800 if preflight else 23 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
@@ -125,7 +125,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"], default="acquire")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     args = parser.parse_args(argv)
     if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
@@ -133,6 +133,9 @@ def main(argv=None):
     if args.source_array and args.stage != "baseline-rescore":
         parser.error("--source-array is only valid with baseline-rescore")
     project, code = args.project.resolve(), args.code.resolve()
+    phase_path = code / "config/reproduction_review.json"
+    if args.stage == "causal-train3" and phase_path.exists() and read_json(phase_path)["phase"] == "REPRODUCIBILITY_FIRST":
+        parser.error("causal-train3 is on hold under the user's reproducibility-first plan; use --stage reproduction-review")
     prepare(project, code)
     if not shutil.which("sbatch"):
         raise SystemExit("sbatch is unavailable; use the cluster login node and run module load slurm before retrying")
@@ -173,7 +176,8 @@ def main(argv=None):
                     "gpu-smoke": ("nutp-s3-gpu-smoke", 20, "16G"),
                     "reference-train3": ("nutp-s3-3seed", 5, "16G"),
                     "baseline-rescore": ("nutp-baseline-fix", 2, "8G"),
-                    "causal-train3": ("nutp-causal-3seed", 5, "16G")}
+                    "causal-train3": ("nutp-causal-3seed", 5, "16G"),
+                    "reproduction-review": ("nutp-repro-review", 1, "2G")}
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
         env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(project / "work"), "TRAFFIC_CODE_DIR": str(code),

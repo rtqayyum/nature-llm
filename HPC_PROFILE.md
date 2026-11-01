@@ -7,11 +7,20 @@ not used for this already-running project.
 
 | Work | Queue | Tasks | CPUs per task | GPUs | Concurrency |
 |---|---|---|---|---|---|
+| Current reproducibility evidence review | shortq if observed maximum supports 30 min, otherwise longq | 1 | 1 | 0 | One reader; 2 GiB RAM |
 | Current acquisition and audit | longq | 1 | 4 | 0 | One job, four asset workers |
 | PEMS08 checkpoint and split preflight | shortq when observed limit supports 30 min, otherwise longq | 1 | 1 | 0 | One read-only job |
 | First released-checkpoint evaluation | longq | 1 | 8 | 0 | One CPU job with fixed batch order |
 | Future parallel CPU experiments | longq by default | Match implementation | Up to 40 in one process when useful | 0 | Profile first |
 | Future GPU training | gpuq | 1 | 20 | 1 | Start with four independent array jobs; six when permitted |
+
+Current stage reproduction-review uses the existing historical results and
+standard-library Python only. No dependency or research-asset downloads,
+training, inference or rescoring occur. It preserves the source results and
+writes results/slurm_jobs/JOBID/report/SUMMARY.md, reproduction_review.json,
+comparison CSVs, progress and an evidence manifest. Existing email preferences
+apply. The previously prepared causal-train3 adaptation is on hold under
+the user's reaffirmed reproducibility-first plan; it is not a paper replica.
 
 The user supplied queue names shortq, mediumq, longq and gpuq. The default
 uncertain-runtime CPU request is 23:00:00. Submission reads longq MaxTime when

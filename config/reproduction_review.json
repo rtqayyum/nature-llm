@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "phase": "REPRODUCIBILITY_FIRST",
+  "required_jobs": {
+    "checkpoints": {
+      "job_id": "607564",
+      "stage": "public8-infer"
+    },
+    "diagnostics": {
+      "job_id": "607596",
+      "stage": "release-diagnose"
+    },
+    "training": {
+      "job_id": "609006",
+      "stage": "reference-train3"
+    },
+    "correction": {
+      "job_id": "610878",
+      "stage": "baseline-rescore"
+    }
+  },
+  "optional_jobs": {
+    "source_archive": {
+      "job_id": "607623",
+      "stage": "source-inspect",
+      "file": "source_inspection.json"
+    },
+    "causality": {
+      "job_id": "608217",
+      "stage": "causality-audit",
+      "file": "causality_summary.json"
+    },
+    "gpu_smoke": {
+      "job_id": "608294",
+      "stage": "gpu-smoke",
+      "file": "gpu_smoke_summary.json"
+    }
+  },
+  "paper": "https://doi.org/10.1038/s41467-026-73610-2",
+  "paper_full_text": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13408357/",
+  "paper_table": "Table 1; training-strategy and implementation sections",
+  "selection_policy": "Explicit historical job IDs; never select a run, input, split or checkpoint by test accuracy",
+  "new_training_authorized": false,
+  "proposed_method_authorized": false,
+  "checkpoint_legacy_schema": {
+    "source_commit": "0f6210e522deaffa198995f6ba583a2153802587",
+    "inference_source_sha256": "786dd605b4827b67bf36d2a85108d889409924060a6bfbd6555e4b768b17604d",
+    "input_stage": "stage2",
+    "split_route": "finetune",
+    "basis": "Pinned historical worker accepts only stage-two inputs and the finetune test loader; original format lacks explicit scope fields"
+  }
+}

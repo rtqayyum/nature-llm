@@ -156,3 +156,18 @@ causality gates must pass; failure is nonzero, never tune gates on test scores.
 Use separate outputs/causal_reference stores, corrected physical-unit shards,
 method-independent data contract hashes, live losses and strict recovery.
 No proposed-method/Qwen training or downloads are authorized by this stage.
+
+Current authorization supersedes the preceding causal-baseline launch:
+reproducibility first, then the proposed solution. causal-train3 is on hold.
+Use reproduction-review to consolidate explicitly registered historical HPC
+evidence into a comparison/protocol matrix. This is one CPU, 2 GiB, zero GPU,
+30 minutes in shortq if observed queue limits permit, otherwise longq.
+No research assets, dependencies, new training, inference or rescoring are
+needed. Missing/corrupt required evidence must fail; unavailable optional
+reports must be labeled, never silently counted as successful checks.
+Keep all source artifacts intact and all actual result evidence on HPC.
+Support the historical checkpoint schema only by its reviewed source hash.
+Do not equate paper-row rounding matches or better scores with reproduction,
+or silently change trainability/data/batch behavior to force agreement.
+See REPRODUCIBILITY.md. No proposed-method work or causal launch is authorized
+until the reproducibility assessment and experiment scope are reviewed.
