@@ -1,5 +1,17 @@
 # Research execution progress
 
+## Project master protocol consolidated
+
+On 2 November 2026 the user requested one durable plan and a Word document
+covering goals, the reference problem and solution, our mechanism and math,
+data processing, all experiments, expected and acceptable outcomes, and the
+Nature Communications target. research/MASTER_PROTOCOL_V1.md consolidates
+that scope with 35 experiment families and explicit stage gates. The Word
+deliverable is generated from that text. The scientific JSON contract is
+unchanged. This is design/documentation work; no method training, new data
+download, inference or HPC submission has occurred. The next unit is shared
+data preflight; the older causal-train3 launch remains on hold.
+
 ## Reproducibility assessment completed; research design frozen
 
 User-supplied HPC output confirms job 610996 completed in six seconds with

@@ -1,0 +1,206 @@
+{
+  "record_date": "2026-11-02",
+  "master_version": 1,
+  "design_commit": "40f8e2078a79085258caceb62957f1d55d3da9dd",
+  "master_source": "research/MASTER_PROTOCOL_V1.md",
+  "master_sha256": "9a3c9c52ccadef140ff37e2242eb8e1373d93a6d64af2f88a76a2e04205530f0",
+  "numeric_contract": "config/ectt_protocol_v1.json",
+  "numeric_contract_sha256": "1c8bc34a67cda3b2a5b33186df058f501ef3cd109e67ad92494066e4d4b1d214",
+  "word_filename": "ECTT_Project_Master_Protocol.docx",
+  "word_sha256": "6e3f7cf4512a9509af0a8c6b6be99999f4bd6a75be8602b80776152f119a8214",
+  "word_pages": 26,
+  "native_math_objects": 25,
+  "native_display_equations": 17,
+  "experiment_family_counts": {
+    "Done": 1,
+    "M": 28,
+    "C": 3,
+    "O": 3
+  },
+  "experiments": [
+    {
+      "id": "F01",
+      "status": "Done",
+      "description": "Consolidate reference evidence; preserve checkpoint and corrected-training comparison tables"
+    },
+    {
+      "id": "D01",
+      "status": "M",
+      "description": "Verify eight canonical data hashes, semantics, raw duplicates and missingness"
+    },
+    {
+      "id": "D02",
+      "status": "M",
+      "description": "Emit support, verification, source and test ledgers; assert every exclusion and budget"
+    },
+    {
+      "id": "D03",
+      "status": "M",
+      "description": "Test support-only transforms, affine inverse, zero counts and common truths"
+    },
+    {
+      "id": "S01",
+      "status": "M",
+      "description": "Independently review verifier derivation, filtration, width and decision implementation"
+    },
+    {
+      "id": "S02",
+      "status": "M",
+      "description": "Synthetic null/alternative and varying-envelope streams; record calibration and stopping behavior"
+    },
+    {
+      "id": "P01",
+      "status": "M",
+      "description": "Model causality, batch invariance and future-label mutation admission checks"
+    },
+    {
+      "id": "P02",
+      "status": "M",
+      "description": "One-GPU memory, timing, checkpoint and exact-resume engineering pilot"
+    },
+    {
+      "id": "B01",
+      "status": "M",
+      "description": "Persistence on all eight domains; minimum forecast and zero-budget reference"
+    },
+    {
+      "id": "B02",
+      "status": "M",
+      "description": "Ridge and compact local models; establish competitive support-only fallback"
+    },
+    {
+      "id": "B03",
+      "status": "M",
+      "description": "LLM-UTP shared-data causal adaptation; train before comparing our mechanism"
+    },
+    {
+      "id": "B04",
+      "status": "M",
+      "description": "Ordinary Qwen source transfer and identical-verifier control"
+    },
+    {
+      "id": "M01",
+      "status": "M",
+      "description": "Full ECTT on all eight domains and seeds 11, 22, 33"
+    },
+    {
+      "id": "M02",
+      "status": "M",
+      "description": "Zero, 1, 5 and 10 percent budget curves; preserve infeasibility"
+    },
+    {
+      "id": "M03",
+      "status": "M",
+      "description": "Local, unconditional transfer, learned gate and fixed-prefix policies on identical candidate forecasts"
+    },
+    {
+      "id": "M04",
+      "status": "M",
+      "description": "Evidence cost, activation, all-test harm and total resource comparison"
+    },
+    {
+      "id": "A01",
+      "status": "M",
+      "description": "Gamma-zero objective with the identical sequential verifier"
+    },
+    {
+      "id": "A02",
+      "status": "M",
+      "description": "Mean-benefit-only penalty; remove disagreement-envelope contribution"
+    },
+    {
+      "id": "A03",
+      "status": "M",
+      "description": "Envelope-only penalty; remove mean-benefit term"
+    },
+    {
+      "id": "A04",
+      "status": "M",
+      "description": "Compact nonlanguage backbone with matched learning objectives"
+    },
+    {
+      "id": "A05",
+      "status": "M",
+      "description": "Random Qwen initialization with identical frozen/trainable policy"
+    },
+    {
+      "id": "A06",
+      "status": "M",
+      "description": "Source-informed and standard sequential alternatives on the same candidates"
+    },
+    {
+      "id": "C01",
+      "status": "M",
+      "description": "TESTAM and CompactST official-code eligibility and matched comparison"
+    },
+    {
+      "id": "C02",
+      "status": "M",
+      "description": "ST-FGDIR and MURECAST eligibility and matched comparison"
+    },
+    {
+      "id": "C03",
+      "status": "C",
+      "description": "FlexST and OpenCity comparison if metadata and training provenance permit"
+    },
+    {
+      "id": "G01",
+      "status": "M",
+      "description": "Leave-domain-out evaluation with complete-target and NYC pair exclusions"
+    },
+    {
+      "id": "G02",
+      "status": "C",
+      "description": "Leave-mode-out road, metro and NYC demand groups if enough eligible source data remain"
+    },
+    {
+      "id": "R01",
+      "status": "M",
+      "description": "Input-node outages at 10, 30 and 50 percent, targets unchanged"
+    },
+    {
+      "id": "R02",
+      "status": "M",
+      "description": "History outages of 1, 3 and 6 rows with common masks"
+    },
+    {
+      "id": "R03",
+      "status": "M",
+      "description": "Failure analysis by observed flow magnitude, disagreement, evidence length and domain"
+    },
+    {
+      "id": "R04",
+      "status": "C",
+      "description": "Matched-regime verification under synthetic outages if making a regime-adaptation claim"
+    },
+    {
+      "id": "R05",
+      "status": "M",
+      "description": "Resource Pareto comparison including pretraining, fitting, verification and inference"
+    },
+    {
+      "id": "O01",
+      "status": "O",
+      "description": "Multi-horizon prediction after timestamp and delayed-feedback contracts are verified"
+    },
+    {
+      "id": "O02",
+      "status": "O",
+      "description": "Prediction intervals with separately budgeted calibration and validity assumptions"
+    },
+    {
+      "id": "O03",
+      "status": "O",
+      "description": "Five-seed extension adding 44 and 55 to all primary arms and confirmatory domains"
+    }
+  ],
+  "validation": {
+    "all_26_rendered_pages_visually_reviewed": true,
+    "contents_page_numbers_checked": true,
+    "unique_experiment_ids_checked": true,
+    "frozen_numeric_contract_unchanged": true,
+    "notification_address_not_published": true
+  },
+  "scope": "Design documentation only. No new method experiment, inference, dataset download or HPC submission.",
+  "next_unit": "D01-D03 shared-data preflight; older causal-train3 submission remains on hold."
+}

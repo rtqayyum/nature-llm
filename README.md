@@ -23,6 +23,16 @@ This is a frozen research design, not an implemented/validated new method.
 No new training or HPC submission is part of this design update. The older
 causal-train3 stage remains on hold and is not the new eight-domain protocol.
 
+The consolidated project checklist is
+[research/MASTER_PROTOCOL_V1.md](research/MASTER_PROTOCOL_V1.md), dated
+2 November 2026. It records the reference findings, ECTT mathematics, shared
+data processing, 35 experiment families, decision criteria, stage gates and
+Nature Communications publication goals. The immediate next implementation
+unit is shared-data preflight, followed by admission checks and fair baselines.
+The exact numerical contract remains config/ectt_protocol_v1.json; resolve
+disagreements in a versioned amendment before running affected experiments.
+No proposed-method results or new HPC submissions are implied by the plan.
+
 The user reaffirmed reproducibility tests before any proposed method. The
 causal adaptation is on hold; the launcher refuses new causal-train3
 submissions while config/reproduction_review.json records REPRODUCIBILITY_FIRST.

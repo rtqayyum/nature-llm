@@ -182,3 +182,12 @@ Retain the old causal-stage submission hold. New benchmark implementation
 must use a separate stage/identity: all eight canonical stage-two raw channels,
 shared source/target ledgers and explicit limits on calendar/causality claims.
 Do not call existing sequential statistics or Qwen substitution new inventions.
+
+Latest project-plan consolidation: read research/MASTER_PROTOCOL_V1.md before
+new experiment implementation. It records 35 experiment families, stage gates,
+internal research thresholds and the Nature Communications target. The next
+unit is shared-data preflight, then statistical/model admission, a one-GPU
+engineering pilot and fair shared-data baselines before ECTT comparisons.
+The Word document and master plan do not authorize submitting the full grid.
+Keep config/ectt_protocol_v1.json as the exact numeric contract; any scientific
+conflict or change needs a documented version amendment before affected runs.
