@@ -205,6 +205,63 @@ class StudyTests(unittest.TestCase):
         for stage in workflow.STAGES:self.mark(stage)
         with self.assertRaisesRegex(ValueError,'benchmark training kernels'):workflow.next_stage(self.project,self.code)
 
+    def legacy_admissions(self):
+        self.assertEqual(workflow.admission_dependencies(self.code), workflow.PREVIOUS_ADMISSION_DEPENDENCIES)
+        stores = {}
+        for stage in workflow.STAGES[:2]:
+            store = self.project / 'outputs/ectt/admission' / workflow.PREVIOUS_ADMISSION_ID / stage
+            write(store / 'result.json', {'synthetic_fixture': True})
+            finish(store, workflow.PREVIOUS_ADMISSION_ID)
+            stores[stage] = store
+        return stores
+
+    def test_repaired_pilot_reuses_only_verified_compatible_cpu_admissions(self):
+        stores = self.legacy_admissions()
+        before = {stage: (store / 'COMPLETE.json').read_bytes() for stage, store in stores.items()}
+        self.assertNotEqual(identity(self.code), workflow.PREVIOUS_ADMISSION_ID)
+        self.assertEqual(workflow.next_stage(self.project, self.code), 'ectt-gpu-pilot')
+        records = workflow.require_previous(self.project, self.code, 'ectt-gpu-pilot')
+        self.assertTrue(all(row['reused_compatible_admission'] for row in records.values()))
+        for stage, store in stores.items():
+            self.assertEqual((store / 'COMPLETE.json').read_bytes(), before[stage])
+        # Even a completed old pilot cannot clear this release's new pilot.
+        old_pilot = stores['ectt-preflight'].parent / 'ectt-gpu-pilot'
+        write(old_pilot / 'result.json', {'synthetic_fixture': True})
+        finish(old_pilot, workflow.PREVIOUS_ADMISSION_ID)
+        self.assertEqual(workflow.next_stage(self.project, self.code), 'ectt-gpu-pilot')
+        with mock.patch.object(slurm_submit, 'ROOT', self.project), mock.patch.object(slurm_submit.shutil, 'which', return_value='/fake/sbatch'), mock.patch.object(slurm_submit.subprocess, 'run', side_effect=self.fake_slurm):
+            slurm_submit.main(['--project', str(self.project), '--code', str(self.code), '--stage', 'ectt-next'])
+        record = read(self.project / 'results/slurm_jobs/73010/submission.json')
+        self.assertEqual((record['stage'], record['cpus'], record['gpus']), ('ectt-gpu-pilot', 5, 1))
+
+    def test_reuse_refuses_corrupt_historical_or_current_completion(self):
+        stores = self.legacy_admissions()
+        (stores['ectt-preflight'] / 'result.json').write_text('corrupt')
+        with self.assertRaisesRegex(ValueError, 'corrupt completed artifact'):
+            workflow.require_previous(self.project, self.code, 'ectt-gpu-pilot')
+        write(stores['ectt-preflight'] / 'result.json', {'synthetic_fixture': True})
+        self.mark('ectt-preflight')
+        current = workflow.stage_store(self.project, self.code, 'ectt-preflight')
+        (current / 'result.json').write_text('corrupt')
+        with self.assertRaisesRegex(ValueError, 'corrupt completed artifact'):
+            workflow.next_stage(self.project, self.code)
+
+    def test_reuse_refuses_any_changed_admission_dependency(self):
+        self.legacy_admissions()
+        for name in ('config/ectt_protocol_v1.json', 'config/ectt_execution_v1.json',
+                     'config/sources.lock.json', 'scripts/ectt_data.py', 'scripts/ectt_common.py',
+                     'scripts/ectt_statistics.py', 'scripts/ectt_model.py', 'scripts/ectt_registry.py'):
+            with self.subTest(path=name):
+                path = self.code / name
+                original = path.read_bytes()
+                path.write_bytes(original + b'\n')
+                try:
+                    self.assertEqual(workflow.next_stage(self.project, self.code), 'ectt-preflight')
+                    with self.assertRaisesRegex(ValueError, 'Required stage not completed'):
+                        workflow.require_previous(self.project, self.code, 'ectt-gpu-pilot')
+                finally:
+                    path.write_bytes(original)
+
     def test_study_refuses_silent_email_omission(self):
         with mock.patch.dict(os.environ,{'TRAFFIC_MAIL_USER':''}), mock.patch.object(slurm_submit,'ROOT',self.project),mock.patch.object(slurm_submit.shutil,'which',return_value='/fake/sbatch'),mock.patch.object(slurm_submit.subprocess,'run',side_effect=self.fake_slurm) as execute:
             with self.assertRaisesRegex(ValueError,'require saved email'):

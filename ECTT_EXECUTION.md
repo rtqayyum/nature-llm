@@ -124,6 +124,38 @@ and compatible checkpoints resume; corrupt artifacts fail and remain preserved.
 A completed-stage replay performs no new optimizer updates. Different code or
 contracts use a new identity and keep old outputs.
 
+### Recovery from GPU pilot job 612032
+
+The user-reported job failed with exit 2 before model loading or optimizer
+updates. Its private environment passed setup, but the pilot entrypoint tried
+to import trainable_state and restore_trainable from ectt_model even though
+both helpers are already defined in ectt_pilot. The import is corrected.
+
+The repaired code has a new identity. It may reuse only the completed CPU
+admissions under d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2
+(jobs 612029 and 612030), after verifying every saved artifact and a pinned
+fingerprint of the unchanged admission dependencies, configurations and data
+lock. Any dependency change, missing marker or corrupt artifact blocks reuse.
+The repaired pilot and workflow are the only excluded modules in this narrow
+compatibility check. Old pilot results/checkpoints cannot satisfy the new
+pilot. Original stores/reports are never rewritten or relabeled.
+
+The new report records its prerequisite store paths and identities in
+ectt_prerequisites.json. The project CUDA environment and cached model files
+retain their existing version/hash checks. Submit the same explicit stage:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage ectt-gpu-pilot --submit
+```
+
+The bootstrap downloads the latest verified commit. The retry gets a new
+Slurm job ID, one GPU, five CPUs and the unchanged two-hour ceiling. Check the
+new job using the printed ID or the project's Check command without an ID.
+The failed 612032 report remains available for failure/resource accounting.
+
 ## Validation boundary
 
 Local validation uses synthetic arrays, mocked Slurm and tiny randomly

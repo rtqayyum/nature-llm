@@ -355,3 +355,28 @@ forecast integrity and completed-result reuse. The end-to-end fixture mocks
 CUDA admission but runs model/data on CPU; it is not real GPU execution.
 Bash syntax, Python compilation and diff checks passed. Real CUDA gates and
 accuracy remain unverified until the new HPC tasks execute.
+
+## ECTT pilot import repair — 2 November 2026
+
+User-supplied accounting confirms job 612032 (ectt-gpu-pilot) FAILED 2:0
+after 4 minutes 14 seconds. Environment setup and pip checks passed. The
+pilot failed on an incorrect lazy import of trainable_state/restore_trainable
+from ectt_model; those functions are already defined locally in ectt_pilot.
+No optimizer steps or traffic evaluation occurred. This is a software defect,
+not evidence about forecasting quality. The import is corrected.
+
+The repaired code uses its own identity and verifies the unchanged admission
+dependency fingerprint before reusing prior completed CPU admission stores
+d70d0aa... (612029 data and 612030 synthetic statistics). Every old completion
+manifest is checked; corrupt artifacts or any admission dependency change
+prevent reuse. Prior GPU results/checkpoints cannot satisfy a repaired pilot.
+New reports record prerequisite identities/paths. Existing HPC artifacts and
+scientific configuration are preserved; no new benchmark run is claimed.
+
+Local checks passed for the real pilot entrypoint through CUDA admission,
+exact CPU checkpoint/optimizer/RNG recovery with dropout, all 19 synthetic
+ECTT checks including verified prerequisite reuse and rejection of corruption
+or changed dependencies; all 28 Slurm checks also passed. Bash syntax, Python
+compilation and diff checks passed. Three existing tiny-Qwen tests require a separate
+local PEFT environment and were skipped here. Full-size CUDA behavior still
+requires the new HPC pilot. No replacement job was submitted from here.

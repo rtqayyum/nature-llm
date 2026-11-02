@@ -127,7 +127,7 @@ def run(project, code, store, contract, execution, ident, progress):
     import numpy as np
     import torch
     from ectt_data import fit_scaler, windows
-    from ectt_model import qwen_model, invariance_checks, trainable_state, restore_trainable
+    from ectt_model import qwen_model, invariance_checks
     if not torch.cuda.is_available() or torch.cuda.device_count() != 1:
         raise RuntimeError('Expected exactly one visible CUDA GPU; CPU fallback forbidden')
     if int(os.environ.get('SLURM_CPUS_PER_TASK', '0')) != 5:

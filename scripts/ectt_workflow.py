@@ -3,6 +3,7 @@
 import argparse
 import datetime
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -14,27 +15,60 @@ from ectt_common import read, write, inside, identity, load_contract, completed,
 
 STAGES = ('ectt-preflight', 'ectt-stat-check', 'ectt-gpu-pilot')
 
+# Only the two CPU admissions from the reviewed 105aa66 release may be reused.
+# Their science, environment, helpers, data/statistics and registry code must
+# match byte for byte. The repaired pilot and this orchestration module are
+# excluded; old pilot results/checkpoints are never imported into a new run.
+PREVIOUS_ADMISSION_ID = 'd70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2'
+PREVIOUS_ADMISSION_DEPENDENCIES = '9e3d023e2f19b3ee182cff4cfca2d5669331a9ac988b36ea57ca10bc696f3541'
+
+
+def admission_dependencies(code):
+    code = Path(code)
+    paths = ['config/ectt_protocol_v1.json', 'config/ectt_execution_v1.json',
+             'config/sources.lock.json', 'config/ectt_gpu_requirements.txt', 'research/MASTER_PROTOCOL_RECORD.json']
+    paths += [str(p.relative_to(code)) for p in sorted((code / 'scripts').glob('ectt_*.py'))
+              if p.name not in ('ectt_pilot.py', 'ectt_workflow.py')]
+    return hashlib.sha256(json.dumps({p: digest(code / p) for p in paths}, sort_keys=True).encode()).hexdigest()
+
+
+def completed_stage_store(project, code, stage):
+    current = stage_store(project, code, stage)
+    if completed(current, identity(code)):
+        return current
+    if stage not in STAGES[:2] or admission_dependencies(code) != PREVIOUS_ADMISSION_DEPENDENCIES:
+        return None
+    previous = inside(project, project / 'outputs/ectt/admission' / PREVIOUS_ADMISSION_ID / stage)
+    if completed(previous, PREVIOUS_ADMISSION_ID):
+        return previous
+    return None
+
 
 def stage_store(project, code, stage):
     return inside(project, project / 'outputs/ectt/admission' / identity(code) / stage)
 
 
 def require_previous(project, code, stage):
+    records = {}
     for previous in STAGES[:STAGES.index(stage)]:
-        if not completed(stage_store(project, code, previous), identity(code)):
+        store = completed_stage_store(project, code, previous)
+        if store is None:
             raise ValueError('Required stage not completed for this code/contract: '+previous)
+        records[previous] = {'store': str(store), 'identity': read(store / 'COMPLETE.json')['identity'],
+                             'reused_compatible_admission': store != stage_store(project, code, previous)}
+    return records
 
 
 def next_stage(project, code):
     for stage in STAGES:
-        if not completed(stage_store(project, code, stage), identity(code)):
+        if completed_stage_store(project, code, stage) is None:
             return stage
     raise ValueError('Implemented admission complete. S01 independent review and benchmark training kernels '+
                      'remain pending; no unimplemented experiment was submitted.')
 
 
 def show(report):
-    for name in ('ectt_environment_status.json', 'ectt_progress.json', 'ectt_store.json'):
+    for name in ('ectt_environment_status.json', 'ectt_prerequisites.json', 'ectt_progress.json', 'ectt_store.json'):
         path = report / name
         if path.exists():
             print('ECTT '+name+':', json.dumps(read(path), indent=2))
@@ -52,7 +86,7 @@ def run(project, code, report, stage):
     inside(project, code)
     inside(project, report)
     c, e = load_contract(code)
-    require_previous(project, code, stage)
+    prerequisites = require_previous(project, code, stage)
     store = stage_store(project, code, stage)
     store.mkdir(parents=True, exist_ok=True)
     report.mkdir(parents=True, exist_ok=True)
@@ -61,6 +95,7 @@ def run(project, code, report, stage):
              'benchmark_experiments_completed': 0, 'store': str(store)}
     cache_valid = False
     write(report / 'ectt_store.json', {'identity': ident, 'store': str(store)})
+    write(report / 'ectt_prerequisites.json', prerequisites)
     def progress(**values):
         state.update(values, updated_utc=datetime.datetime.now(datetime.timezone.utc).isoformat())
         write(report / 'ectt_progress.json', state)

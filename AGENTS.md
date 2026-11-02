@@ -216,3 +216,13 @@ The next implemented stage is ectt-gpu-pilot, one GPU/five CPUs in gpuq,
 two hours subject to queue maximum. It is a six-update PEMS08 support-only
 engineering pilot, not full baseline/method training or a traffic accuracy
 claim. Preserve the validated d70d0aa... study identity during status updates.
+
+User logs now confirm pilot job 612032 failed before model loading/training
+with an ImportError for checkpoint helpers already local to ectt_pilot.
+Environment setup passed; optimizer updates were zero. The repaired release
+uses a new identity and narrowly reuses only completed d70d0aa... CPU admissions
+after verifying their manifests and pinned unchanged dependency fingerprint.
+Record reuse in ectt_prerequisites.json; never rewrite old stores or count an
+old pilot as passed. Regression checks must call the real pilot entrypoint,
+in addition to helper-level recovery tests. Resubmit ectt-gpu-pilot with one
+GPU/five CPUs; real CUDA execution remains pending until new HPC evidence.

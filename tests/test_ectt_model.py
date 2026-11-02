@@ -12,6 +12,44 @@ sys.path.insert(0,str(ROOT/'scripts'))
 AVAILABLE=all(importlib.util.find_spec(x) for x in ('torch','transformers','peft'))
 
 
+@unittest.skipUnless(importlib.util.find_spec('torch'), 'Requires local CPU Torch')
+class PilotEntryTests(unittest.TestCase):
+    def test_real_entrypoint_imports_before_cuda_admission(self):
+        import torch
+        from ectt_pilot import run
+        # Reach the exact lazy-import path used by Slurm, without a download
+        # or GPU. The old broken release raises ImportError before this guard.
+        with mock.patch.object(torch.cuda, 'is_available', return_value=False):
+            with self.assertRaisesRegex(RuntimeError, 'exactly one visible CUDA GPU'):
+                run(None, None, None, None, None, None, lambda **values: None)
+
+    def test_checkpoint_helpers_and_exact_cpu_resume(self):
+        import torch
+        from ectt_pilot import fit, trainable_state, restore_trainable
+        torch.manual_seed(17)
+        base = torch.nn.Sequential(torch.nn.Linear(3, 4), torch.nn.Dropout(.2), torch.nn.Linear(4, 1))
+        full, partial = copy.deepcopy(base), copy.deepcopy(base)
+        x, y = torch.rand(2, 3), torch.rand(2, 1)
+        rng = torch.get_rng_state()
+        with tempfile.TemporaryDirectory() as temporary:
+            a, b = Path(temporary) / 'full', Path(temporary) / 'resume'
+            a.mkdir(); b.mkdir()
+            expected = fit(full, x, y, a, 'synthetic', 3, .001, lambda **values: None)
+            torch.set_rng_state(rng)
+            fit(partial, x, y, b, 'synthetic', 3, .001, lambda **values: None, stop_after=1)
+            recovered = copy.deepcopy(base)
+            actual = fit(recovered, x, y, b, 'synthetic', 3, .001, lambda **values: None)
+            self.assertEqual(expected['losses'], actual['losses'])
+            self.assertEqual(actual['resumed_from_step'], 1)
+            self.assertEqual(actual['new_optimizer_steps'], 2)
+            for name, expected_tensor in trainable_state(full).items():
+                self.assertTrue(torch.equal(expected_tensor, trainable_state(recovered)[name]), name)
+            clone = copy.deepcopy(base)
+            restore_trainable(clone, trainable_state(recovered))
+            clone.eval(); recovered.eval()
+            self.assertTrue(torch.equal(clone(x), recovered(x)))
+
+
 @unittest.skipUnless(AVAILABLE,'Run in the separate local ectt-test environment')
 class ModelTests(unittest.TestCase):
     def setUp(self):
