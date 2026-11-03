@@ -136,7 +136,7 @@ admissions under d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb
 (jobs 612029 and 612030), after verifying every saved artifact and a pinned
 fingerprint of the unchanged admission dependencies, configurations and data
 lock. Any dependency change, missing marker or corrupt artifact blocks reuse.
-The repaired pilot and workflow are the only excluded modules in this narrow
+The import repair excluded only the pilot and workflow modules from this
 compatibility check. Old pilot results/checkpoints cannot satisfy the new
 pilot. Original stores/reports are never rewritten or relabeled.
 
@@ -155,6 +155,31 @@ The bootstrap downloads the latest verified commit. The retry gets a new
 Slurm job ID, one GPU, five CPUs and the unchanged two-hour ceiling. Check the
 new job using the printed ID or the project's Check command without an ID.
 The failed 612032 report remains available for failure/resource accounting.
+
+### Numerical repair after job 616045
+
+Job 616045 passed environment setup, reused both completed CPU admissions,
+downloaded/verified and loaded Qwen, then failed the pretraining node-permutation
+check with maximum forecast difference 0.0988702178. No optimizer steps or test
+evaluation occurred. Its original failure report and store remain intact.
+
+Local reproduction found order-dependent FP32 spatial pooling changed BF16
+tokens before Qwen. The repair accumulates the weighted node mean in FP64 and
+casts back to FP32 before token fusion; Qwen stays BF16. The equation, weights,
+architecture, data, label budget and 1e-3 absolute/relative admission tolerance
+are unchanged. See research/ECTT_ENGINEERING_AMENDMENT_20261103.md.
+
+CPU admission reuse now also excludes ectt_model, which those CPU stages never
+import or execute. The pinned fingerprint of all remaining admission inputs
+must still match the original release, and all old completion artifacts are
+verified. A new GPU identity prevents reuse of old model results/checkpoints.
+The cached environment and Qwen files retain their original version/hash checks.
+
+Each completed invariance check is saved in pretraining_invariance.json or
+posttraining_invariance.json and live progress, including the failed case.
+The same explicit ectt-gpu-pilot command above submits the corrected pilot with
+one GPU, five CPUs and two hours. Full-size CUDA admission remains unverified
+until this new HPC execution; local tests are not a traffic accuracy result.
 
 ## Validation boundary
 

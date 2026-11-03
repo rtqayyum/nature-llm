@@ -226,3 +226,13 @@ Record reuse in ectt_prerequisites.json; never rewrite old stores or count an
 old pilot as passed. Regression checks must call the real pilot entrypoint,
 in addition to helper-level recovery tests. Resubmit ectt-gpu-pilot with one
 GPU/five CPUs; real CUDA execution remains pending until new HPC evidence.
+
+User-reported retry 616045 loaded pinned Qwen successfully and reused both CPU
+admissions, then failed node-permutation admission before updates. A local
+regression reproduced FP32 pooling order changing BF16 tokens. Accumulate the
+node weighted mean in FP64, output FP32 and keep Qwen BF16 and both 1e-3 gate
+tolerances. Preserve all old failures. Model code is unused by CPU admissions;
+exclude it from their compatibility fingerprint along with pilot/workflow,
+while still checking all remaining inputs and old completion artifacts. Never
+reuse an old GPU result for this changed computation. Record per-case admission
+progress even on failure. See research/ECTT_ENGINEERING_AMENDMENT_20261103.md.

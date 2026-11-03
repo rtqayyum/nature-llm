@@ -21,7 +21,13 @@ class NumericalTrafficModel(nn.Module):
         node_context = inputs.mean(dim=2)
         weights = inputs[..., 2].sum(dim=2)
         encoded = self.spatial(node_context)
-        context = (encoded*weights.unsqueeze(-1)).sum(dim=1)/weights.sum(dim=1).clamp_min(1).unsqueeze(-1)
+        # FP32 reduction order can change the later BF16 rounding and amplify
+        # tiny pooling errors throughout Qwen. Accumulate the weighted mean in
+        # FP64, then round once to the projection's FP32 dtype. The pooling
+        # equation and gradients are unchanged; never pool forecast origins.
+        wide_weights = weights.to(torch.float64)
+        context = ((encoded.to(torch.float64)*wide_weights.unsqueeze(-1)).sum(dim=1)
+                   /wide_weights.sum(dim=1).clamp_min(1).unsqueeze(-1)).to(encoded.dtype)
         tokens = self.projection(patches)+context[:, None, None, :]
         dtype = next(self.backbone.parameters()).dtype
         tokens = tokens.reshape(batch*nodes, 4, -1).to(dtype)
@@ -51,7 +57,7 @@ def qwen_model(directory, contract):
     return model
 
 
-def invariance_checks(model, inputs, atol=1e-5, rtol=1e-4):
+def invariance_checks(model, inputs, atol=1e-5, rtol=1e-4, record=None):
     was_training = model.training
     model.eval()
     try:
@@ -68,6 +74,8 @@ def invariance_checks(model, inputs, atol=1e-5, rtol=1e-4):
                 passed = torch.isfinite(observed).all() and torch.allclose(observed, expected, atol=atol, rtol=rtol)
                 rows.append({'case': name, 'passed': bool(passed),
                              'maximum_absolute_difference': float((observed-expected).abs().max())})
+                if record is not None:
+                    record([dict(row) for row in rows])
                 if not passed:
                     raise ValueError('Forecast invariance failed: ' + str(rows[-1]))
         return rows

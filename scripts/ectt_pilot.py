@@ -163,11 +163,17 @@ def run(project, code, store, contract, execution, ident, progress):
     target = torch.from_numpy(((y-scaler['minimum'])/(scaler['maximum']-scaler['minimum'])).astype('float32')).cuda()
     # BF16 kernels can have small batch-shape rounding differences. The
     # engineering tolerance is recorded; failure never changes it silently.
-    pre = invariance_checks(model, inputs, atol=1e-3, rtol=1e-3)
+    def check_invariance(label):
+        def record(rows):
+            write(store / (label+'_invariance.json'), {'atol': 1e-3, 'rtol': 1e-3, 'checks': rows})
+            progress(phase='QWEN_INVARIANCE', invariance_phase=label,
+                     invariance_checks_completed=len(rows), latest_invariance_check=rows[-1])
+        return invariance_checks(model, inputs, atol=1e-3, rtol=1e-3, record=record)
+    pre = check_invariance('pretraining')
     began = time.monotonic()
     outcome = fit(model, inputs, target, store, ident, recipe['optimizer_steps'],
                   contract['training_design']['source_learning_rate'], progress)
-    post = invariance_checks(model, inputs, atol=1e-3, rtol=1e-3)
+    post = check_invariance('posttraining')
     # Fresh reconstruction and strict adapter reload must reproduce predictions
     # at the declared precision. Frozen base revision stays pinned.
     model.eval()
@@ -195,6 +201,7 @@ def run(project, code, store, contract, execution, ident, progress):
         'gpu': torch.cuda.get_device_name(0), 'torch': torch.__version__, 'cuda': torch.version.cuda,
         'parameter_counts': parameter_counts, 'elapsed_training_seconds': time.monotonic()-began,
         'peak_gpu_allocated_bytes': torch.cuda.max_memory_allocated(),
+        'spatial_pool_accumulation_dtype': 'float64', 'spatial_pool_output_dtype': 'float32',
         'scientific_status': 'METHOD_NOT_EVALUATED', 'S01_independent_review': 'PENDING'}
     write(store / 'result.json', result)
     (store / 'SUMMARY.md').write_text('# Qwen numerical engineering pilot\n\n'+json.dumps(result, indent=2)+

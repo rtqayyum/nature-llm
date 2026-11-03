@@ -6,10 +6,58 @@ import tempfile
 import unittest
 from unittest import mock
 import importlib.util
+from types import SimpleNamespace
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 AVAILABLE=all(importlib.util.find_spec(x) for x in ('torch','transformers','peft'))
+
+
+@unittest.skipUnless(importlib.util.find_spec('torch'), 'Requires local CPU Torch')
+class PoolingPrecisionTests(unittest.TestCase):
+    def test_node_permutation_preserves_bf16_tokens_at_real_interface_width(self):
+        import torch
+        from ectt_model import NumericalTrafficModel
+        class Recorder(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.anchor = torch.nn.Parameter(torch.zeros(1, dtype=torch.bfloat16), requires_grad=False)
+            def forward(self, inputs_embeds, **kwargs):
+                self.tokens = inputs_embeds.detach().clone()
+                return SimpleNamespace(last_hidden_state=inputs_embeds)
+        torch.set_num_threads(5)
+        for seed, nodes in ((0, 170), (1, 358)):
+            with self.subTest(seed=seed, nodes=nodes):
+                torch.manual_seed(seed)
+                model = NumericalTrafficModel(Recorder(), 1536).eval()
+                x = torch.rand(2, nodes, 12, 3); x[..., 2] = 1
+                if nodes == 358:
+                    x[..., 2] = (torch.rand(2, nodes, 12) > .3).float()
+                    x[:, 0, :, 2] = 0
+                permutation = torch.randperm(nodes)
+                with torch.no_grad():
+                    model(x)
+                    expected = model.backbone.tokens.reshape(2, nodes, 4, -1).clone()
+                    for order in (torch.arange(nodes).flip(0), permutation):
+                        model(x[:, order])
+                        actual = model.backbone.tokens.reshape(2, nodes, 4, -1)[:, order.argsort()]
+                        self.assertTrue(torch.equal(actual, expected),
+                                        'Node order changed BF16 input tokens before Qwen')
+
+    def test_invariance_gate_still_rejects_node_order_dependence_and_records_failure(self):
+        import torch
+        from ectt_model import invariance_checks
+        class NodeBiased(torch.nn.Module):
+            def forward(self, inputs):
+                return inputs[:, :, -1, 0] + torch.arange(inputs.shape[1])
+        model = NodeBiased().train()
+        rows = []
+        with self.assertRaisesRegex(ValueError, 'node_permutation'):
+            invariance_checks(model, torch.rand(2, 6, 12, 3), atol=1e-3, rtol=1e-3,
+                              record=lambda value: rows.append(value))
+        self.assertTrue(model.training)
+        self.assertEqual(len(rows[-1]), 4)
+        self.assertFalse(rows[-1][-1]['passed'])
 
 
 @unittest.skipUnless(importlib.util.find_spec('torch'), 'Requires local CPU Torch')
@@ -93,6 +141,23 @@ class ModelTests(unittest.TestCase):
         self.assertTrue(loader.call_args.kwargs['local_files_only'])
         self.assertTrue(loader.call_args.kwargs['use_safetensors'])
         self.assertEqual(model(self.torch.rand(2,2,12,3)).shape,(2,2))
+
+    def test_bf16_qwen_all_28_blocks_permutation_and_pool_gradients(self):
+        from transformers import Qwen2Config, Qwen2Model, AutoModel
+        from ectt_model import qwen_model, invariance_checks
+        t = self.torch
+        cfg = Qwen2Config(vocab_size=32, hidden_size=16, intermediate_size=32, num_hidden_layers=28,
+                         num_attention_heads=2, num_key_value_heads=2, max_position_embeddings=32)
+        contract = {'model': {'lora': {'rank': 8, 'alpha': 16, 'dropout': 0., 'modules': ['q_proj', 'v_proj']}}}
+        with mock.patch.object(AutoModel, 'from_pretrained', return_value=Qwen2Model(cfg).to(t.bfloat16)):
+            model = qwen_model(Path(self.tmp.name), contract)
+        x = t.rand(2, 170, 12, 3); x[..., 2] = 1
+        self.assertTrue(all(row['passed'] for row in invariance_checks(model, x, atol=1e-3, rtol=1e-3)))
+        model(x).square().mean().backward()
+        for name, parameter in model.named_parameters():
+            if name.startswith(('projection.', 'spatial.', 'head.')) or 'lora_' in name:
+                self.assertIsNotNone(parameter.grad, name)
+                self.assertTrue(t.isfinite(parameter.grad).all(), name)
 
     def test_exact_optimizer_resume_matches_uninterrupted_cpu_fit(self):
         from ectt_pilot import fit

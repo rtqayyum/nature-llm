@@ -380,3 +380,32 @@ or changed dependencies; all 28 Slurm checks also passed. Bash syntax, Python
 compilation and diff checks passed. Three existing tiny-Qwen tests require a separate
 local PEFT environment and were skipped here. Full-size CUDA behavior still
 requires the new HPC pilot. No replacement job was submitted from here.
+
+## Qwen spatial pooling precision repair — 3 November 2026
+
+User-reported job 616045 failed 2:0 after 2 minutes 3 seconds. The import repair
+worked, environment checks passed, both historical CPU admissions were reused,
+and Qwen weights were downloaded/verified/loaded. The pretraining node-order
+gate failed with maximum forecast difference 0.09887021780014038. No optimizer
+updates, test evaluation or benchmark runs occurred.
+
+At the actual 1536-wide interface with 170 synthetic nodes, the old FP32 pooling
+changed 64–84 BF16 token elements across seeds 0–4 when reversing node order.
+The repair accumulates the identical weighted mean in FP64, then casts to
+FP32 before BF16 Qwen execution. Those local probes now have zero changed
+tokens and zero forecast difference. These probes isolate an implementation
+defect; they do not establish its contribution to the full-size CUDA error.
+
+Eight focused model checks pass, including 170/358-node token permutation,
+a tiny 28-block BF16 Qwen and finite gradients, exact checkpoint recovery and
+a negative control that still rejects node-order dependence. All 20 ECTT
+workflow checks pass. All 28 Slurm checks, Bash syntax, Python compilation and
+diff checks also pass. Local Torch is 2.0.0+cpu; Transformers/PEFT are the pinned
+4.45.2/0.13.2. Official model weights or real traffic were not downloaded here.
+The actual HPC Torch 2.4.1+cu118/full-size model still needs the corrected pilot.
+
+The unchanged data/statistical admission dependencies remain pinned and old
+artifacts verified. Model-only changes cannot satisfy an old GPU pilot. Each
+new invariance case is recorded before a failure. The correction and scope
+are documented in research/ECTT_ENGINEERING_AMENDMENT_20261103.md. No new HPC
+job was submitted from here, and independent statistical review remains pending.

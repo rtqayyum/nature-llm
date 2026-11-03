@@ -17,10 +17,11 @@ STAGES = ('ectt-preflight', 'ectt-stat-check', 'ectt-gpu-pilot')
 
 # Only the two CPU admissions from the reviewed 105aa66 release may be reused.
 # Their science, environment, helpers, data/statistics and registry code must
-# match byte for byte. The repaired pilot and this orchestration module are
-# excluded; old pilot results/checkpoints are never imported into a new run.
+# match byte for byte. Model/pilot modules are not used by CPU admissions and
+# are excluded along with this orchestration module. Old GPU pilot
+# results/checkpoints are never imported into a new run.
 PREVIOUS_ADMISSION_ID = 'd70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2'
-PREVIOUS_ADMISSION_DEPENDENCIES = '9e3d023e2f19b3ee182cff4cfca2d5669331a9ac988b36ea57ca10bc696f3541'
+PREVIOUS_ADMISSION_DEPENDENCIES = '02e4b43503e61272a4f187d925abeb93432ba12af60273a7a13723ed2f764943'
 
 
 def admission_dependencies(code):
@@ -28,7 +29,7 @@ def admission_dependencies(code):
     paths = ['config/ectt_protocol_v1.json', 'config/ectt_execution_v1.json',
              'config/sources.lock.json', 'config/ectt_gpu_requirements.txt', 'research/MASTER_PROTOCOL_RECORD.json']
     paths += [str(p.relative_to(code)) for p in sorted((code / 'scripts').glob('ectt_*.py'))
-              if p.name not in ('ectt_pilot.py', 'ectt_workflow.py')]
+              if p.name not in ('ectt_pilot.py', 'ectt_workflow.py', 'ectt_model.py')]
     return hashlib.sha256(json.dumps({p: digest(code / p) for p in paths}, sort_keys=True).encode()).hexdigest()
 
 

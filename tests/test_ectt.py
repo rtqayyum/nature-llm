@@ -250,7 +250,7 @@ class StudyTests(unittest.TestCase):
         self.legacy_admissions()
         for name in ('config/ectt_protocol_v1.json', 'config/ectt_execution_v1.json',
                      'config/sources.lock.json', 'scripts/ectt_data.py', 'scripts/ectt_common.py',
-                     'scripts/ectt_statistics.py', 'scripts/ectt_model.py', 'scripts/ectt_registry.py'):
+                     'scripts/ectt_statistics.py', 'scripts/ectt_registry.py'):
             with self.subTest(path=name):
                 path = self.code / name
                 original = path.read_bytes()
@@ -261,6 +261,19 @@ class StudyTests(unittest.TestCase):
                         workflow.require_previous(self.project, self.code, 'ectt-gpu-pilot')
                 finally:
                     path.write_bytes(original)
+
+    def test_model_only_repair_can_reuse_cpu_admissions_but_never_an_old_pilot(self):
+        self.legacy_admissions()
+        for name in ('scripts/ectt_model.py', 'scripts/ectt_pilot.py'):
+            path = self.code / name
+            original = path.read_bytes()
+            path.write_bytes(original + b'\n# synthetic model-only repair\n')
+            try:
+                self.assertEqual(workflow.next_stage(self.project, self.code), 'ectt-gpu-pilot')
+                self.assertTrue(all(row['reused_compatible_admission'] for row in
+                                    workflow.require_previous(self.project, self.code, 'ectt-gpu-pilot').values()))
+            finally:
+                path.write_bytes(original)
 
     def test_study_refuses_silent_email_omission(self):
         with mock.patch.dict(os.environ,{'TRAFFIC_MAIL_USER':''}), mock.patch.object(slurm_submit,'ROOT',self.project),mock.patch.object(slurm_submit.shutil,'which',return_value='/fake/sbatch'),mock.patch.object(slurm_submit.subprocess,'run',side_effect=self.fake_slurm) as execute:
