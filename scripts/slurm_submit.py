@@ -14,11 +14,12 @@ import sys
 import time
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot")
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines")
 ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES
+GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -26,8 +27,8 @@ ROOT = Path("/home/tariq.qayyum/nature-llm")
 def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
     preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore", "reproduction-review", "ectt-preflight", "ectt-stat-check")
-    preflight = preflight or stage in SHARED_STAGES
-    desired = 3600 if stage in SHARED_STAGES else 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage in ("gpu-smoke", "ectt-gpu-pilot")+COMPACT_STAGES else 1800 if preflight else 23 * 3600
+    preflight = preflight or stage in SHARED_STAGES or stage == 'shared-compact-report'
+    desired = 3600 if stage in SHARED_STAGES or stage == 'shared-compact-report' else 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage in ("gpu-smoke", "ectt-gpu-pilot", "shared-compact-baselines")+COMPACT_STAGES else 1800 if preflight else 23 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -132,12 +133,20 @@ def main(argv=None):
     parser.add_argument("--audit-only", action="store_true")
     parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"]+list(STUDY_STAGES), default="acquire")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
+    parser.add_argument('--retry-grid', action='store_true', help='Explicitly submit a new compact array after the previous batch ended; reuse compatible completed cases/checkpoints')
     args = parser.parse_args(argv)
     if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
         parser.error("baseline-rescore requires --source-array with a numeric project training array ID")
     if args.source_array and args.stage != "baseline-rescore":
         parser.error("--source-array is only valid with baseline-rescore")
     project, code = args.project.resolve(), args.code.resolve()
+    if args.retry_grid and args.stage != 'shared-compact-baselines':
+        parser.error('--retry-grid is only valid with shared-compact-baselines')
+    if args.stage == 'shared-compact-baselines':
+        from compact_grid_submit import submit
+        return submit(project, code, retry=args.retry_grid)
+    if args.stage == 'shared-compact-report':
+        parser.error('The compact collector is submitted with its array; use --stage shared-compact-baselines')
     if args.stage in ECTT_STAGES:
         from ectt_workflow import next_stage, require_previous
         if args.stage == "ectt-next":

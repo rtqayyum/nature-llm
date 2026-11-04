@@ -8,10 +8,11 @@ The 4 November extension adds the first shared local baseline stage below.
 The 5 November extension adds a development-only compact local pilot after
 successful foundation job 620562; see the current next-stage section below.
 
-The user now authorizes staged implementation and execution, one job at a time.
-Every GPU job requests **one GPU and five CPUs**. CPU-only admission jobs request
-five CPUs and zero GPUs. No four-GPU job, concurrent training array, automatic
-grid submission or job cancellation is introduced.
+Initial admission used one job at a time. The latest explicit user request
+authorizes the complete remaining compact array, with up to four concurrent
+tasks and a dependent CPU collector. Every GPU task requests **one GPU and
+five CPUs**; CPU collection requests five CPUs and zero GPUs. No other model
+grid or job cancellation is introduced. See the latest section below.
 
 ## Runnable stages
 
@@ -22,6 +23,8 @@ grid submission or job cancellation is introduced.
 | ectt-gpu-pilot | P01 P02 | 5 CPUs, 1 GPU, 2 hours | PEMS08 support-only numerical Qwen/LoRA gradients, invariance and recovery |
 | shared-local-baselines | B01, ridge part of B02 | 5 CPUs, 0 GPUs, 1 hour | Internal verifier audit/simulations; persistence/ridge on all eight domains and four budgets |
 | shared-compact-pilot | Development part of compact B02, P01/P02 | 5 CPUs, 1 GPU, 2 hours | PEMS08/Beijing, 5%, seed 11; support-only four-size selection/refit, exact compact optimizer recovery and saved-forecast metrics |
+| shared-compact-baselines | Remaining compact B02 | Per task: 5 CPUs, 1 GPU, 2 hours; up to 4 concurrent | All 64 remaining eligible fits submitted together; 2 pilot cases reused |
+| shared-compact-report | B02 artifact collection | 5 CPUs, 0 GPUs, 1 hour | After-any collection of all 96 records, including 30 deterministic fallbacks; fail on missing/corrupt evidence |
 
 Observed partition limits cap every request. Short CPU stages use shortq only
 when its observed maximum fits; otherwise longq. CUDA uses gpuq. These are time
@@ -279,3 +282,37 @@ No automatic chaining is enabled. Review GPU execution and runtime before the
 all-domain compact grid. Other seeds/budgets, six confirmatory compact targets,
 B03/B04, ECTT and independent S01 sign-off remain pending. This compact recovery
 check cannot clear the separate full-size Qwen recovery requirement.
+
+## Current request: submit all remaining compact cases together
+
+User-reported pilot 620634 completed 0:0 in 77 seconds, all 2,024 updates and
+compact recovery/invariance gates passed on one A100/five CPUs. The user now
+requests all remaining jobs at once, with result analysis after completion.
+This supersedes the earlier serial/development-only compact launch hold.
+
+Use the new pinned launcher and submit one command:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage shared-compact-baselines --submit
+```
+
+It submits all 64 remaining GPU cases as an array, at most four running, and
+an afterany CPU collection job. The complete 96-record matrix includes two
+verified pilot cases and 30 zero/infeasible deterministic references without
+extra GPU fitting. Scientific settings and the admitted compact implementation
+are unchanged. Read research/COMPACT_GRID_EXECUTION_V1.md for the exact matrix,
+artifact contracts, accounting and recovery boundaries.
+
+The output prints ARRAY_JOB_ID and REPORT_JOB_ID. Return both real IDs;
+Check ARRAY_ID summarizes the full array, and Check REPORT_ID shows the
+collector. Repeating the command reuses known submission IDs or submits only
+a missing collector. Once all old tasks have ended, add --retry-grid to create
+a recovery array that reuses completed cases and restores partial checkpoints.
+Failed/missing cases remain visible and make collection exit nonzero.
+
+This submits the compact B02 family. B03/B04, ECTT, Qwen full-size interrupted
+optimizer recovery and independent S01 sign-off remain pending. Actual grid
+execution/results are established only by later HPC evidence.

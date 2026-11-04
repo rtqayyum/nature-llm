@@ -49,7 +49,15 @@ def main(argv=None):
         (job / "started.json").write_text(json.dumps({"started_utc": stamp(), "job_id": job_id,
              "actual_slurm_job_id": os.environ["SLURM_JOB_ID"],
              "code": str(code), "work": str(work), "report": str(report)}, indent=2))
-        if stage == 'shared-compact-pilot':
+        if stage in ('shared-compact-baselines', 'shared-compact-report'):
+            try:
+                from compact_grid import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report/'compact_progress.json').write_text(json.dumps({'phase': 'FAILED', 'error': str(exc)}))
+                (report/'SUMMARY.md').write_text('# Compact grid setup failed\n\n'+str(exc)+'\n')
+        elif stage == 'shared-compact-pilot':
             try:
                 from compact_baselines import dispatch
                 result = dispatch(root, code, report)
@@ -220,6 +228,20 @@ def main(argv=None):
             training_smoke_optimizer_steps=fit.get('optimizer_steps', 0),
             new_training_smoke_optimizer_steps=fit.get('new_optimizer_steps', 0),
             reason='ECTT admission stage only; full benchmark training and S01 independent review remain pending' if args.shell_exit == 0 else 'Inspect ECTT progress, worker logs and Slurm accounting')
+    if stage in ('shared-compact-baselines', 'shared-compact-report'):
+        path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
+        result = json.loads(path.read_text()) if path.exists() else {}
+        progress_path = report/'compact_progress.json'
+        progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
+        status.update(scientific_status=result.get('scientific_status', 'COMPACT_LOCAL_GRID_INCOMPLETE'),
+                      benchmark_experiments_completed=result.get('completed_cases', progress.get('completed_cases', 0)),
+                      training_experiments_completed=result.get('completed_cases', 0) if stage != 'shared-compact-report' else 0,
+                      training_performed=result.get('training_performed', progress.get('training_performed', False)),
+                      optimizer_steps=result.get('optimizer_steps', 0),
+                      new_optimizer_steps=result.get('new_optimizer_steps', progress.get('new_optimizer_steps', 0)),
+                      method_evaluated=False, S01_independent_review='PENDING',
+                      reason='Compact local family only; LLM-UTP/Qwen and independent S01 review remain pending'
+                          if args.shell_exit == 0 else 'Inspect compact_progress.json, collection report and Slurm accounting')
     if stage == 'shared-compact-pilot':
         path = report/'compact_result.json'
         result = json.loads(path.read_text()) if path.exists() else {}

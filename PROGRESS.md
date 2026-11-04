@@ -479,3 +479,39 @@ Check/final-status integration. Local Torch is 2.0.0+cpu, not the HPC CUDA
 runtime. Bash syntax, 57-file Python 3.9 syntax, JSON, import without login
 NumPy/Torch, and diff checks pass. Frozen scientific and CPU/pilot dependency
 hashes are unchanged. Actual compact CUDA execution remains pending.
+
+## Compact pilot passed; full compact array requested — 5 November 2026
+
+User accounting and report confirm job 620634 completed 0:0 in 77 seconds,
+with 2,024 new updates, both development cases complete, compact exact
+recovery and trained invariance gates passed. The allocated device was A100
+80 GB, one GPU/five CPUs; peak allocation 405189632 bytes. Worker elapsed time
+was 41.402747 seconds. The two development test summaries were visible; no
+architecture, optimizer, precision, support selection or threshold is changed.
+
+The user explicitly requests all remaining jobs submitted together, IDs
+returned, and scientific analysis deferred until completion. This authorizes
+shared-compact-baselines: 64 GPU array tasks at concurrency four plus one
+afterany CPU collector. Each GPU task uses one GPU/five CPUs/32 GiB/two hours
+capped by observed gpuq policy. The exact 96-record matrix includes two pilot
+reuses and 30 zero/infeasible deterministic seed references. No GPU is allocated
+to those fallbacks. See research/COMPACT_GRID_EXECUTION_V1.md.
+
+The new worker uses the exact admitted numerical helper in isolated per-case
+stores. The collector verifies final task statuses, completion hashes, support
+access ledgers, shared truths/origins and independent saved metrics. Failed,
+missing and infeasible records stay explicit. Submission journals preserve
+array/collector IDs and avoid duplicate submissions; retrying a failed report
+submission does not resubmit its array. Explicit recovery after the batch ends
+reuses completed cases/checkpoints. HPC submission remains pending; no real
+array or collector ID is invented here. B03/B04, ECTT and S01 remain pending.
+
+Nine new grid checks and 78 existing compact/baseline/ECTT/Slurm tests pass.
+The grid tests cover exact 96/64/2/30 counts, all-at-once resource/mail flags,
+after-any CPU dependency, repeated-command deduplication, collector-only
+submission recovery, explicit recovery array IDs, immutable pilot/foundation
+reuse, actual case-entrypoint recovery, common-truth/ledger/independent metric
+collection, explicit failed records, bootstrap forwarding, monitoring and final
+status. Local checks use synthetic CPU fixtures/mocked Slurm. Bash syntax,
+60-file Python 3.9 syntax, JSON and diff checks pass. The admitted numerical
+code, compact recipe and all scientific/data/statistical locks are unchanged.

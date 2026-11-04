@@ -144,12 +144,15 @@ def main(argv=None):
     parser.add_argument("--project", type=Path, default=Path(default_project))
     parser.add_argument("--sync-only", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review", "ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next", "shared-local-baselines", "shared-compact-pilot"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review", "ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next", "shared-local-baselines", "shared-compact-pilot", "shared-compact-baselines"], default="acquire")
     parser.add_argument("--submit", action="store_true", help="Prepare Batch and submit acquisition to Slurm")
     parser.add_argument("--interactive", action="store_true", help="Explicit small development/debug run outside Slurm")
     parser.add_argument("--handoff", action="store_true", help="Pause only a validated unmanaged project downloader before submission")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
+    parser.add_argument('--retry-grid', action='store_true')
     args = parser.parse_args(argv)
+    if args.retry_grid and args.stage != 'shared-compact-baselines':
+        parser.error('--retry-grid is only valid with shared-compact-baselines')
     if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
         parser.error("baseline-rescore requires --source-array with a numeric project training array ID")
     if args.source_array and args.stage != "baseline-rescore":
@@ -190,6 +193,8 @@ def main(argv=None):
             command.append("--handoff")
         if args.audit_only:
             command.append("--audit-only")
+        if args.retry_grid:
+            command.append('--retry-grid')
         return subprocess.call(command)
     env = {**os.environ, "TRAFFIC_PROJECT_ROOT": str(project), "TRAFFIC_WORK_ROOT": str(work)}
     if args.stage != "acquire":

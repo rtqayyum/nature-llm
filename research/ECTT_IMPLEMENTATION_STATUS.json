@@ -11,9 +11,11 @@
     "ectt-stat-check",
     "ectt-gpu-pilot",
     "shared-local-baselines",
-    "shared-compact-pilot"
+    "shared-compact-pilot",
+    "shared-compact-baselines",
+    "shared-compact-report"
   ],
-  "unimplemented": "All-domain compact local grid, shared-data LLM-UTP, ordinary Qwen/ECTT benchmark kernels, external adapters and final analysis kernels",
+  "unimplemented": "Shared-data LLM-UTP, ordinary Qwen/ECTT benchmark kernels, external adapters and final scientific analysis kernels",
   "independent_statistical_review": "PENDING",
   "local_validation": {
     "unittest_suite": {
@@ -44,11 +46,23 @@
       "fresh_process_optimizer_resume": "BITWISE_EQUAL_MODEL_ADAM_RNG_CURSOR",
       "largest_compact_358_node_invariance": "PASSED_SYNTHETIC_CPU",
       "official_weights_or_real_traffic_used": false,
-      "actual_compact_CUDA_execution": "PENDING"
+      "actual_compact_CUDA_execution": "PASSED_USER_REPORTED_HPC_620634"
+    },
+    "compact_full_grid": {
+      "new_tests": 9,
+      "existing_compact_baseline_ectt_slurm_tests": 78,
+      "status": "PASSED",
+      "matrix_records": 96,
+      "remaining_gpu_cases": 64,
+      "pilot_case_reuses": 2,
+      "deterministic_fallback_seed_references": 30,
+      "max_concurrent_gpu_tasks": 4,
+      "real_array_submitted": false,
+      "official_assets_downloaded_locally": false
     }
   },
   "execution_evidence": {
-    "real_hpc_jobs_submitted": 6,
+    "real_hpc_jobs_submitted": 7,
     "official_model_weights_downloaded_locally": false,
     "real_datasets_downloaded_locally": false,
     "ssh_result": "Network is unreachable",
@@ -163,17 +177,33 @@
         "training_performed": true,
         "method_evaluated": false,
         "independent_statistical_review": "PENDING"
+      },
+      {
+        "job_id": "620634",
+        "stage": "shared-compact-pilot",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 77,
+        "cpus": 5,
+        "gpus": 1,
+        "gpu": "NVIDIA A100 80GB PCIe",
+        "development_cases": 2,
+        "new_optimizer_steps": 2024,
+        "peak_gpu_allocated_bytes": 405189632,
+        "compact_exact_recovery_passed": true,
+        "compact_trained_invariance_passed": true,
+        "method_evaluated": false
       }
     ],
     "full_size_CUDA_scope": "Six support-only updates and eight invariant prediction checks; no test accuracy or ECTT objective",
     "full_size_interrupted_optimizer_resume_verified": false
   },
-  "scope": "Persistence/ridge foundation completed on HPC. Development-only compact pilot implemented; real compact CUDA execution, independent S01 sign-off and full matched comparisons remain pending.",
-  "next_stage": "shared-compact-pilot",
+  "scope": "Persistence/ridge and compact pilot completed on HPC. Full compact matrix/array/collector implemented under explicit batch authorization; grid execution/results, independent S01 and matched transfer comparisons remain pending.",
+  "next_stage": "shared-compact-baselines",
   "admitted_gpu_pilot_identity": "19941f7b1196c3b3ffcda3787a89a3b59116b5327ff0677c477d8020ff5ce090",
   "family_readiness": {
     "B01": "COMPLETED_ON_HPC_620562",
-    "B02": "RIDGE_COMPLETED_COMPACT_DEVELOPMENT_PILOT_IMPLEMENTED_NOT_RUN",
+    "B02": "RIDGE_AND_COMPACT_PILOT_COMPLETED_FULL_COMPACT_ARRAY_IMPLEMENTED_NOT_RUN",
     "B03": "PLANNED_NOT_IMPLEMENTED",
     "B04": "PLANNED_NOT_IMPLEMENTED",
     "S01": "INTERNAL_AUDIT_IMPLEMENTED_INDEPENDENT_SIGNOFF_PENDING"

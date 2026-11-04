@@ -73,7 +73,7 @@ fi
 module load anaconda3
 # Do not inherit imports from another project or the login shell's packages.
 unset PYTHONPATH
-if [[ "${TRAFFIC_STAGE:-acquire}" == shared-local-baselines ]]; then
+if [[ "${TRAFFIC_STAGE:-acquire}" == shared-local-baselines || "${TRAFFIC_STAGE:-acquire}" == shared-compact-report ]]; then
     export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export OPENBLAS_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"
@@ -81,7 +81,7 @@ fi
 BASE_PYTHON=''
 MAX_PYTHON_MINOR=12
 MIN_PYTHON_MINOR=8
-if [[ "${TRAFFIC_STAGE:-acquire}" == causal-train3 || "${TRAFFIC_STAGE:-acquire}" == ectt-gpu-pilot || "${TRAFFIC_STAGE:-acquire}" == shared-compact-pilot ]]; then
+if [[ "${TRAFFIC_STAGE:-acquire}" == causal-train3 || "${TRAFFIC_STAGE:-acquire}" == ectt-gpu-pilot || "${TRAFFIC_STAGE:-acquire}" == shared-compact-pilot || "${TRAFFIC_STAGE:-acquire}" == shared-compact-baselines ]]; then
     MIN_PYTHON_MINOR=9
 fi
 if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer || "${TRAFFIC_STAGE:-acquire}" == beijing-infer || "${TRAFFIC_STAGE:-acquire}" == public8-infer || "${TRAFFIC_STAGE:-acquire}" == release-diagnose || "${TRAFFIC_STAGE:-acquire}" == causality-audit || "${TRAFFIC_STAGE:-acquire}" == gpu-smoke || "${TRAFFIC_STAGE:-acquire}" == reference-train3 || "${TRAFFIC_STAGE:-acquire}" == baseline-rescore || "${TRAFFIC_STAGE:-acquire}" == causal-train3 ]]; then
@@ -89,12 +89,12 @@ if [[ "${TRAFFIC_STAGE:-acquire}" == pems08-infer || "${TRAFFIC_STAGE:-acquire}"
     export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"
 fi
-if [[ "${TRAFFIC_STAGE:-acquire}" == ectt-gpu-pilot || "${TRAFFIC_STAGE:-acquire}" == shared-compact-pilot ]]; then
+if [[ "${TRAFFIC_STAGE:-acquire}" == ectt-gpu-pilot || "${TRAFFIC_STAGE:-acquire}" == shared-compact-pilot || "${TRAFFIC_STAGE:-acquire}" == shared-compact-baselines ]]; then
     MAX_PYTHON_MINOR=11
     export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"
 fi
-if [[ "${TRAFFIC_STAGE:-acquire}" == shared-compact-pilot ]]; then
+if [[ "${TRAFFIC_STAGE:-acquire}" == shared-compact-pilot || "${TRAFFIC_STAGE:-acquire}" == shared-compact-baselines ]]; then
     export OPENBLAS_NUM_THREADS="$SLURM_CPUS_PER_TASK"
     export CUBLAS_WORKSPACE_CONFIG=:4096:8
 fi

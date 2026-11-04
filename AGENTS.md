@@ -269,3 +269,17 @@ truths/physical forecasts and independent metrics. Confirmatory compact runs,
 other seeds/budgets, B03/B04 and ECTT remain pending. This pilot does not clear
 the separate full-size Qwen interrupted recovery or independent S01 review.
 Do not launch an all-domain GPU grid or automatic chaining from this release.
+
+Latest explicit user authorization supersedes compact development-only and
+one-active-job restrictions: after successful user-reported pilot 620634,
+submit all remaining compact B02 jobs together and analyze once complete.
+Use shared-compact-baselines: 64 GPU array tasks, at most four concurrent,
+one GPU/five CPUs per task, plus an afterany five-CPU/no-GPU collector. The
+96-record fixed matrix includes two reused pilot cases and 30 deterministic
+fallback references. Read research/COMPACT_GRID_EXECUTION_V1.md. Keep the
+admitted compact recipe/model/training helpers unchanged. Preserve old stores,
+failed/infeasible cases, source identities and notification preferences.
+Do not relabel unimplemented B03/B04/ECTT or independent S01 as completed.
+The assistant cannot submit through the private HPC route; provide the single
+array+collector command and ask for both real scheduler IDs. No need to pause
+between each compact seed/domain task. Never cancel other project jobs.

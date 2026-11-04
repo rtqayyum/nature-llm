@@ -1,0 +1,21 @@
+{
+  "schema": "COMPACT_LOCAL_GRID_V1",
+  "stage": "shared-compact-baselines",
+  "report_stage": "shared-compact-report",
+  "pilot_job": "620634",
+  "pilot_identity": "5bf250fff249287779fb8976934e0c9ff5731ad0148b33a81dac29864f58c10a",
+  "pilot_recipe_sha256": "6f2bd5c389f1cc7eb8cdd62c7cfaf0d41ae6436f3af5812493cbf16dd6ae55d1",
+  "budgets": ["0.0", "0.01", "0.05", "0.1"],
+  "seeds": [11, 22, 33],
+  "max_concurrent_tasks": 4,
+  "expected_records": 96,
+  "expected_new_gpu_cases": 64,
+  "expected_pilot_reuse_cases": 2,
+  "expected_deterministic_fallback_records": 30,
+  "gpu_resources": {"job_name": "ectt-compact-all", "cpus": 5, "gpus": 1, "memory": "32G", "seconds": 7200},
+  "report_resources": {"job_name": "ectt-compact-report", "cpus": 5, "gpus": 0, "memory": "8G", "seconds": 3600},
+  "dependency": "afterany",
+  "recipe_policy": "Reuse the exact admitted compact recipe; vary only declared dataset, budget and seed. No test-driven retuning.",
+  "scope": "Complete compact B02 local family only. B03/B04, ECTT and independent S01 review remain pending.",
+  "prior_exposure": "PEMS08/Beijing compact pilot test aggregates were visible before extending the unchanged recipe to the full fixed matrix."
+}

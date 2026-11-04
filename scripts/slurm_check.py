@@ -53,6 +53,10 @@ def main():
         from training_check import summarize
         summarize(project, job_id, submission, command)
         return
+    if submission.get('stage') == 'shared-compact-baselines' and 'array_job_id' not in submission:
+        from compact_grid_submit import summarize
+        summarize(project, job_id, submission, command)
+        return
     queue = command(["squeue", "--jobs", job_id, "--noheader", "--format=%i|%T|%R"])
     accounting = command(["sacct", "-j", job_id, "--parsable2", "--noheader",
         "--format=JobIDRaw,JobName,State,ExitCode,Elapsed,ElapsedRaw,AllocCPUS,TotalCPU,MaxRSS,Reason"])
@@ -70,7 +74,14 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == 'shared-compact-pilot':
+    if stage == 'shared-compact-report':
+        for name in ('compact_progress.json', 'compact_grid_result.json'):
+            path = job/'report'/name
+            if path.exists():
+                item = json.loads(path.read_text())
+                item.pop('records', None)
+                print('COMPACT '+name+':', json.dumps(item, indent=2))
+    elif stage in ('shared-compact-pilot', 'shared-compact-baselines'):
         for name in ('ectt_environment_status.json', 'compact_progress.json', 'compact_store.json', 'compact_runtime.json'):
             path = job/'report'/name
             if path.exists():
@@ -282,10 +293,12 @@ def main():
         if details.exists():
             print("PREFLIGHT SUMMARY:", json.dumps({key: value for key, value in json.loads(details.read_text()).items()
                 if key in ("execution_status", "error", "overlaps", "observations")}, indent=2))
-    elif stage != 'shared-compact-pilot':
+    elif stage not in ('shared-compact-pilot', 'shared-compact-baselines', 'shared-compact-report'):
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    if stage == 'shared-compact-pilot':
+    if stage in ('shared-compact-baselines', 'shared-compact-report'):
+        print('Compact local grid only. Full saved records include failed and infeasible cases; S01 and ECTT remain pending.')
+    elif stage == 'shared-compact-pilot':
         print('Development-only compact fits: PEMS08/Beijing, 5% budget, seed 11. Full B02 and S01 remain pending.')
     elif stage == 'shared-local-baselines':
         print('Deterministic persistence/ridge dataset-budget cases; seed references are not independent replications.')
