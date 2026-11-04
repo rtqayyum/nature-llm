@@ -253,3 +253,19 @@ fits, not independent replications. Compact B02, B03/B04 and method kernels
 remain pending. S01 independent sign-off cannot be cleared by the author audit.
 The hardened verifier changes numeric code but not locked statistical settings;
 rerun its fixed synthetic tests in the new CPU job, preserving old evidence.
+
+User reports shared-local-baselines job 620562 completed 0:0 in 53 seconds:
+32 deterministic cases, 22 ridge fits, independent saved-forecast reductions
+and internal audit passed; independent S01 sign-off remains pending. Preserve
+its identity 5aac118c3de58f0ba5aeb3b7bb219133359490fdd66cd2a8c642a4c80f181f34
+and all case artifacts. No rerun of this completed foundation is needed.
+
+Latest user authorization: implement the compact local baseline next. The
+next runnable unit is shared-compact-pilot: PEMS08/Beijing, 5%, seed 11,
+one GPU/five CPUs/32 GiB/two hours capped by gpuq. Read
+research/COMPACT_LOCAL_RECIPE_V1.md. Verify and reuse 620562, select only on
+support, test exact compact optimizer recovery and invariance, save common
+truths/physical forecasts and independent metrics. Confirmatory compact runs,
+other seeds/budgets, B03/B04 and ECTT remain pending. This pilot does not clear
+the separate full-size Qwen interrupted recovery or independent S01 review.
+Do not launch an all-domain GPU grid or automatic chaining from this release.

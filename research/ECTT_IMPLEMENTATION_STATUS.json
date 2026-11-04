@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-04",
-  "source_parent_commit": "82eec4155fcfe3322a2df25b52c89eedb547ca18",
+  "date": "2026-11-05",
+  "source_parent_commit": "f4a99ee601c7549ce758ee7ab58668367efe8b3f",
   "study_identity": "d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2",
   "shared_baseline_identity": "5aac118c3de58f0ba5aeb3b7bb219133359490fdd66cd2a8c642a4c80f181f34",
   "families": 35,
@@ -10,9 +10,10 @@
     "ectt-preflight",
     "ectt-stat-check",
     "ectt-gpu-pilot",
-    "shared-local-baselines"
+    "shared-local-baselines",
+    "shared-compact-pilot"
   ],
-  "unimplemented": "Compact local, shared-data LLM-UTP, ordinary Qwen/ECTT benchmark kernels, external adapters and final analysis kernels",
+  "unimplemented": "All-domain compact local grid, shared-data LLM-UTP, ordinary Qwen/ECTT benchmark kernels, external adapters and final analysis kernels",
   "independent_statistical_review": "PENDING",
   "local_validation": {
     "unittest_suite": {
@@ -34,10 +35,20 @@
       "status": "PASSED",
       "gaussian_quadrature_cases": 36,
       "official_weights_or_real_traffic_used": false
+    },
+    "compact_development_pilot": {
+      "new_tests": 14,
+      "existing_ectt_baseline_slurm_tests": 64,
+      "status": "PASSED",
+      "local_torch": "2.0.0+cpu",
+      "fresh_process_optimizer_resume": "BITWISE_EQUAL_MODEL_ADAM_RNG_CURSOR",
+      "largest_compact_358_node_invariance": "PASSED_SYNTHETIC_CPU",
+      "official_weights_or_real_traffic_used": false,
+      "actual_compact_CUDA_execution": "PENDING"
     }
   },
   "execution_evidence": {
-    "real_hpc_jobs_submitted": 5,
+    "real_hpc_jobs_submitted": 6,
     "official_model_weights_downloaded_locally": false,
     "real_datasets_downloaded_locally": false,
     "ssh_result": "Network is unreachable",
@@ -137,17 +148,32 @@
         "trainable_parameters": 1157249,
         "test_evaluation_performed": false,
         "new_method_objective_evaluated": false
+      },
+      {
+        "job_id": "620562",
+        "stage": "shared-local-baselines",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 53,
+        "cpus": 5,
+        "gpus": 0,
+        "deterministic_dataset_budget_cases": 32,
+        "new_ridge_fits": 22,
+        "optimizer_steps": 0,
+        "training_performed": true,
+        "method_evaluated": false,
+        "independent_statistical_review": "PENDING"
       }
     ],
     "full_size_CUDA_scope": "Six support-only updates and eight invariant prediction checks; no test accuracy or ECTT objective",
     "full_size_interrupted_optimizer_resume_verified": false
   },
-  "scope": "Shared-protocol baseline foundation. New baseline results await HPC; independent S01 sign-off and full matched method comparisons remain pending.",
-  "next_stage": "shared-local-baselines",
+  "scope": "Persistence/ridge foundation completed on HPC. Development-only compact pilot implemented; real compact CUDA execution, independent S01 sign-off and full matched comparisons remain pending.",
+  "next_stage": "shared-compact-pilot",
   "admitted_gpu_pilot_identity": "19941f7b1196c3b3ffcda3787a89a3b59116b5327ff0677c477d8020ff5ce090",
   "family_readiness": {
-    "B01": "IMPLEMENTED_NOT_YET_RUN_ON_HPC",
-    "B02": "RIDGE_IMPLEMENTED_COMPACT_PENDING",
+    "B01": "COMPLETED_ON_HPC_620562",
+    "B02": "RIDGE_COMPLETED_COMPACT_DEVELOPMENT_PILOT_IMPLEMENTED_NOT_RUN",
     "B03": "PLANNED_NOT_IMPLEMENTED",
     "B04": "PLANNED_NOT_IMPLEMENTED",
     "S01": "INTERNAL_AUDIT_IMPLEMENTED_INDEPENDENT_SIGNOFF_PENDING"

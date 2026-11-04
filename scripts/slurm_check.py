@@ -70,7 +70,15 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == 'shared-local-baselines':
+    if stage == 'shared-compact-pilot':
+        for name in ('ectt_environment_status.json', 'compact_progress.json', 'compact_store.json', 'compact_runtime.json'):
+            path = job/'report'/name
+            if path.exists():
+                print('COMPACT '+name+':', json.dumps(json.loads(path.read_text()), indent=2))
+        path = job/'report/failure_traceback.txt'
+        if path.exists():
+            print('COMPACT FAILURE:\n'+'\n'.join(path.read_text().splitlines()[-12:]))
+    elif stage == 'shared-local-baselines':
         for name in ('baseline_progress.json', 'baseline_store.json', 'internal_statistical_review.json'):
             path = job/'report'/name
             if path.exists():
@@ -274,10 +282,12 @@ def main():
         if details.exists():
             print("PREFLIGHT SUMMARY:", json.dumps({key: value for key, value in json.loads(details.read_text()).items()
                 if key in ("execution_status", "error", "overlaps", "observations")}, indent=2))
-    else:
+    elif stage != 'shared-compact-pilot':
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    if stage == 'shared-local-baselines':
+    if stage == 'shared-compact-pilot':
+        print('Development-only compact fits: PEMS08/Beijing, 5% budget, seed 11. Full B02 and S01 remain pending.')
+    elif stage == 'shared-local-baselines':
         print('Deterministic persistence/ridge dataset-budget cases; seed references are not independent replications.')
         print('Compact models, LLM-UTP/Qwen comparisons and S01 independent sign-off remain pending.')
     elif stage.startswith('ectt-'):

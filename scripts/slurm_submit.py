@@ -14,10 +14,11 @@ import sys
 import time
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot")
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot")
 ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 SHARED_STAGES = ('shared-local-baselines',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES
+COMPACT_STAGES = ('shared-compact-pilot',)
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -26,7 +27,7 @@ def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
     preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore", "reproduction-review", "ectt-preflight", "ectt-stat-check")
     preflight = preflight or stage in SHARED_STAGES
-    desired = 3600 if stage in SHARED_STAGES else 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage in ("gpu-smoke", "ectt-gpu-pilot") else 1800 if preflight else 23 * 3600
+    desired = 3600 if stage in SHARED_STAGES else 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage in ("gpu-smoke", "ectt-gpu-pilot")+COMPACT_STAGES else 1800 if preflight else 23 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -147,6 +148,9 @@ def main(argv=None):
         # run inside the CPU allocation, never as login-node preprocessing.
         from shared_baselines import foundation
         foundation(project, code, full=False)
+    if args.stage in COMPACT_STAGES:
+        from compact_baselines import foundation
+        foundation(project, code, full=False)
     phase_path = code / "config/reproduction_review.json"
     if args.stage == "causal-train3" and phase_path.exists() and read_json(phase_path)["phase"] == "REPRODUCIBILITY_FIRST":
         parser.error("causal-train3 is on hold under the user's reproducibility-first plan; use --stage reproduction-review")
@@ -208,6 +212,9 @@ def main(argv=None):
             profiles[args.stage] = (row['job_name'], row['cpus'], row['memory'])
         if args.stage in SHARED_STAGES:
             row = read_json(code/'config/shared_baselines_v1.json')['resources']
+            profiles[args.stage] = (row['job_name'], row['cpus'], row['memory'])
+        if args.stage in COMPACT_STAGES:
+            row = read_json(code/'config/compact_local_v1.json')['resources']
             profiles[args.stage] = (row['job_name'], row['cpus'], row['memory'])
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)

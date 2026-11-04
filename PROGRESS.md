@@ -444,3 +444,38 @@ data rejection, real source/pilot prerequisites, resource/email/serial guards,
 queue fallback and new-stage bootstrap/status/monitor integration. Bash syntax,
 compilation and diff checks passed. Scientific config/data locks/model/pilot
 code are unchanged. No new job was submitted from this environment.
+
+## Completed local foundation and compact pilot implementation — 5 November 2026
+
+User-supplied accounting and report confirm job 620562 completed 0:0 in 53
+seconds, with all 32 deterministic dataset-budget cases and 22 ridge fits.
+Zero optimizer steps is correct for closed-form ridge. The fixed internal
+audit/simulations passed; independent S01 remains pending. Full persistence/
+ridge aggregates have been inspected and this exposure is recorded in the
+new compact recipe. Actual forecast payloads remain on the HPC.
+
+The next implemented stage is shared-compact-pilot, limited to PEMS08/Beijing,
+5%, seed 11, one GPU/five CPUs/32 GiB/two hours capped by gpuq. Four fixed
+graph-free transformer sizes use 200 support-only updates per inner fit and
+refit. Select persistence/ridge/compact using only chronological support,
+reuse the completed CPU artifacts, and save all-origin common truths,
+physical forecasts, access ledgers and independent metric reductions.
+See research/COMPACT_LOCAL_RECIPE_V1.md. No full-domain compact grid is launched.
+
+Each fit saves model, Adam, Torch CPU/CUDA/sampling RNG and cursor. The compact
+engineering gate compares an uninterrupted trajectory with fresh model/Adam
+reconstruction after a serialized interruption. Original baseline and Qwen
+pilot dependencies/identities remain unchanged. Full-size Qwen interrupted
+optimizer recovery, B03/B04, the ECTT objective and independent S01 sign-off
+remain pending. No new real HPC job has been submitted from this environment.
+
+Fourteen compact tests and 64 existing ECTT/baseline/Slurm tests pass. Checks
+include exact optimizer recovery in a fresh Python process, trained-model
+invariance and the largest compact model with 358 synthetic nodes, support-only
+fitting, no current/future truth reads, common saved truths and independently
+reduced metrics, immutable completed case reuse and corruption rejection,
+failed-GPU reporting, email/serial guards, capped GPU resources and bootstrap/
+Check/final-status integration. Local Torch is 2.0.0+cpu, not the HPC CUDA
+runtime. Bash syntax, 57-file Python 3.9 syntax, JSON, import without login
+NumPy/Torch, and diff checks pass. Frozen scientific and CPU/pilot dependency
+hashes are unchanged. Actual compact CUDA execution remains pending.

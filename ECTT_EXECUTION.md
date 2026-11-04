@@ -5,6 +5,8 @@ remain `config/ectt_protocol_v1.json`. This release implements **admission**,
 not all benchmark training kernels. It designs the full registry and makes the
 first three stages runnable without presenting planned work as completed.
 The 4 November extension adds the first shared local baseline stage below.
+The 5 November extension adds a development-only compact local pilot after
+successful foundation job 620562; see the current next-stage section below.
 
 The user now authorizes staged implementation and execution, one job at a time.
 Every GPU job requests **one GPU and five CPUs**. CPU-only admission jobs request
@@ -19,6 +21,7 @@ grid submission or job cancellation is introduced.
 | ectt-stat-check | S02 | 5 CPUs, 0 GPUs, 30 minutes | Fixed synthetic null/alternative streams for the sequential bound implementation |
 | ectt-gpu-pilot | P01 P02 | 5 CPUs, 1 GPU, 2 hours | PEMS08 support-only numerical Qwen/LoRA gradients, invariance and recovery |
 | shared-local-baselines | B01, ridge part of B02 | 5 CPUs, 0 GPUs, 1 hour | Internal verifier audit/simulations; persistence/ridge on all eight domains and four budgets |
+| shared-compact-pilot | Development part of compact B02, P01/P02 | 5 CPUs, 1 GPU, 2 hours | PEMS08/Beijing, 5%, seed 11; support-only four-size selection/refit, exact compact optimizer recovery and saved-forecast metrics |
 
 Observed partition limits cap every request. Short CPU stages use shortq only
 when its observed maximum fits; otherwise longq. CUDA uses gpuq. These are time
@@ -158,14 +161,15 @@ Slurm job ID, one GPU, five CPUs and the unchanged two-hour ceiling. Check the
 new job using the printed ID or the project's Check command without an ID.
 The failed 612032 report remains available for failure/resource accounting.
 
-## Current next stage after successful pilot 618360
+## Completed foundation after successful pilot 618360
 
 User-supplied HPC evidence confirms the corrected Qwen pilot completed six
 updates and all eight invariance checks with zero differences, plus strict
 model reconstruction, in 37 seconds on one A100/five CPUs. It did not score
 test accuracy or test an interrupted full-size optimizer resume.
 
-The current next stage is **shared-local-baselines**. Download the new pinned
+The foundation stage was **shared-local-baselines**, now completed as job
+620562. Its original submission instructions are retained here. Download the pinned
 bootstrap first: older launchers do not know this stage name. Then submit:
 
 ```bash
@@ -231,10 +235,47 @@ Local validation uses synthetic arrays, mocked Slurm and tiny randomly
 initialized CPU Qwen models. It checks invariance, gradients, interrupted
 optimizer recovery, data corruption, budgets, submission resources and failure
 propagation. Official full-size weights and real datasets are not downloaded
-locally. User-reported 618360 verifies the tested full-size CUDA smoke. New
-baseline scores, interrupted full-size optimizer resume and cluster mail
+locally. User-reported 618360 verifies the tested full-size CUDA smoke, and
+620562 verifies the completed persistence/ridge foundation. Compact CUDA
+execution, interrupted full-size Qwen optimizer resume and cluster mail
 delivery remain unverified until their corresponding evidence is supplied.
 
 This environment cannot route to the university private SSH address. Code is
 published through GitHub; a real Slurm ID is reported only after the user runs
 the HPC submission command.
+
+## Current next stage: compact local development pilot
+
+Job 620562 completed all 32 deterministic cases and 22 ridge fits in 53 seconds
+with exit 0:0. Keep its artifacts; do not resubmit the completed CPU foundation.
+The next explicit stage is **shared-compact-pilot**. Refresh submit_hpc.py from
+the new pinned commit first, then run:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage shared-compact-pilot --submit
+```
+
+This requests one GPU, five CPUs, 32 GiB and two hours, capped by gpuq policy.
+PEMS08 and Beijing use the primary 5% budget and seed 11. Four compact sizes
+are selected on chronological support validation; the best compact is refit
+on full support. Persistence/ridge forecasts and support scores are reused
+from verified 620562 artifacts. See research/COMPACT_LOCAL_RECIPE_V1.md.
+
+The job first checks compact exact optimizer/RNG/cursor recovery, then trained
+invariance and all-origin physical-unit metrics. It performs 2,000 benchmark
+updates plus 24 separate recovery updates on a fresh uninterrupted run. Check
+displays compact_progress.json, completed/2 development cases and new updates.
+Results include compact_result.json, compact_runtime.json, compact_store.json,
+selection/validation records, checkpoints, common truths, saved forecasts,
+access ledgers, independent metrics and SUMMARY.md. Logs use
+logs/ectt-compact-pilot_JOBID.out and .err. Use the printed ID with Check.
+
+Recovery repeats the same explicit stage. Completed fits/cases are verified
+and reused; compatible partial checkpoints restore Adam, model, RNG and cursor.
+No automatic chaining is enabled. Review GPU execution and runtime before the
+all-domain compact grid. Other seeds/budgets, six confirmatory compact targets,
+B03/B04, ECTT and independent S01 sign-off remain pending. This compact recovery
+check cannot clear the separate full-size Qwen recovery requirement.
