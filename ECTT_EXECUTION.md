@@ -25,6 +25,7 @@ grid or job cancellation is introduced. See the latest section below.
 | shared-compact-pilot | Development part of compact B02, P01/P02 | 5 CPUs, 1 GPU, 2 hours | PEMS08/Beijing, 5%, seed 11; support-only four-size selection/refit, exact compact optimizer recovery and saved-forecast metrics |
 | shared-compact-baselines | Remaining compact B02 | Per task: 5 CPUs, 1 GPU, 2 hours; up to 4 concurrent | All 64 remaining eligible fits submitted together; 2 pilot cases reused |
 | shared-compact-report | B02 artifact collection | 5 CPUs, 0 GPUs, 1 hour | After-any collection of all 96 records, including 30 deterministic fallbacks; fail on missing/corrupt evidence |
+| shared-transfer-check | Development review, Qwen recovery | 5 CPUs, 1 GPU, 2 hours | Review existing 15 development fits/75 loss curves; compare full-size Qwen uninterrupted versus fresh-process restart |
 
 Observed partition limits cap every request. Short CPU stages use shortq only
 when its observed maximum fits; otherwise longq. CUDA uses gpuq. These are time
@@ -316,3 +317,32 @@ Failed/missing cases remain visible and make collection exit nonzero.
 This submits the compact B02 family. B03/B04, ECTT, Qwen full-size interrupted
 optimizer recovery and independent S01 sign-off remain pending. Actual grid
 execution/results are established only by later HPC evidence.
+
+## Current next stage: combined development and Qwen recovery checks
+
+User-reported array 620653 completed all 64 tasks 0:0; collector 620656 verified
+all 96 records with zero failures. The local grid is complete. Keep its frozen
+recipe and selections. The latest user request authorizes both outstanding
+preparation checks in one job, not a new local grid:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage shared-transfer-check --submit
+```
+
+Refresh the new pinned launcher first. The job requests one GPU/five CPUs,
+32 GiB and two hours capped by gpuq. It verifies completed foundations, reviews
+saved development training/support-validation artifacts, then runs full-size
+cached Qwen in fresh processes with a controlled exit after update three and
+restore through update six. A fresh run performs 12 engineering updates; no
+new benchmark accuracy or ECTT objective is evaluated.
+
+See research/PRETRANSFER_CHECKS_V1.md. Check prints transfer_check_progress,
+child segment progress, environment and final results. Artifacts are under
+outputs/ectt/pretransfer_checks/IDENTITY/ and the printed Slurm report. Report
+SUMMARY.md and the real job ID after submission. Recovery repeats the same
+stage and reuses checksum-valid reports/checkpoints. The tested scope is the
+fixed-support source-optimizer path; new benchmark episode/head optimizers
+must later test their own cursor recovery. B03/B04 and S01 remain pending.

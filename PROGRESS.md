@@ -515,3 +515,44 @@ collection, explicit failed records, bootstrap forwarding, monitoring and final
 status. Local checks use synthetic CPU fixtures/mocked Slurm. Bash syntax,
 60-file Python 3.9 syntax, JSON and diff checks pass. The admitted numerical
 code, compact recipe and all scientific/data/statistical locks are unchanged.
+
+## Local baseline completion and combined preparation check — 5 November 2026
+
+User-provided accounting confirms all 64 tasks in array 620653 completed 0:0,
+with 1,012 new updates each (64,768 total). Collector 620656 completed 0:0 in
+47 seconds and verified 96/96 records, zero failed/missing: 64 new GPU cases,
+two reused pilot cases and 30 deterministic fallback seed references. Its
+zero optimizer count is correct for artifact-only collection. The uploaded
+384-row CSV was checked for complete case/method coverage, cohort metadata
+and agreement of selected metrics with the recorded family. Actual full
+payloads stay on HPC; this is not an ECTT result or independent S01 sign-off.
+
+The user requests the next preparation step in one go. New shared-transfer-check
+combines review of existing PEMS08/Beijing fits and a full-size fixed-support
+Qwen process-restart check in one GPU/five-CPU/32-GiB/two-hour job. It reviews
+15 trained development cases, nine deterministic references and 75 recorded
+200-update trajectories, support-only selections/scalers/access ledgers, with
+no new local fitting or test evaluation. Loss summaries cannot establish the
+cause of a weak compact result by themselves. Existing recipes remain fixed.
+
+The Qwen gate uses only cached pinned safe weights and the unchanged admitted
+model/pilot optimizer helper. Three fresh processes compare six uninterrupted
+updates with three updates, controlled process exit and exact restoration to
+six. Model, Adam, CPU/CUDA RNG, losses, cursor and support predictions must
+match bitwise. Twelve total engineering updates are distinct from benchmark
+training. Future episode/adaptation trainers still need their own recovery
+checks. Full-size CUDA execution of this new stage is pending. No new HPC ID
+has been invented or submitted from this environment; B03/B04, ECTT and S01
+remain pending. See research/PRETRANSFER_CHECKS_V1.md.
+
+Ten new checks and 87 existing compact/grid/baseline/ECTT/Slurm tests pass:
+97 total, zero failures/errors/skips. New checks use synthetic CPU models and
+fixtures, including actual fresh Python processes and controlled exit 75,
+positive exact Adam/RNG/loss/cursor/forecast equality, negative optimizer and
+checkpoint-corruption cases, coordinator replay/reuse, full development-panel
+review without mutation/refitting, support-timing failures, failed-child update
+accounting, CUDA guard and one-job bootstrap/resource/status integration.
+Local Torch is 2.0.0+cpu. Full-size CUDA recovery remains untested here.
+Bash syntax, 63-file Python 3.9 syntax, JSON, diff and import-without-login
+Torch/NumPy checks pass. All 16 original model, baseline, environment and
+scientific/data dependencies checked remain byte-for-byte unchanged.

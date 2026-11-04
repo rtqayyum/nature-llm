@@ -283,3 +283,21 @@ Do not relabel unimplemented B03/B04/ECTT or independent S01 as completed.
 The assistant cannot submit through the private HPC route; provide the single
 array+collector command and ask for both real scheduler IDs. No need to pause
 between each compact seed/domain task. Never cancel other project jobs.
+
+User logs confirm array 620653 completed all 64 tasks 0:0 with 64,768 new
+updates, and collector 620656 verified 96/96 records with zero failures.
+The local baseline grid is complete; its full CSV has been inspected. Preserve
+all recipes, selected families and output stores. No test-driven retuning.
+
+Latest next-step authorization: perform existing development-log review and
+the remaining full-size Qwen interrupted recovery check in one go. Use one
+shared-transfer-check job, one GPU/five CPUs/32 GiB/two hours capped by gpuq.
+Read research/PRETRANSFER_CHECKS_V1.md. Review only existing PEMS08/Beijing
+training/validation artifacts, without refits or new test evaluation. Run
+cached full-size Qwen in three fresh processes (six uninterrupted updates,
+three updates then controlled process exit, fresh restore/continuation to six).
+Require model/Adam/CPU-CUDA RNG/loss/cursor/support prediction equality and
+unchanged invariance gates. Keep fixed-support recovery scope explicit;
+future episodic/adaptation trainers require their own recovery tests. B03/B04,
+ECTT and independent S01 remain pending. Publish the tested stage and provide
+one submission command, then request its real Slurm ID. Do not invent IDs.

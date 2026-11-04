@@ -1,0 +1,17 @@
+{
+  "schema": "PRETRANSFER_CHECKS_V1",
+  "stage": "shared-transfer-check",
+  "resources": {"job_name": "ectt-transfer-check", "cpus": 5, "gpus": 1, "memory": "32G", "seconds": 7200},
+  "completed_array": "620653",
+  "completed_collector": "620656",
+  "grid_identity": "97780e8f6d0f2ac9ae16815ab0175f9836e9bb03e98550204e1403a3eea04828",
+  "development_targets": ["pems08", "bj"],
+  "expected_development_records": 24,
+  "expected_development_fits": 15,
+  "expected_training_curves": 75,
+  "loss_summary_window": 20,
+  "qwen_recovery": {"dataset": "pems08", "budget": "0.05", "seed": 11, "support_origins": 2, "updates": 6, "interrupt_after": 3},
+  "review_policy": "Read existing development fit/validation/scaler/access records only; no refitting, architecture changes or new test evaluation",
+  "recovery_policy": "Cached full 28-block Qwen/LoRA; original source-learning-rate AdamW helper; three fresh Python processes; bitwise model/Adam/CPU-CUDA RNG/loss/cursor/prediction equality",
+  "scope": "Engineering preparation for matched B03/B04 implementation. No source-training benchmark, ECTT objective or independent S01 sign-off is completed by this job."
+}

@@ -74,7 +74,15 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage == 'shared-compact-report':
+    if stage == 'shared-transfer-check':
+        for name in ('ectt_environment_status.json', 'transfer_check_progress.json', 'qwen_segment_progress.json', 'transfer_check_result.json', 'qwen_recovery_result.json'):
+            path = job/'report'/name
+            if path.exists():
+                print('TRANSFER '+name+':', json.dumps(json.loads(path.read_text()), indent=2))
+        path = job/'report/failure_traceback.txt'
+        if path.exists():
+            print('TRANSFER FAILURE:\n'+'\n'.join(path.read_text().splitlines()[-12:]))
+    elif stage == 'shared-compact-report':
         for name in ('compact_progress.json', 'compact_grid_result.json'):
             path = job/'report'/name
             if path.exists():
@@ -293,10 +301,12 @@ def main():
         if details.exists():
             print("PREFLIGHT SUMMARY:", json.dumps({key: value for key, value in json.loads(details.read_text()).items()
                 if key in ("execution_status", "error", "overlaps", "observations")}, indent=2))
-    elif stage not in ('shared-compact-pilot', 'shared-compact-baselines', 'shared-compact-report'):
+    elif stage not in ('shared-compact-pilot', 'shared-compact-baselines', 'shared-compact-report', 'shared-transfer-check'):
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    if stage in ('shared-compact-baselines', 'shared-compact-report'):
+    if stage == 'shared-transfer-check':
+        print('Existing development-artifact review and full-size fixed-support Qwen recovery; no benchmark source training or ECTT result.')
+    elif stage in ('shared-compact-baselines', 'shared-compact-report'):
         print('Compact local grid only. Full saved records include failed and infeasible cases; S01 and ECTT remain pending.')
     elif stage == 'shared-compact-pilot':
         print('Development-only compact fits: PEMS08/Beijing, 5% budget, seed 11. Full B02 and S01 remain pending.')

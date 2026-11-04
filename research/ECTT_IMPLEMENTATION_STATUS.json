@@ -1,6 +1,6 @@
 {
   "date": "2026-11-05",
-  "source_parent_commit": "f4a99ee601c7549ce758ee7ab58668367efe8b3f",
+  "source_parent_commit": "e5eb30f29af4b8504aad951226e4f68df3277299",
   "study_identity": "d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2",
   "shared_baseline_identity": "5aac118c3de58f0ba5aeb3b7bb219133359490fdd66cd2a8c642a4c80f181f34",
   "families": 35,
@@ -13,7 +13,8 @@
     "shared-local-baselines",
     "shared-compact-pilot",
     "shared-compact-baselines",
-    "shared-compact-report"
+    "shared-compact-report",
+    "shared-transfer-check"
   ],
   "unimplemented": "Shared-data LLM-UTP, ordinary Qwen/ECTT benchmark kernels, external adapters and final scientific analysis kernels",
   "independent_statistical_review": "PENDING",
@@ -57,12 +58,23 @@
       "pilot_case_reuses": 2,
       "deterministic_fallback_seed_references": 30,
       "max_concurrent_gpu_tasks": 4,
-      "real_array_submitted": false,
+      "real_array_submitted": true,
+      "real_array_completed_tasks": 64,
+      "real_collector_verified_records": 96,
       "official_assets_downloaded_locally": false
+    },
+    "pretransfer_checks": {
+      "new_tests": 10,
+      "existing_compact_baseline_ectt_slurm_tests": 87,
+      "status": "PASSED",
+      "fresh_process_recovery_test": "SYNTHETIC_CPU_MODEL_ADAM_RNG_LOSSES_CURSOR_PREDICTIONS_EQUAL",
+      "development_artifact_review": "SYNTHETIC_FULL_PANEL_PASSED_NO_REFIT",
+      "actual_full_size_Qwen_recovery": "PENDING_HPC_EXECUTION",
+      "official_weights_or_real_traffic_used_locally": false
     }
   },
   "execution_evidence": {
-    "real_hpc_jobs_submitted": 7,
+    "real_hpc_jobs_submitted": 9,
     "official_model_weights_downloaded_locally": false,
     "real_datasets_downloaded_locally": false,
     "ssh_result": "Network is unreachable",
@@ -193,17 +205,42 @@
         "compact_exact_recovery_passed": true,
         "compact_trained_invariance_passed": true,
         "method_evaluated": false
+      },
+      {
+        "job_id": "620653",
+        "stage": "shared-compact-baselines",
+        "state": "COMPLETED",
+        "array_tasks_completed": 64,
+        "array_tasks_failed": 0,
+        "all_task_exit_codes": "0:0",
+        "cpus_per_task": 5,
+        "gpus_per_task": 1,
+        "new_optimizer_steps": 64768,
+        "method_evaluated": false
+      },
+      {
+        "job_id": "620656",
+        "stage": "shared-compact-report",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 47,
+        "cpus": 5,
+        "gpus": 0,
+        "verified_records": 96,
+        "failed_or_missing_records": 0,
+        "training_performed": false,
+        "method_evaluated": false
       }
     ],
     "full_size_CUDA_scope": "Six support-only updates and eight invariant prediction checks; no test accuracy or ECTT objective",
     "full_size_interrupted_optimizer_resume_verified": false
   },
-  "scope": "Persistence/ridge and compact pilot completed on HPC. Full compact matrix/array/collector implemented under explicit batch authorization; grid execution/results, independent S01 and matched transfer comparisons remain pending.",
-  "next_stage": "shared-compact-baselines",
+  "scope": "Persistence/ridge/compact local grid completed on HPC. Combined development review and full-size fixed-support Qwen recovery implemented, actual execution pending. Matched B03/B04 trainers, ECTT and independent S01 remain pending.",
+  "next_stage": "shared-transfer-check",
   "admitted_gpu_pilot_identity": "19941f7b1196c3b3ffcda3787a89a3b59116b5327ff0677c477d8020ff5ce090",
   "family_readiness": {
     "B01": "COMPLETED_ON_HPC_620562",
-    "B02": "RIDGE_AND_COMPACT_PILOT_COMPLETED_FULL_COMPACT_ARRAY_IMPLEMENTED_NOT_RUN",
+    "B02": "RIDGE_AND_COMPACT_GRID_COMPLETED_ON_HPC_620653_620656",
     "B03": "PLANNED_NOT_IMPLEMENTED",
     "B04": "PLANNED_NOT_IMPLEMENTED",
     "S01": "INTERNAL_AUDIT_IMPLEMENTED_INDEPENDENT_SIGNOFF_PENDING"

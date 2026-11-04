@@ -14,12 +14,13 @@ import sys
 import time
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines")
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check")
 ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES
+TRANSFER_STAGES = ('shared-transfer-check',)
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -28,7 +29,7 @@ def allocation(stage):
     """Use shortq only when its observed maximum fits this small CPU audit."""
     preflight = stage in ("pems08-audit", "beijing-infer", "release-diagnose", "source-inspect", "causality-audit", "baseline-rescore", "reproduction-review", "ectt-preflight", "ectt-stat-check")
     preflight = preflight or stage in SHARED_STAGES or stage == 'shared-compact-report'
-    desired = 3600 if stage in SHARED_STAGES or stage == 'shared-compact-report' else 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage in ("gpu-smoke", "ectt-gpu-pilot", "shared-compact-baselines")+COMPACT_STAGES else 1800 if preflight else 23 * 3600
+    desired = 3600 if stage in SHARED_STAGES or stage == 'shared-compact-report' else 10 * 86400 if stage in ("reference-train3", "causal-train3") else 2 * 3600 if stage in ("gpu-smoke", "ectt-gpu-pilot", "shared-compact-baselines")+COMPACT_STAGES+TRANSFER_STAGES else 1800 if preflight else 23 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -147,6 +148,9 @@ def main(argv=None):
         return submit(project, code, retry=args.retry_grid)
     if args.stage == 'shared-compact-report':
         parser.error('The compact collector is submitted with its array; use --stage shared-compact-baselines')
+    if args.stage in TRANSFER_STAGES:
+        from pretransfer_checks import foundation
+        foundation(project, code, full=False)
     if args.stage in ECTT_STAGES:
         from ectt_workflow import next_stage, require_previous
         if args.stage == "ectt-next":
@@ -224,6 +228,9 @@ def main(argv=None):
             profiles[args.stage] = (row['job_name'], row['cpus'], row['memory'])
         if args.stage in COMPACT_STAGES:
             row = read_json(code/'config/compact_local_v1.json')['resources']
+            profiles[args.stage] = (row['job_name'], row['cpus'], row['memory'])
+        if args.stage in TRANSFER_STAGES:
+            row = read_json(code/'config/pretransfer_checks_v1.json')['resources']
             profiles[args.stage] = (row['job_name'], row['cpus'], row['memory'])
         job_name, cpus, memory = profiles[args.stage]
         request_time = "%02d:%02d:%02d" % (limit // 3600, limit % 3600 // 60, limit % 60)
