@@ -70,7 +70,15 @@ def main():
     stage = submission.get("stage", "acquire")
     progress_path = job / "report/asset_progress.json"
     progress = json.loads(progress_path.read_text()) if progress_path.exists() else {}
-    if stage.startswith('ectt-'):
+    if stage == 'shared-local-baselines':
+        for name in ('baseline_progress.json', 'baseline_store.json', 'internal_statistical_review.json'):
+            path = job/'report'/name
+            if path.exists():
+                item = json.loads(path.read_text())
+                if name == 'internal_statistical_review.json':
+                    item = {k: item[k] for k in ('status', 'independent_review_complete', 'quadrature_cases', 'remaining_review')}
+                print('SHARED '+name+':', json.dumps(item, indent=2))
+    elif stage.startswith('ectt-'):
         from ectt_workflow import show
         show(job / 'report')
     elif stage == "reproduction-review":
@@ -269,7 +277,10 @@ def main():
     else:
         print("ASSET WORKERS completed=%s/%s verified=%s failed=%s" %
               (progress.get("completed_assets", 0), progress.get("total_assets", 37), progress.get("verified_assets", 0), progress.get("failed_assets", 0)))
-    if stage.startswith('ectt-'):
+    if stage == 'shared-local-baselines':
+        print('Deterministic persistence/ridge dataset-budget cases; seed references are not independent replications.')
+        print('Compact models, LLM-UTP/Qwen comparisons and S01 independent sign-off remain pending.')
+    elif stage.startswith('ectt-'):
         print('Admission/engineering stage only; actual optimizer updates, if any, are shown in ECTT RESULT.')
     elif stage == "baseline-rescore":
         print("No new training or inference: existing saved normalized forecasts were rescored; original runs preserved.")

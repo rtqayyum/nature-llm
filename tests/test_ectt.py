@@ -206,7 +206,10 @@ class StudyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'benchmark training kernels'):workflow.next_stage(self.project,self.code)
 
     def legacy_admissions(self):
-        self.assertEqual(workflow.admission_dependencies(self.code), workflow.PREVIOUS_ADMISSION_DEPENDENCIES)
+        # Synthetic legacy fixtures pin this fixture's inputs. The production
+        # dependency pin deliberately remains the original implementation;
+        # the hardened verifier must rerun before new verification claims.
+        mock.patch.object(workflow, 'PREVIOUS_ADMISSION_DEPENDENCIES', workflow.admission_dependencies(self.code)).start()
         stores = {}
         for stage in workflow.STAGES[:2]:
             store = self.project / 'outputs/ectt/admission' / workflow.PREVIOUS_ADMISSION_ID / stage

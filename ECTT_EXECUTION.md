@@ -4,6 +4,7 @@ The 35-family plan is `research/MASTER_PROTOCOL_V1.md`. Exact science settings
 remain `config/ectt_protocol_v1.json`. This release implements **admission**,
 not all benchmark training kernels. It designs the full registry and makes the
 first three stages runnable without presenting planned work as completed.
+The 4 November extension adds the first shared local baseline stage below.
 
 The user now authorizes staged implementation and execution, one job at a time.
 Every GPU job requests **one GPU and five CPUs**. CPU-only admission jobs request
@@ -17,6 +18,7 @@ grid submission or job cancellation is introduced.
 | ectt-preflight | D01 D02 D03 | 5 CPUs, 0 GPUs, 30 minutes | Audit all eight existing stage-two arrays, raw duplicates, splits, features and value budgets |
 | ectt-stat-check | S02 | 5 CPUs, 0 GPUs, 30 minutes | Fixed synthetic null/alternative streams for the sequential bound implementation |
 | ectt-gpu-pilot | P01 P02 | 5 CPUs, 1 GPU, 2 hours | PEMS08 support-only numerical Qwen/LoRA gradients, invariance and recovery |
+| shared-local-baselines | B01, ridge part of B02 | 5 CPUs, 0 GPUs, 1 hour | Internal verifier audit/simulations; persistence/ridge on all eight domains and four budgets |
 
 Observed partition limits cap every request. Short CPU stages use shortq only
 when its observed maximum fits; otherwise longq. CUDA uses gpuq. These are time
@@ -51,7 +53,7 @@ These are planned units; no such source fit is counted as executed here.
 S01 independent mathematical review remains pending. A derivation/checklist
 is in `research/ECTT_STATISTICAL_REVIEW.md`. Synthetic calibration does not
 clear independent review. The engineering pilot can inspect model computation
-without claiming statistical certification. B01–B04, full M/A benchmark kernels,
+without claiming statistical certification. Full B02–B04, full M/A benchmark kernels,
 external adapters and report-analysis kernels remain explicitly marked
 `PLANNED_NOT_IMPLEMENTED`. The next-stage command stops after admission.
 It never substitutes the older two-domain causal-train3 stage for this study.
@@ -156,6 +158,48 @@ Slurm job ID, one GPU, five CPUs and the unchanged two-hour ceiling. Check the
 new job using the printed ID or the project's Check command without an ID.
 The failed 612032 report remains available for failure/resource accounting.
 
+## Current next stage after successful pilot 618360
+
+User-supplied HPC evidence confirms the corrected Qwen pilot completed six
+updates and all eight invariance checks with zero differences, plus strict
+model reconstruction, in 37 seconds on one A100/five CPUs. It did not score
+test accuracy or test an interrupted full-size optimizer resume.
+
+The current next stage is **shared-local-baselines**. Download the new pinned
+bootstrap first: older launchers do not know this stage name. Then submit:
+
+```bash
+module load slurm
+python3 /home/tariq.qayyum/nature-llm/submit_hpc.py \
+  --project /home/tariq.qayyum/nature-llm \
+  --stage shared-local-baselines --submit
+```
+
+Allocation is five CPUs, zero GPUs, 8 GiB, one hour; shortq is used only when
+its observed maximum fits, otherwise longq. Existing NumPy/data are reused;
+there are no downloads or shared-environment changes. A recorded active study
+job blocks another. Saved notification preferences remain mandatory.
+
+The worker verifies successful 618360 evidence, pinned model/data code and
+historical completion manifests, then reruns hardened synthetic verifier
+checks and produces 32 deterministic dataset-budget cases. There are 22
+eligible ridge cases under the real frozen contract. Seeds reference identical
+deterministic results rather than independent replications. Zero/infeasible
+budgets retain persistence. See research/LOCAL_BASELINE_RECIPE_V1.md.
+
+Check prints baseline_progress.json with completed/32 cases. Results include
+SUMMARY.md, baseline_result.json, baseline_results.csv, per-case physical-unit
+forecasts, coefficients, independent metrics, access ledgers and runtime.
+They live under outputs/ectt/shared_baselines/IDENTITY/ and the printed Slurm
+report directory. Recovery repeats the same explicit stage; completed cases
+are checksum-verified and reused. The bootstrap retrieves the latest commit.
+
+S01 independent sign-off remains pending; the author audit cannot clear it.
+B01 is implemented and B02 ridge is implemented. Compact B02 and B03/B04 remain
+pending; the provisional persistence/ridge selector is not the final strong
+fallback. The new status registry records these boundaries. The historical
+ectt-next admission ordering does not submit this new stage automatically.
+
 ### Numerical repair after job 616045
 
 Job 616045 passed environment setup, reused both completed CPU admissions,
@@ -187,8 +231,9 @@ Local validation uses synthetic arrays, mocked Slurm and tiny randomly
 initialized CPU Qwen models. It checks invariance, gradients, interrupted
 optimizer recovery, data corruption, budgets, submission resources and failure
 propagation. Official full-size weights and real datasets are not downloaded
-locally. Full-size CUDA behavior, compute-node network access, cluster mail
-delivery and actual job completion remain unverified until the HPC runs.
+locally. User-reported 618360 verifies the tested full-size CUDA smoke. New
+baseline scores, interrupted full-size optimizer resume and cluster mail
+delivery remain unverified until their corresponding evidence is supplied.
 
 This environment cannot route to the university private SSH address. Code is
 published through GitHub; a real Slurm ID is reported only after the user runs

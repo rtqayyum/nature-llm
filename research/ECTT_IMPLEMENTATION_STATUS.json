@@ -1,16 +1,18 @@
 {
-  "date": "2026-11-02",
-  "source_parent_commit": "75b6b8a4ffb2590b6e4bd1438b89b6406ff7cbf4",
+  "date": "2026-11-04",
+  "source_parent_commit": "82eec4155fcfe3322a2df25b52c89eedb547ca18",
   "study_identity": "d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2",
+  "shared_baseline_identity": "5aac118c3de58f0ba5aeb3b7bb219133359490fdd66cd2a8c642a4c80f181f34",
   "families": 35,
   "unique_core_source_fits_planned": 42,
   "eligible_core_adaptations_planned": 132,
   "implemented_stages": [
     "ectt-preflight",
     "ectt-stat-check",
-    "ectt-gpu-pilot"
+    "ectt-gpu-pilot",
+    "shared-local-baselines"
   ],
-  "unimplemented": "Full matched baseline and method benchmark kernels, external adapters and final analysis kernels",
+  "unimplemented": "Compact local, shared-data LLM-UTP, ordinary Qwen/ECTT benchmark kernels, external adapters and final analysis kernels",
   "independent_statistical_review": "PENDING",
   "local_validation": {
     "unittest_suite": {
@@ -24,14 +26,22 @@
     },
     "bash_n": "PASSED",
     "python_3_9_syntax": "PASSED",
-    "frozen_scientific_artifact_hashes_unchanged": true
+    "frozen_scientific_artifact_hashes_unchanged": true,
+    "shared_baseline_foundation": {
+      "new_tests": 16,
+      "existing_ectt_tests": 20,
+      "slurm_tests": 28,
+      "status": "PASSED",
+      "gaussian_quadrature_cases": 36,
+      "official_weights_or_real_traffic_used": false
+    }
   },
   "execution_evidence": {
-    "real_hpc_jobs_submitted": 2,
+    "real_hpc_jobs_submitted": 5,
     "official_model_weights_downloaded_locally": false,
     "real_datasets_downloaded_locally": false,
     "ssh_result": "Network is unreachable",
-    "full_size_CUDA_verified": false,
+    "full_size_CUDA_verified": true,
     "email_delivery_verified": false,
     "submitted_from_assistant_environment": 0,
     "evidence_source": "User-supplied Slurm accounting and project reports; not direct SSH inspection",
@@ -73,7 +83,7 @@
           {
             "name": "rademacher_null",
             "coverage_failure_fraction": 0.0005,
-            "accepted_fraction": 0.0,
+            "accepted_fraction": 0,
             "passed": true
           },
           {
@@ -84,14 +94,62 @@
           },
           {
             "name": "negative_mean_alternative",
-            "coverage_failure_fraction": 0.0,
-            "accepted_fraction": 1.0,
+            "coverage_failure_fraction": 0,
+            "accepted_fraction": 1,
             "passed": true
           }
         ]
+      },
+      {
+        "job_id": "612032",
+        "stage": "ectt-gpu-pilot",
+        "state": "FAILED",
+        "exit_code": "2:0",
+        "elapsed_seconds": 254,
+        "optimizer_steps": 0,
+        "cause": "Checkpoint helper import defect"
+      },
+      {
+        "job_id": "616045",
+        "stage": "ectt-gpu-pilot",
+        "state": "FAILED",
+        "exit_code": "2:0",
+        "elapsed_seconds": 123,
+        "optimizer_steps": 0,
+        "cause": "Pretraining node-permutation admission failed"
+      },
+      {
+        "job_id": "618360",
+        "stage": "ectt-gpu-pilot",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 37,
+        "cpus": 5,
+        "gpus": 1,
+        "gpu": "NVIDIA A100 80GB PCIe",
+        "optimizer_steps": 6,
+        "pretraining_invariance_passed": 4,
+        "posttraining_invariance_passed": 4,
+        "maximum_invariance_difference": 0,
+        "strict_reconstruction_pass": true,
+        "peak_gpu_allocated_bytes": 6673120768,
+        "total_parameters": 1544871553,
+        "trainable_parameters": 1157249,
+        "test_evaluation_performed": false,
+        "new_method_objective_evaluated": false
       }
-    ]
+    ],
+    "full_size_CUDA_scope": "Six support-only updates and eight invariant prediction checks; no test accuracy or ECTT objective",
+    "full_size_interrupted_optimizer_resume_verified": false
   },
-  "scope": "Planning and admission implementation. Synthetic/tiny-model checks are not traffic benchmark results.",
-  "next_stage": "ectt-gpu-pilot"
+  "scope": "Shared-protocol baseline foundation. New baseline results await HPC; independent S01 sign-off and full matched method comparisons remain pending.",
+  "next_stage": "shared-local-baselines",
+  "admitted_gpu_pilot_identity": "19941f7b1196c3b3ffcda3787a89a3b59116b5327ff0677c477d8020ff5ce090",
+  "family_readiness": {
+    "B01": "IMPLEMENTED_NOT_YET_RUN_ON_HPC",
+    "B02": "RIDGE_IMPLEMENTED_COMPACT_PENDING",
+    "B03": "PLANNED_NOT_IMPLEMENTED",
+    "B04": "PLANNED_NOT_IMPLEMENTED",
+    "S01": "INTERNAL_AUDIT_IMPLEMENTED_INDEPENDENT_SIGNOFF_PENDING"
+  }
 }

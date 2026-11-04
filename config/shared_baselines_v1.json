@@ -1,0 +1,27 @@
+{
+  "schema": "SHARED_LOCAL_BASELINES_V1",
+  "stage": "shared-local-baselines",
+  "scientific_contract_sha256": "1c8bc34a67cda3b2a5b33186df058f501ef3cd109e67ad92494066e4d4b1d214",
+  "foundation": {
+    "pilot_job": "618360",
+    "pilot_commit": "82eec4155fcfe3322a2df25b52c89eedb547ca18",
+    "pilot_identity": "19941f7b1196c3b3ffcda3787a89a3b59116b5327ff0677c477d8020ff5ce090",
+    "data_identity": "d70d0aa826dd4cd7d421f402fb730fed91d8bc9d79184bb9b39ea316c9c62eb2"
+  },
+  "resources": {"job_name": "ectt-local-base", "cpus": 5, "gpus": 0, "memory": "8G", "seconds": 3600},
+  "budgets": ["0.0", "0.01", "0.05", "0.1"],
+  "seeds": [11, 22, 33],
+  "deterministic_seed_reuse": true,
+  "selection_support_fraction": 0.7,
+  "ridge_alphas": [0.0001, 0.01, 1.0, 100.0],
+  "ridge_objective": "mean squared normalized residual + alpha times squared coefficients; intercept unpenalized",
+  "ridge_features": "all 12 raw/trend/mask rows flattened nodewise; shared coefficients across nodes",
+  "ridge_target": "normalized next-row value minus normalized last observed row",
+  "origin_batch": 64,
+  "selection": "chronological support validation physical-unit MAE; fixed candidate order breaks ties",
+  "fit_precision": "float64",
+  "forecast_precision": "float64",
+  "resume_unit": "completed dataset-budget case",
+  "S01_status": "INTERNAL_REVIEW_ONLY_INDEPENDENT_SIGNOFF_PENDING",
+  "family_readiness": {"B01": "IMPLEMENTED", "B02": "RIDGE_IMPLEMENTED_COMPACT_PENDING", "B03": "PENDING", "B04": "PENDING"}
+}

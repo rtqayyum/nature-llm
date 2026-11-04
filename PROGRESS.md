@@ -409,3 +409,38 @@ artifacts verified. Model-only changes cannot satisfy an old GPU pilot. Each
 new invariance case is recorded before a failure. The correction and scope
 are documented in research/ECTT_ENGINEERING_AMENDMENT_20261103.md. No new HPC
 job was submitted from here, and independent statistical review remains pending.
+
+## Successful Qwen pilot and first matched local baselines — 4 November 2026
+
+User-supplied job 618360 completed 0:0 in 37 seconds on A100 80 GB/5 CPUs.
+Six support-only updates completed; all eight pre/post invariance checks had
+zero differences and strict reconstruction passed. Peak GPU allocation was
+6673120768 bytes. The full model has 1544871553 parameters, 1157249 trainable.
+The six losses fluctuated; this is execution evidence, not convergence, test
+accuracy or an ECTT objective result. Full-size interrupted optimizer recovery
+was not tested. Both historical CPU admissions were reused with verified hashes.
+
+The newly authorized next unit implements shared-local-baselines: five CPUs,
+zero GPUs, 8 GiB, one hour, one active study job, saved notifications required.
+It verifies the recorded pilot and unchanged model/scientific code, uses the
+existing eight arrays/NumPy environment, and writes all 32 deterministic
+dataset-budget cases with 22 eligible final ridge fits. Seeds reference common
+forecasts rather than repeated fits. B01 is implemented; B02 ridge is implemented,
+compact B02 and B03/B04 remain pending. No new baseline HPC scores exist here.
+
+The internal mathematical audit matches the existing Gaussian-mixture bound,
+including its interval-length factor and conditional-prefix interpretation.
+It does not constitute independent S01 sign-off. Guard invalid/nonfinite
+parameters and avoid ratio/product overflow using an equivalent log-domain
+width. The new CPU stage reruns the fixed 2000x256 synthetic scenarios, checks
+36 Gaussian-Hermite integrals and records the independent sign-off as pending.
+Prior S02 evidence remains attached to its original implementation.
+
+Sixteen new synthetic tests, 20 ECTT regression tests and 28 Slurm tests passed.
+They cover the complete 32-case fixture, exact saved forecasts/common truths,
+independent physical metrics including zero truths, support-only model selection,
+no current/future target reads in prediction, interrupted-case resume, corrupt
+data rejection, real source/pilot prerequisites, resource/email/serial guards,
+queue fallback and new-stage bootstrap/status/monitor integration. Bash syntax,
+compilation and diff checks passed. Scientific config/data locks/model/pilot
+code are unchanged. No new job was submitted from this environment.

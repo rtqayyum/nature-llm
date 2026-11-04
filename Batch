@@ -73,6 +73,11 @@ fi
 module load anaconda3
 # Do not inherit imports from another project or the login shell's packages.
 unset PYTHONPATH
+if [[ "${TRAFFIC_STAGE:-acquire}" == shared-local-baselines ]]; then
+    export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
+    export OPENBLAS_NUM_THREADS="$SLURM_CPUS_PER_TASK"
+    export MKL_NUM_THREADS="$SLURM_CPUS_PER_TASK"
+fi
 BASE_PYTHON=''
 MAX_PYTHON_MINOR=12
 MIN_PYTHON_MINOR=8

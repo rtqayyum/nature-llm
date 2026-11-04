@@ -7,16 +7,27 @@ def confidence_sequence(difference, envelope, rho=.01, delta=.05):
     d, b = np.asarray(difference, dtype=np.float64), np.asarray(envelope, dtype=np.float64)
     if d.ndim != 1 or b.shape != d.shape or not np.isfinite(d).all() or not np.isfinite(b).all():
         raise ValueError('Finite paired one-dimensional sequences are required')
-    if rho <= 0 or not 0 < delta < 1 or np.any(b < 0) or np.any(np.abs(d) > b+1e-12):
+    if not np.isfinite(rho) or not np.isfinite(delta) or rho <= 0 or not 0 < delta < 1 or np.any(b < 0) or np.any(np.abs(d) > b+1e-12):
         raise ValueError('Invalid predictable bound, rho or delta')
     n = np.arange(1, len(d)+1, dtype=np.float64)
-    variance = np.cumsum(b*b)
-    width = np.sqrt((variance+rho)*np.log((variance+rho)/(rho*delta**2)))/n
-    mean = np.cumsum(d)/n
+    # Separate square roots and log differences avoid overflow in the direct
+    # ratio/product even when the mathematically equivalent width is finite.
+    try:
+        with np.errstate(over='raise', invalid='raise', divide='ignore'):
+            variance = np.cumsum(b*b)
+            log_ratio = np.logaddexp(np.log(variance), np.log(rho))-np.log(rho)-2*np.log(delta)
+            width = (np.sqrt(variance+rho)/n)*np.sqrt(log_ratio)
+            mean = np.cumsum(d)/n
+    except FloatingPointError as exc:
+        raise ValueError('Sequential calculation exceeds finite FP64 range') from exc
+    if not np.isfinite(width).all() or not np.isfinite(mean).all():
+        raise ValueError('Nonfinite sequential calculation')
     return mean-width, mean+width
 
 
 def decision(difference, envelope, rho=.01, delta=.05, eta=.01, minimum=12):
+    if not np.isfinite(eta) or eta < 0 or isinstance(minimum, bool) or not isinstance(minimum, (int, np.integer)) or minimum < 1:
+        raise ValueError('Finite nonnegative eta and positive integer minimum required')
     lower, upper = confidence_sequence(difference, envelope, rho, delta)
     indices = np.flatnonzero((np.arange(len(upper))+1 >= minimum) & (upper < -eta))
     tau = int(indices[0]+1) if len(indices) else len(upper)+1
@@ -29,7 +40,7 @@ def decision(difference, envelope, rho=.01, delta=.05, eta=.01, minimum=12):
 
 def paired_difference(local, transfer, truth, scale):
     l, t, y = [np.asarray(v, dtype=np.float64) for v in (local, transfer, truth)]
-    if l.shape != t.shape or l.shape != y.shape or l.ndim != 2 or scale < 1:
+    if l.shape != t.shape or l.shape != y.shape or l.ndim != 2 or l.shape[1] == 0 or not np.isfinite(scale) or scale < 1:
         raise ValueError('Expected matching origins x nodes and support scale >=1')
     if not all(np.isfinite(v).all() for v in (l, t, y)):
         raise ValueError('Nonfinite paired forecasts')

@@ -48,3 +48,50 @@ errors. Such tests can expose bugs; passing them cannot prove general coverage.
 
 Primary sources: Choe and Ramdas, https://arxiv.org/abs/2110.00115;
 Howard et al., https://doi.org/10.1214/20-AOS1991.
+
+## Internal review update — 4 November 2026
+
+The displayed width matches Howard et al. (2021), equation (3.7), with l0=1,
+alpha=delta and V=sum b_i^2. The published paper is available at
+https://par.nsf.gov/servlets/purl/10251927. Choe and Ramdas' sequential-forecast
+interpretation is documented in https://doi.org/10.1287/opre.2021.0792.
+Neither construction is claimed as new. This review is by the implementation
+author, so S01 independent sign-off remains pending.
+
+Define the prelabel information at origin i to contain frozen source/support
+models, scale, seeds and all history available through row i-1. Forecasts L_i,
+T_i and their disagreement bound b_i are measurable in that information.
+The next label y_i is added only after both predictions are issued. Conditional
+on source/support fitting information, Hoeffding's interval length is 2b_i;
+the conditional exponential compensation is therefore lambda^2 b_i^2/2.
+Mixing the nonnegative supermartingales over a fixed Gaussian prior and using
+Ville's inequality gives the documented two-sided prefix comparison. Choosing
+the first crossing after 12 origins is allowed within that same stream.
+
+Critical interpretation checks remain: the center targets the average of
+origin-specific conditional means, not a stationary unknown scalar or a later
+deployment block. Sensor averaging occurs inside one origin's score, so adding
+duplicate sensors does not increase n. Support selection is allowed because it
+precedes verification, whereas searching candidate pairs or tuning thresholds
+on verification outcomes would need a new error allocation/protocol. The
+source-learning objective uses observed episode labels and is a training
+surrogate, not a source-episode certificate.
+
+The code audit found two implementation edges: nonfinite rho/scale values could
+propagate silently, and the direct ratio/product could overflow despite a
+representable width. The hardened code rejects invalid parameters/ranges and
+uses logaddexp plus separated square roots for the same boundary. Locked rho,
+delta, eta and stopping minimum are unchanged. Historical S02 job 612030 remains
+evidence for its original code; the new CPU stage reruns the hardened simulation.
+
+scripts/statistical_audit.py checks 36 independent Gaussian-Hermite integrals
+against the analytical mixture, compares the direct moderate-range equation,
+tests censoring/extreme arithmetic and confirms duplicate nodes add no evidence.
+It reruns the three S02 scenarios using their fixed 2000x256 settings. Passing
+these checks produces INTERNAL_CHECKS_PASSED_INDEPENDENT_SIGNOFF_PENDING.
+These are numerical tests, not a formal floating-point coverage proof.
+
+Before any certification claim, an independent reviewer must sign off the
+derivation, filtration/label timing, frozen artifacts and finite-precision
+interpretation. The persistence/ridge baseline stage does not invoke a transfer
+certificate, so this pending sign-off does not block those descriptive scores.

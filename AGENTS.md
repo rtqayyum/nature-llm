@@ -236,3 +236,20 @@ exclude it from their compatibility fingerprint along with pilot/workflow,
 while still checking all remaining inputs and old completion artifacts. Never
 reuse an old GPU result for this changed computation. Record per-case admission
 progress even on failure. See research/ECTT_ENGINEERING_AMENDMENT_20261103.md.
+
+User logs confirm GPU pilot 618360 completed 0:0 in 37 seconds: six updates,
+eight invariant prediction checks with zero differences, strict reconstruction,
+one A100/5 CPUs and 6.21 GiB peak allocation. No ECTT objective or test accuracy
+was evaluated; full-size interrupted optimizer recovery remains untested.
+
+Latest authorization: proceed with statistical review and matched baselines.
+The next runnable unit is shared-local-baselines, five CPUs, no GPU, 8 GiB,
+one hour capped/placed by observed queue limits. It verifies 618360 and pinned
+model/scientific dependencies, then runs the internal verifier audit and B01
+persistence/B02 ridge on all eight datasets and four budgets. See
+research/LOCAL_BASELINE_RECIPE_V1.md. Preserve infeasible cases, shared targets,
+support-only selection and all completed cases. Seeds reference deterministic
+fits, not independent replications. Compact B02, B03/B04 and method kernels
+remain pending. S01 independent sign-off cannot be cleared by the author audit.
+The hardened verifier changes numeric code but not locked statistical settings;
+rerun its fixed synthetic tests in the new CPU job, preserving old evidence.
