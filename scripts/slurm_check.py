@@ -57,6 +57,10 @@ def main():
         from compact_grid_submit import summarize
         summarize(project, job_id, submission, command)
         return
+    if submission.get('stage', '').startswith('shared-transfer-') and 'array_tasks' in submission and 'array_job_id' not in submission:
+        from transfer_submit import summarize
+        summarize(project, job_id, submission, command)
+        return
     queue = command(["squeue", "--jobs", job_id, "--noheader", "--format=%i|%T|%R"])
     accounting = command(["sacct", "-j", job_id, "--parsable2", "--noheader",
         "--format=JobIDRaw,JobName,State,ExitCode,Elapsed,ElapsedRaw,AllocCPUS,TotalCPU,MaxRSS,Reason"])
@@ -79,6 +83,17 @@ def main():
             path = job/'report'/name
             if path.exists():
                 print('TRANSFER '+name+':', json.dumps(json.loads(path.read_text()), indent=2))
+        path = job/'report/failure_traceback.txt'
+        if path.exists():
+            print('TRANSFER FAILURE:\n'+'\n'.join(path.read_text().splitlines()[-12:]))
+    elif stage.startswith('shared-transfer-'):
+        for name in ('ectt_environment_status.json', 'transfer_progress.json', 'transfer_result.json'):
+            path = job/'report'/name
+            if path.exists():
+                result = json.loads(path.read_text())
+                for key in ('records', 'validation_history', 'training_loss_history'):
+                    result.pop(key, None)
+                print('TRANSFER '+name+':', json.dumps(result, indent=2))
         path = job/'report/failure_traceback.txt'
         if path.exists():
             print('TRANSFER FAILURE:\n'+'\n'.join(path.read_text().splitlines()[-12:]))

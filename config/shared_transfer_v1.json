@@ -1,0 +1,23 @@
+{
+  "schema": "SHARED_TRANSFER_BASELINES_V1",
+  "completed_recovery_job": "621799",
+  "families": ["B03", "B04"],
+  "source_episode": {
+    "support_rows": 48,
+    "reserved_verification_rows": 64,
+    "suffix_rows": 16,
+    "training_episodes_per_domain": 4
+  },
+  "origin_microbatch": 2,
+  "target_fit_origin_batch": 8,
+  "prediction_origin_batch": 2,
+  "checkpoint_seconds": 300,
+  "recovery_probe_steps": 4,
+  "recovery_probe_interrupt_step": 2,
+  "max_concurrent_gpu_tasks": 4,
+  "source_wall_seconds": 172800,
+  "target_wall_seconds": 7200,
+  "probe_wall_seconds": 7200,
+  "report_wall_seconds": 3600,
+  "scope": "B03 causal LLM-UTP and B04 ordinary Qwen unconditional transfer. Save frozen candidates for later separately reviewed verification."
+}

@@ -301,3 +301,13 @@ unchanged invariance gates. Keep fixed-support recovery scope explicit;
 future episodic/adaptation trainers require their own recovery tests. B03/B04,
 ECTT and independent S01 remain pending. Publish the tested stage and provide
 one submission command, then request its real Slurm ID. Do not invent IDs.
+
+The user reports pre-transfer job 621799 passed the cached full-size Qwen
+fixed-support process-restart check. Latest authorization queues the next
+implemented jobs together with dependencies. Use shared-transfer-baselines
+for the B03/B04 unconditional comparisons. See research/SHARED_TRANSFER_V1.md.
+Queue data, recovery probes, source fits, target adaptation, and collection
+in one submission. Preserve completed results and cap the GPU arrays at four
+active tasks. Use saved notification preferences. Verify and publish the exact
+commit and request the returned scheduler IDs. S01 independent review remains
+pending, so verification decisions and ECTT mechanism runs remain separate.

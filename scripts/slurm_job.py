@@ -57,6 +57,14 @@ def main(argv=None):
                 result = 2
                 (report/'transfer_check_progress.json').write_text(json.dumps({'phase': 'FAILED', 'error': str(exc)}))
                 (report/'SUMMARY.md').write_text('# Transfer check setup failed\n\n'+str(exc)+'\n')
+        elif stage.startswith('shared-transfer-'):
+            try:
+                from transfer_worker import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report/'transfer_progress.json').write_text(json.dumps({'phase': 'FAILED', 'error': str(exc)}))
+                (report/'SUMMARY.md').write_text('# Transfer setup failed\n\n'+str(exc)+'\n')
         elif stage in ('shared-compact-baselines', 'shared-compact-report'):
             try:
                 from compact_grid import dispatch
@@ -250,6 +258,16 @@ def main(argv=None):
                       qwen_recovery_passed=result.get('qwen_recovery_passed', False),
                       reason='Development review and fixed-support Qwen recovery only; B03/B04 benchmark implementation and S01 remain pending'
                           if args.shell_exit == 0 else 'Inspect transfer_check_progress.json, child segment logs and failure traceback')
+    if stage.startswith('shared-transfer-') and stage != 'shared-transfer-check':
+        path = report/'transfer_result.json'
+        result = json.loads(path.read_text()) if path.exists() else {}
+        status.update(scientific_status=result.get('scientific_status', 'TRANSFER_INCOMPLETE'),
+                      benchmark_experiments_completed=result.get('benchmark_experiments_completed', 0),
+                      training_experiments_completed=int(result.get('scientific_status') == 'SOURCE_FIT_COMPLETE'),
+                      new_optimizer_steps=result.get('new_optimizer_steps', 0),
+                      training_performed=result.get('new_optimizer_steps', 0) > 0,
+                      method_evaluated=False, S01_independent_review='PENDING',
+                      reason='Transfer baseline pipeline; inspect the stage report and recorded admission checks')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}

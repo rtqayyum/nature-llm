@@ -144,15 +144,18 @@ def main(argv=None):
     parser.add_argument("--project", type=Path, default=Path(default_project))
     parser.add_argument("--sync-only", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review", "ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next", "shared-local-baselines", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review", "ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next", "shared-local-baselines", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", "shared-transfer-baselines"], default="acquire")
     parser.add_argument("--submit", action="store_true", help="Prepare Batch and submit acquisition to Slurm")
     parser.add_argument("--interactive", action="store_true", help="Explicit small development/debug run outside Slurm")
     parser.add_argument("--handoff", action="store_true", help="Pause only a validated unmanaged project downloader before submission")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     parser.add_argument('--retry-grid', action='store_true')
+    parser.add_argument('--revision', help='Exact GitHub source commit SHA')
     args = parser.parse_args(argv)
-    if args.retry_grid and args.stage != 'shared-compact-baselines':
-        parser.error('--retry-grid is only valid with shared-compact-baselines')
+    if args.retry_grid and args.stage not in ('shared-compact-baselines', 'shared-transfer-baselines'):
+        parser.error('--retry-grid is only valid with a compact or transfer batch')
+    if args.revision and (len(args.revision) != 40 or any(c not in '0123456789abcdef' for c in args.revision)):
+        parser.error('--revision requires a full lowercase Git commit SHA')
     if args.stage == "baseline-rescore" and (not args.source_array or not re.fullmatch(r"[0-9]+", args.source_array)):
         parser.error("baseline-rescore requires --source-array with a numeric project training array ID")
     if args.source_array and args.stage != "baseline-rescore":
@@ -176,8 +179,10 @@ def main(argv=None):
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             raise SystemExit("Acquisition is running. Let it finish before updating code.")
-        print("Checking GitHub for the latest committed code (no Git executable needed)...", flush=True)
-        commit, files = resolve_source(REPOSITORY)
+        print("Checking GitHub for "+(args.revision or "the latest committed code")+" (no Git executable needed)...", flush=True)
+        commit, files = (resolve_source(REPOSITORY, args.revision) if args.revision else resolve_source(REPOSITORY))
+        if args.revision and commit != args.revision:
+            raise ValueError('GitHub did not return the requested source commit')
         snapshot = install_snapshot(REPOSITORY, commit, files, work / "code_versions" / commit)
         (work / "CURRENT_CODE.json").write_text(json.dumps({"commit": commit, "path": str(snapshot)}, indent=2) + "\n")
         print("Verified source commit:", commit, flush=True)
