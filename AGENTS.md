@@ -326,3 +326,15 @@ a separate report and S01 input inventory. Recheck support scalers, paired
 test errors and saved adaptation traces. Confirmatory diagnostics are
 descriptive. Do not tune on them, access verification labels, run the verifier
 or launch the ECTT grid while the independent review remains pending.
+
+Diagnostic job 622973 completed 0:0 and reconciled all 192 records and 132
+frozen candidate pairs. At 5%, development transfer errors were widespread.
+The user requests shared-transfer-attribution next. Use one GPU, five CPUs,
+32 GiB RAM and up to four hours capped by gpuq. Compare source-only forecasts
+and archived adapted forecasts for PEMS08 and Beijing at the frozen primary
+5% budget, both model families and all three seeds. Keep the same target
+support scaler in both arms. Replay the adapted outputs from verified
+checkpoints and compare them at the existing normalized 1e-3 tolerances.
+Save both pre-inverse outputs and paired metrics in a separate resumable
+store. Use existing checkpoints for inference, with zero optimizer updates.
+S01 independent review and ECTT training remain pending.

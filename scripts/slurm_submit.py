@@ -14,17 +14,18 @@ import sys
 import time
 
 
+import transfer_attribution
 import transfer_diagnostics
 import transfer_plan
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check")+transfer_plan.GPU_STAGES
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE)+transfer_plan.GPU_STAGES
 ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
 TRANSFER_STAGES = ('shared-transfer-check',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE,)
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -41,6 +42,8 @@ def allocation(stage):
         desired = recipe[(key if key != 'data' else 'report')+'_wall_seconds']
     if stage == transfer_diagnostics.STAGE:
         preflight, desired = True, 3600
+    if stage == transfer_attribution.STAGE:
+        desired = 4 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -169,6 +172,8 @@ def main(argv=None):
         foundation(project, code, full=False)
     if args.stage == transfer_diagnostics.STAGE:
         transfer_diagnostics.foundation(project, code)
+    if args.stage == transfer_attribution.STAGE:
+        transfer_attribution.foundation(project, code)
     if args.stage in ECTT_STAGES:
         from ectt_workflow import next_stage, require_previous
         if args.stage == "ectt-next":
@@ -236,7 +241,8 @@ def main(argv=None):
                     "baseline-rescore": ("nutp-baseline-fix", 2, "8G"),
                     "causal-train3": ("nutp-causal-3seed", 5, "16G"),
                     "reproduction-review": ("nutp-repro-review", 1, "2G"),
-                    transfer_diagnostics.STAGE: ("ectt-xfer-diag", 5, "8G")}
+                    transfer_diagnostics.STAGE: ("ectt-xfer-diag", 5, "8G"),
+                    transfer_attribution.STAGE: ("ectt-xfer-replay", 5, "32G")}
         if args.stage in ECTT_STAGES:
             from ectt_common import load_contract
             _, study_execution = load_contract(code)

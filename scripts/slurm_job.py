@@ -64,6 +64,13 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# Transfer diagnostic setup failed\n\n'+str(exc)+'\n')
+        elif stage == 'shared-transfer-attribution':
+            try:
+                from transfer_attribution import dispatch
+                result = dispatch(root, code, report)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# Development forecast comparison setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-'):
             try:
                 from transfer_worker import dispatch
@@ -278,6 +285,9 @@ def main(argv=None):
         if stage == 'shared-transfer-diagnose':
             status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
                           reason='Saved-artifact diagnostic and S01 inputs only; no verifier decisions or training')
+        if stage == 'shared-transfer-attribution':
+            status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
+                          reason='Development inference from saved source and residual checkpoints')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}
