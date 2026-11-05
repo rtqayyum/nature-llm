@@ -95,3 +95,33 @@ Before any certification claim, an independent reviewer must sign off the
 derivation, filtration/label timing, frozen artifacts and finite-precision
 interpretation. The persistence/ridge baseline stage does not invoke a transfer
 certificate, so this pending sign-off does not block those descriptive scores.
+
+## Reviewer handoff for the completed transfer grid
+
+The CPU diagnostic reads the successful collection 621882 and its pinned
+source and target artifacts. It emits S01_INPUTS.json with the exact
+statistics code and protocol hashes, candidate shard and checkpoint hashes,
+support and verification row ranges, and the fixed support-validation error
+scale for each of 132 learned cases. The inventory contains no verification
+truths or acceptance decisions. The existing numerical evidence is the
+internal statistical audit in job 620562, report/internal_statistical_review.json.
+
+The independent reviewer should record their name and date, the reviewed code
+and protocol hashes, and a disposition of pass, changes required, or blocked.
+Give a reason for each of these checks.
+
+1. Derive the predictable disagreement bound and Gaussian-mixture width under
+   the one-step filtration. Confirm that the scope is the observed prefix.
+2. Trace the target support split and the local and transfer freeze to the
+   exact source/residual hashes, support scale and candidate rows in the
+   inventory. Earlier observed verification rows can enter later rolling
+   histories. The current row label must arrive after its forecasts.
+3. Inspect the verifier consumer before sign-off on its execution. It must
+   process labels in order, stop charging labels at acceptance, record
+   censoring when it does not accept, and freeze deployment before test.
+4. Check floating-point handling, the strict stopping inequality, and the
+   one-pair error allocation. Record any assumptions on precision and
+   dependence, including the absence of a simultaneous study-wide claim.
+
+A derivation review can proceed while the execution path is being prepared.
+Independent sign-off requires a reviewer disposition.

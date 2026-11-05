@@ -317,3 +317,12 @@ at both CUDA probes. B03 failed cuDNN GRU backward in eval mode. B04 failed
 single-origin invariance before updates. Apply the transfer-only fixes in
 research/SHARED_TRANSFER_V1.md and retain the original run. The revised
 chain must pass both GPU probes before starting source fits.
+
+The user supplied successful corrected transfer receipts: both probes passed
+in 621879 and collection 621882 verified 42 source fits and 192 target records.
+The 132 learned cases all lost to the matched local reference on MAE, RMSE and
+WMAPE. Next use shared-transfer-diagnose, a CPU-only read of the frozen run with
+a separate report and S01 input inventory. Recheck support scalers, paired
+test errors and saved adaptation traces. Confirmatory diagnostics are
+descriptive. Do not tune on them, access verification labels, run the verifier
+or launch the ECTT grid while the independent review remains pending.

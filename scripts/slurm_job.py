@@ -57,6 +57,13 @@ def main(argv=None):
                 result = 2
                 (report/'transfer_check_progress.json').write_text(json.dumps({'phase': 'FAILED', 'error': str(exc)}))
                 (report/'SUMMARY.md').write_text('# Transfer check setup failed\n\n'+str(exc)+'\n')
+        elif stage == 'shared-transfer-diagnose':
+            try:
+                from transfer_diagnostics import dispatch
+                result = dispatch(root, code, report)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# Transfer diagnostic setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-'):
             try:
                 from transfer_worker import dispatch
@@ -268,6 +275,9 @@ def main(argv=None):
                       training_performed=result.get('new_optimizer_steps', 0) > 0,
                       method_evaluated=False, S01_independent_review='PENDING',
                       reason='Transfer baseline pipeline; inspect the stage report and recorded admission checks')
+        if stage == 'shared-transfer-diagnose':
+            status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
+                          reason='Saved-artifact diagnostic and S01 inputs only; no verifier decisions or training')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}

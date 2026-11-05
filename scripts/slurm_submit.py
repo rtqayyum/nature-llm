@@ -14,6 +14,7 @@ import sys
 import time
 
 
+import transfer_diagnostics
 import transfer_plan
 
 
@@ -23,7 +24,7 @@ SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
 TRANSFER_STAGES = ('shared-transfer-check',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE,)
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -38,6 +39,8 @@ def allocation(stage):
         recipe = read_json(Path(__file__).resolve().parents[1]/'config/shared_transfer_v1.json')
         key = stage.rsplit('-', 1)[1]
         desired = recipe[(key if key != 'data' else 'report')+'_wall_seconds']
+    if stage == transfer_diagnostics.STAGE:
+        preflight, desired = True, 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -164,6 +167,8 @@ def main(argv=None):
     if args.stage in TRANSFER_STAGES:
         from pretransfer_checks import foundation
         foundation(project, code, full=False)
+    if args.stage == transfer_diagnostics.STAGE:
+        transfer_diagnostics.foundation(project, code)
     if args.stage in ECTT_STAGES:
         from ectt_workflow import next_stage, require_previous
         if args.stage == "ectt-next":
@@ -230,7 +235,8 @@ def main(argv=None):
                     "reference-train3": ("nutp-s3-3seed", 5, "16G"),
                     "baseline-rescore": ("nutp-baseline-fix", 2, "8G"),
                     "causal-train3": ("nutp-causal-3seed", 5, "16G"),
-                    "reproduction-review": ("nutp-repro-review", 1, "2G")}
+                    "reproduction-review": ("nutp-repro-review", 1, "2G"),
+                    transfer_diagnostics.STAGE: ("ectt-xfer-diag", 5, "8G")}
         if args.stage in ECTT_STAGES:
             from ectt_common import load_contract
             _, study_execution = load_contract(code)
