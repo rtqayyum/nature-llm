@@ -311,3 +311,9 @@ in one submission. Preserve completed results and cap the GPU arrays at four
 active tasks. Use saved notification preferences. Verify and publish the exact
 commit and request the returned scheduler IDs. S01 independent review remains
 pending, so verification decisions and ECTT mechanism runs remain separate.
+
+The first transfer chain 621844–621848 passed data admission and stopped
+at both CUDA probes. B03 failed cuDNN GRU backward in eval mode. B04 failed
+single-origin invariance before updates. Apply the transfer-only fixes in
+research/SHARED_TRANSFER_V1.md and retain the original run. The revised
+chain must pass both GPU probes before starting source fits.

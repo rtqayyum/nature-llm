@@ -37,12 +37,25 @@ class CausalUTP(nn.Module):
         return self.head(self.encode(inputs)).squeeze(-1)
 
 
+class OriginIndependentQwen(nn.Module):
+    """Keep BF16 kernel shapes fixed as forecast origins are added or removed."""
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+
+    def encode(self, inputs):
+        return torch.cat([self.model.encode(origin) for origin in inputs.split(1)], dim=0)
+
+    def head(self, encoded):
+        return self.model.head(encoded)
+
+
 def create(family, project, code, contract):
     if family == 'B04':
         from ectt_model import qwen_model
         from qwen_recovery import cached_weights
         directory, _ = cached_weights(project, contract)
-        return qwen_model(directory, contract)
+        return OriginIndependentQwen(qwen_model(directory, contract))
     if family != 'B03':
         raise ValueError('Unknown transfer family')
     from acquire import verify
@@ -97,7 +110,8 @@ def check_invariance(model, inputs, family, residual=None):
                              predict_encoded(model, inputs.flip(1), residual).flip(1)))
         result = {}
         for name, expected, observed in variants:
+            delta = float((expected-observed).abs().max())
             if not torch.isfinite(observed).all() or not torch.allclose(expected, observed, atol=1e-3, rtol=1e-3):
-                raise ValueError('Forecast invariance failed: '+name)
-            result[name] = float((expected-observed).abs().max())
+                raise ValueError(f'Forecast invariance failed: {name} (max difference {delta:.6g})')
+            result[name] = delta
         return result

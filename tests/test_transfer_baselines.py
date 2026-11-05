@@ -11,11 +11,13 @@ import torch
 
 CODE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(CODE/'scripts'))
-from ectt_common import read
+from ectt_common import digest, finish, read, write
 import slurm_submit
+import transfer_model
 import transfer_plan
 import transfer_submit
 import transfer_train
+import transfer_worker
 
 
 class TransferPlanTests(unittest.TestCase):
@@ -75,10 +77,14 @@ class TinyEncoder(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.layer = torch.nn.Linear(36, 4)
+        self.gru = torch.nn.GRU(4, 4, batch_first=True)
+        self.dropout = torch.nn.Dropout(.5)
         self.head = torch.nn.Linear(4, 1)
 
     def encode(self, x):
-        return self.layer(x.flatten(-2))
+        if self.dropout.training or self.gru.training != torch.is_grad_enabled():
+            raise AssertionError('GRU training mode must track gradients with dropout disabled')
+        return self.gru(self.dropout(self.layer(x.flatten(-2))))[0]
 
 
 class TransferRecoveryTests(unittest.TestCase):
@@ -87,7 +93,7 @@ class TransferRecoveryTests(unittest.TestCase):
         recipe = read(CODE/'config/shared_transfer_v1.json')
         # Two domains and two epochs exercise a restart on both sides of the
         # epoch cursor. Tiny fixed updates exercise the same trainer code.
-        task = {'sources': ['source-a', 'source-b'], 'seed': 11, 'family': 'B04'}
+        task = {'sources': ['source-a', 'source-b'], 'seed': 11, 'family': 'B03'}
         config = {**read(CODE/'config/ectt_protocol_v1.json')['training_design'],
                   'source_max_epochs': 2, 'target_updates': 4}
         profiles = {slug: {'source_train_raw': [0, 144], 'source_validation_targets': [144, 170]}
@@ -128,6 +134,60 @@ class TransferRecoveryTests(unittest.TestCase):
             self.assertEqual(result['new_steps'], 2)
             self.assertTrue(transfer_train.equal_state(transfer_train.load(root/'head-full', 'head'),
                                                        transfer_train.load(root/'head-resumed', 'head')))
+
+
+class TransferAdmissionTests(unittest.TestCase):
+    def test_qwen_uses_fixed_shape_for_each_origin_through_create(self):
+        class BatchSensitive(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.gain = torch.nn.Parameter(torch.ones(()))
+                self.head = torch.nn.Identity()
+
+            def encode(self, inputs):
+                # Stand in for a batch-shape-dependent BF16 kernel.
+                offset = .02 if len(inputs) > 1 else 0
+                return inputs[..., 0, :1]*self.gain+offset
+
+        base = BatchSensitive()
+        inputs = torch.linspace(0, 1, 2*3*12*3).reshape(2, 3, 12, 3)
+        with self.assertRaisesRegex(ValueError, 'single_origin'):
+            transfer_model.check_invariance(base, inputs, 'B04')
+        with mock.patch('qwen_recovery.cached_weights', return_value=(CODE, 'hash')), \
+             mock.patch('ectt_model.qwen_model', return_value=base):
+            model = transfer_model.create('B04', CODE, CODE, {})
+        checks = transfer_model.check_invariance(model, inputs, 'B04')
+        self.assertEqual(checks, dict.fromkeys(('single_origin', 'origin_permutation',
+                                                'later_companion_mutation', 'node_permutation'), 0.))
+        transfer_model.predict_encoded(model, inputs).sum().backward()
+        self.assertGreater(base.gain.grad.item(), 0)
+
+    def test_collector_surfaces_probe_error_and_groups_missing_workers(self):
+        import json
+        ids = {'data': '1', 'probe': '2', 'source': '3', 'target': '4'}
+        with tempfile.TemporaryDirectory() as td:
+            project = Path(td)
+            root, report = project/'store', project/'report'
+            report.mkdir()
+            write(root/'data/result.json', {})
+            finish(root/'data', 'matrix')
+            jobs = project/'results/slurm_jobs'
+            write(jobs/'1/job_status.json', {'stage': transfer_plan.PREFLIGHT,
+                  'execution_state': 'COMPLETED', 'shell_exit_code': 0})
+            write(jobs/'1/report/transfer_result.json', {'identity': 'matrix', 'store': str(root/'data'),
+                  'artifact_sha256': digest(root/'data/COMPLETE.json')})
+            write(jobs/'2_0/job_status.json', {'stage': transfer_plan.PROBE,
+                  'execution_state': 'FAILED', 'shell_exit_code': 2})
+            write(jobs/'2_0/report/transfer_progress.json', {'error': 'synthetic backward error'})
+            matrix = {'identity': 'matrix', 'probe': [{}], 'source': [{}, {}], 'target': [{'budgets': ['0.05']}]}
+            with mock.patch.dict('os.environ', {'TRAFFIC_TRANSFER_DEPENDENCIES': json.dumps(ids)}), \
+                 mock.patch.object(transfer_plan, 'foundation', return_value=({}, {})):
+                result = transfer_worker.collect(project, CODE, report, root, matrix, {}, lambda **_: None)
+            summary = (report/'SUMMARY.md').read_text()
+            self.assertIn('probe/0 (job `2_0`) — synthetic backward error', summary)
+            self.assertIn('source (job `3`) — 2 tasks with no saved worker status', summary)
+            self.assertEqual(result['verified']['data']['verified'], 1)
+            self.assertEqual(len(result['failed']), 4)
 
 
 if __name__ == '__main__':

@@ -17,3 +17,20 @@ The target tasks freeze the source model and fit fresh residual heads from targe
 ## Scientific scope
 
 The batch establishes unconditional transfer comparisons and prepares fixed candidate artifacts for the later sequential verifier. Independent S01 sign-off remains required for verification claims. The ECTT objective, mechanism ablations, and certificate evaluation remain separate. Forecasts concern ordered rows because timestamps and sensor provenance remain unverified.
+
+## CUDA probe retry
+
+Data admission 621844 completed. Probe task 621845_0 reached the first
+B03 source backward pass and failed because cuDNN requires training-mode
+GRUs to save backward state. Set only the released dropout-free GRUs to
+training mode for gradient-bearing source suffixes. Support embeddings,
+validation and GPT-2 dropout stay in evaluation mode.
+
+Task 621845_1 failed the B04 single-origin check before optimizer updates.
+Use one forecast origin per BF16 encoder call in the transfer pipeline,
+including source fitting, support embeddings, invariance probes, and final
+forecasts. Keeping the BF16 kernel shapes fixed avoids changing the encoder
+computation when another origin enters a batch. Retain both 1e-3 invariance
+tolerances, the admitted precision and the episode and optimization recipe.
+The new matrix identity preserves all original probe artifacts. The revised
+collector surfaces saved worker errors and groups tasks with no receipt.

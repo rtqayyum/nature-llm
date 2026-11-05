@@ -219,6 +219,7 @@ def source_fit(model, raw, task, bank, recipe, training, local_recipes, device, 
     last_save = time.monotonic()
     family, seed = task['family'], task['seed']
     microbatch = recipe['origin_microbatch']
+    recurrent = [module for module in model.modules() if isinstance(module, torch.nn.GRU)]
 
     def outer(slug, episode, mode):
         values = raw[slug]
@@ -227,6 +228,11 @@ def source_fit(model, raw, task, bank, recipe, training, local_recipes, device, 
         scale = support_scale(values, [a, b], seed, *local_recipes, device,
                               directory/'scales'/slug/(str(a)+'.json'))
         residual, _ = adapt(model, values, [a+12, b], scaler, seed, recipe, training, device, progress)
+        # cuDNN needs reserve space from a training-mode GRU forward for
+        # backward. The released GRUs have no dropout. Leave GPT-2 in eval.
+        if mode == 'train':
+            for layer in recurrent:
+                layer.train()
         start, end = episode['suffix']
         total = 0.
         for ids in batches([start, end], microbatch):

@@ -349,30 +349,44 @@ def collect(project, code, report, root, matrix, contract, progress):
     from shared_baselines import independent_scores
     ids = json.loads(os.environ['TRAFFIC_TRANSFER_DEPENDENCIES'])
     records, failures, summary = [], {}, {}
+    details, missing_receipts = [], {}
     _, collection = plan.foundation(project, code)
 
-    def receipt(stage, name, idx=None):
-        job_id = ids[name]
-        if not job_id.isdigit():
-            raise ValueError('Invalid parent Slurm ID')
-        key = job_id if idx is None else f'{job_id}_{idx}'
-        job = project/'results/slurm_jobs'/key
-        status = read(job/'job_status.json')
+    def receipt(stage, job):
+        status_path = job/'job_status.json'
+        status = read(status_path) if status_path.exists() else {}
+        if status and status.get('stage') != stage:
+            raise ValueError('Worker receipt stage differs')
+        if status.get('execution_state') != 'COMPLETED' or status.get('shell_exit_code') != 0:
+            progress_path = job/'report/transfer_progress.json'
+            error = read(progress_path).get('error') if progress_path.exists() else None
+            if error:
+                raise ValueError(error)
+            if not status:
+                return None
+            raise ValueError(f"Worker status {status['execution_state']} (exit {status['shell_exit_code']})")
         result = read(job/'report/transfer_result.json')
-        if (status['stage'] != stage or status['execution_state'] != 'COMPLETED'
-                or status['shell_exit_code'] != 0 or result['identity'] != matrix['identity']):
-            raise ValueError('Unsuccessful recorded scheduler task '+key)
+        if result['identity'] != matrix['identity']:
+            raise ValueError('Worker receipt identity differs')
         return result
 
     for stage, label, tasks in ((plan.PREFLIGHT, 'data', [None]), (plan.PROBE, 'probe', matrix['probe']),
                                 (plan.SOURCE, 'source', matrix['source']), (plan.TARGET, 'target', matrix['target'])):
+        job_id = ids[label]
+        if not job_id.isdigit():
+            raise ValueError('Invalid parent Slurm ID')
         count = 0
         for idx, task in enumerate(tasks):
             key = label if task is None else f'{label}/{idx}'
+            task_id = job_id if task is None else f'{job_id}_{idx}'
             try:
                 directory = root/key
-                record = require(directory, matrix)
-                job = receipt(stage, label, idx if task is not None else None)
+                job = receipt(stage, project/'results/slurm_jobs'/task_id)
+                if job is None:
+                    failures[key] = f'No worker status for {task_id}'
+                    missing_receipts[label] = missing_receipts.get(label, 0)+1
+                    continue
+                require(directory, matrix)
                 if job['store'] != str(directory) or job['artifact_sha256'] != digest(directory/'COMPLETE.json'):
                     raise ValueError('Worker receipt differs from the completed artifact')
                 if label == 'target':
@@ -406,6 +420,7 @@ def collect(project, code, report, root, matrix, contract, progress):
                 count += 1
             except Exception as exc:
                 failures[key] = str(exc)
+                details.append(f'- {key} (job `{task_id}`) — {exc}')
         summary[label] = {'verified': count, 'expected': len(tasks)}
         progress(phase='COLLECTING', verified=summary, failed=len(failures))
     with (report/'transfer_metrics.csv').open('w', newline='') as stream:
@@ -433,7 +448,9 @@ def collect(project, code, report, root, matrix, contract, progress):
                      for family, col in (('B03', 'local_MAE'), ('B03', 'transfer_MAE'), ('B04', 'transfer_MAE'))]
             lines.append(f'| {panel} | {slug} | {means[0]:.6f} | {means[1]:.6f} | {means[2]:.6f} |')
     else:
-        lines += ['## Failed or missing tasks', ''] + [f'- {key} — {exc}' for key, exc in failures.items()]
+        lines += ['## Failed or missing tasks', ''] + details
+        lines += [f'- {label} (job `{ids[label]}`) — {count} tasks with no saved worker status. Check Slurm accounting.'
+                  for label, count in missing_receipts.items()]
     lines += ['', 'Source arrays and jobs: '+', '.join(f'{k} {v}' for k, v in ids.items()),
               'The full per-seed scores are in transfer_metrics.csv.', '']
     (report/'SUMMARY.md').write_text('\n'.join(lines))
