@@ -71,6 +71,13 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# Development forecast comparison setup failed\n\n'+str(exc)+'\n')
+        elif stage in ('shared-transfer-uncertainty', 'shared-transfer-gradient-audit'):
+            try:
+                from transfer_parallel import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# Transfer analysis setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-'):
             try:
                 from transfer_worker import dispatch
@@ -288,6 +295,10 @@ def main(argv=None):
         if stage == 'shared-transfer-attribution':
             status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
                           reason='Development inference from saved source and residual checkpoints')
+        if stage in ('shared-transfer-uncertainty', 'shared-transfer-gradient-audit'):
+            status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
+                          source_backbone_updates=result.get('source_backbone_updates', 0),
+                          reason='Archived baseline uncertainty or development-fold source validation audit')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}

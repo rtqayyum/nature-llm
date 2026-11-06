@@ -16,18 +16,24 @@ import time
 
 import transfer_attribution
 import transfer_diagnostics
+import transfer_parallel
 import transfer_plan
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE)+transfer_plan.GPU_STAGES
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE, transfer_parallel.GPU)+transfer_plan.GPU_STAGES
 ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
 TRANSFER_STAGES = ('shared-transfer-check',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
+
+
+def stage_conflicts(requested, active):
+    # The two analyses read the same immutable inputs and write separate stores.
+    return {requested, active} != set(transfer_parallel.STAGES)
 
 
 def allocation(stage):
@@ -40,9 +46,9 @@ def allocation(stage):
         recipe = read_json(Path(__file__).resolve().parents[1]/'config/shared_transfer_v1.json')
         key = stage.rsplit('-', 1)[1]
         desired = recipe[(key if key != 'data' else 'report')+'_wall_seconds']
-    if stage == transfer_diagnostics.STAGE:
+    if stage in (transfer_diagnostics.STAGE, transfer_parallel.CPU):
         preflight, desired = True, 3600
-    if stage == transfer_attribution.STAGE:
+    if stage in (transfer_attribution.STAGE, transfer_parallel.GPU):
         desired = 4 * 3600
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
@@ -174,6 +180,8 @@ def main(argv=None):
         transfer_diagnostics.foundation(project, code)
     if args.stage == transfer_attribution.STAGE:
         transfer_attribution.foundation(project, code)
+    if args.stage in transfer_parallel.STAGES:
+        transfer_parallel.foundation(project, code)
     if args.stage in ECTT_STAGES:
         from ectt_workflow import next_stage, require_previous
         if args.stage == "ectt-next":
@@ -197,12 +205,14 @@ def main(argv=None):
     if last.exists():
         previous_id = last.read_text().strip()
         recorded = project / "results/slurm_jobs" / previous_id / "submission.json"
-        if previous_id.isdigit() and recorded.exists() and read_json(recorded).get("project") == str(project):
-            current = subprocess.run(["squeue", "--jobs", previous_id, "--noheader", "--format=%T"], capture_output=True, text=True, timeout=20)
-            if current.returncode == 0 and current.stdout.strip():
-                print("Project job", previous_id, "is already", current.stdout.strip(), "- no duplicate job submitted")
-                print("Check: bash " + str(project / "Check") + " " + previous_id)
-                return 0
+        if previous_id.isdigit() and recorded.exists():
+            submission = read_json(recorded)
+            if submission.get("project") == str(project) and stage_conflicts(args.stage, submission.get('stage')):
+                current = subprocess.run(["squeue", "--jobs", previous_id, "--noheader", "--format=%T"], capture_output=True, text=True, timeout=20)
+                if current.returncode == 0 and current.stdout.strip():
+                    print("Project job", previous_id, "is already", current.stdout.strip(), "- no duplicate job submitted")
+                    print("Check: bash " + str(project / "Check") + " " + previous_id)
+                    return 0
     # Do not signal a live downloader until Slurm submission is available.
     if args.handoff:
         handoff(project)
@@ -220,8 +230,10 @@ def main(argv=None):
         if not acquired:
             raise SystemExit("An acquisition still holds this project's lock. No duplicate download job was submitted. Do not stop an unidentified process/job.")
         if args.stage in STUDY_STAGES:
-            recorded_ids = {p.parent.name for p in (project / 'results/slurm_jobs').glob('*/submission.json')
-                if p.parent.name.isdigit() and read_json(p).get('stage') in STUDY_STAGES}
+            recorded_stages = {p.parent.name: read_json(p).get('stage')
+                               for p in (project / 'results/slurm_jobs').glob('*/submission.json') if p.parent.name.isdigit()}
+            recorded_ids = {job for job, stage in recorded_stages.items()
+                            if stage in STUDY_STAGES and stage_conflicts(args.stage, stage)}
             if recorded_ids:
                 live = subprocess.run(['squeue', '--noheader', '--format=%A'], capture_output=True, text=True, timeout=20, check=True)
                 active = recorded_ids.intersection(live.stdout.split())
@@ -242,7 +254,9 @@ def main(argv=None):
                     "causal-train3": ("nutp-causal-3seed", 5, "16G"),
                     "reproduction-review": ("nutp-repro-review", 1, "2G"),
                     transfer_diagnostics.STAGE: ("ectt-xfer-diag", 5, "8G"),
-                    transfer_attribution.STAGE: ("ectt-xfer-replay", 5, "32G")}
+                    transfer_attribution.STAGE: ("ectt-xfer-replay", 5, "32G"),
+                    transfer_parallel.CPU: ("ectt-xfer-ci", 5, "8G"),
+                    transfer_parallel.GPU: ("ectt-grad-audit", 5, "32G")}
         if args.stage in ECTT_STAGES:
             from ectt_common import load_contract
             _, study_execution = load_contract(code)

@@ -125,3 +125,16 @@ Give a reason for each of these checks.
 
 A derivation review can proceed while the execution path is being prepared.
 Independent sign-off requires a reviewer disposition.
+
+## Chronological replay for S01 review
+
+Review `scripts/frozen_verifier_replay.py` alongside `scripts/ectt_statistics.py`,
+the locked protocol and the inventory from job 622973. The replay copies the
+forecast pair and computes disagreement before requesting labels. The label
+provider is called once per consumed origin and stops at the first crossing.
+The return value contains the decision, the evidence count and the trace for
+the rows actually consumed. The reviewer should check the provider's label
+timing and the frozen artifact binding at integration, in addition to the
+consumer and bound. The current implementation is tested on synthetic streams
+and has no traffic-label provider wired to it. S01 independent sign-off is
+pending.

@@ -338,3 +338,17 @@ checkpoints and compare them at the existing normalized 1e-3 tolerances.
 Save both pre-inverse outputs and paired metrics in a separate resumable
 store. Use existing checkpoints for inference, with zero optimizer updates.
 S01 independent review and ECTT training remain pending.
+
+Job 623019 completed exact before/after replay for 12 development cases at
+the primary 5% budget. Nine source-only cases clipped every value to zero.
+The user requests parallel progress. Allow only shared-transfer-uncertainty
+and shared-transfer-gradient-audit to overlap under the study guard. The CPU
+analysis uses 2,000 paired circular moving row-block resamples of the archived
+5% confirmatory forecasts at the locked block lengths. It is descriptive.
+The GPU analysis replays source validation suffixes for 12 development-fold
+checkpoints, reusing the archived recipe and temporary source-support heads.
+It measures how often the zero floor blocks output gradients. Keep source
+backbones frozen and avoid held-out target scoring in this audit. Use
+five CPUs per job and one GPU for the source validation audit. Prepare the
+chronological verifier consumer on synthetic inputs for S01 review.
+Traffic verifier scoring and confirmatory ECTT remain gated.
