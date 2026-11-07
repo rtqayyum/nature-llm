@@ -57,6 +57,10 @@ def main():
         from compact_grid_submit import summarize
         summarize(project, job_id, submission, command)
         return
+    if submission.get('stage') in ('shared-transfer-loss-probe', 'shared-transfer-loss-fit') and 'array_job_id' not in submission:
+        from source_loss_submit import summarize
+        summarize(project, job_id, submission, command)
+        return
     if submission.get('stage', '').startswith('shared-transfer-') and 'array_tasks' in submission and 'array_job_id' not in submission:
         from transfer_submit import summarize
         summarize(project, job_id, submission, command)

@@ -352,3 +352,14 @@ backbones frozen and avoid held-out target scoring in this audit. Use
 five CPUs per job and one GPU for the source validation audit. Prepare the
 chronological verifier consumer on synthetic inputs for S01 review.
 Traffic verifier scoring and confirmatory ECTT remain gated.
+
+The user supplied summaries for 676089 and 676092. Descriptive bootstrap
+intervals stay above local across 72/144/288 row blocks. The source validation
+audit found positive labels behind the zero-floor gradient in about 21–34%
+of suffix values. Proceed with the versioned development experiment in
+research/SOURCE_LOSS_DEVELOPMENT_V1.md. Fresh paired source fits compare
+clipped and unclipped source suffix training loss. Both select by clipped
+source validation. Use PEMS08/Beijing, seeds 11/22/33, B03/B04 and 5% target
+budget. Queue four recovery probes, 24 complete source-plus-target fit
+tasks with a maximum of four GPUs, and the dependent CPU collection in
+one command. Preserve the original matrix and avoid verification scoring.

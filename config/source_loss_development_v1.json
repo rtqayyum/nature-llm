@@ -1,0 +1,15 @@
+{
+  "schema": "SOURCE_LOSS_DEVELOPMENT_V1",
+  "arms": ["clipped", "unclipped"],
+  "development_targets": ["pems08", "bj"],
+  "budget": "0.05",
+  "seeds": [11, 22, 33],
+  "maximum_concurrent_gpu_tasks": 4,
+  "resources": {
+    "probe_seconds": 7200,
+    "fit_seconds": 172800,
+    "report_seconds": 3600
+  },
+  "selection": "Both arms select by clipped physical source validation MAE",
+  "scope": "Development amendment after visible negative transfer. Only source suffix training loss differs. No target verification scoring."
+}

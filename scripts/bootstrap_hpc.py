@@ -144,7 +144,7 @@ def main(argv=None):
     parser.add_argument("--project", type=Path, default=Path(default_project))
     parser.add_argument("--sync-only", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review", "ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next", "shared-local-baselines", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", "shared-transfer-baselines", "shared-transfer-diagnose", "shared-transfer-attribution", "shared-transfer-uncertainty", "shared-transfer-gradient-audit"], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review", "ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next", "shared-local-baselines", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", "shared-transfer-baselines", "shared-transfer-diagnose", "shared-transfer-attribution", "shared-transfer-uncertainty", "shared-transfer-gradient-audit", "shared-transfer-loss-development"], default="acquire")
     parser.add_argument("--submit", action="store_true", help="Prepare Batch and submit acquisition to Slurm")
     parser.add_argument("--interactive", action="store_true", help="Explicit small development/debug run outside Slurm")
     parser.add_argument("--handoff", action="store_true", help="Pause only a validated unmanaged project downloader before submission")
@@ -152,7 +152,7 @@ def main(argv=None):
     parser.add_argument('--retry-grid', action='store_true')
     parser.add_argument('--revision', help='Exact GitHub source commit SHA')
     args = parser.parse_args(argv)
-    if args.retry_grid and args.stage not in ('shared-compact-baselines', 'shared-transfer-baselines'):
+    if args.retry_grid and args.stage not in ('shared-compact-baselines', 'shared-transfer-baselines', 'shared-transfer-loss-development'):
         parser.error('--retry-grid is only valid with a compact or transfer batch')
     if args.revision and (len(args.revision) != 40 or any(c not in '0123456789abcdef' for c in args.revision)):
         parser.error('--revision requires a full lowercase Git commit SHA')

@@ -18,15 +18,16 @@ import transfer_attribution
 import transfer_diagnostics
 import transfer_parallel
 import transfer_plan
+import source_loss_development as source_loss
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE, transfer_parallel.GPU)+transfer_plan.GPU_STAGES
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE, transfer_parallel.GPU)+transfer_plan.GPU_STAGES+source_loss.GPU_STAGES
 ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
 TRANSFER_STAGES = ('shared-transfer-check',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES+source_loss.STAGES
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -50,6 +51,10 @@ def allocation(stage):
         preflight, desired = True, 3600
     if stage in (transfer_attribution.STAGE, transfer_parallel.GPU):
         desired = 4 * 3600
+    if stage in source_loss.STAGES:
+        preflight = stage == source_loss.REPORT
+        key = 'probe' if stage == source_loss.PROBE else 'fit' if stage == source_loss.FIT else 'report'
+        desired = read_json(Path(__file__).resolve().parents[1]/'config/source_loss_development_v1.json')['resources'][key+'_seconds']
     partitions = ("gpuq",) if stage in GPU_STAGES else ("shortq", "longq") if preflight else ("longq",)
     for partition in partitions:
         try:
@@ -152,7 +157,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"]+list(STUDY_STAGES)+[transfer_plan.LAUNCH], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"]+list(STUDY_STAGES)+[transfer_plan.LAUNCH, source_loss.LAUNCH], default="acquire")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     parser.add_argument('--retry-grid', action='store_true', help='Explicitly submit a new compact array after the previous batch ended; reuse compatible completed cases/checkpoints')
     args = parser.parse_args(argv)
@@ -161,8 +166,13 @@ def main(argv=None):
     if args.source_array and args.stage != "baseline-rescore":
         parser.error("--source-array is only valid with baseline-rescore")
     project, code = args.project.resolve(), args.code.resolve()
-    if args.retry_grid and args.stage not in ('shared-compact-baselines', transfer_plan.LAUNCH):
+    if args.retry_grid and args.stage not in ('shared-compact-baselines', transfer_plan.LAUNCH, source_loss.LAUNCH):
         parser.error('--retry-grid is only valid with a compact or transfer batch')
+    if args.stage == source_loss.LAUNCH:
+        from source_loss_submit import submit
+        return submit(project, code, retry=args.retry_grid)
+    if args.stage in source_loss.STAGES:
+        parser.error('Submit the paired loss experiment through --stage '+source_loss.LAUNCH)
     if args.stage == transfer_plan.LAUNCH:
         from transfer_submit import submit
         return submit(project, code, retry=args.retry_grid)

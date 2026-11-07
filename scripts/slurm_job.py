@@ -78,6 +78,13 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# Transfer analysis setup failed\n\n'+str(exc)+'\n')
+        elif stage in ('shared-transfer-loss-probe', 'shared-transfer-loss-fit', 'shared-transfer-loss-report'):
+            try:
+                from source_loss_development import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# Source loss comparison setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-'):
             try:
                 from transfer_worker import dispatch
@@ -299,6 +306,10 @@ def main(argv=None):
             status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
                           source_backbone_updates=result.get('source_backbone_updates', 0),
                           reason='Archived baseline uncertainty or development-fold source validation audit')
+        if stage.startswith('shared-transfer-loss-'):
+            status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
+                          training_experiments_completed=int(stage == 'shared-transfer-loss-fit' and args.shell_exit == 0),
+                          reason='Paired development comparison of clipped and unclipped source training loss')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}
