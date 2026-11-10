@@ -1,0 +1,13 @@
+{
+  "schema": "ANCHORED_TRANSFER_DEVELOPMENT_V1",
+  "arms": ["direct_zero", "persistence_residual"],
+  "development_targets": ["pems08", "bj"],
+  "budget": "0.05",
+  "seeds": [11, 22, 33],
+  "maximum_concurrent_gpu_tasks": 4,
+  "resources": {"review_seconds": 3600, "probe_seconds": 7200, "fit_seconds": 172800, "report_seconds": 3600},
+  "predecessor_report_job": "1116448",
+  "source_loss": "unclipped",
+  "source_selection": "mean clipped physical suffix MAE divided by each episode's fixed support local-error scale",
+  "scope": "Exploratory development after exposed negative results. Matched zero output heads and last-value residual feature in both arms. Only the explicit persistence skip connection differs. No verification scoring or ECTT objective."
+}

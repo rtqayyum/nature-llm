@@ -85,6 +85,13 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# Source loss comparison setup failed\n\n'+str(exc)+'\n')
+        elif stage in ('shared-transfer-anchor-review', 'shared-transfer-anchor-probe', 'shared-transfer-anchor-fit', 'shared-transfer-anchor-report'):
+            try:
+                from anchored_transfer_development import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# Anchor development setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-'):
             try:
                 from transfer_worker import dispatch
@@ -310,6 +317,10 @@ def main(argv=None):
             status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
                           training_experiments_completed=int(stage == 'shared-transfer-loss-fit' and args.shell_exit == 0),
                           reason='Paired development comparison of clipped and unclipped source training loss')
+        if stage.startswith('shared-transfer-anchor-'):
+            status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
+                          training_experiments_completed=int(stage == 'shared-transfer-anchor-fit' and args.shell_exit == 0),
+                          reason='Development persistence anchor comparison and S01 review preparation; independent sign-off pending')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}

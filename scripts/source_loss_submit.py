@@ -12,13 +12,13 @@ import source_loss_development as experiment
 
 
 def show(project, state):
-    for key in ('probe', 'fit', 'report'):
+    for key in (('review',) if 'review' in state['jobs'] else ())+('probe', 'fit', 'report'):
         print(key.upper()+'_JOB_ID='+state['jobs'].get(key, 'NOT_SUBMITTED'))
     if state['jobs'].get('report'):
         print('Collection:', project/'results/slurm_jobs'/state['jobs']['report']/'report/SUMMARY.md')
 
 
-def submit(project, code, retry=False):
+def submit(project, code, retry=False, experiment=experiment):
     import slurm_submit as launcher
     from job_notifications import preferences, queued_receipt
 
@@ -29,7 +29,7 @@ def submit(project, code, retry=False):
     settings = preferences(project)
     if not settings:
         raise ValueError('Saved project notification preferences are required')
-    journal = project/'work/source_loss_submissions'/(plan['identity']+'.json')
+    journal = project/'work'/getattr(experiment, 'JOURNAL', 'source_loss_submissions')/(plan['identity']+'.json')
     intent = journal.with_suffix('.intent.json')
     with (project/'work/acquisition.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -43,6 +43,8 @@ def submit(project, code, retry=False):
         steps = [('probe', experiment.PROBE, 'ectt-loss-probe', plan['probes']),
                  ('fit', experiment.FIT, 'ectt-loss-fit', plan['tasks']),
                  ('report', experiment.REPORT, 'ectt-loss-report', None)]
+        if hasattr(experiment, 'submission_steps'):
+            steps = experiment.submission_steps(plan)
 
         def record(receipt):
             directory = project/'results/slurm_jobs'/receipt['job_id']
@@ -57,7 +59,7 @@ def submit(project, code, retry=False):
 
         for receipt in state['receipts'].values():
             record(receipt)
-        if len(jobs) == 3 and not retry:
+        if len(jobs) == len(steps) and not retry:
             show(project, state)
             return 0
         recorded = {p.parent.name for p in (project/'results/slurm_jobs').glob('*/submission.json')
@@ -68,7 +70,7 @@ def submit(project, code, retry=False):
         if active-set(jobs.values()) or (retry and active):
             raise ValueError('Wait for active project jobs: '+', '.join(sorted(active)))
         if retry:
-            if len(jobs) != 3:
+            if len(jobs) != len(steps):
                 raise ValueError('Complete the partial submission before requesting a retry')
             previous = read(project/'results/slurm_jobs'/jobs['report']/'job_status.json')
             if previous['execution_state'] == 'COMPLETED':
@@ -92,7 +94,7 @@ def submit(project, code, retry=False):
             if key == 'fit':
                 command += ['--dependency=afterok:'+jobs['probe'], '--kill-on-invalid-dep=yes']
             if key == 'report':
-                command += ['--dependency=afterany:'+jobs['probe']+':'+jobs['fit']]
+                command += ['--dependency=afterany:'+':'.join(jobs.values())]
             command += [str(project/'Batch')]
             env = {**os.environ, 'TRAFFIC_CODE_DIR': str(code), 'TRAFFIC_STAGE': stage}
             write(intent, {'key': key, 'command': command, 'created_utc': timestamp()})
@@ -123,8 +125,8 @@ def submit(project, code, retry=False):
         return 0
 
 
-def summarize(project, job_id, submission, command):
-    print('Paired development source loss array', job_id, submission['stage'])
+def summarize(project, job_id, submission, command, experiment=experiment):
+    print('Development transfer array', job_id, submission['stage'])
     for cmd in (['squeue', '--jobs', job_id, '--array', '--noheader', '--format=%i|%T|%R'],
                 ['sacct', '-j', job_id, '--parsable2', '--noheader',
                  '--format=JobID,State,ExitCode,Elapsed,MaxRSS,Reason']):
@@ -135,5 +137,5 @@ def summarize(project, job_id, submission, command):
         progress = read(report) if report.exists() else {}
         print(f'{job_id}_{index}', task['family'], task['dataset'], task['arm'], task['seed'],
               progress.get('phase', 'QUEUED_OR_SETUP'), progress.get('optimizer_step', 0), progress.get('error', ''))
-    state = read(project/'work/source_loss_submissions'/(submission['matrix_identity']+'.json'))
+    state = read(project/'work'/getattr(experiment, 'JOURNAL', 'source_loss_submissions')/(submission['matrix_identity']+'.json'))
     show(project, state)

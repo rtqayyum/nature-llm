@@ -363,3 +363,14 @@ source validation. Use PEMS08/Beijing, seeds 11/22/33, B03/B04 and 5% target
 budget. Queue four recovery probes, 24 complete source-plus-target fit
 tasks with a maximum of four GPUs, and the dependent CPU collection in
 one command. Preserve the original matrix and avoid verification scoring.
+
+The user reports collection 1116448 verified 24/24 loss-development cases.
+Seven of twelve unclipped pairs improved but all twelve still lost to local.
+The next authorized development unit is shared-transfer-anchor-development,
+defined in research/ANCHORED_TRANSFER_DEVELOPMENT_V1.md. Test the persistence
+skip connection with matched zero-head initialization, identical last-value
+residual features, unclipped source training and clipped validation. Queue
+four recovery probes, 24 source-plus-target fits (four GPUs maximum), a CPU
+S01 review packet in parallel, and an afterany CPU collector. Preserve all
+old scientific contracts and stores. Preparation and internal synthetic tests
+cannot clear independent S01 review or authorize real verification scoring.
