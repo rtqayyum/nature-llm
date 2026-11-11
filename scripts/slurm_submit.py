@@ -22,6 +22,7 @@ import source_loss_development as source_loss
 import anchored_transfer_development as anchor
 import verification_pilot as method
 import verification_pilot_candidate_audit as candidate_audit
+import verification_pilot_exploratory as exploratory
 
 
 GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE, transfer_parallel.GPU)+transfer_plan.GPU_STAGES+source_loss.GPU_STAGES+anchor.GPU_STAGES+method.GPU_STAGES
@@ -30,7 +31,7 @@ SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
 TRANSFER_STAGES = ('shared-transfer-check',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES+source_loss.STAGES+anchor.STAGES+method.STAGES+(candidate_audit.STAGE,)
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES+source_loss.STAGES+anchor.STAGES+method.STAGES+(candidate_audit.STAGE, exploratory.STAGE)
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -62,7 +63,7 @@ def allocation(stage):
         preflight = stage not in anchor.GPU_STAGES
         key = stage.rsplit('-', 1)[1]
         desired = read_json(Path(__file__).resolve().parents[1]/'config/anchored_transfer_development_v1.json')['resources'][key+'_seconds']
-    if stage == candidate_audit.STAGE:
+    if stage in (candidate_audit.STAGE, exploratory.STAGE):
         preflight, desired = True, 3600
     if stage in method.STAGES:
         preflight = stage not in method.GPU_STAGES
@@ -184,7 +185,7 @@ def main(argv=None):
     if args.stage == method.LAUNCH:
         from source_loss_submit import submit
         return submit(project, code, retry=args.retry_grid, experiment=method)
-    if args.stage == candidate_audit.STAGE:
+    if args.stage in (candidate_audit.STAGE, exploratory.STAGE):
         candidate_audit.admission(project, code)
     if args.stage == method.SCORE:
         from verification_pilot_score import admission
@@ -296,7 +297,8 @@ def main(argv=None):
                     transfer_parallel.CPU: ("ectt-xfer-ci", 5, "8G"),
                     transfer_parallel.GPU: ("ectt-grad-audit", 5, "32G"),
                     method.SCORE: ("ectt-method-score", 5, "8G"),
-                    candidate_audit.STAGE: ("ectt-candidate-audit", 5, "8G")}
+                    candidate_audit.STAGE: ("ectt-candidate-audit", 5, "8G"),
+                    exploratory.STAGE: ("ectt-exploratory-replay", 5, "8G")}
         if args.stage in ECTT_STAGES:
             from ectt_common import load_contract
             _, study_execution = load_contract(code)

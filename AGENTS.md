@@ -391,3 +391,9 @@ unconditional forecast accuracy on the two development test cohorts. It reads
 only test truth for the diagnostic, uses frozen candidates, and leaves the
 reviewed scorer and the pilot identity intact. Keep formal verifier scoring
 pending independent S01 disposition.
+
+The user asks to proceed with all available work while S01 is pending. The
+separate CPU stage shared-transfer-ectt-exploratory-replay may replay the locked
+policy on the 18 frozen development cases and report descriptive acceptance,
+label use and test harm. Preserve the reviewed scorer, frozen artifacts and
+pending independent review status. See research/VERIFICATION_PILOT_INTERNAL_REVIEW.md.
