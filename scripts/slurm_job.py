@@ -92,6 +92,13 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# Anchor development setup failed\n\n'+str(exc)+'\n')
+        elif stage == 'shared-transfer-ectt-candidate-audit':
+            try:
+                from verification_pilot_candidate_audit import dispatch
+                result = dispatch(root, code, report)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# Candidate audit setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-ectt-'):
             try:
                 from verification_pilot import dispatch

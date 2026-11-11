@@ -384,3 +384,10 @@ scorer packet is reviewed. Preserve the S01 requirement for access to real
 verification and test truth in the new scoring stage. Publish the tested
 revision and give the commands for both preparation and reviewed scoring.
 The held-out expansion follows review of the completed development results.
+
+Collector 2992399 verified all 18 frozen pilot cases. S01 approval remains
+pending. The CPU stage shared-transfer-ectt-candidate-audit can describe
+unconditional forecast accuracy on the two development test cohorts. It reads
+only test truth for the diagnostic, uses frozen candidates, and leaves the
+reviewed scorer and the pilot identity intact. Keep formal verifier scoring
+pending independent S01 disposition.
