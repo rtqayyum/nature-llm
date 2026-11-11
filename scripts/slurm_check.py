@@ -66,6 +66,11 @@ def main():
         import anchored_transfer_development as anchor
         summarize(project, job_id, submission, command, experiment=anchor)
         return
+    if submission.get('stage') in ('shared-transfer-ectt-probe', 'shared-transfer-ectt-fit') and 'array_job_id' not in submission:
+        from source_loss_submit import summarize
+        import verification_pilot as method
+        summarize(project, job_id, submission, command, experiment=method)
+        return
     if submission.get('stage', '').startswith('shared-transfer-') and 'array_tasks' in submission and 'array_job_id' not in submission:
         from transfer_submit import summarize
         summarize(project, job_id, submission, command)

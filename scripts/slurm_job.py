@@ -92,6 +92,13 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# Anchor development setup failed\n\n'+str(exc)+'\n')
+        elif stage.startswith('shared-transfer-ectt-'):
+            try:
+                from verification_pilot import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# ECTT pilot setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-'):
             try:
                 from transfer_worker import dispatch
@@ -321,6 +328,12 @@ def main(argv=None):
             status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
                           training_experiments_completed=int(stage == 'shared-transfer-anchor-fit' and args.shell_exit == 0),
                           reason='Development persistence anchor comparison and S01 review preparation; independent sign-off pending')
+        if stage.startswith('shared-transfer-ectt-'):
+            status.update(diagnostic_cases_checked=result.get('diagnostic_cases_checked', 0),
+                          training_experiments_completed=int(stage == 'shared-transfer-ectt-fit' and args.shell_exit == 0),
+                          method_evaluated=result.get('method_evaluated', False),
+                          S01_independent_review=result.get('S01_independent_review', 'PENDING'),
+                          reason='Matched ECTT development pilot')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}

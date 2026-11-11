@@ -374,3 +374,13 @@ four recovery probes, 24 source-plus-target fits (four GPUs maximum), a CPU
 S01 review packet in parallel, and an afterany CPU collector. Preserve all
 old scientific contracts and stores. Preparation and internal synthetic tests
 cannot clear independent S01 review or authorize real verification scoring.
+
+Anchor collection 2773172 verified all 24 fits. The user authorizes the full
+matched ECTT development pilot described in research/VERIFICATION_TRAINING_PILOT_V1.md.
+Use anchored GPT-2 on both development targets and three seeds with the
+suffix MAE, label-matched prefix MAE, and verification-margin objectives.
+Start source training and frozen target-candidate preparation while the exact
+scorer packet is reviewed. Preserve the S01 requirement for access to real
+verification and test truth in the new scoring stage. Publish the tested
+revision and give the commands for both preparation and reviewed scoring.
+The held-out expansion follows review of the completed development results.

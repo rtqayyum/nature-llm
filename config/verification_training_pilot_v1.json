@@ -1,0 +1,19 @@
+{
+  "schema": "VERIFICATION_TRAINING_PILOT_V1",
+  "family": "B03",
+  "anchor": "persistence_residual",
+  "arms": ["suffix_mae", "prefix_mae", "verification_margin"],
+  "development_targets": ["pems08", "bj"],
+  "seeds": [11, 22, 33],
+  "budget": "0.05",
+  "predecessor_report_job": "2773172",
+  "predecessor_commit": "55bb3a73cd53b3f405edbbdf33482c2d329059ec",
+  "maximum_concurrent_gpu_tasks": 4,
+  "resources": {
+    "review_seconds": 3600,
+    "probe_seconds": 7200,
+    "fit_seconds": 172800,
+    "report_seconds": 3600,
+    "score_seconds": 3600
+  }
+}
