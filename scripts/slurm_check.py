@@ -66,6 +66,11 @@ def main():
         import anchored_transfer_development as anchor
         summarize(project, job_id, submission, command, experiment=anchor)
         return
+    if submission.get('stage') == 'shared-transfer-ectt-window-fit' and 'array_job_id' not in submission:
+        from source_loss_submit import summarize
+        import verification_window_campaign as campaign
+        summarize(project, job_id, submission, command, experiment=campaign)
+        return
     if submission.get('stage') in ('shared-transfer-ectt-probe', 'shared-transfer-ectt-fit') and 'array_job_id' not in submission:
         from source_loss_submit import summarize
         import verification_pilot as method

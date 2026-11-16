@@ -397,3 +397,8 @@ separate CPU stage shared-transfer-ectt-exploratory-replay may replay the locked
 policy on the 18 frozen development cases and report descriptive acceptance,
 label use and test harm. Preserve the reviewed scorer, frozen artifacts and
 pending independent review status. See research/VERIFICATION_PILOT_INTERNAL_REVIEW.md.
+
+The user authorizes a batched ECTT window experiment on HPC. Use
+shared-transfer-ectt-window-campaign to schedule the preflight, 24 GPU tasks,
+and the CPU collector. Record the exploratory scope and report all matched
+controls. See research/VERIFICATION_WINDOW_CAMPAIGN.md.

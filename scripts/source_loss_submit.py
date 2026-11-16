@@ -135,7 +135,8 @@ def summarize(project, job_id, submission, command, experiment=experiment):
     for index, task in enumerate(submission['array_tasks']):
         report = project/'results/slurm_jobs'/f'{job_id}_{index}'/'report/transfer_progress.json'
         progress = read(report) if report.exists() else {}
-        print(f'{job_id}_{index}', task['family'], task['dataset'], task['arm'], task['seed'],
+        window = [f"window={task['window']}"] if 'window' in task else []
+        print(f'{job_id}_{index}', task['family'], task['dataset'], *window, task['arm'], task['seed'],
               progress.get('phase', 'QUEUED_OR_SETUP'), progress.get('optimizer_step', 0), progress.get('error', ''))
     state = read(project/'work'/getattr(experiment, 'JOURNAL', 'source_loss_submissions')/(submission['matrix_identity']+'.json'))
     show(project, state)

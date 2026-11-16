@@ -106,6 +106,13 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# Exploratory replay setup failed\n\n'+str(exc)+'\n')
+        elif stage in ('shared-transfer-ectt-window-probe', 'shared-transfer-ectt-window-fit', 'shared-transfer-ectt-window-report'):
+            try:
+                from verification_window_campaign import dispatch
+                result = dispatch(root, code, report, stage)
+            except Exception as exc:
+                result = 2
+                (report/'SUMMARY.md').write_text('# ECTT window setup failed\n\n'+str(exc)+'\n')
         elif stage.startswith('shared-transfer-ectt-'):
             try:
                 from verification_pilot import dispatch
