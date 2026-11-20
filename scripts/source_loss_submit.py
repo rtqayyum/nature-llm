@@ -2,6 +2,7 @@
 import fcntl
 import json
 import os
+import re
 import shutil
 import subprocess
 
@@ -22,6 +23,9 @@ def submit(project, code, retry=False, experiment=experiment):
     import slurm_submit as launcher
     from job_notifications import preferences, queued_receipt
 
+    excluded = os.environ.get('TRAFFIC_EXCLUDE_NODES', '').strip()
+    if excluded and not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*(?:,[A-Za-z0-9][A-Za-z0-9_.-]*)*', excluded):
+        raise ValueError('TRAFFIC_EXCLUDE_NODES must be a comma-separated list of node names')
     plan = experiment.foundation(project, code)
     launcher.prepare(project, code)
     if not shutil.which('sbatch'):
@@ -88,6 +92,8 @@ def submit(project, code, retry=False, experiment=experiment):
             command = ['sbatch', '--parsable', '--job-name='+name, '--partition='+partition,
                        '--cpus-per-task=5', '--mem='+('32G' if gpu else '8G'), '--time='+clock(seconds),
                        '--export=ALL', '--mail-user='+settings['mail_user'], '--mail-type='+settings['mail_type']]
+            if gpu and excluded:
+                command.append('--exclude='+excluded)
             if tasks:
                 command += ['--gres=gpu:1', f"--array=0-{len(tasks)-1}%{plan['recipe']['maximum_concurrent_gpu_tasks']}",
                             '--output='+str(project/'logs/%x_%A_%a.out'), '--error='+str(project/'logs/%x_%A_%a.err')]
@@ -109,7 +115,8 @@ def submit(project, code, retry=False, experiment=experiment):
             receipt = {'project': str(project), 'job_id': job_id, 'stage': stage, 'job_name': name,
                        'code': str(code), 'partition': partition, 'cpus': 5, 'gpus': int(gpu),
                        'time_limit': clock(seconds), 'command': command, 'partition_evidence': policy,
-                       'submitted_utc': timestamp(), 'matrix_identity': plan['identity'], 'notifications': settings}
+                       'submitted_utc': timestamp(), 'matrix_identity': plan['identity'], 'notifications': settings,
+                       'excluded_nodes': excluded.split(',') if gpu and excluded else []}
             if tasks:
                 receipt['array_tasks'] = tasks
             state['receipts'][key] = receipt

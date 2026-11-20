@@ -44,3 +44,25 @@ transfer across the test block. Every other case uses the local comparator.
 Report test MAE, RMSE and WMAPE, the support and verification labels consumed,
 and useful and harmful acceptances. Failed tasks are listed in the collector
 report. Completed artifacts are reused on compatible retries.
+
+## Recovery from the reported GPU memory errors
+
+The user supplied logs for array 3090916 show uncorrectable CUDA ECC errors
+on gn05 for tasks 12, 16 and 20. The other 21 tasks completed; collector
+3090917 retained their 189 policy replays and reported the missing cases.
+These errors are recorded as execution failures, not scientific outcomes.
+
+For this recovery, set `TRAFFIC_EXCLUDE_NODES=gn05` in the submission
+environment and add `--retry-grid` to the window campaign launch. The
+launcher passes an explicit `--exclude=gn05` to the GPU array and records
+the excluded nodes in its submission receipts. The variable accepts
+comma-separated node names and applies only to GPU stages submitted by
+this shared batch launcher. It does not configure a permanent exclusion.
+
+The retry queues a new preflight, full 24-task array and collector. Each
+worker checks its existing completion manifest before training: the 21
+verified cases are reused, while incomplete cases resume through the
+existing checkpoint checks. The previous attempt and its reports remain
+available. No worker, objective, data, runtime compatibility rule or verifier
+is changed, so the original campaign identity and result store are retained.
+Actual recovery is established only by the new HPC job results.
