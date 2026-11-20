@@ -24,15 +24,16 @@ import verification_pilot as method
 import verification_pilot_candidate_audit as candidate_audit
 import verification_pilot_exploratory as exploratory
 import verification_window_campaign as window_campaign
+import heldout_candidates as heldout
 
 
-GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE, transfer_parallel.GPU)+transfer_plan.GPU_STAGES+source_loss.GPU_STAGES+anchor.GPU_STAGES+method.GPU_STAGES+window_campaign.GPU_STAGES
+GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE, transfer_parallel.GPU)+transfer_plan.GPU_STAGES+source_loss.GPU_STAGES+anchor.GPU_STAGES+method.GPU_STAGES+window_campaign.GPU_STAGES+heldout.GPU_STAGES
 ECTT_STAGES = ("ectt-preflight", "ectt-stat-check", "ectt-gpu-pilot", "ectt-next")
 SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
 TRANSFER_STAGES = ('shared-transfer-check',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES+source_loss.STAGES+anchor.STAGES+method.STAGES+window_campaign.STAGES+(candidate_audit.STAGE, exploratory.STAGE)
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES+source_loss.STAGES+anchor.STAGES+method.STAGES+window_campaign.STAGES+heldout.STAGES+(candidate_audit.STAGE, exploratory.STAGE)
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -69,6 +70,9 @@ def allocation(stage):
     if stage in window_campaign.STAGES:
         preflight = stage not in window_campaign.GPU_STAGES
         desired = 3600 if preflight else 2*3600
+    if stage in heldout.STAGES:
+        preflight = stage != heldout.FIT
+        desired = 3600 if preflight else 48*3600
     if stage in method.STAGES:
         preflight = stage not in method.GPU_STAGES
         key = stage.rsplit('-', 1)[1]
@@ -175,7 +179,7 @@ def main(argv=None):
     parser.add_argument("--code", type=Path, required=True)
     parser.add_argument("--handoff", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
-    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"]+list(STUDY_STAGES)+[transfer_plan.LAUNCH, source_loss.LAUNCH, anchor.LAUNCH, method.LAUNCH, window_campaign.LAUNCH], default="acquire")
+    parser.add_argument("--stage", choices=["acquire", "pems08-audit", "pems08-infer", "beijing-infer", "public8-infer", "release-diagnose", "source-inspect", "causality-audit", "gpu-smoke", "reference-train3", "baseline-rescore", "causal-train3", "reproduction-review"]+list(STUDY_STAGES)+[transfer_plan.LAUNCH, source_loss.LAUNCH, anchor.LAUNCH, method.LAUNCH, window_campaign.LAUNCH, heldout.LAUNCH], default="acquire")
     parser.add_argument("--source-array", help="Recorded reference-training array to rescore without retraining")
     parser.add_argument('--retry-grid', action='store_true', help='Explicitly submit a new compact array after the previous batch ended; reuse compatible completed cases/checkpoints')
     args = parser.parse_args(argv)
@@ -184,8 +188,13 @@ def main(argv=None):
     if args.source_array and args.stage != "baseline-rescore":
         parser.error("--source-array is only valid with baseline-rescore")
     project, code = args.project.resolve(), args.code.resolve()
-    if args.retry_grid and args.stage not in ('shared-compact-baselines', transfer_plan.LAUNCH, source_loss.LAUNCH, anchor.LAUNCH, method.LAUNCH, window_campaign.LAUNCH):
+    if args.retry_grid and args.stage not in ('shared-compact-baselines', transfer_plan.LAUNCH, source_loss.LAUNCH, anchor.LAUNCH, method.LAUNCH, window_campaign.LAUNCH, heldout.LAUNCH):
         parser.error('--retry-grid is only valid with a compact or transfer batch')
+    if args.stage == heldout.LAUNCH:
+        from source_loss_submit import submit
+        return submit(project, code, retry=args.retry_grid, experiment=heldout)
+    if args.stage in heldout.STAGES:
+        parser.error('Submit the held-out batch through --stage '+heldout.LAUNCH)
     if args.stage == window_campaign.LAUNCH:
         from source_loss_submit import submit
         return submit(project, code, retry=args.retry_grid, experiment=window_campaign)

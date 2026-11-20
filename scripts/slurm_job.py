@@ -113,6 +113,9 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# ECTT window setup failed\n\n'+str(exc)+'\n')
+        elif stage.startswith('shared-transfer-ectt-heldout-'):
+            from heldout_candidates import dispatch
+            result = dispatch(root, code, report, stage)
         elif stage.startswith('shared-transfer-ectt-'):
             try:
                 from verification_pilot import dispatch
@@ -355,6 +358,9 @@ def main(argv=None):
                           method_evaluated=result.get('method_evaluated', False),
                           S01_independent_review=result.get('S01_independent_review', 'PENDING'),
                           reason='Matched ECTT development pilot')
+        if stage.startswith('shared-transfer-ectt-heldout-'):
+            status.update(training_experiments_completed=result.get('frozen_cases', 0),
+                          reason='Matched held-out GPT-2 candidate preparation; formal scoring pending')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
         path = report/('compact_grid_result.json' if stage == 'shared-compact-report' else 'compact_result.json')
         result = json.loads(path.read_text()) if path.exists() else {}
