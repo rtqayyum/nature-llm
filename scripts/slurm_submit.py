@@ -25,6 +25,7 @@ import verification_pilot_candidate_audit as candidate_audit
 import verification_pilot_exploratory as exploratory
 import verification_window_campaign as window_campaign
 import heldout_candidates as heldout
+import heldout_score
 
 
 GPU_STAGES = ("gpu-smoke", "reference-train3", "causal-train3", "ectt-gpu-pilot", "shared-compact-pilot", "shared-compact-baselines", "shared-transfer-check", transfer_attribution.STAGE, transfer_parallel.GPU)+transfer_plan.GPU_STAGES+source_loss.GPU_STAGES+anchor.GPU_STAGES+method.GPU_STAGES+window_campaign.GPU_STAGES+heldout.GPU_STAGES
@@ -33,7 +34,7 @@ SHARED_STAGES = ('shared-local-baselines',)
 COMPACT_STAGES = ('shared-compact-pilot',)
 GRID_STAGES = ('shared-compact-baselines', 'shared-compact-report')
 TRANSFER_STAGES = ('shared-transfer-check',)
-STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES+source_loss.STAGES+anchor.STAGES+method.STAGES+window_campaign.STAGES+heldout.STAGES+(candidate_audit.STAGE, exploratory.STAGE)
+STUDY_STAGES = ECTT_STAGES+SHARED_STAGES+COMPACT_STAGES+GRID_STAGES+TRANSFER_STAGES+transfer_plan.STAGES+(transfer_diagnostics.STAGE, transfer_attribution.STAGE)+transfer_parallel.STAGES+source_loss.STAGES+anchor.STAGES+method.STAGES+window_campaign.STAGES+heldout.STAGES+(candidate_audit.STAGE, exploratory.STAGE, heldout_score.STAGE)
 
 ROOT = Path("/home/tariq.qayyum/nature-llm")
 
@@ -65,7 +66,7 @@ def allocation(stage):
         preflight = stage not in anchor.GPU_STAGES
         key = stage.rsplit('-', 1)[1]
         desired = read_json(Path(__file__).resolve().parents[1]/'config/anchored_transfer_development_v1.json')['resources'][key+'_seconds']
-    if stage in (candidate_audit.STAGE, exploratory.STAGE):
+    if stage in (candidate_audit.STAGE, exploratory.STAGE, heldout_score.STAGE):
         preflight, desired = True, 3600
     if stage in window_campaign.STAGES:
         preflight = stage not in window_campaign.GPU_STAGES
@@ -190,6 +191,9 @@ def main(argv=None):
     project, code = args.project.resolve(), args.code.resolve()
     if args.retry_grid and args.stage not in ('shared-compact-baselines', transfer_plan.LAUNCH, source_loss.LAUNCH, anchor.LAUNCH, method.LAUNCH, window_campaign.LAUNCH, heldout.LAUNCH):
         parser.error('--retry-grid is only valid with a compact or transfer batch')
+    if args.stage == heldout_score.STAGE:
+        manifest, _, _, _ = heldout_score.review_inputs(project, code)
+        heldout_score.admission(project, manifest)
     if args.stage == heldout.LAUNCH:
         from source_loss_submit import submit
         return submit(project, code, retry=args.retry_grid, experiment=heldout)
@@ -315,6 +319,7 @@ def main(argv=None):
                     transfer_parallel.CPU: ("ectt-xfer-ci", 5, "8G"),
                     transfer_parallel.GPU: ("ectt-grad-audit", 5, "32G"),
                     method.SCORE: ("ectt-method-score", 5, "8G"),
+                    heldout_score.STAGE: ("ectt-hold-score", 5, "8G"),
                     candidate_audit.STAGE: ("ectt-candidate-audit", 5, "8G"),
                     exploratory.STAGE: ("ectt-exploratory-replay", 5, "8G")}
         if args.stage in ECTT_STAGES:

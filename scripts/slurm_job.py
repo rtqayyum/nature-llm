@@ -113,6 +113,9 @@ def main(argv=None):
             except Exception as exc:
                 result = 2
                 (report/'SUMMARY.md').write_text('# ECTT window setup failed\n\n'+str(exc)+'\n')
+        elif stage == 'shared-transfer-ectt-heldout-score':
+            from heldout_score import dispatch
+            result = dispatch(root, code, report)
         elif stage.startswith('shared-transfer-ectt-heldout-'):
             from heldout_candidates import dispatch
             result = dispatch(root, code, report, stage)
@@ -358,7 +361,11 @@ def main(argv=None):
                           method_evaluated=result.get('method_evaluated', False),
                           S01_independent_review=result.get('S01_independent_review', 'PENDING'),
                           reason='Matched ECTT development pilot')
-        if stage.startswith('shared-transfer-ectt-heldout-'):
+        if stage == 'shared-transfer-ectt-heldout-score':
+            status.update(frozen_candidates_scored=result.get('frozen_candidates_scored', 0),
+                          policy_comparisons=result.get('policy_comparisons', 0),
+                          reason='Held-out GPT-2 scoring under independent S01 review')
+        elif stage.startswith('shared-transfer-ectt-heldout-'):
             status.update(training_experiments_completed=result.get('frozen_cases', 0),
                           reason='Matched held-out GPT-2 candidate preparation; formal scoring pending')
     if stage in ('shared-compact-baselines', 'shared-compact-report'):
