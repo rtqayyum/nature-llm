@@ -73,6 +73,8 @@ class HeldoutScoringTests(unittest.TestCase):
             archive = scoring.build_packet(self.project, CODE)
             with tarfile.open(archive) as tar:
                 self.assertIn('S01/scripts/heldout_score.py', tar.getnames())
+                self.assertIn('S01/scripts/heldout_thresholds.py', tar.getnames())
+                self.assertIn('S01/tests/test_heldout_thresholds.py', tar.getnames())
                 self.assertFalse(any(name.endswith('.npz') for name in tar.getnames()))
                 self.assertIn('S01/disposition_template.json', tar.getnames())
             with self.assertRaisesRegex(ValueError, 'pending'):
@@ -80,6 +82,12 @@ class HeldoutScoringTests(unittest.TestCase):
             path = scoring.approval_path(self.project, manifest)
             write(path, {**manifest, 'status':'APPROVED', 'reviewer':'test', 'date':'fixture', 'disposition':'fixture',
                          'independent_review_complete':True, 'inventory_sha256':'other'})
+            with self.assertRaisesRegex(ValueError, 'does not approve'):
+                scoring.score(self.project, CODE, self.report)
+            old_hashes = dict(manifest['reviewed_hashes'])
+            del old_hashes['scripts/heldout_thresholds.py']
+            stale = {**read(path), 'inventory_sha256': manifest['inventory_sha256'], 'reviewed_hashes': old_hashes}
+            write(path, stale)
             with self.assertRaisesRegex(ValueError, 'does not approve'):
                 scoring.score(self.project, CODE, self.report)
             inv = read(self.inventory)

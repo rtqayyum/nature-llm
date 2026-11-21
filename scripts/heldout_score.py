@@ -24,7 +24,8 @@ STAGE = 'shared-transfer-ectt-heldout-score'
 RULES = (*candidates.windows.RULES, candidates.TWO_THIRDS)
 COLLECTION = '3100396'
 PREFLIGHT = '3100394'
-EXTRA = ('scripts/heldout_score.py', 'scripts/transfer_parallel.py', 'scripts/slurm_job.py',
+EXTRA = ('scripts/heldout_score.py', 'scripts/heldout_thresholds.py', 'tests/test_heldout_thresholds.py',
+         'research/HELDOUT_S01_INTERNAL_REVIEW.md', 'scripts/transfer_parallel.py', 'scripts/slurm_job.py',
          'scripts/slurm_submit.py', 'scripts/ectt_env.py', 'config/ectt_gpu_requirements.txt',
          'tests/test_heldout_score.py', 'research/HELDOUT_S01_HANDOFF.md')
 
@@ -131,6 +132,7 @@ def checked_case(record, identity, contract):
 
 def decisions_for(meta, prefix, raw, contract):
     import numpy as np
+    from heldout_thresholds import replay
 
     start, end = meta['verification_targets']
     origins = np.arange(start, end)
@@ -152,8 +154,8 @@ def decisions_for(meta, prefix, raw, contract):
                 raise ValueError('Invalid verification label')
             return truth
 
-        decision = candidates.policy_decision(rule, origins, prefix['local'], prefix['transfer'],
-                                             meta['support_scale'], matured, settings)
+        decision = replay(rule, origins, prefix['local'], prefix['transfer'],
+                          meta['support_scale'], matured, settings, limit)
         n = next_row-start
         if (n != decision['verification_origins_read'] or len(decision['trace']) != n
                 or (not decision['accepted'] and n != limit)):
@@ -280,6 +282,7 @@ def write_summary(path, comparison, case_count):
     lines += ['', 'Margin minus prefix macro relative MAE under the primary rule = '+str(effect['relative_MAE']),
               'Descriptive 95% paired interval at 144 rows per block = '+str(effect['relative_MAE_intervals']['144']),
               'Per-case accuracy, harm and label counts are in metrics.csv. Domain summaries and paired differences are in comparison.json.',
+              'Verification rows count labels consulted by the rule. Later observations can still enter forecast inputs.',
               'Bike and taxi share a source fold. Domain counts and intervals refer to this ordered-row benchmark.']
     path.write_text('\n'.join(lines)+'\n')
 
