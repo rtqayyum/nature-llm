@@ -2,6 +2,8 @@
 
 **Last verified 23 November 2026.** Target: a measured six-domain result and an evidence-backed *Nature Communications* submission decision within 48 hours of cluster access. [Campaign plan](SPRINT_PLAN.md) · [Statistical review](SPRINT_STATISTICAL_REVIEW.md) · [Working manuscript](../paper/traffic_transfer_draft.md)
 
+**New direction under consideration, 23 November.** The proposed two-day NYC pilot asks whether station roles in service notices improve next-hour subway and bike forecasts. It also specifies a direct Qwen preprocessing experiment for the original benchmark. Data sources and prior work have been reviewed. The new pilot has no forecast results yet. [Research question, controls and decision rule](MULTIMODAL_FORECASTING_DIRECTIONS_20261123.md)
+
 | Milestone | Evidence presently available | Status |
 |---|---|---|
 | Public reference assessment | 37 verified assets, eight evaluated checkpoints, five domains matched the three published S1 metrics at displayed precision. Six fresh single-domain fits. | Partial reproduction completed |
