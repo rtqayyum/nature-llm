@@ -1,8 +1,10 @@
 # Traffic-transfer publication progress
 
-**Last verified 23 November 2026.** Target: a measured six-domain result and an evidence-backed *Nature Communications* submission decision within 48 hours of cluster access. [Campaign plan](SPRINT_PLAN.md) · [Statistical review](SPRINT_STATISTICAL_REVIEW.md) · [Working manuscript](../paper/traffic_transfer_draft.md)
+**Last verified 23 November 2026.** The six-domain transfer campaign is complete at the accuracy printed in its Slurm report. The journal decision follows the evidence, with no fixed 48-hour project deadline. [Original campaign plan](SPRINT_PLAN.md) · [Statistical review](SPRINT_STATISTICAL_REVIEW.md) · [Working transfer manuscript](../paper/traffic_transfer_draft.md)
 
-**New direction under consideration, 23 November.** The proposed two-day NYC pilot asks whether station roles in service notices improve next-hour subway and bike forecasts. It also specifies a direct Qwen preprocessing experiment for the original benchmark. Data sources and prior work have been reviewed. The new pilot has no forecast results yet. [Research question, controls and decision rule](MULTIMODAL_FORECASTING_DIRECTIONS_20261123.md)
+**Research direction.** Forecast next-hour subway entries and nearby bike departures from the station roles in the first public disruption notice. NYC source records inspected include a ten-minute revision changing an express endpoint under the same line and status. MBTA and Bluebikes documentation supports qualifying Boston as a replication candidate. The next deliverable links original alert versions, period-correct stations, bike docks and hourly outcomes, and reports coverage and missingness. No new forecast scores are available. [Study milestones, verified examples, controls and decision criteria](MULTIMODAL_FORECASTING_DIRECTIONS_20261123.md)
+
+## Completed transfer campaign
 
 | Milestone | Evidence presently available | Status |
 |---|---|---|

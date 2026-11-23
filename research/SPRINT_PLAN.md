@@ -1,5 +1,7 @@
 # A 48-hour plan for the traffic-transfer paper
 
+*Historical campaign plan. Its timing applied to job 3111109. The current forecasting research has an evidence-based publication decision and a flexible timeline.* [Current study](MULTIMODAL_FORECASTING_DIRECTIONS_20261123.md)
+
 **Goal for 23–25 November 2026.** Finish a reproducible six-domain test of when cross-city traffic forecasts help, prepare the corresponding manuscript and make a journal-readiness decision from the measured effects. The delivery clock starts with access to the private forecast store. Publication in *Nature Communications* is the journal target. Editorial review and acceptance have their own timeline.
 
 ## Research question
