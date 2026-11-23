@@ -20,3 +20,16 @@
 - 23 November: recomputed development outcomes from job 3100357. On four Beijing windows the full-window empirical rule with margin training averaged 47.536 versus 50.435 local MAE (5.75% lower); ordinary suffix training with the same rule reached 47.372 (6.07% lower). All PEMS08 choices remained local. These results support running a matched attribution test, not selecting an overall winner. [Sanitized development scores](../results/development/window_scores.csv)
 
 Next evidence to record: actual Slurm job ID, state, run revision, final case counts, primary paired effect, amended-policy performance, harm, cost, common-row coverage and any failures. Update this page at each verified change. The project owner has authorized recurring updates over the 48-hour window.
+
+## Run or check the campaign
+
+The frozen experiment code is [a9ed0d7](https://github.com/rtqayyum/nature-llm/commit/a9ed0d77145c94d27f38f2c71c08642553738047). A later documentation update can safely coexist with this immutable run identity. Paste the following block on the UAEU HPC. It requests one CPU job and prints its log and aggregate report paths. Running it again reports an existing job, completed archive, or a retry after a recorded failure.
+
+```bash
+module load slurm && cd /home/tariq.qayyum/nature-llm && \
+rev=a9ed0d77145c94d27f38f2c71c08642553738047 && \
+python3 work/code_versions/a99dae5b0644ac5baa7f9c7f3fe29b1ea21631c7/scripts/bootstrap_hpc.py --project "$PWD" --revision "$rev" --sync-only && \
+python3 "work/code_versions/$rev/scripts/submit_traffic_campaign.py" --project "$PWD"
+```
+
+The aggregate report includes the held-out tables and a populated working manuscript. The figure script also renders the secondary paired-effect plot from that report. [Download the full research plan as a PDF](traffic_transfer_research_plan.pdf).
