@@ -1,0 +1,6 @@
+event_id,first_alert,issue_local,target_start_local,target_end_local,routes,mention,role,complex_id,station_complex,fare_rows,reported_entries,docks,recorded_bike_departures,city_file_departures,city_missing_dock_id,city_unknown_dock,city_outside_radius,duplicate_target_rows
+262272,537101,2026-08-08T02:50:00-04:00,2026-08-08T03:00:00-04:00,2026-08-08T04:00:00-04:00,N | Q,Canal St,express segment start,623,"Canal St (6,J,Z,N,Q,R,W)",6,80,5,12,1368,1,1,272,0
+262324,537221,2026-08-08T19:06:00-04:00,2026-08-08T20:00:00-04:00,2026-08-08T21:00:00-04:00,7,74 St-Broadway,express segment end,616,"Jackson Hts-Roosevelt Av/74 St-Broadway (7,E,F,M,R)",7,1565,7,13,9591,9,2,2258,0
+262344,537271,2026-08-09T05:31:00-04:00,2026-08-09T06:00:00-04:00,2026-08-09T07:00:00-04:00,A,Canal St,express segment start,169,"Canal St (A,C,E)",6,50,2,0,1325,1,1,380,0
+262675,537949,2026-08-11T12:18:00-04:00,2026-08-11T13:00:00-04:00,2026-08-11T14:00:00-04:00,F,Church Av,express segment end,243,"Church Av (F,G)",7,277,8,7,8002,5,8,1529,0
+262722,538076,2026-08-11T19:34:00-04:00,2026-08-11T20:00:00-04:00,2026-08-11T21:00:00-04:00,Q,72 St,reported brake activation,477,72 St (Q),5,816,6,60,9939,11,13,2162,0

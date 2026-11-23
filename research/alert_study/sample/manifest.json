@@ -1,0 +1,77 @@
+{
+  "docks_within_500m": 1580,
+  "preperiod_complexes": 424,
+  "preperiod_docks": 2289,
+  "sources": {
+    "08": {
+      "bytes": 48684,
+      "sha256": "3e68a3de1e2ec0091d4e203971cfe4c6934975dce59f6da44741f5d6b976f7ad",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=distinct+station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&transit_mode=subway&transit_timestamp=2026-08-06T08%3A00%3A00&%24order=station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&%24limit=5000"
+    },
+    "17": {
+      "bytes": 48577,
+      "sha256": "c4b31d9d759aec9ee7f4450315350d82826d3a68bbd7c302e172040e96c8ee37",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=distinct+station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&transit_mode=subway&transit_timestamp=2026-08-06T17%3A00%3A00&%24order=station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&%24limit=5000"
+    },
+    "262272": {
+      "bytes": 743,
+      "sha256": "a493e88cbd19894f7128d8050fc318694be0e49b484c16cb98a5f5d02ed17b2a",
+      "url": "https://data.ny.gov/resource/7kct-peq7.json?event_id=262272"
+    },
+    "262324": {
+      "bytes": 894,
+      "sha256": "6d525fa9ca9e79797178f19a3287365f05b13f76438014d386c39b71c572fd57",
+      "url": "https://data.ny.gov/resource/7kct-peq7.json?event_id=262324"
+    },
+    "262344": {
+      "bytes": 2022,
+      "sha256": "9a24620ddaaab9f172df05b679ba27a591482e748c40a1194894513b49953156",
+      "url": "https://data.ny.gov/resource/7kct-peq7.json?event_id=262344"
+    },
+    "262675": {
+      "bytes": 975,
+      "sha256": "fb9f57563e367421d2bb3d4718c25168e34d2410c672bd9e4af6ce07b3bc7b6b",
+      "url": "https://data.ny.gov/resource/7kct-peq7.json?event_id=262675"
+    },
+    "262722": {
+      "bytes": 845,
+      "sha256": "4eace3388e7b83905cbb6a04553aed8559ce680648a2eeac5cf535dbbe582a90",
+      "url": "https://data.ny.gov/resource/7kct-peq7.json?event_id=262722"
+    },
+    "aug.zip": {
+      "bytes": 1024034405,
+      "sha256": "048ecc43853b2c3a8855a3ed22b177fd110318e3df9478b4b6d018e960215610",
+      "url": "https://s3.amazonaws.com/tripdata/202608-citibike-tripdata.zip"
+    },
+    "clock538013": {
+      "bytes": 712,
+      "sha256": "31db6994575423db923e724ae18f34935f80c305152fa7d6c0ad3585faf73726",
+      "url": "https://data.ny.gov/resource/7kct-peq7.json?alert_id=538013"
+    },
+    "rail262272": {
+      "bytes": 2288,
+      "sha256": "70ce09b5589866b312e314896df8cc50e8f67883953daa507e8f05f5ada30902",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-08-08T03%3A00%3A00&station_complex_id=623&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+    },
+    "rail262324": {
+      "bytes": 2908,
+      "sha256": "3159a17e881c95821c4191bffaa36ad0d9b943a187b492e22d836e65f3414a90",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-08-08T20%3A00%3A00&station_complex_id=616&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+    },
+    "rail262344": {
+      "bytes": 2276,
+      "sha256": "6789009ac9c8cb2b2aae98c4fb10f8a94c6d9aeaef0c789dd61f10fdba6d5d90",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-08-09T06%3A00%3A00&station_complex_id=169&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+    },
+    "rail262675": {
+      "bytes": 2639,
+      "sha256": "90275107b223cfd6b645ff301c3ddd93edc08b5fcba21b9be24578d700690755",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-08-11T13%3A00%3A00&station_complex_id=243&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+    },
+    "rail262722": {
+      "bytes": 1833,
+      "sha256": "6248b70830fd17e7738cb9cdee90562277fa55f9c78c72930c65e56e05dec747",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-08-11T20%3A00%3A00&station_complex_id=477&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+    }
+  }
+}

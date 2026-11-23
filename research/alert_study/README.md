@@ -1,0 +1,30 @@
+# Five first-notice traces in New York City
+
+**23 November 2026.** All five previously identified development incidents link to an original notice, a named station complex, at least two nearby docks and measured records in both modes. Each trace follows one location explicitly named in its initial notice. The examples span three dates, two ISO weeks and five first-notice route groupings (N/Q, 7, A, F and Q). The five examples establish that the joins can be made. They do not estimate population coverage or forecast accuracy.
+
+| Event | First alert | Local target start, August 2026 | Focal complex | Docks | Subway entries | Recorded bike departures |
+|---|---|---|---|---:|---:|---:|
+| 262272 | 537101 | 8th, 03:00 | Canal St, N/Q (623) | 5 | 80 | 12 |
+| 262324 | 537221 | 8th, 20:00 | 74 St–Broadway, 7 (616) | 7 | 1,565 | 13 |
+| 262344 | 537271 | 9th, 06:00 | Canal St, A (169) | 2 | 50 | 0 |
+| 262675 | 537949 | 11th, 13:00 | Church Av, F (243) | 8 | 277 | 7 |
+| 262722 | 538076 | 11th, 20:00 | 72 St, Q (477) | 6 | 816 | 60 |
+
+**Forecast origin.** Each target is the first complete local clock hour following version 0. The MTA defines the archive date as feed publication time but supplies a floating timestamp. On August 11, MTA alert 538013 at archive time 19:46 reports a bus already operating as of 3:45 pm and another bus not expected until 4:30 pm. The UTC interpretation places publication at 3:46 pm EDT, inside that interval. Local-wall-time interpretation places publication hours after both. We use UTC for these August notices, New York local time for ridership and Citi Bike trip clocks, and retain the offsets. This is an empirical summer clock check. Verify against raw timestamped feed captures, including winter and repeated fall hours, before scaling. [MTA alert dictionary and metadata](https://data.ny.gov/api/views/7kct-peq7) · [Contemporaneous MTA clock check](https://data.ny.gov/resource/7kct-peq7.json?alert_id=538013)
+
+**Why the version history matters.** The five incidents have 14 archived versions. In four, the last archived update already appeared before the target hour began. This includes the F case. Its 12:18 first notice names Church Av, the 12:28 update shortens the express segment to 18 Av and the 12:31 update reports local stops resumed. The 13:00 outcome stays paired with what was public at 12:18. The last message is evidence of what the MTA reported and does not establish actual restoration time. A short-lived incident can have limited overlap with a complete-hour target. Measure update timing across a consecutive development cohort before sizing the study. Keep all eligible incidents when scoring first-notice forecasts.
+
+**Station and dock assignment.** Two August 6 observations supplied names, line labels and coordinates for 424 subway complexes. The first notice and the dated route label distinguish the two Canal St complexes. Historical trip starts on August 1–7 supplied a reference location for 2,289 dock IDs. The most frequent coordinate rounded to four decimal places defined each dock, with lexicographic ties. Assign each dock to the nearest observed subway complex within 500 m using great-circle distance and the smallest numeric complex ID for a distance tie. This assigned 1,580 docks citywide. The five focal catchments have 28 docks in total. These historical maps support retrospective linkage. The next stage needs scheduled line, direction, service exceptions and a reproducible map available at issue time. The relevant static GTFS versions were archived on [August 1](https://www.transit.land/data/feeds/f-dr5r-nyctsubway/versions/1e626d5d5555cfe07866b76beb6b76474ff329e0) and [August 8](https://www.transit.land/data/feeds/f-dr5r-nyctsubway/versions/5116d5c7bc4afeddf53f34dcbc2c29363e84b2a2). The archive download returned HTTP 401 for both versions. An authorized download or equivalent dated public schedule is needed to verify stop times and route exceptions.
+
+**Target coverage.** Each of the five subway queries returned distinct payment-method and fare-class pairs, 31 rows altogether. Sum ridership alone and keep transfers out of the sum. All six August bike CSV members contributed to the scan. Across the five hours the file contains 30,225 distinct departures, including 27 with missing origin IDs and 25 with an origin absent from the preperiod dock map. Another 6,601 departures came from known docks beyond the radius. An independent scan of distinct ride IDs at the assigned docks and a second sum of the raw fare rows reproduced all ten totals. The zero at Canal St (A) means zero recorded starts at its two assigned docks. Independent dock operating status, unmapped trips and potential fare-gate undercount remain unresolved. The full study needs predeclared coverage masks for both modes. Archive-derived recent counts require a separately documented operator-access assumption.
+
+**Reproduce.** Run from the repository root with Python 3.9 or later. Allow about 1.1 GB for the public inputs. The output contains aggregates and query hashes. Compare the rebuilt files to the committed sample and investigate any upstream revisions before pooling runs.
+
+```bash
+python3 research/alert_study/build_sample.py /tmp/nyc-alert-inputs /tmp/nyc-alert-sample
+diff -ru research/alert_study/sample /tmp/nyc-alert-sample
+```
+
+[Five traces](sample/traces.csv) · [Version IDs and publication timestamps](sample/versions.csv) · [Dock-level counts and distances](sample/docks.csv) · [Source URLs and SHA-256 hashes](sample/manifest.json) · [Alert exposure record](EXPOSURE.md)
+
+**Next decision.** Enumerate a consecutive development period that retains unmapped, ambiguous, overlapping and unresolved incidents in the denominator. Distinguish unscheduled events from maintenance, build the as-of line population and report the proportion with distinguishable station roles, both outcomes, and a revision before the forecast window. Compare parser outputs and language-free baselines on common rows only after that audit. The five trace outcomes provide no estimate of the predictive value of Qwen.
