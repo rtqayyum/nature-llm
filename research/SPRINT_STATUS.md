@@ -9,9 +9,9 @@
 | Mechanism development | Anchored transfer improved 10/12 matched comparisons. Locked verifier selected local for all 18 pilot cases. Eight later-analyzed development windows yielded 216 policy replays. | Completed; development evidence |
 | Held-out candidate preparation | 45 source-fit tasks produced 54 frozen anchored forecast pairs in collection 3100396. | Completed |
 | Statistical review | 43 packet source files verified. Original synthetic tests and a separate high-precision numerical oracle exercised. Author requested AI-assisted internal review in lieu of outside review. | Completed internally |
-| Campaign, results and manuscript | Analysis scripts, reference overlap comparator, full plan, restartable Slurm launcher, checked development table and manuscript draft published. | Submitted to UAEU Slurm as CPU job `3111109` |
-| Held-out accuracy, harm, scripts and data for figures | Only an actual cluster aggregate can populate this row. | Awaiting completion evidence and aggregate output |
-| Journal submission | Requires verified results, a defensible claim, complete declarations and author approval. | Pending |
+| Campaign, results and manuscript | Analysis scripts, reference overlap comparator, full plan, restartable Slurm launcher, checked development table and manuscript draft published. | Completed, `0:0`, elapsed `00:01:12` in job `3111109` |
+| Held-out accuracy, harm, scripts and data for figures | Recorded the primary result, secondary contrasts, localized gains and six checkpoint comparisons from the printed summary. [Results](../results/heldout/3111109/README.md) | Manuscript and figure updated; per-seed harm, costs and sensitivity require the aggregate archive |
+| Journal submission | Original checkpoints attained lower common-row MAE in all six domains. The primary effect was +0.00 points at reported precision and the secondary gain over local was below the 2-point practical benchmark. | Defer submission on the planned superiority claim |
 
 ## Evidence log
 
@@ -21,7 +21,9 @@
 
 - 23 November: the HPC launcher verified campaign revision `a9ed0d77145c94d27f38f2c71c08642553738047` and Slurm accepted CPU job `3111109`. The submission receipt printed `results/traffic_publication/campaign-3111109.log` and the expected bundle `results/traffic_publication/a9ed0d77145c94d27f38f2c71c08642553738047_report.tar.gz`. Queue state, exit code and scores await the next cluster record.
 
-Next evidence to record: the Slurm state and exit code, followed by verified case counts, primary paired effect, amended-policy performance, harm, cost, reference overlap and any failures in the aggregate report.
+- 23 November: Slurm accounting and the final shell log confirm successful completion of job `3111109` in 72 seconds. The weighted policy improved equal-domain MAE over local by 0.79 points (144-row descriptive 95% interval 0.74–0.83). NYC taxi supplied approximately two-thirds of the overall reduction. The six shared-protocol results and original-checkpoint comparisons are now in the working paper.
+
+Next evidence to record: reconcile the receipt, full-precision contrasts, per-seed choices, harm rates, actual label expenditure, 72/288-row sensitivity and common-row RMSE/WMAPE from the cluster archive. No retraining is needed for that audit.
 
 ## Run or check the campaign
 

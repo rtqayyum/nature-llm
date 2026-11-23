@@ -1,10 +1,10 @@
 # When should a city trust a transferred traffic forecast?
 
-Working manuscript · 23 November 2026 · Target journal: *Nature Communications*. This draft reports exposed development evidence. The Results section below the insertion marker is populated by the pinned CPU campaign. Authorship, affiliations, funding and declarations require author confirmation.
+Working manuscript · 23 November 2026 · Target journal: *Nature Communications*. This version incorporates the completed six-domain campaign at the precision printed by HPC job 3111109. Per-seed and sensitivity results await reconciliation with the aggregate archive. Authorship, affiliations, funding and declarations require author confirmation.
 
 ## Abstract
 
-A city with limited observations must decide whether a forecast learned elsewhere adds value to a locally fitted predictor. We study the difference between producing a useful forecast and identifying that benefit before deployment. We first evaluated eight public checkpoints from a multimodal traffic forecasting study. Five matched the three published joint-training metrics at the displayed precision. We then compared local and transferred forecasts under a common chronological protocol. All 132 learned cases from the initial ordinary-transfer experiment had higher errors than their matched local predictors. A persistence-anchored model trained for early evidence of improvement reduced unconditional mean absolute error from 50.670 to 47.373 in Beijing Metro in the first development pilot. The prespecified sequential rule retained the local forecast in every pilot case. Four additional windows in each development domain showed that an empirical full-window decision could select beneficial and harmful transfers. These results motivate a held-out comparison of source objectives, verification rules and partial forecast corrections under the same target-label budget. The six-domain estimates are required before drawing conclusions about generalization.
+A transport operator with limited local data faces two decisions: whether forecasts learned in other cities are useful and how much to rely on them. We studied these decisions on eight public traffic datasets using chronological target observations. Two domains informed method development. On six held-out domains, we compared a predictor trained to demonstrate an early advantage over a local model with a predictor trained on the same prefix observations using ordinary forecast error. Under the prespecified sequential rule, the difference in deployed mean absolute error (MAE) was 0.00 percentage points of local MAE at reported precision. A prespecified secondary rule estimated a single weight on the transferred correction using two-thirds of the verification period. It reduced MAE by 0.79% on average relative to local forecasting, with a descriptive paired 95% interval of 0.74–0.83% across resampled time blocks of these six datasets. Gains were concentrated in NYC taxi and Shanghai Metro. The improvement over an identically weighted ordinary suffix-trained predictor was 0.11 percentage points of local MAE. Released LLM-UTP checkpoints attained lower MAE on comparable observations in every held-out domain under their original training and evaluation conditions. These results identify a modest benefit from partial transfer under limited supervision and show how strongly its magnitude depends on the local setting and comparison model.
 
 ## Introduction
 
@@ -32,17 +32,38 @@ On PEMS08 the verification-trained candidate had mean development MAE 16.311 ver
 
 *Figure 1. Equal weighting of three seeds within each development window. Values below zero indicate lower MAE than the local model. Curves use the full-window empirical rule. All PEMS08 series coincide at zero.*
 
-<!-- CAMPAIGN_RESULTS -->
+### Six held-out domains
+
+Under the registered two-sided rule, the margin-minus-prefix contrast in deployed MAE was +0.00 percentage points of local MAE at the reported precision. The locked margin arm matched the displayed local MAE on every domain. The secondary weighted margin rule reduced equal-domain MAE by 0.79 percentage points of local MAE (descriptive 95% paired interval for the reduction, 0.74–0.83 points, 144-row blocks). This fell below the 2-point practical benchmark specified for the manuscript. Holding the margin-trained forecasts and verification budget fixed, allowing interior weights improved on the two-thirds binary decision by 0.36 points (0.30–0.41). Holding the weighting rule fixed, margin training improved on prefix training by 0.58 points (0.53–0.62) and on suffix training by 0.11 points (0.05–0.16).
+
+| Domain | Local MAE | Weighted margin MAE | Relative reduction | Verification rows consulted by the weighted rule |
+|---|---:|---:|---:|---:|
+| PEMS03 | 13.679 | 13.679 | 0.00% | 350 |
+| PEMS04 | 18.732 | 18.732 | 0.00% | 227 |
+| Shanghai Metro | 49.746 | 49.125 | 1.25% | 81 |
+| Hangzhou Metro | 45.565 | 45.391 | 0.38% | 22 |
+| NYC bike | 9.076 | 9.076 | 0.00% | 117 |
+| NYC taxi | 75.857 | 73.490 | 3.12% | 117 |
+
+NYC taxi accounted for approximately 66% of the equal-domain reduction. Excluding both NYC datasets left an estimated 0.41% reduction over the remaining four domains. These calculations use rounded domain MAEs. The weighted rule used its prescribed verification allowance even where the displayed test MAEs tied. Four of 18 unconditional margin candidates achieved lower test MAE than local. In all four cases the sequential threshold was mathematically reachable under maximally favorable hypothetical labels along the realized sequence of forecast pairs.
+
+### Comparison with LLM-UTP
+
+Our weighted margin method improved on the weighted, shared-protocol LLM-UTP adaptation by 0.69 points of local MAE (0.64–0.74). Against the original released checkpoints, the ordering reversed across all six datasets on test origins with identical observations. On Shanghai Metro, the weighted forecast had MAE 40.043 versus 26.361 for the released checkpoint over 357 common rows. On NYC taxi, the corresponding values were 73.851 and 16.743 over 864 common rows. The original checkpoints used a different training and preprocessing protocol. Common-row coverage ranged from approximately 29% to 92% of our test rows.
+
+![Full-cohort gains over local and original-checkpoint MAE ratios on common rows](figures/heldout_domain_results.svg)
+
+*Figure 2. Left, percentage reduction in MAE against the local predictor on each full test cohort. Right, weighted margin MAE divided by released LLM-UTP checkpoint MAE on the common observations. Ratios above one favor the released checkpoint. Plotted quantities were derived from the three-decimal domain means in the final job log.*
 
 ## Interpretation and limits
 
-The development results show why unconditional accuracy alone gives an incomplete picture of deployment. We distinguish three observable events: the candidate improves future test MAE, the boundary is mathematically reachable along the realized forecast path, and the accrued evidence selects it. Reachability alone cannot establish that the hypothetical labels or future traffic regime are attainable. A secondary common-row comparison against the original checkpoints can answer which forecast had lower error on those observations. Different training access, full-array scaling and original batch dependence preclude an equal-information causal comparison.
+A secondary policy with intermediate weights improved accuracy most on NYC taxi. Much of that improvement was recoverable with ordinary source training. The small advantage over the suffix-trained control limits attribution to verification-margin training. The reachability check also rules out a simple explanation for the four useful candidates: the budget and the geometry of the fixed forecast paths did allow the boundary to be crossed under favorable hypothetical observations. Establishing what the rule did in each seed and how often the weighted rule caused harm requires its realized decision and error records. Matching observation IDs and physical truth permits a direct accuracy comparison with released checkpoints on those observations. Differences in training access, scaling and batch behavior limit causal attribution of the gap.
 
 The study conditions on six particular targets and three paired seeds. Resampling includes dependence along rows and preserves the shared NYC fold. Short panels, limited independent time blocks, exposure to ordinary baselines and uncertainty about physical timestamps constrain generalization. Combining forecasts and sequential inference both have substantial prior literature. Any methodological contribution rests on gains beyond their matched controls. Language-model-specific claims would additionally require a matched backbone ablation [6].
 
 ## Data and code
 
-Code and experiment specifications are available at https://github.com/rtqayyum/nature-llm. Reference data and author code are available at https://doi.org/10.5281/zenodo.19503648. The project records aggregate outputs and the identifiers of the forecast and observation artifacts used for scoring.
+Code and experiment specifications are available at https://github.com/rtqayyum/nature-llm. Reference data and author code are available at https://doi.org/10.5281/zenodo.19503648. The six-domain job log, transcribed at its displayed precision, is summarized in the [held-out results record](../results/heldout/3111109/README.md).
 
 ## References
 

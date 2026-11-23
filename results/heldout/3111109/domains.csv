@@ -1,0 +1,7 @@
+domain,key,local_mae,locked_margin_mae,weighted_margin_mae,weighted_prefix_mae,verification_rows,common_rows,study_rows,release_rows,weighted_margin_common_mae,release_common_mae
+PEMS03,pems03,13.679,13.679,13.679,13.679,350,2608,5242,2608,13.399,10.696
+PEMS04,pems04,18.732,18.732,18.732,18.732,227,1696,3399,1696,18.765,14.725
+Shanghai Metro,sh,49.746,49.746,49.125,49.746,81,357,1215,528,40.043,26.361
+Hangzhou Metro,hz,45.565,45.565,45.391,45.453,22,304,330,304,44.292,26.352
+NYC bike,bike,9.076,9.076,9.076,9.076,117,864,1752,864,9.011,3.672
+NYC taxi,taxi,75.857,75.857,73.490,75.097,117,864,1752,864,73.851,16.743

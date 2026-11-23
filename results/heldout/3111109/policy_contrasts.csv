@@ -1,0 +1,11 @@
+control,weighted_margin_minus_control_pp,descriptive_95_low_pp,descriptive_95_high_pp
+local,-0.79,-0.83,-0.74
+verification_margin/half,-2.47,-2.70,-2.28
+verification_margin/half_after_full_switch,-0.20,-0.24,-0.17
+verification_margin/fixed_two_thirds_mean,-0.36,-0.41,-0.30
+prefix_mae/prefix_blend,-0.58,-0.62,-0.53
+suffix_mae/prefix_blend,-0.11,-0.16,-0.05
+B03/prefix_blend,-0.69,-0.74,-0.64
+B04/prefix_blend,-0.79,-0.83,-0.74
+B03/transfer,-656.01,-685.57,-628.54
+B04/transfer,-316.86,-332.75,-307.08
