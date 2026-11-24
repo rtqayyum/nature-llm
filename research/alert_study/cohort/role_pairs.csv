@@ -1,0 +1,10 @@
+event_id,station_a,complex_a,role_a,station_b,complex_b,role_b
+262275,34 St-Penn Station,164,boarding platform,Canal St,169,express boundary
+262344,34 St-Penn Station,164,boarding platform,Canal St,169,express boundary
+262363,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local segment boundary
+262384,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local segment boundary
+262432,Broadway Junction,621,transfer,Crescent St,87,split service boundary
+262477,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local segment boundary
+262491,138 St-Grand Concourse,391,bypassed,Nevins St,337,reroute boundary
+262541,2 Av,232,short turn,Jay St-MetroTech,636,reroute boundary
+262567,2 Av,232,short turn,Myrtle Av,97,reroute boundary

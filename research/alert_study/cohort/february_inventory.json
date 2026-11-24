@@ -1,0 +1,96 @@
+{
+  "query": {
+    "february_inventory.json": {
+      "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+update_number%3D0+AND+date+%3E%3D+%272026-02-01T05%3A00%3A00%27+AND+date+%3C+%272026-03-01T05%3A00%3A00%27&%24select=status_label%2Ccount%28%2A%29+as+first_rows%2Ccount%28distinct+event_id%29+as+event_ids&%24group=status_label&%24order=status_label&%24limit=1000",
+      "bytes": 1262,
+      "sha256": "ae7219eadd81bfffb2601b4f39241d0186827e9450add51ed47dc50c7fdaceac"
+    }
+  },
+  "by_native_status": [
+    {
+      "status_label": "boarding-change",
+      "first_rows": "2",
+      "event_ids": "2"
+    },
+    {
+      "status_label": "delays",
+      "first_rows": "1435",
+      "event_ids": "1435"
+    },
+    {
+      "status_label": "express-to-local",
+      "first_rows": "65",
+      "event_ids": "65"
+    },
+    {
+      "status_label": "express-to-local | delays",
+      "first_rows": "20",
+      "event_ids": "20"
+    },
+    {
+      "status_label": "part-suspended",
+      "first_rows": "18",
+      "event_ids": "18"
+    },
+    {
+      "status_label": "reroute",
+      "first_rows": "26",
+      "event_ids": "26"
+    },
+    {
+      "status_label": "reroute | delays",
+      "first_rows": "15",
+      "event_ids": "15"
+    },
+    {
+      "status_label": "reroute | stops-skipped | delays",
+      "first_rows": "1",
+      "event_ids": "1"
+    },
+    {
+      "status_label": "severe-delays",
+      "first_rows": "11",
+      "event_ids": "11"
+    },
+    {
+      "status_label": "special-notice",
+      "first_rows": "1",
+      "event_ids": "1"
+    },
+    {
+      "status_label": "station-notice",
+      "first_rows": "1",
+      "event_ids": "1"
+    },
+    {
+      "status_label": "stops-skipped",
+      "first_rows": "131",
+      "event_ids": "131"
+    },
+    {
+      "status_label": "stops-skipped | delays",
+      "first_rows": "15",
+      "event_ids": "15"
+    },
+    {
+      "status_label": "stops-skipped | express-to-local",
+      "first_rows": "1",
+      "event_ids": "1"
+    },
+    {
+      "status_label": "stops-skipped | express-to-local | delays",
+      "first_rows": "1",
+      "event_ids": "1"
+    },
+    {
+      "status_label": "stops-skipped | part-suspended",
+      "first_rows": "1",
+      "event_ids": "1"
+    },
+    {
+      "status_label": "suspended",
+      "first_rows": "8",
+      "event_ids": "8"
+    }
+  ]
+}
