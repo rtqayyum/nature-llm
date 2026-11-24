@@ -1,0 +1,17 @@
+# Forecasting subway entries and nearby bike departures after service alerts
+
+Working results section, 24 November 2026
+
+## Data and forecast task
+
+We study whether station-specific instructions in a public subway disruption notice help predict travel counts during the next complete local clock hour. The two outcomes are subway entries at a station complex and bike departures from docks assigned to that complex. A notice can name one station as a temporary terminus and another as a transfer point. Testing the contribution of that distinction requires a comparison that retains the same station identities, histories, forecast origins and outcome masks.
+
+In the February 2026 New York City development cohort, we recovered 1,752 original service notices from the MTA archive. We defined candidate complexes from the affected routes in the base timetable available before the notices. We counted a complex-hour once, assigning overlapping events to the earliest notice. This yielded 67,824 unique complex-hours, of which 44,938 had observations for both modes. The cohort includes delays, maintenance and storm-related changes. The effect of unscheduled disruptions requires a narrower, validated eligibility rule. [Development cohort, methods and source hashes](../research/alert_study/february/README.md)
+
+## Development results
+
+A seasonal forecast repeated each complex's count from the same hour the previous week. On 32,903 matched complex-hours during February 8–28, its mean absolute error was 93.10 subway entries and 3.61 bike departures per complex-hour. Across three successive target weeks, subway MAE ranged from 61.82 to 114.13, and bike MAE ranged from 2.70 to 5.08. This comparison assumes access to operational counts before the public monthly release. [Weekly scores and denominators](../research/alert_study/february/weekly_naive.csv)
+
+An internal review of 40 text-screened notices and 80 sampled screen-negative notices documented 31 cases with explicit, different instructions for two named stations. Both stations appeared on the initial affected-route map in 29 cases. Only 14 cases retained both stations and both modal targets after overlap and missingness checks. These 14 cases spanned seven distinct station pairs on ten dates. The retrospective effective timetable agreed with the base feed on pair membership for all 31 reviewed positives. Two confirmed cases came from the sampled screen negatives, motivating broader coverage of alternative-service language. [Role evidence](../research/alert_study/february/review.csv) · [Timetable cross-check](../research/alert_study/february/effective_schedule.csv)
+
+The prevalence of usable role comparisons in the full population remains uncertain because most first notices lacked a manual text review. No language model was evaluated on forecast error in this campaign. A chronological comparison against a strong text-aware baseline, paired uncertainty across time blocks, and an independent-city replication remain necessary to support the proposed predictive claim.

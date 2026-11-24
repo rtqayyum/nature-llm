@@ -1,8 +1,8 @@
 # Can the wording of a subway alert improve next-hour travel forecasts across modes?
 
-**Research design · 23 November 2026.** The author prioritizes the quality of the result over a 48-hour deadline. The proposed study tests whether information about disrupted stations improves one-hour-ahead subway-entry and bike-departure forecasts. The NYC archive contains identifiable first notices and revisions. A candidate Boston archive has suitable documented fields. Both cities still need timestamp, geographic and target-coverage checks on joined data. Forecast accuracy is unmeasured.
+**Research design · 23 November 2026.** The author prioritizes the quality of the result over a 48-hour deadline. The proposed study tests whether information about disrupted stations improves one-hour-ahead subway-entry and bike-departure forecasts. The NYC archive contains identifiable first notices and revisions. A candidate Boston archive has suitable documented fields. Both cities still need timestamp, geographic and target-coverage checks on joined data. February development scores are available for the weekly seasonal baseline. The incremental forecasting value of station roles is unmeasured.
 
-**Development evidence, 24 November.** The [consecutive NYC audit](alert_study/cohort/README.md) measured target availability for 134 first notices and found seven usable two-location role comparisons under the seasonal timetable and earliest-notice rule. Confirm the denominator over four weeks, including repeated incidents and off-line destinations, before sizing the forecasting pilot.
+**Development evidence, 24 November.** The [consecutive NYC audit](alert_study/cohort/README.md) measured target availability for 134 first notices and found seven usable two-location role comparisons under the seasonal timetable and earliest-notice rule. The [four-week February audit](alert_study/february/README.md) subsequently measured weekly baseline error, checked scheduled calls against the effective timetable, and retained 14 of 31 documented different-role pairs. These results support a chronological baseline and ablation pilot.
 
 ## Why change the question?
 

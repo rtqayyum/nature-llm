@@ -1,0 +1,43 @@
+event_id,station_a,complex_a,role_a,station_b,complex_b,role_b,reason_if_excluded
+236549,,,,,,,two termini with the same role
+236578,Bedford-Nostrand Avs,289,short turn,Court Sq,606,suspension boundary,
+236597,Atlantic Av-Barclays Ctr,617,boarding platform,Franklin Av-Medgar Evers College,626,express boundary,
+236684,96 St,310,short turn,Nevins St,337,reroute boundary,
+236685,Euclid Av,188,short turn,Far Rockaway-Mott Av,209,suspension boundary,
+236738,Bowling Green,414,transfer,Brooklyn Bridge-City Hall,622,suspension boundary,
+236760,Canal St,623,boarding platform,DeKalb Av,26,reroute boundary,
+236790,,,,,,,two express boundaries only
+236793,,,,,,,cause location and one short turn
+236950,,,,,,,boarding changes and ordinary delay extent
+237046,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local boundary,
+237283,2 Av,232,short turn,Canal St,169,express boundary,
+237287,,,,,,,one boarding instruction across a segment
+237290,,,,,,,two termini and an alternative without named station
+237353,34 St-Penn Station,164,boarding platform,Canal St,169,local boundary,
+237361,34 St-Penn Station,164,boarding platform,Canal St,169,express boundary,
+237362,,,,,,,alternative train identified by direction only
+237419,,,,,,,bypassed stops unnamed
+237439,86 St,397,boarding platform,125 St,392,express boundary,
+237622,W 4 St-Wash Sq,167,boarding platform,Jay St-MetroTech,636,reroute boundary,
+237761,,,,,,,only one named boarding location
+237764,86 St,397,boarding platform,125 St,392,express boundary,
+237833,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local boundary,
+238093,86 St,397,short turn,Hunts Point Av,371,express boundary,
+238436,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local boundary,
+238755,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local boundary,
+238846,Crescent St,87,short turn,Jamaica Center-Parsons/Archer,278,suspension boundary,
+238867,,,,,,,single platform instruction across a segment
+238897,86 St,397,boarding platform,125 St,392,local boundary,
+238901,57 St/7 Av,9,short turn,Astoria-Ditmars Blvd,1,suspension boundary,
+238930,149 St-Grand Concourse,603,short turn,167 St,388,express boundary,
+238958,149 St-Grand Concourse,603,short turn,Kingsbridge Rd,381,express boundary,
+239163,Bedford-Nostrand Avs,289,short turn,Court Sq,606,suspension boundary,
+239184,Bedford-Nostrand Avs,289,short turn,Court Sq,606,suspension boundary,
+239236,96 St,475,short turn,57 St/7 Av,9,reroute boundary,
+239239,,,,,,,two termini with the same role
+239297,86 St,397,boarding platform,125 St,392,express boundary,
+239362,Nostrand Av,179,boarding platform,Hoyt-Schermerhorn Sts,175,local boundary,
+239592,W 4 St-Wash Sq,167,boarding platform,59 St-Columbus Circle,614,reroute boundary,
+239713,2 Av,232,short turn,World Trade Center,624,suspension boundary,
+237454,Fulton St,628,alternative service,W 4 St-Wash Sq,167,reroute boundary,
+239197,Far Rockaway-Mott Av,209,alternative service,Rockaway Blvd,192,suspension boundary,
