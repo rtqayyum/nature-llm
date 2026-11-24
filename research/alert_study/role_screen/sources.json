@@ -1,0 +1,27 @@
+{
+  "2026-01.json": {
+    "bytes": 605790,
+    "sha256": "89c908db5b9d162cb6b15e9427d8019e0c1f683854ee28821542c218fa1a0270",
+    "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+update_number%3D0+AND+date+%3E%3D+%272026-01-01T05%3A00%3A00%27+AND+date+%3C+%272026-02-01T05%3A00%3A00%27&%24order=date%2Cevent_id%2Calert_id&%24limit=20000"
+  },
+  "2026-02.json": {
+    "bytes": 556248,
+    "sha256": "b1c2e9829cced7adcedae1bab88cf0ff80d8b93e33b76e6eedf271bef814d9c4",
+    "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+update_number%3D0+AND+date+%3E%3D+%272026-02-01T05%3A00%3A00%27+AND+date+%3C+%272026-03-01T05%3A00%3A00%27&%24order=date%2Cevent_id%2Calert_id&%24limit=20000"
+  },
+  "2026-03.json": {
+    "bytes": 574793,
+    "sha256": "90595ba34da72fbcf7d29c0be055fede29c8de81f77afaa8e45e352b2e17745a",
+    "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+update_number%3D0+AND+date+%3E%3D+%272026-03-01T05%3A00%3A00%27+AND+date+%3C+%272026-04-01T04%3A00%3A00%27&%24order=date%2Cevent_id%2Calert_id&%24limit=20000"
+  },
+  "2026-04.json": {
+    "bytes": 557899,
+    "sha256": "91c4dc8ec7084117721c21b2eac93878f3e8de9354943e164a06781e81d3dff7",
+    "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+update_number%3D0+AND+date+%3E%3D+%272026-04-01T04%3A00%3A00%27+AND+date+%3C+%272026-05-01T04%3A00%3A00%27&%24order=date%2Cevent_id%2Calert_id&%24limit=20000"
+  },
+  "stations": {
+    "bytes": 285417,
+    "sha256": "40f829816b08434dfd23ddd6e2b75a98ad7bd9bc2c00861c9a257726435cb0cb",
+    "url": "https://data.ny.gov/resource/39hk-dx4f.json?"
+  }
+}

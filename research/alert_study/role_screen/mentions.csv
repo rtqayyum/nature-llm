@@ -1,0 +1,1725 @@
+event_id,alert_id,field,complex_id,role,station_text,start,end,candidates,resolution
+231956,473204,header,621,express boundary,Broadway Junction,63,80,621,unique
+231956,473204,header,188,express boundary,Euclid Av,84,93,188,unique
+231958,473206,header,175,local boundary,Hoyt-Schermerhorn Sts,58,79,175,unique
+231958,473206,header,621,local boundary,Broadway Junction,83,100,621,unique
+231982,473252,header,416,express boundary,Wakefield-241 St,43,59,416,unique
+231982,473252,header,421,express boundary,Gun Hill Rd,63,74,421|444,daytime route
+231994,473279,header,101,express boundary,Marcy Av,113,121,101,unique
+231994,473279,header,97,express boundary,Myrtle Av,125,134,97,unique
+232001,473294,header,426,express boundary,E 180 St,57,65,426,unique
+232001,473294,header,421,express boundary,Gun Hill Rd,69,80,421|444,daytime route
+232025,473345,header,616,express boundary,74 St-Broadway,57,71,616,unique
+232025,473345,header,447,express boundary,Flushing-Main St,75,91,447,unique
+232028,473349,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+232028,473349,header,607,express boundary,34 St-Herald Sq,55,70,607,unique
+232073,473423,header,58,reroute boundary,Coney Island-Stillwell Av,48,73,58,unique
+232073,473423,header,26,reroute boundary,DeKalb Av,77,86,127|26,daytime route
+232092,473456,header,261,express boundary,Forest Hills-71 Av,55,73,261,unique
+232092,473456,header,259,express boundary,Kew Gardens-Union Tpke,77,99,259,unique
+232093,473458,header,433,skipped,Jackson Av,34,44,433,unique
+232094,473462,header,167,local boundary,W 4 St-Wash Sq,41,55,167,unique
+232094,473462,header,607,local boundary,34 St-Herald Sq,59,74,607,unique
+232165,473607,header,42,local boundary,Prospect Park,66,79,42,unique
+232165,473607,header,51,local boundary,Kings Hwy,83,92,250|51|77,daytime route
+232178,473635,header,97,express boundary,Myrtle Av,48,57,97,unique
+232178,473635,header,621,express boundary,Broadway Junction,61,78,621,unique
+232185,473650,header,626,express boundary,Franklin Av-Medgar Evers College,56,88,626,unique
+232185,473650,header,617,express boundary,Atlantic Av-Barclays Ctr,92,116,617,unique
+232185,473650,description,617,boarding platform,Atlantic Av-Barclays Ctr,233,257,617,unique
+232187,473653,header,26,reroute boundary,DeKalb Av,47,56,127|26,daytime route
+232187,473653,header,623,reroute boundary,Canal St,60,68,169|325|623,daytime route
+232187,473653,description,623,boarding platform,Canal St,91,99,169|325|623,daytime route
+232190,473660,header,617,express boundary,Atlantic Av-Barclays Ctr,73,97,617,unique
+232190,473660,header,,express boundary,36 St,101,106,272|32,unresolved
+232215,473714,description,621,short turn,Broadway Junction,71,88,621,unique
+232257,473810,header,621,local boundary,Broadway Junction,58,75,621,unique
+232257,473810,header,188,local boundary,Euclid Av,79,88,188,unique
+232265,473826,header,622,express boundary,Brooklyn Bridge-City Hall,43,68,622,unique
+232265,473826,header,602,express boundary,14 St-Union Sq,72,86,602,unique
+232266,473831,header,392,local boundary,125 St,54,60,153|306|392|439,daytime route
+232266,473831,header,610,local boundary,Grand Central-42 St,64,83,610,unique
+232313,473935,header,167,express boundary,W 4 St-Wash Sq,41,55,167,unique
+232313,473935,header,607,express boundary,34 St-Herald Sq,59,74,607,unique
+232326,473955,header,51,express boundary,Kings Hwy,54,63,250|51|77,daytime route
+232326,473955,header,42,express boundary,Prospect Park,67,80,42,unique
+232328,473960,header,215,express boundary,Tremont Av,43,53,215,unique
+232328,473960,header,218,express boundary,167 St,57,63,218|388,daytime route
+232329,473961,header,622,local boundary,Brooklyn Bridge-City Hall,39,64,622,unique
+232329,473961,header,610,local boundary,Grand Central-42 St,68,87,610,unique
+232351,473998,description,26,reroute boundary,DeKalb Av,67,76,127|26,daytime route
+232351,473998,description,623,reroute boundary,Canal St,80,88,169|325|623,daytime route
+232375,474060,description,223,reroute boundary,Lexington Av/63 St,408,426,223,unique
+232375,474060,description,167,reroute boundary,W 4 St-Wash Sq,430,444,167,unique
+232375,474060,description,461,short turn,Queensboro Plaza,155,171,461,unique
+232376,474063,header,175,local boundary,Hoyt-Schermerhorn Sts,45,66,175,unique
+232376,474063,header,621,local boundary,Broadway Junction,70,87,621,unique
+232380,474071,header,607,local boundary,34 St-Herald Sq,43,58,607,unique
+232380,474071,header,623,local boundary,Canal St,62,70,169|325|623,daytime route
+232396,474101,header,35,local boundary,59 St,39,44,35|613,daytime route
+232396,474101,header,617,local boundary,Atlantic Av-Barclays Ctr,48,72,617,unique
+232400,474112,header,337,skipped,Nevins St,93,102,337,unique
+232402,474114,header,280,local boundary,Jamaica-Van Wyck,48,64,280,unique
+232402,474114,header,260,local boundary,75 Av,68,73,260,unique
+232406,474119,header,607,local boundary,34 St-Herald Sq,43,58,607,unique
+232406,474119,header,623,local boundary,Canal St,62,70,169|325|623,daytime route
+232409,474125,header,217,skipped,170 St,34,40,217|387,daytime route
+232456,474221,header,610,express boundary,Grand Central-42 St,46,65,610,unique
+232456,474221,header,,express boundary,125 St,69,75,153|306|392|439,unresolved
+232459,474225,header,297,express boundary,215 St,38,44,297,unique
+232459,474225,header,293,express boundary,Van Cortlandt Park-242 St,48,73,293,unique
+232461,474231,description,58,express boundary,Coney Island-Stillwell Av,117,142,58,unique
+232461,474231,description,42,express boundary,Prospect Park,146,159,42,unique
+232461,474231,description,55,local boundary,Brighton Beach,41,55,55,unique
+232461,474231,description,42,local boundary,Prospect Park,59,72,42,unique
+232477,474270,header,622,short turn,Brooklyn Bridge-City Hall,81,106,622,unique
+232484,474284,header,426,express boundary,E 180 St,70,78,426,unique
+232484,474284,header,421,express boundary,Gun Hill Rd,82,93,421|444,daytime route
+232504,474319,header,261,local boundary,Forest Hills-71 Av,68,86,261,unique
+232504,474319,header,258,local boundary,Briarwood,90,99,258,unique
+232507,474328,header,607,express boundary,34 St-Herald Sq,106,121,607,unique
+232507,474328,header,225,express boundary,47-50 Sts-Rockefeller Ctr,125,150,225,unique
+232525,474367,header,238,express boundary,Smith-9 Sts,79,90,238,unique
+232525,474367,header,245,express boundary,18 Av,94,99,245|66|74,daytime route
+232527,474370,description,188,short turn,Euclid Av,66,75,188,unique
+232533,474379,header,310,express boundary,96 St,45,50,157|310|396|475,daytime route
+232533,474379,header,313,express boundary,72 St,54,59,160|313|477,daytime route
+232534,474381,header,238,express boundary,Smith-9 Sts,74,85,238,unique
+232534,474381,header,243,express boundary,Church Av,89,98,243|356|44,daytime route
+232535,474382,header,604,express boundary,161 St-Yankee Stadium,43,64,604,unique
+232535,474382,header,151,express boundary,145 St,68,74,151|304|437,daytime route
+232536,474384,header,58,reroute boundary,Coney Island-Stillwell Av,47,72,58,unique
+232536,474384,header,32,reroute boundary,36 St,76,81,272|32,daytime route
+232545,474402,header,392,local boundary,125 St,40,46,153|306|392|439,daytime route
+232545,474402,header,610,local boundary,Grand Central-42 St,50,69,610,unique
+232561,474430,header,426,local boundary,E 180 St,46,54,426,unique
+232561,474430,header,434,local boundary,3 Av/149 St,58,69,434,unique
+232579,474461,header,9,express boundary,57 St/7 Av,47,57,9,unique
+232579,474461,header,607,express boundary,34 St-Herald Sq,61,76,607,unique
+232633,474579,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+232633,474579,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+232641,474610,header,313,express boundary,72 St,58,63,160|313|477,daytime route
+232641,474610,header,611,express boundary,Times Sq-42 St,67,81,611,unique
+232645,474617,header,151,express boundary,145 St,47,53,151|304|437,daytime route
+232645,474617,header,215,express boundary,Tremont Av,57,67,215,unique
+232646,474618,description,623,boarding platform,Canal St,117,125,169|325|623,daytime route
+232672,474670,header,9,local boundary,57 St/7 Av,43,53,9,unique
+232672,474670,header,607,local boundary,34 St-Herald Sq,57,72,607,unique
+232690,474698,header,371,express boundary,Hunts Point Av,47,61,371,unique
+232690,474698,header,366,express boundary,Parkchester,65,76,366,unique
+232700,474718,header,58,express boundary,Coney Island-Stillwell Av,54,79,58,unique
+232700,474718,header,68,express boundary,Bay Pkwy,83,91,247|68|76,daytime route
+232754,474837,description,100,short turn,Hewes St,54,62,100,unique
+232764,474854,header,360,express boundary,Pelham Bay Park,43,58,360,unique
+232764,474854,header,366,express boundary,Parkchester,62,73,366,unique
+232768,474863,description,167,boarding platform,W 4 St-Wash Sq,232,246,167,unique
+232769,474864,header,604,express boundary,161 St-Yankee Stadium,43,64,604,unique
+232769,474864,header,151,express boundary,145 St,68,74,151|304|437,daytime route
+232781,474894,header,42,local boundary,Prospect Park,53,66,42,unique
+232781,474894,header,51,local boundary,Kings Hwy,70,79,250|51|77,daytime route
+232788,474907,header,366,local boundary,Parkchester,42,53,366,unique
+232788,474907,header,371,local boundary,Hunts Point Av,57,71,371,unique
+232815,474962,description,304,express boundary,145 St,65,71,151|304|437,daytime route
+232815,474962,description,310,express boundary,96 St,75,80,157|310|396|475,daytime route
+232818,474966,description,97,suspension boundary,Myrtle Av,202,211,97,unique
+232818,474966,description,108,suspension boundary,Middle Village-Metropolitan Av,216,246,108,unique
+232818,474966,description,101,short turn,Marcy Av,66,74,101,unique
+232818,474966,description,232,short turn,2 Av,320,324,232,unique
+232818,474966,description,97,short turn,Myrtle Av,465,474,97,unique
+232830,474993,header,169,local boundary,Canal St,39,47,169|325|623,daytime route
+232830,474993,header,614,local boundary,59 St-Columbus Circle,51,72,614,unique
+232853,475034,header,261,local boundary,Forest Hills-71 Av,59,77,261,unique
+232853,475034,header,258,local boundary,Briarwood,81,90,258,unique
+232858,475045,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+232858,475045,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+232859,475046,header,188,express boundary,Euclid Av,41,50,188,unique
+232859,475046,header,621,express boundary,Broadway Junction,54,71,621,unique
+232866,475063,description,630,short turn,Myrtle-Wyckoff Avs,37,55,630,unique
+232874,475077,header,388,express boundary,167 St,49,55,218|388,daytime route
+232874,475077,header,384,express boundary,Burnside Av,59,70,384,unique
+232885,475102,header,243,express boundary,Church Av,41,50,243|356|44,daytime route
+232885,475102,header,238,express boundary,Smith-9 Sts,54,65,238,unique
+232898,475128,header,391,skipped,138 St-Grand Concourse,34,56,391,unique
+232922,475180,header,622,express boundary,Brooklyn Bridge-City Hall,41,66,622,unique
+232922,475180,header,602,express boundary,14 St-Union Sq,70,84,602,unique
+232935,475206,header,,express boundary,14 St,41,46,601|618,unresolved
+232935,475206,header,610,express boundary,Grand Central-42 St,50,69,610,unique
+232955,475250,header,611,express boundary,Times Sq-42 St,43,57,611,unique
+232955,475250,header,313,express boundary,72 St,61,66,160|313|477,daytime route
+232961,475265,header,426,express boundary,E 180 St,45,53,426,unique
+232961,475265,header,434,express boundary,3 Av/149 St,57,68,434,unique
+233002,475355,header,377,express boundary,3 Av/138 St,56,67,377,unique
+233002,475355,header,371,express boundary,Hunts Point Av,71,85,371,unique
+233011,475374,description,371,short turn,Hunts Point Av,48,62,371,unique
+233021,475396,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+233021,475396,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+233037,475427,header,626,express boundary,Franklin Av-Medgar Evers College,43,75,626,unique
+233037,475427,header,617,express boundary,Atlantic Av-Barclays Ctr,79,103,617,unique
+233048,475446,header,416,express boundary,Wakefield-241 St,43,59,416,unique
+233048,475446,header,421,express boundary,Gun Hill Rd,63,74,421|444,daytime route
+233055,475463,description,377,short turn,3 Av/138 St,206,217,377,unique
+233067,475490,header,622,local boundary,Brooklyn Bridge-City Hall,41,66,622,unique
+233067,475490,header,610,local boundary,Grand Central-42 St,70,89,610,unique
+233068,475491,header,167,reroute boundary,W 4 St-Wash Sq,50,64,167,unique
+233068,475491,header,636,reroute boundary,Jay St-MetroTech,68,84,636,unique
+233134,475632,header,167,express boundary,W 4 St-Wash Sq,54,68,167,unique
+233134,475632,header,607,express boundary,34 St-Herald Sq,72,87,607,unique
+233181,475748,description,273,reroute boundary,Queens Plaza,55,67,273,unique
+233181,475748,description,236,reroute boundary,Bergen St,71,80,236|339,daytime route
+233181,475748,description,167,reroute boundary,W 4 St-Wash Sq,135,149,167,unique
+233181,475748,description,636,reroute boundary,Jay St-MetroTech,153,169,636,unique
+233184,475751,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+233184,475751,header,9,express boundary,57 St/7 Av,64,74,9,unique
+233223,475849,header,602,express boundary,14 St-Union Sq,43,57,602,unique
+233223,475849,header,622,express boundary,Brooklyn Bridge-City Hall,61,86,622,unique
+233246,475888,description,,skipped,72 St,33,38,160|313|477,unresolved
+233250,475892,header,611,express boundary,Times Sq-42 St,43,57,611,unique
+233250,475892,header,313,express boundary,72 St,61,66,160|313|477,daytime route
+233252,475896,header,151,local boundary,145 St,41,47,151|304|437,daytime route
+233252,475896,header,614,local boundary,59 St-Columbus Circle,51,72,614,unique
+233253,475897,header,621,express boundary,Broadway Junction,47,64,621,unique
+233253,475897,header,188,express boundary,Euclid Av,68,77,188,unique
+233294,475979,header,392,local boundary,125 St,93,99,153|306|392|439,daytime route
+233294,475979,header,610,local boundary,Grand Central-42 St,103,122,610,unique
+233315,476026,header,371,express boundary,Hunts Point Av,38,52,371,unique
+233315,476026,header,366,express boundary,Parkchester,56,67,366,unique
+233337,476080,header,434,express boundary,3 Av/149 St,77,88,434,unique
+233337,476080,header,426,express boundary,E 180 St,92,100,426,unique
+233347,476101,header,51,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+233347,476101,header,42,express boundary,Prospect Park,54,67,42,unique
+233382,476174,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+233382,476174,header,243,express boundary,Church Av,90,99,243|356|44,daytime route
+233383,476176,header,153,express boundary,125 St,43,49,153|306|392|439,daytime route
+233383,476176,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+233386,476181,description,392,express boundary,125 St,60,66,153|306|392|439,daytime route
+233386,476181,description,610,express boundary,Grand Central-42 St,70,89,610,unique
+233431,476273,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+233431,476273,header,153,express boundary,125 St,68,74,153|306|392|439,daytime route
+233436,476281,header,426,express boundary,E 180 St,45,53,426,unique
+233436,476281,header,434,express boundary,3 Av/149 St,57,68,434,unique
+233446,476303,header,622,express boundary,Brooklyn Bridge-City Hall,41,66,622,unique
+233446,476303,header,602,express boundary,14 St-Union Sq,70,84,602,unique
+233469,476350,header,153,express boundary,125 St,45,51,153|306|392|439,daytime route
+233469,476350,header,614,express boundary,59 St-Columbus Circle,55,76,614,unique
+233507,476425,header,58,reroute boundary,Coney Island-Stillwell Av,47,72,58,unique
+233507,476425,header,32,reroute boundary,36 St,76,81,272|32,daytime route
+233521,476455,header,313,local boundary,72 St,41,46,160|313|477,daytime route
+233521,476455,header,310,local boundary,96 St,50,55,157|310|396|475,daytime route
+233577,476587,description,392,express boundary,125 St,65,71,153|306|392|439,daytime route
+233577,476587,description,610,express boundary,Grand Central-42 St,75,94,610,unique
+233598,476651,header,416,express boundary,Wakefield-241 St,43,59,416,unique
+233598,476651,header,421,express boundary,Gun Hill Rd,63,74,421|444,daytime route
+233603,476663,description,129,short turn,Halsey St,63,72,129|94,daytime route
+233642,476727,description,58,transfer,Coney Island-Stillwell Av,257,282,58,unique
+233660,476771,header,610,local boundary,Grand Central-42 St,39,58,610,unique
+233660,476771,header,392,local boundary,125 St,62,68,153|306|392|439,daytime route
+233728,476913,header,97,express boundary,Myrtle Av,70,79,97,unique
+233728,476913,header,101,express boundary,Marcy Av,83,91,101,unique
+233736,476930,header,620,skipped,Borough Hall,25,37,620,unique
+233744,476943,header,421,express boundary,Gun Hill Rd,57,68,421|444,daytime route
+233744,476943,header,416,express boundary,Wakefield-241 St,72,88,416,unique
+233833,477113,header,318,express boundary,34 St-Penn Station,56,74,164|318,daytime route
+233833,477113,header,327,express boundary,Chambers St,78,89,327|622|624,daytime route
+233859,477161,description,623,reroute boundary,Canal St,54,62,169|325|623,daytime route
+233859,477161,description,26,reroute boundary,DeKalb Av,66,75,127|26,daytime route
+233878,477199,header,327,local boundary,Chambers St,52,63,327|622|624,daytime route
+233878,477199,header,318,local boundary,34 St-Penn Station,67,85,164|318,daytime route
+233916,477272,header,416,express boundary,Wakefield-241 St,43,59,416,unique
+233916,477272,header,421,express boundary,Gun Hill Rd,63,74,421|444,daytime route
+233942,477315,header,245,express boundary,18 Av,41,46,245|66|74,daytime route
+233942,477315,header,238,express boundary,Smith-9 Sts,50,61,238,unique
+233948,477328,description,606,reroute boundary,Court Sq,54,62,606,unique
+233948,477328,description,236,reroute boundary,Bergen St,66,75,236|339,daytime route
+233956,477348,header,1,express boundary,Astoria-Ditmars Blvd,45,65,1,unique
+233956,477348,header,461,express boundary,Queensboro Plaza,69,85,461,unique
+233959,477356,header,611,skipped,Times Sq-42 St,27,41,611,unique
+233979,477403,header,602,express boundary,14 St-Union Sq,41,55,602,unique
+233979,477403,header,610,express boundary,Grand Central-42 St,59,78,610,unique
+234000,477459,header,610,local boundary,Grand Central-42 St,54,73,610,unique
+234000,477459,header,392,local boundary,125 St,77,83,153|306|392|439,daytime route
+234007,477474,header,610,local boundary,Grand Central-42 St,54,73,610,unique
+234007,477474,header,392,local boundary,125 St,77,83,153|306|392|439,daytime route
+234021,477505,header,617,suspension boundary,Atlantic Av-Barclays Ctr,36,60,617,unique
+234021,477505,header,635,suspension boundary,Whitehall St-South Ferry,65,89,635,unique
+234022,477507,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+234022,477507,header,243,express boundary,Church Av,90,99,243|356|44,daytime route
+234023,477509,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+234023,477509,header,169,express boundary,Canal St,68,76,169|325|623,daytime route
+234023,477509,description,164,boarding platform,34 St-Penn Station,168,186,164|318,daytime route
+234025,477512,description,622,boarding platform,Brooklyn Bridge-City Hall,217,242,622,unique
+234025,477512,description,622,transfer,Brooklyn Bridge-City Hall,147,172,622,unique
+234068,477594,header,610,express boundary,Grand Central-42 St,41,60,610,unique
+234068,477594,header,392,express boundary,125 St,64,70,153|306|392|439,daytime route
+234073,477604,header,371,express boundary,Hunts Point Av,38,52,371,unique
+234073,477604,header,366,express boundary,Parkchester,56,67,366,unique
+234086,477632,header,211,short turn,Bedford Park Blvd,143,160,211,unique
+234094,477648,header,610,express boundary,Grand Central-42 St,43,62,610,unique
+234094,477648,header,602,express boundary,14 St-Union Sq,66,80,602,unique
+234121,477715,header,621,express boundary,Broadway Junction,49,66,621,unique
+234121,477715,header,97,express boundary,Myrtle Av,70,79,97,unique
+234154,477796,header,421,express boundary,Gun Hill Rd,57,68,421|444,daytime route
+234154,477796,header,416,express boundary,Wakefield-241 St,72,88,416,unique
+234160,477808,header,261,local boundary,Forest Hills-71 Av,43,61,261,unique
+234160,477808,header,273,local boundary,Queens Plaza,65,77,273,unique
+234171,477827,header,238,express boundary,Smith-9 Sts,97,108,238,unique
+234171,477827,header,243,express boundary,Church Av,112,121,243|356|44,daytime route
+234172,477828,header,614,express boundary,59 St-Columbus Circle,54,75,614,unique
+234172,477828,header,153,express boundary,125 St,79,85,153|306|392|439,daytime route
+234173,477831,header,610,express boundary,Grand Central-42 St,45,64,610,unique
+234173,477831,header,602,express boundary,14 St-Union Sq,68,82,602,unique
+234271,478028,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+234271,478028,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+234299,478081,header,42,local boundary,Prospect Park,53,66,42,unique
+234299,478081,header,51,local boundary,Kings Hwy,70,79,250|51|77,daytime route
+234317,478112,description,617,express boundary,Atlantic Av-Barclays Ctr,94,118,617,unique
+234317,478112,description,,express boundary,36 St,122,127,272|32,unresolved
+234322,478121,header,211,express boundary,Bedford Park Blvd,43,60,211,unique
+234322,478121,header,215,express boundary,Tremont Av,64,74,215,unique
+234338,478151,header,623,local boundary,Canal St,41,49,169|325|623,daytime route
+234338,478151,header,607,local boundary,34 St-Herald Sq,53,68,607,unique
+234347,478172,header,636,reroute boundary,Jay St-MetroTech,50,66,636,unique
+234347,478172,header,167,reroute boundary,W 4 St-Wash Sq,70,84,167,unique
+234349,478177,header,366,express boundary,Parkchester,43,54,366,unique
+234349,478177,header,371,express boundary,Hunts Point Av,58,72,371,unique
+234435,478326,description,179,boarding platform,Nostrand Av,342,353,179|343,daytime route
+234480,478412,header,371,express boundary,Hunts Point Av,54,68,371,unique
+234480,478412,header,366,express boundary,Parkchester,72,83,366,unique
+234501,478456,description,179,boarding platform,Nostrand Av,215,226,179|343,daytime route
+234505,478475,header,622,express boundary,Brooklyn Bridge-City Hall,63,88,622,unique
+234505,478475,header,610,express boundary,Grand Central-42 St,92,111,610,unique
+234557,478574,description,611,local boundary,Times Sq-42 St,123,137,611,unique
+234557,478574,description,310,local boundary,96 St,141,146,157|310|396|475,daytime route
+234596,478642,description,310,local boundary,96 St,126,131,157|310|396|475,daytime route
+234596,478642,description,327,local boundary,Chambers St,135,146,327|622|624,daytime route
+234598,478646,header,209,suspension boundary,Far Rockaway-Mott Av,50,70,209,unique
+234598,478646,header,199,suspension boundary,Broad Channel,75,88,199,unique
+234598,478646,description,203,short turn,Rockaway Park-Beach 116 St,149,175,203,unique
+234600,478649,description,622,local boundary,Brooklyn Bridge-City Hall,126,151,622,unique
+234600,478649,description,392,local boundary,125 St,155,161,153|306|392|439,daytime route
+234600,478649,description,613,boarding platform,59 St,213,218,35|613,daytime route
+234607,478666,description,622,local boundary,Brooklyn Bridge-City Hall,125,150,622,unique
+234607,478666,description,392,local boundary,125 St,154,160,153|306|392|439,daytime route
+234629,478712,header,77,suspension boundary,Kings Hwy,41,50,250|51|77,daytime route
+234629,478712,header,58,suspension boundary,Coney Island-Stillwell Av,55,80,58,unique
+234629,478712,description,77,short turn,Kings Hwy,155,164,250|51|77,daytime route
+234643,478746,header,209,suspension boundary,Far Rockaway-Mott Av,50,70,209,unique
+234643,478746,header,199,suspension boundary,Broad Channel,75,88,199,unique
+234643,478746,description,203,short turn,Rockaway Park-Beach 116 St,160,186,203,unique
+234658,478765,header,195,suspension boundary,Ozone Park-Lefferts Blvd,50,74,195,unique
+234658,478765,header,192,suspension boundary,Rockaway Blvd,79,92,192,unique
+234658,478765,description,188,short turn,Euclid Av,171,180,188,unique
+234669,478787,header,289,suspension boundary,Bedford-Nostrand Avs,50,70,289,unique
+234669,478787,header,243,suspension boundary,Church Av,75,84,243|356|44,daytime route
+234673,478795,description,129,short turn,Halsey St,85,94,129|94,daytime route
+234696,478866,header,426,express boundary,E 180 St,48,56,426,unique
+234696,478866,header,442,express boundary,Eastchester-Dyre Av,60,79,442,unique
+234704,478891,header,1,suspension boundary,Astoria-Ditmars Blvd,50,70,1,unique
+234704,478891,header,461,suspension boundary,Queensboro Plaza,75,91,461,unique
+234704,478891,description,461,short turn,Queensboro Plaza,92,108,461,unique
+234704,478891,description,,short turn,96 St,206,211,157|310|396|475,unresolved
+234723,478947,header,26,reroute boundary,DeKalb Av,73,82,127|26,daytime route
+234723,478947,header,58,reroute boundary,Coney Island-Stillwell Av,86,111,58,unique
+234725,478953,header,621,suspension boundary,Broadway Junction,30,47,621,unique
+234725,478953,header,138,suspension boundary,Canarsie-Rockaway Pkwy,52,74,138,unique
+234732,478974,header,617,short turn,Atlantic Av-Barclays Ctr,106,130,617,unique
+234767,479083,header,614,express boundary,59 St-Columbus Circle,45,66,614,unique
+234767,479083,header,153,express boundary,125 St,70,76,153|306|392|439,daytime route
+234769,479087,description,426,short turn,E 180 St,41,49,426,unique
+234800,479255,description,621,short turn,Broadway Junction,102,119,621,unique
+234805,479273,header,313,express boundary,72 St,43,48,160|313|477,daytime route
+234805,479273,header,310,express boundary,96 St,52,57,157|310|396|475,daytime route
+234824,479310,description,601,local boundary,14 St,117,122,601|618,daytime route
+234824,479310,description,313,local boundary,72 St,126,131,160|313|477,daytime route
+234827,479326,header,59,express boundary,9 Av,66,70,59,unique
+234827,479326,header,615,express boundary,62 St,74,79,615,unique
+234829,479335,header,610,local boundary,Grand Central-42 St,41,60,610,unique
+234829,479335,header,392,local boundary,125 St,64,70,153|306|392|439,daytime route
+234838,479359,description,179,boarding platform,Nostrand Av,64,75,179|343,daytime route
+234846,479369,header,54,express boundary,Sheepshead Bay,41,55,54,unique
+234846,479369,header,51,express boundary,Kings Hwy,59,68,250|51|77,daytime route
+234849,479374,header,209,suspension boundary,Far Rockaway-Mott Av,50,70,209,unique
+234849,479374,header,195,suspension boundary,Ozone Park-Lefferts Blvd,75,99,195,unique
+234849,479374,description,198,short turn,Howard Beach-JFK Airport,123,147,198,unique
+234874,479423,header,377,express boundary,3 Av/138 St,56,67,377,unique
+234874,479423,header,371,express boundary,Hunts Point Av,71,85,371,unique
+234892,479457,header,151,local boundary,145 St,52,58,151|304|437,daytime route
+234892,479457,header,605,local boundary,168 St,62,68,605,unique
+234895,479465,header,215,express boundary,Tremont Av,78,88,215,unique
+234895,479465,header,212,express boundary,Kingsbridge Rd,92,106,212|381,daytime route
+234899,479479,header,2,express boundary,Astoria Blvd,45,57,2,unique
+234899,479479,header,461,express boundary,Queensboro Plaza,61,77,461,unique
+234906,479509,description,55,express boundary,Brighton Beach,41,55,55,unique
+234906,479509,description,51,express boundary,Kings Hwy,59,68,250|51|77,daytime route
+234913,479526,header,607,local boundary,34 St-Herald Sq,43,58,607,unique
+234913,479526,header,623,local boundary,Canal St,62,70,169|325|623,daytime route
+234916,479535,header,617,local boundary,Atlantic Av-Barclays Ctr,67,91,617,unique
+234916,479535,header,626,local boundary,Franklin Av-Medgar Evers College,95,127,626,unique
+234936,479580,header,101,local boundary,Marcy Av,69,77,101,unique
+234936,479580,header,97,local boundary,Myrtle Av,81,90,97,unique
+234954,479617,header,617,local boundary,Atlantic Av-Barclays Ctr,86,110,617,unique
+234954,479617,header,626,local boundary,Franklin Av-Medgar Evers College,114,146,626,unique
+234970,479661,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+234970,479661,header,607,express boundary,34 St-Herald Sq,55,70,607,unique
+235070,479899,header,58,reroute boundary,Coney Island-Stillwell Av,52,77,58,unique
+235070,479899,header,32,reroute boundary,36 St,81,86,272|32,daytime route
+235085,479944,description,236,reroute boundary,Bergen St,52,61,236|339,daytime route
+235085,479944,description,606,reroute boundary,Court Sq,65,73,606,unique
+235090,479966,header,607,express boundary,34 St-Herald Sq,38,53,607,unique
+235090,479966,header,225,express boundary,47-50 Sts-Rockefeller Ctr,57,82,225,unique
+235136,480087,description,,local boundary,125 St,48,54,153|306|392|439,unresolved
+235136,480087,description,622,local boundary,Brooklyn Bridge-City Hall,58,83,622,unique
+235144,480110,header,35,local boundary,59 St,39,44,35|613,daytime route
+235144,480110,header,32,local boundary,36 St,48,53,272|32,daytime route
+235188,480211,header,35,local boundary,59 St,40,45,35|613,daytime route
+235188,480211,header,32,local boundary,36 St,49,54,272|32,daytime route
+235217,480287,header,261,express boundary,Forest Hills-71 Av,48,66,261,unique
+235217,480287,header,259,express boundary,Kew Gardens-Union Tpke,70,92,259,unique
+235235,480322,header,371,express boundary,Hunts Point Av,43,57,371,unique
+235235,480322,header,377,express boundary,3 Av/138 St,61,72,377,unique
+235278,480397,description,289,short turn,Bedford-Nostrand Avs,49,69,289,unique
+235288,480417,header,607,local boundary,34 St-Herald Sq,43,58,607,unique
+235288,480417,header,167,local boundary,W 4 St-Wash Sq,62,76,167,unique
+235306,480451,header,612,boarding platform,51 St,146,151,612,unique
+235330,480501,header,461,express boundary,Queensboro Plaza,61,77,461,unique
+235330,480501,header,2,express boundary,Astoria Blvd,81,93,2,unique
+235333,480507,description,461,short turn,Queensboro Plaza,51,67,461,unique
+235498,480823,header,378,express boundary,Woodlawn,56,64,378,unique
+235498,480823,header,381,express boundary,Kingsbridge Rd,68,82,212|381,daytime route
+235504,480835,header,619,local boundary,Broadway-Lafayette St,54,75,619,unique
+235504,480835,header,167,local boundary,W 4 St-Wash Sq,79,93,167,unique
+235525,480865,header,614,local boundary,59 St-Columbus Circle,41,62,614,unique
+235525,480865,header,153,local boundary,125 St,66,72,153|306|392|439,daytime route
+235558,480917,description,179,boarding platform,Nostrand Av,207,218,179|343,daytime route
+235561,480923,header,384,express boundary,Burnside Av,43,54,384,unique
+235561,480923,header,388,express boundary,167 St,58,64,218|388,daytime route
+235562,480925,header,55,local boundary,Brighton Beach,52,66,55,unique
+235562,480925,header,51,local boundary,Kings Hwy,70,79,250|51|77,daytime route
+235595,480995,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+235595,480995,header,623,express boundary,Canal St,64,72,169|325|623,daytime route
+235614,481035,header,360,express boundary,Pelham Bay Park,43,58,360,unique
+235614,481035,header,366,express boundary,Parkchester,62,73,366,unique
+235629,481059,header,188,local boundary,Euclid Av,52,61,188,unique
+235629,481059,header,621,local boundary,Broadway Junction,65,82,621,unique
+235695,481192,header,610,express boundary,Grand Central-42 St,41,60,610,unique
+235695,481192,header,392,express boundary,125 St,64,70,153|306|392|439,daytime route
+235721,481240,header,153,local boundary,125 St,48,54,153|306|392|439,daytime route
+235721,481240,header,614,local boundary,59 St-Columbus Circle,58,79,614,unique
+235731,481258,header,523,express boundary,Arthur Kill,76,87,523,unique
+235731,481258,header,511,express boundary,Oakwood Heights,91,106,511,unique
+235789,481382,description,623,boarding platform,Canal St,193,201,169|325|623,daytime route
+235813,481437,header,54,express boundary,Sheepshead Bay,50,64,54,unique
+235813,481437,header,51,express boundary,Kings Hwy,68,77,250|51|77,daytime route
+235876,481549,description,610,express boundary,Grand Central-42 St,46,65,610,unique
+235876,481549,description,392,express boundary,125 St,69,75,153|306|392|439,daytime route
+235906,481626,description,9,local boundary,57 St/7 Av,59,69,9,unique
+235906,481626,description,611,local boundary,Times Sq-42 St,73,87,611,unique
+235932,481685,header,167,local boundary,W 4 St-Wash Sq,54,68,167,unique
+235932,481685,header,607,local boundary,34 St-Herald Sq,72,87,607,unique
+236051,481935,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+236051,481935,header,607,express boundary,34 St-Herald Sq,55,70,607,unique
+236053,481939,header,215,express boundary,Tremont Av,43,53,215,unique
+236053,481939,header,218,express boundary,167 St,57,63,218|388,daytime route
+236056,481944,header,243,express boundary,Church Av,41,50,243|356|44,daytime route
+236056,481944,header,238,express boundary,Smith-9 Sts,54,65,238,unique
+236059,481949,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+236059,481949,header,607,express boundary,34 St-Herald Sq,55,70,607,unique
+236061,481953,header,153,local boundary,125 St,54,60,153|306|392|439,daytime route
+236061,481953,header,614,local boundary,59 St-Columbus Circle,64,85,614,unique
+236062,481956,header,243,express boundary,Church Av,62,71,243|356|44,daytime route
+236062,481956,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+236085,482005,header,97,express boundary,Myrtle Av,70,79,97,unique
+236085,482005,header,621,express boundary,Broadway Junction,83,100,621,unique
+236114,482073,header,611,local boundary,Times Sq-42 St,41,55,611,unique
+236114,482073,header,310,local boundary,96 St,59,64,157|310|396|475,daytime route
+236135,482113,header,610,express boundary,Grand Central-42 St,45,64,610,unique
+236135,482113,header,622,express boundary,Brooklyn Bridge-City Hall,68,93,622,unique
+236153,482143,header,211,express boundary,Bedford Park Blvd,43,60,211,unique
+236153,482143,header,215,express boundary,Tremont Av,64,74,215,unique
+236156,482149,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+236156,482149,header,169,express boundary,Canal St,68,76,169|325|623,daytime route
+236156,482149,header,162,express boundary,50 St,122,127,162|316|61,daytime route
+236156,482149,header,169,express boundary,Canal St,131,139,169|325|623,daytime route
+236214,482234,header,439,skipped,125 St,34,40,153|306|392|439,daytime route
+236220,482246,header,1,express boundary,Astoria-Ditmars Blvd,45,65,1,unique
+236220,482246,header,461,express boundary,Queensboro Plaza,69,85,461,unique
+236226,482263,header,217,express boundary,170 St,45,51,217|387,daytime route
+236226,482263,header,151,express boundary,145 St,55,61,151|304|437,daytime route
+236232,482282,description,252,express boundary,Avenue X,43,51,252,unique
+236232,482282,description,250,express boundary,Kings Hwy,55,64,250|51|77,daytime route
+236233,482284,header,621,local boundary,Broadway Junction,39,56,621,unique
+236233,482284,header,175,local boundary,Hoyt-Schermerhorn Sts,60,81,175,unique
+236239,482303,header,151,express boundary,145 St,85,91,151|304|437,daytime route
+236239,482303,header,215,express boundary,Tremont Av,95,105,215,unique
+236272,482394,header,421,express boundary,Gun Hill Rd,57,68,421|444,daytime route
+236272,482394,header,416,express boundary,Wakefield-241 St,72,88,416,unique
+236288,482468,header,,express boundary,36 St,41,46,272|32,unresolved
+236288,482468,header,617,express boundary,Atlantic Av-Barclays Ctr,50,74,617,unique
+236294,482488,header,607,express boundary,34 St-Herald Sq,43,58,607,unique
+236294,482488,header,225,express boundary,47-50 Sts-Rockefeller Ctr,62,87,225,unique
+236296,482500,header,97,suspension boundary,Myrtle Av,36,45,97,unique
+236296,482500,header,108,suspension boundary,Middle Village-Metropolitan Av,50,80,108,unique
+236317,482585,header,261,express boundary,Forest Hills-71 Av,32,50,261,unique
+236317,482585,header,273,express boundary,Queens Plaza,54,66,273,unique
+236317,482585,header,261,express boundary,Forest Hills-71 Av,101,119,261,unique
+236317,482585,header,221,express boundary,21 St-Queensbridge,123,141,221,unique
+236333,482642,header,327,express boundary,Chambers St,56,67,327|622|624,daytime route
+236333,482642,header,601,express boundary,14 St,71,76,601|618,daytime route
+236356,482688,header,261,local boundary,Forest Hills-71 Av,43,61,261,unique
+236356,482688,header,273,local boundary,Queens Plaza,65,77,273,unique
+236362,482696,header,35,express boundary,59 St,38,43,35|613,daytime route
+236362,482696,header,617,express boundary,Atlantic Av-Barclays Ctr,47,71,617,unique
+236365,482702,header,617,express boundary,Atlantic Av-Barclays Ctr,53,77,617,unique
+236365,482702,header,35,express boundary,59 St,81,86,35|613,daytime route
+236373,482721,description,42,short turn,Prospect Park,30,43,42,unique
+236374,482723,header,261,local boundary,Forest Hills-71 Av,117,135,261,unique
+236374,482723,header,273,local boundary,Queens Plaza,139,151,273,unique
+236379,482736,header,153,express boundary,125 St,45,51,153|306|392|439,daytime route
+236379,482736,header,614,express boundary,59 St-Columbus Circle,55,76,614,unique
+236401,482791,header,318,express boundary,34 St-Penn Station,41,59,164|318,daytime route
+236401,482791,header,313,express boundary,72 St,63,68,160|313|477,daytime route
+236417,482827,header,623,local boundary,Canal St,42,50,169|325|623,daytime route
+236417,482827,header,607,local boundary,34 St-Herald Sq,54,69,607,unique
+236421,482834,header,392,local boundary,125 St,43,49,153|306|392|439,daytime route
+236421,482834,header,602,local boundary,14 St-Union Sq,53,67,602,unique
+236425,482842,header,55,express boundary,Brighton Beach,41,55,55,unique
+236425,482842,header,42,express boundary,Prospect Park,59,72,42,unique
+236427,482845,header,69,express boundary,25 Av,41,46,69,unique
+236427,482845,header,615,express boundary,62 St,50,55,615,unique
+236451,482891,header,434,express boundary,3 Av/149 St,57,68,434,unique
+236451,482891,header,426,express boundary,E 180 St,72,80,426,unique
+236469,482931,header,607,local boundary,34 St-Herald Sq,54,69,607,unique
+236469,482931,header,167,local boundary,W 4 St-Wash Sq,73,87,167,unique
+236470,482933,header,421,express boundary,Gun Hill Rd,57,68,421|444,daytime route
+236470,482933,header,416,express boundary,Wakefield-241 St,72,88,416,unique
+236480,482954,header,310,local boundary,96 St,54,59,157|310|396|475,daytime route
+236480,482954,header,313,local boundary,72 St,63,68,160|313|477,daytime route
+236484,482962,description,392,express boundary,125 St,60,66,153|306|392|439,daytime route
+236484,482962,description,610,express boundary,Grand Central-42 St,70,89,610,unique
+236486,482965,header,621,express boundary,Broadway Junction,60,77,621,unique
+236486,482965,header,188,express boundary,Euclid Av,81,90,188,unique
+236508,483006,header,153,express boundary,125 St,42,48,153|306|392|439,daytime route
+236508,483006,header,614,express boundary,59 St-Columbus Circle,52,73,614,unique
+236528,483048,header,617,express boundary,Atlantic Av-Barclays Ctr,43,67,617,unique
+236528,483048,header,,express boundary,36 St,71,76,272|32,unresolved
+236536,483066,header,151,express boundary,145 St,73,79,151|304|437,daytime route
+236536,483066,header,218,express boundary,167 St,83,89,218|388,daytime route
+236542,483078,header,313,express boundary,72 St,38,43,160|313|477,daytime route
+236542,483078,header,310,express boundary,96 St,47,52,157|310|396|475,daytime route
+236545,483093,header,310,express boundary,96 St,40,45,157|310|396|475,daytime route
+236545,483093,header,313,express boundary,72 St,49,54,160|313|477,daytime route
+236548,483106,header,58,express boundary,Coney Island-Stillwell Av,41,66,58,unique
+236548,483106,header,35,express boundary,59 St,70,75,35|613,daytime route
+236553,483124,header,616,short turn,74 St-Broadway,95,109,616,unique
+236571,483169,header,54,local boundary,Sheepshead Bay,39,53,54,unique
+236571,483169,header,51,local boundary,Kings Hwy,57,66,250|51|77,daytime route
+236578,483188,header,289,suspension boundary,Bedford-Nostrand Avs,46,66,289,unique
+236578,483188,header,606,suspension boundary,Court Sq,71,79,606,unique
+236578,483188,header,289,short turn,Bedford-Nostrand Avs,131,151,289,unique
+236579,483189,header,153,express boundary,125 St,41,47,153|306|392|439,daytime route
+236579,483189,header,605,express boundary,168 St,51,57,605,unique
+236580,483192,description,167,reroute boundary,W 4 St-Wash Sq,52,66,167,unique
+236580,483192,description,636,reroute boundary,Jay St-MetroTech,70,86,636,unique
+236584,483200,header,167,reroute boundary,W 4 St-Wash Sq,51,65,167,unique
+236584,483200,header,636,reroute boundary,Jay St-MetroTech,69,85,636,unique
+236592,483213,header,188,express boundary,Euclid Av,41,50,188,unique
+236592,483213,header,621,express boundary,Broadway Junction,54,71,621,unique
+236593,483214,header,310,express boundary,96 St,54,59,157|310|396|475,daytime route
+236593,483214,header,305,express boundary,137 St-City College,63,82,305,unique
+236595,483217,header,55,express boundary,Brighton Beach,41,55,55,unique
+236595,483217,header,51,express boundary,Kings Hwy,59,68,250|51|77,daytime route
+236597,483223,header,626,express boundary,Franklin Av-Medgar Evers College,70,102,626,unique
+236597,483223,header,617,express boundary,Atlantic Av-Barclays Ctr,106,130,617,unique
+236597,483223,description,617,boarding platform,Atlantic Av-Barclays Ctr,110,134,617,unique
+236600,483227,header,611,express boundary,Times Sq-42 St,56,70,611,unique
+236600,483227,header,9,express boundary,57 St/7 Av,74,84,9,unique
+236603,483236,header,9,express boundary,57 St/7 Av,58,68,9,unique
+236603,483236,header,607,express boundary,34 St-Herald Sq,72,87,607,unique
+236604,483237,header,167,reroute boundary,W 4 St-Wash Sq,49,63,167,unique
+236604,483237,header,636,reroute boundary,Jay St-MetroTech,67,83,636,unique
+236620,483270,header,310,local boundary,96 St,43,48,157|310|396|475,daytime route
+236620,483270,header,611,local boundary,Times Sq-42 St,52,66,611,unique
+236640,483313,description,392,express boundary,125 St,48,54,153|306|392|439,daytime route
+236640,483313,description,610,express boundary,Grand Central-42 St,58,77,610,unique
+236660,483364,header,9,local boundary,57 St/7 Av,42,52,9,unique
+236660,483364,header,611,local boundary,Times Sq-42 St,56,70,611,unique
+236662,483367,header,280,local boundary,Jamaica-Van Wyck,41,57,280,unique
+236662,483367,header,261,local boundary,Forest Hills-71 Av,61,79,261,unique
+236664,483385,header,77,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+236664,483385,header,35,express boundary,59 St,54,59,35|613,daytime route
+236671,483399,header,276,reroute boundary,5 Av/53 St,49,59,276,unique
+236671,483399,header,167,reroute boundary,W 4 St-Wash Sq,63,77,167,unique
+236681,483418,header,245,express boundary,18 Av,79,84,245|66|74,daytime route
+236681,483418,header,250,express boundary,Kings Hwy,88,97,250|51|77,daytime route
+236684,483425,description,310,short turn,96 St,139,144,157|310|396|475,daytime route
+236685,483426,header,209,suspension boundary,Far Rockaway-Mott Av,36,56,209,unique
+236685,483426,header,188,suspension boundary,Euclid Av,61,70,188,unique
+236685,483426,description,188,short turn,Euclid Av,56,65,188,unique
+236708,483479,header,602,express boundary,14 St-Union Sq,58,72,602,unique
+236708,483479,header,622,express boundary,Brooklyn Bridge-City Hall,76,101,622,unique
+236738,483529,header,622,suspension boundary,Brooklyn Bridge-City Hall,30,55,622,unique
+236738,483529,header,414,suspension boundary,Bowling Green,60,73,414,unique
+236738,483529,description,414,short turn,Bowling Green,177,190,414,unique
+236738,483529,description,414,transfer,Bowling Green,342,355,414,unique
+236739,483532,header,621,express boundary,Broadway Junction,50,67,621,unique
+236739,483532,header,175,express boundary,Hoyt-Schermerhorn Sts,71,92,175,unique
+236760,483576,header,26,reroute boundary,DeKalb Av,50,59,127|26,daytime route
+236760,483576,header,623,reroute boundary,Canal St,63,71,169|325|623,daytime route
+236760,483576,description,623,boarding platform,Canal St,165,173,169|325|623,daytime route
+236765,483585,header,69,express boundary,25 Av,41,46,69,unique
+236765,483585,header,615,express boundary,62 St,50,55,615,unique
+236790,483630,header,610,express boundary,Grand Central-42 St,100,119,610,unique
+236790,483630,header,392,express boundary,125 St,123,129,153|306|392|439,daytime route
+236793,483638,header,377,short turn,3 Av/138 St,109,120,377,unique
+236838,483758,header,313,express boundary,72 St,45,50,160|313|477,daytime route
+236838,483758,header,611,express boundary,Times Sq-42 St,54,68,611,unique
+236890,483852,header,607,local boundary,34 St-Herald Sq,41,56,607,unique
+236890,483852,header,9,local boundary,57 St/7 Av,60,70,9,unique
+236902,483895,header,313,express boundary,72 St,43,48,160|313|477,daytime route
+236902,483895,header,611,express boundary,Times Sq-42 St,52,66,611,unique
+236933,483966,description,107,boarding platform,Broad St,20,28,107,unique
+236947,484024,header,304,express boundary,145 St,43,49,151|304|437,daytime route
+236947,484024,header,310,express boundary,96 St,53,58,157|310|396|475,daytime route
+236950,484044,description,135,boarding platform,Livonia Av,137,147,135,unique
+236978,484113,header,636,reroute boundary,Jay St-MetroTech,49,65,636,unique
+236978,484113,header,167,reroute boundary,W 4 St-Wash Sq,69,83,167,unique
+236979,484116,header,614,express boundary,59 St-Columbus Circle,41,62,614,unique
+236979,484116,header,153,express boundary,125 St,66,72,153|306|392|439,daytime route
+236985,484128,header,636,reroute boundary,Jay St-MetroTech,49,65,636,unique
+236985,484128,header,167,reroute boundary,W 4 St-Wash Sq,69,83,167,unique
+237041,484254,header,461,suspension boundary,Queensboro Plaza,30,46,461,unique
+237041,484254,header,1,suspension boundary,Astoria-Ditmars Blvd,51,71,1,unique
+237056,484285,header,601,express boundary,14 St,102,107,601|618,daytime route
+237056,484285,header,327,express boundary,Chambers St,111,122,327|622|624,daytime route
+237056,484285,header,327,suspension boundary,Chambers St,27,38,327|622|624,daytime route
+237056,484285,header,635,suspension boundary,South Ferry,43,54,635,unique
+237058,484291,header,614,local boundary,59 St-Columbus Circle,39,60,614,unique
+237058,484291,header,153,local boundary,125 St,64,70,153|306|392|439,daytime route
+237059,484295,header,441,short turn,110 St-Malcolm X Plaza,130,152,441,unique
+237117,484390,header,42,express boundary,Prospect Park,63,76,42,unique
+237117,484390,header,51,express boundary,Kings Hwy,80,89,250|51|77,daytime route
+237150,484448,header,42,express boundary,Prospect Park,63,76,42,unique
+237150,484448,header,58,express boundary,Coney Island-Stillwell Av,80,105,58,unique
+237153,484453,header,250,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+237153,484453,header,245,express boundary,18 Av,54,59,245|66|74,daytime route
+237154,484455,header,238,express boundary,Smith-9 Sts,62,73,238,unique
+237154,484455,header,243,express boundary,Church Av,77,86,243|356|44,daytime route
+237205,484542,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+237205,484542,header,153,express boundary,125 St,68,74,153|306|392|439,daytime route
+237231,484594,description,232,short turn,2 Av,43,47,232,unique
+237243,484612,header,615,express boundary,62 St,66,71,615,unique
+237243,484612,header,68,express boundary,Bay Pkwy,75,83,247|68|76,daytime route
+237269,484659,header,175,express boundary,Hoyt-Schermerhorn Sts,60,81,175,unique
+237269,484659,header,621,express boundary,Broadway Junction,85,102,621,unique
+237281,484680,header,151,express boundary,145 St,43,49,151|304|437,daytime route
+237281,484680,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+237283,484688,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+237283,484688,header,169,express boundary,Canal St,68,76,169|325|623,daytime route
+237283,484688,header,232,short turn,2 Av,129,133,232,unique
+237284,484692,header,617,express boundary,Atlantic Av-Barclays Ctr,93,117,617,unique
+237284,484692,header,626,express boundary,Franklin Av-Medgar Evers College,121,153,626,unique
+237285,484694,header,153,express boundary,125 St,56,62,153|306|392|439,daytime route
+237285,484694,header,614,express boundary,59 St-Columbus Circle,66,87,614,unique
+237290,484715,description,377,short turn,3 Av/138 St,83,94,377,unique
+237300,484731,header,327,local boundary,Chambers St,41,52,327|622|624,daytime route
+237300,484731,header,318,local boundary,34 St-Penn Station,56,74,164|318,daytime route
+237315,484755,description,236,reroute boundary,Bergen St,50,59,236|339,daytime route
+237315,484755,description,606,reroute boundary,Court Sq,63,71,606,unique
+237315,484755,description,636,reroute boundary,Jay St-MetroTech,125,141,636,unique
+237315,484755,description,167,reroute boundary,W 4 St-Wash Sq,145,159,167,unique
+237326,484774,header,55,local boundary,Brighton Beach,29,43,55,unique
+237326,484774,header,42,local boundary,Prospect Park,47,60,42,unique
+237328,484776,header,188,express boundary,Euclid Av,41,50,188,unique
+237328,484776,header,621,express boundary,Broadway Junction,54,71,621,unique
+237340,484802,header,51,local boundary,Kings Hwy,39,48,250|51|77,daytime route
+237340,484802,header,42,local boundary,Prospect Park,52,65,42,unique
+237342,484804,header,10,skipped,49 St,81,86,10,unique
+237343,484808,description,58,reroute boundary,Coney Island-Stillwell Av,52,77,58,unique
+237343,484808,description,619,reroute boundary,Broadway-Lafayette St,81,102,619,unique
+237347,484816,description,304,short turn,145 St,46,52,151|304|437,daytime route
+237352,484827,description,630,short turn,Myrtle-Wyckoff Avs,50,68,630,unique
+237353,484829,header,614,local boundary,59 St-Columbus Circle,41,62,614,unique
+237353,484829,header,169,local boundary,Canal St,66,74,169|325|623,daytime route
+237353,484829,header,164,boarding platform,34 St-Penn Station,125,143,164|318,daytime route
+237353,484829,description,276,reroute boundary,5 Av/53 St,200,210,276,unique
+237353,484829,description,167,reroute boundary,W 4 St-Wash Sq,214,228,167,unique
+237354,484831,header,51,express boundary,Kings Hwy,53,62,250|51|77,daytime route
+237354,484831,header,54,express boundary,Sheepshead Bay,66,80,54,unique
+237356,484835,header,35,express boundary,59 St,53,58,35|613,daytime route
+237356,484835,header,77,express boundary,Kings Hwy,62,71,250|51|77,daytime route
+237360,484850,header,261,local boundary,Forest Hills-71 Av,38,56,261,unique
+237360,484850,header,258,local boundary,Briarwood,60,69,258,unique
+237361,484852,description,276,reroute boundary,5 Av/53 St,198,208,276,unique
+237361,484852,description,167,reroute boundary,W 4 St-Wash Sq,212,226,167,unique
+237361,484852,description,164,boarding platform,34 St-Penn Station,132,150,164|318,daytime route
+237362,484860,description,626,express boundary,Franklin Av-Medgar Evers College,61,93,626,unique
+237362,484860,description,617,express boundary,Atlantic Av-Barclays Ctr,97,121,617,unique
+237372,484875,header,35,express boundary,59 St,66,71,35|613,daytime route
+237372,484875,header,77,express boundary,Kings Hwy,75,84,250|51|77,daytime route
+237374,484879,header,217,skipped,170 St,25,31,217|387,daytime route
+237383,484894,header,614,local boundary,59 St-Columbus Circle,41,62,614,unique
+237383,484894,header,169,local boundary,Canal St,66,74,169|325|623,daytime route
+237386,484899,header,256,express boundary,Parsons Blvd,43,55,256,unique
+237386,484899,header,259,express boundary,Kew Gardens-Union Tpke,59,81,259,unique
+237419,484976,description,9,express boundary,57 St/7 Av,63,73,9,unique
+237419,484976,description,607,express boundary,34 St-Herald Sq,77,92,607,unique
+237420,484981,header,636,reroute boundary,Jay St-MetroTech,48,64,636,unique
+237420,484981,header,167,reroute boundary,W 4 St-Wash Sq,68,82,167,unique
+237438,485017,header,,local boundary,72 St,54,59,160|313|477,unresolved
+237438,485017,header,614,local boundary,59 St-Columbus Circle,63,84,614,unique
+237439,485019,header,392,express boundary,125 St,45,51,153|306|392|439,daytime route
+237439,485019,header,610,express boundary,Grand Central-42 St,55,74,610,unique
+237440,485022,header,614,local boundary,59 St-Columbus Circle,52,73,614,unique
+237440,485022,header,151,local boundary,145 St,77,83,151|304|437,daytime route
+237444,485030,header,167,reroute boundary,W 4 St-Wash Sq,49,63,167,unique
+237444,485030,header,636,reroute boundary,Jay St-MetroTech,67,83,636,unique
+237448,485040,header,618,suspension boundary,8 Av,36,40,618|71,daytime route
+237448,485040,header,602,suspension boundary,14 St-Union Sq,45,59,602,unique
+237467,485080,header,395,skipped,103 St,30,36,156|309|395,daytime route
+237469,485083,header,51,local boundary,Kings Hwy,39,48,250|51|77,daytime route
+237469,485083,header,42,local boundary,Prospect Park,52,65,42,unique
+237522,485197,header,611,express boundary,Times Sq-42 St,54,68,611,unique
+237522,485197,header,313,express boundary,72 St,72,77,160|313|477,daytime route
+237569,485271,header,77,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+237569,485271,header,35,express boundary,59 St,54,59,35|613,daytime route
+237613,485343,header,371,express boundary,Hunts Point Av,56,70,371,unique
+237613,485343,header,391,express boundary,138 St-Grand Concourse,74,96,391,unique
+237614,485344,header,602,express boundary,14 St-Union Sq,54,68,602,unique
+237614,485344,header,610,express boundary,Grand Central-42 St,72,91,610,unique
+237622,485361,description,167,boarding platform,W 4 St-Wash Sq,207,221,167,unique
+237628,485373,header,629,suspension boundary,Lorimer St,27,37,629|99,daytime route
+237628,485373,header,618,suspension boundary,8 Av,42,46,618|71,daytime route
+237635,485387,description,602,short turn,14 St-Union Sq,37,51,602,unique
+237660,485430,header,243,express boundary,Church Av,62,71,243|356|44,daytime route
+237660,485430,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+237679,485465,header,151,local boundary,145 St,39,45,151|304|437,daytime route
+237679,485465,header,605,local boundary,168 St,49,55,605,unique
+237680,485467,header,215,express boundary,Tremont Av,45,55,215,unique
+237680,485467,header,151,express boundary,145 St,59,65,151|304|437,daytime route
+237761,485649,description,613,boarding platform,Lexington Av/59 St,20,38,613,unique
+237764,485654,header,392,express boundary,125 St,58,64,153|306|392|439,daytime route
+237764,485654,header,610,express boundary,Grand Central-42 St,68,87,610,unique
+237771,485665,header,614,express boundary,59 St-Columbus Circle,56,77,614,unique
+237771,485665,header,153,express boundary,125 St,81,87,153|306|392|439,daytime route
+237813,485744,header,152,skipped,135 St,32,38,152|438,daytime route
+237815,485747,header,152,skipped,135 St,31,37,152|438,daytime route
+237817,485750,header,218,express boundary,167 St,43,49,218|388,daytime route
+237817,485750,header,211,express boundary,Bedford Park Blvd,53,70,211,unique
+237827,485766,header,42,express boundary,Prospect Park,66,79,42,unique
+237827,485766,header,51,express boundary,Kings Hwy,83,92,250|51|77,daytime route
+237851,485825,header,188,express boundary,Euclid Av,41,50,188,unique
+237851,485825,header,621,express boundary,Broadway Junction,54,71,621,unique
+237923,485975,header,313,local boundary,72 St,43,48,160|313|477,daytime route
+237923,485975,header,611,local boundary,Times Sq-42 St,52,66,611,unique
+237924,485977,header,77,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+237924,485977,header,35,express boundary,59 St,54,59,35|613,daytime route
+237954,486038,header,9,express boundary,57 St/7 Av,45,55,9,unique
+237954,486038,header,611,express boundary,Times Sq-42 St,59,73,611,unique
+238008,486152,header,607,local boundary,34 St-Herald Sq,39,54,607,unique
+238008,486152,header,9,local boundary,57 St/7 Av,58,68,9,unique
+238022,486186,header,371,express boundary,Hunts Point Av,56,70,371,unique
+238022,486186,header,366,express boundary,Parkchester,74,85,366,unique
+238058,486254,header,26,reroute boundary,DeKalb Av,48,57,127|26,daytime route
+238058,486254,header,623,reroute boundary,Canal St,61,69,169|325|623,daytime route
+238085,486313,description,621,short turn,Broadway Junction,68,85,621,unique
+238092,486332,header,165,skipped,23 St,32,37,14|165|228|320,daytime route
+238093,486333,description,371,express boundary,Hunts Point Av,85,99,371,unique
+238093,486333,description,377,express boundary,3 Av/138 St,103,114,377,unique
+238093,486333,description,397,short turn,86 St,33,38,158|311|38|397|476|79,daytime route
+238126,486401,header,32,reroute boundary,36 St,72,77,272|32,daytime route
+238126,486401,header,58,reroute boundary,Coney Island-Stillwell Av,81,106,58,unique
+238154,486448,header,607,express boundary,34 St-Herald Sq,42,57,607,unique
+238154,486448,header,623,express boundary,Canal St,61,69,169|325|623,daytime route
+238170,486482,header,196,express boundary,Aqueduct Racetrack,76,94,196,unique
+238170,486482,header,190,express boundary,80 St,98,103,190,unique
+238191,486519,header,69,express boundary,25 Av,41,46,69,unique
+238191,486519,header,32,express boundary,36 St,50,55,272|32,daytime route
+238195,486527,header,153,express boundary,125 St,47,53,153|306|392|439,daytime route
+238195,486527,header,605,express boundary,168 St,57,63,605,unique
+238200,486536,header,313,local boundary,72 St,43,48,160|313|477,daytime route
+238200,486536,header,611,local boundary,Times Sq-42 St,52,66,611,unique
+238209,486560,description,129,short turn,Halsey St,61,70,129|94,daytime route
+238230,486601,header,243,express boundary,Church Av,81,90,243|356|44,daytime route
+238230,486601,header,238,express boundary,Smith-9 Sts,94,105,238,unique
+238233,486607,description,236,short turn,Bergen St,66,75,236|339,daytime route
+238235,486612,header,151,local boundary,145 St,98,104,151|304|437,daytime route
+238235,486612,header,614,local boundary,59 St-Columbus Circle,108,129,614,unique
+238295,486735,header,380,express boundary,Bedford Park Blvd-Lehman College,43,75,380,unique
+238295,486735,header,384,express boundary,Burnside Av,79,90,384,unique
+238345,486859,header,310,express boundary,96 St,135,140,157|310|396|475,daytime route
+238345,486859,header,313,express boundary,72 St,144,149,160|313|477,daytime route
+238353,486879,header,611,express boundary,Times Sq-42 St,41,55,611,unique
+238353,486879,header,313,express boundary,72 St,59,64,160|313|477,daytime route
+238368,486909,header,70,express boundary,Bay 50 St,41,50,70,unique
+238368,486909,header,68,express boundary,Bay Pkwy,54,62,247|68|76,daytime route
+238389,486957,header,611,express boundary,42 St-Port Authority Bus Terminal,43,76,611,unique
+238389,486957,header,169,express boundary,Canal St,80,88,169|325|623,daytime route
+238417,487020,description,605,short turn,168 St,46,52,605,unique
+238420,487029,header,69,express boundary,25 Av,41,46,69,unique
+238420,487029,header,615,express boundary,62 St,50,55,615,unique
+238422,487031,header,153,local boundary,125 St,43,49,153|306|392|439,daytime route
+238422,487031,header,614,local boundary,59 St-Columbus Circle,53,74,614,unique
+238436,487065,description,179,boarding platform,Nostrand Av,80,91,179|343,daytime route
+238478,487182,header,42,express boundary,Prospect Park,66,79,42,unique
+238478,487182,header,51,express boundary,Kings Hwy,83,92,250|51|77,daytime route
+238485,487197,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+238485,487197,header,9,express boundary,57 St/7 Av,64,74,9,unique
+238506,487231,header,602,express boundary,14 St-Union Sq,45,59,602,unique
+238506,487231,header,622,express boundary,Brooklyn Bridge-City Hall,63,88,622,unique
+238510,487239,header,310,local boundary,96 St,41,46,157|310|396|475,daytime route
+238510,487239,header,313,local boundary,72 St,50,55,160|313|477,daytime route
+238528,487270,description,617,express boundary,Atlantic Av-Barclays Ctr,87,111,617,unique
+238528,487270,description,,express boundary,36 St,115,120,272|32,unresolved
+238538,487288,header,380,express boundary,Bedford Park Blvd-Lehman College,43,75,380,unique
+238538,487288,header,384,express boundary,Burnside Av,79,90,384,unique
+238562,487334,header,51,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+238562,487334,header,42,express boundary,Prospect Park,54,67,42,unique
+238566,487341,header,26,reroute boundary,DeKalb Av,50,59,127|26,daytime route
+238566,487341,header,623,reroute boundary,Canal St,63,71,169|325|623,daytime route
+238592,487400,header,623,local boundary,Canal St,41,49,169|325|623,daytime route
+238592,487400,header,607,local boundary,34 St-Herald Sq,53,68,607,unique
+238646,487503,description,621,short turn,Broadway Junction,54,71,621,unique
+238669,487542,description,397,short turn,86 St,48,53,158|311|38|397|476|79,daytime route
+238688,487578,header,617,express boundary,Atlantic Av-Barclays Ctr,93,117,617,unique
+238688,487578,header,626,express boundary,Franklin Av-Medgar Evers College,121,153,626,unique
+238689,487579,header,602,express boundary,14 St-Union Sq,45,59,602,unique
+238689,487579,header,622,express boundary,Brooklyn Bridge-City Hall,63,88,622,unique
+238695,487592,header,602,express boundary,14 St-Union Sq,45,59,602,unique
+238695,487592,header,622,express boundary,Brooklyn Bridge-City Hall,63,88,622,unique
+238717,487635,header,51,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+238717,487635,header,42,express boundary,Prospect Park,54,67,42,unique
+238730,487658,header,243,express boundary,Church Av,62,71,243|356|44,daytime route
+238730,487658,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+238740,487682,header,32,express boundary,36 St,43,48,272|32,daytime route
+238740,487682,header,617,express boundary,Atlantic Av-Barclays Ctr,52,76,617,unique
+238742,487688,header,611,local boundary,Times Sq-42 St,52,66,611,unique
+238742,487688,header,313,local boundary,72 St,70,75,160|313|477,daytime route
+238755,487710,description,179,boarding platform,Nostrand Av,79,90,179|343,daytime route
+238764,487724,header,622,local boundary,Brooklyn Bridge-City Hall,41,66,622,unique
+238764,487724,header,392,local boundary,125 St,70,76,153|306|392|439,daytime route
+238770,487737,description,9,local boundary,57 St/7 Av,127,137,9,unique
+238770,487737,description,623,local boundary,Canal St,141,149,169|325|623,daytime route
+238773,487742,header,153,local boundary,125 St,43,49,153|306|392|439,daytime route
+238773,487742,header,614,local boundary,59 St-Columbus Circle,53,74,614,unique
+238846,487881,header,87,suspension boundary,Crescent St,21,32,87,unique
+238846,487881,header,278,suspension boundary,Jamaica Center-Parsons/Archer,37,66,278,unique
+238846,487881,description,87,short turn,Crescent St,52,63,87,unique
+238868,487940,header,611,local boundary,Times Sq-42 St,39,53,611,unique
+238868,487940,header,310,local boundary,96 St,57,62,157|310|396|475,daytime route
+238897,487994,header,622,local boundary,Brooklyn Bridge-City Hall,54,79,622,unique
+238897,487994,header,392,local boundary,125 St,83,89,153|306|392|439,daytime route
+238898,487995,header,327,local boundary,Chambers St,41,52,327|622|624,daytime route
+238898,487995,header,310,local boundary,96 St,56,61,157|310|396|475,daytime route
+238899,487997,description,621,short turn,Broadway Junction,55,72,621,unique
+238901,487999,header,461,suspension boundary,Queensboro Plaza,21,37,461,unique
+238901,487999,header,1,suspension boundary,Astoria-Ditmars Blvd,42,62,1,unique
+238901,487999,description,9,short turn,57 St/7 Av,106,116,9,unique
+238930,488053,header,388,express boundary,167 St,49,55,218|388,daytime route
+238930,488053,header,384,express boundary,Burnside Av,59,70,384,unique
+238954,488088,header,622,local boundary,Brooklyn Bridge-City Hall,41,66,622,unique
+238954,488088,header,602,local boundary,14 St-Union Sq,70,84,602,unique
+238960,488103,header,601,express boundary,14 St,43,48,601|618,daytime route
+238960,488103,header,327,express boundary,Chambers St,52,63,327|622|624,daytime route
+238965,488112,header,426,express boundary,E 180 St,49,57,426,unique
+238965,488112,header,416,express boundary,Wakefield-241 St,61,77,416,unique
+238966,488115,description,153,local boundary,125 St,137,143,153|306|392|439,daytime route
+238966,488115,description,614,local boundary,59 St-Columbus Circle,147,168,614,unique
+238966,488115,description,,local boundary,DeKalb Av,221,230,127|26,unresolved
+238966,488115,description,32,local boundary,36 St,234,239,272|32,daytime route
+238976,488132,header,58,reroute boundary,Coney Island-Stillwell Av,47,72,58,unique
+238976,488132,header,32,reroute boundary,36 St,76,81,272|32,daytime route
+239004,488180,header,602,express boundary,14 St-Union Sq,43,57,602,unique
+239004,488180,header,622,express boundary,Brooklyn Bridge-City Hall,61,86,622,unique
+239012,488210,description,107,boarding platform,Broad St,102,110,107,unique
+239054,488301,header,434,express boundary,3 Av/149 St,89,100,434,unique
+239054,488301,header,426,express boundary,E 180 St,104,112,426,unique
+239078,488416,header,608,skipped,4 Av/9 St,34,43,608,unique
+239087,488451,header,448,short turn,Mets-Willets Point,57,75,448,unique
+239102,488501,header,366,local boundary,Parkchester,50,61,366,unique
+239102,488501,header,377,local boundary,3 Av/138 St,65,76,377,unique
+239137,488567,description,179,boarding platform,Nostrand Av,188,199,179|343,daytime route
+239137,488567,description,164,boarding platform,34 St-Penn Station,252,270,164|318,daytime route
+239163,488620,header,289,suspension boundary,Bedford-Nostrand Avs,27,47,289,unique
+239163,488620,header,606,suspension boundary,Court Sq,52,60,606,unique
+239163,488620,description,289,short turn,Bedford-Nostrand Avs,36,56,289,unique
+239184,488663,header,289,suspension boundary,Bedford-Nostrand Avs,27,47,289,unique
+239184,488663,header,606,suspension boundary,Court Sq,52,60,606,unique
+239184,488663,header,289,short turn,Bedford-Nostrand Avs,117,137,289,unique
+239236,488761,description,475,short turn,96 St,48,53,157|310|396|475,daytime route
+239238,488764,header,232,short turn,2 Av,90,94,232,unique
+239239,488765,description,629,short turn,Lorimer St,63,73,629|99,daytime route
+239239,488765,description,630,short turn,Myrtle-Wyckoff Avs,120,138,630,unique
+239273,488834,header,313,express boundary,72 St,54,59,160|313|477,daytime route
+239273,488834,header,310,express boundary,96 St,63,68,157|310|396|475,daytime route
+239274,488835,header,384,express boundary,Burnside Av,56,67,384,unique
+239274,488835,header,388,express boundary,167 St,71,77,218|388,daytime route
+239285,488862,header,611,local boundary,Times Sq-42 St,52,66,611,unique
+239285,488862,header,313,local boundary,72 St,70,75,160|313|477,daytime route
+239285,488862,header,327,local boundary,Chambers St,129,140,327|622|624,daytime route
+239285,488862,header,310,local boundary,96 St,144,149,157|310|396|475,daytime route
+239287,488864,header,610,express boundary,Grand Central-42 St,41,60,610,unique
+239287,488864,header,392,express boundary,125 St,64,70,153|306|392|439,daytime route
+239289,488867,description,135,short turn,Livonia Av,55,65,135,unique
+239297,488883,header,392,express boundary,125 St,115,121,153|306|392|439,daytime route
+239297,488883,header,610,express boundary,Grand Central-42 St,125,144,610,unique
+239297,488883,header,392,local boundary,125 St,41,47,153|306|392|439,daytime route
+239297,488883,header,610,local boundary,Grand Central-42 St,51,70,610,unique
+239299,488892,header,318,local boundary,34 St-Penn Station,52,70,164|318,daytime route
+239299,488892,header,310,local boundary,96 St,74,79,157|310|396|475,daytime route
+239332,488962,header,611,local boundary,Times Sq-42 St,52,66,611,unique
+239332,488962,header,313,local boundary,72 St,70,75,160|313|477,daytime route
+239362,489007,header,179,boarding platform,Nostrand Av,102,113,179|343,daytime route
+239366,489011,header,602,express boundary,14 St-Union Sq,40,54,602,unique
+239366,489011,header,622,express boundary,Brooklyn Bridge-City Hall,58,83,622,unique
+239389,489055,header,623,local boundary,Canal St,41,49,169|325|623,daytime route
+239389,489055,header,607,local boundary,34 St-Herald Sq,53,68,607,unique
+239394,489069,header,318,local boundary,34 St-Penn Station,43,61,164|318,daytime route
+239394,489069,header,327,local boundary,Chambers St,65,76,327|622|624,daytime route
+239422,489160,description,299,express boundary,Dyckman St,71,81,144|299,daytime route
+239422,489160,description,293,express boundary,Van Cortlandt Park-242 St,85,110,293,unique
+239428,489179,header,35,express boundary,59 St,66,71,35|613,daytime route
+239428,489179,header,77,express boundary,Kings Hwy,75,84,250|51|77,daytime route
+239446,489216,header,51,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+239446,489216,header,42,express boundary,Prospect Park,54,67,42,unique
+239451,489225,header,623,local boundary,Canal St,41,49,169|325|623,daytime route
+239451,489225,header,607,local boundary,34 St-Herald Sq,53,68,607,unique
+239455,489241,header,606,suspension boundary,Court Sq,21,29,606,unique
+239455,489241,header,289,suspension boundary,Bedford-Nostrand Avs,34,54,289,unique
+239496,489300,description,188,short turn,Euclid Av,37,46,188,unique
+239538,489384,header,14,skipped,23 St,25,30,14|165|228|320,daytime route
+239571,489444,header,377,express boundary,3 Av/138 St,69,80,377,unique
+239571,489444,header,371,express boundary,Hunts Point Av,84,98,371,unique
+239590,489487,header,51,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+239590,489487,header,42,express boundary,Prospect Park,54,67,42,unique
+239591,489489,header,151,local boundary,145 St,54,60,151|304|437,daytime route
+239591,489489,header,153,local boundary,125 St,64,70,153|306|392|439,daytime route
+239592,489490,description,167,boarding platform,W 4 St-Wash Sq,269,283,167,unique
+239594,489494,header,42,express boundary,Prospect Park,53,66,42,unique
+239594,489494,header,51,express boundary,Kings Hwy,70,79,250|51|77,daytime route
+239713,489735,header,167,suspension boundary,W 4 St-Wash Sq,21,35,167,unique
+239713,489735,header,624,suspension boundary,World Trade Center,40,58,624,unique
+239713,489735,description,232,short turn,2 Av,47,51,232,unique
+239744,489810,header,153,local boundary,125 St,41,47,153|306|392|439,daytime route
+239744,489810,header,614,local boundary,59 St-Columbus Circle,51,72,614,unique
+239747,489813,header,608,express boundary,4 Av/9 St,54,63,608,unique
+239747,489813,header,636,express boundary,Jay St-MetroTech,67,83,636,unique
+239750,489820,header,26,reroute boundary,DeKalb Av,48,57,127|26,daytime route
+239750,489820,header,623,reroute boundary,Canal St,61,69,169|325|623,daytime route
+239770,489851,header,621,local boundary,Broadway Junction,48,65,621,unique
+239770,489851,header,175,local boundary,Hoyt-Schermerhorn Sts,69,90,175,unique
+239788,489877,header,623,local boundary,Canal St,41,49,169|325|623,daytime route
+239788,489877,header,607,local boundary,34 St-Herald Sq,53,68,607,unique
+239792,489883,description,614,local boundary,59 St-Columbus Circle,63,84,614,unique
+239792,489883,description,153,local boundary,125 St,88,94,153|306|392|439,daytime route
+239803,489904,header,615,express boundary,62 St,66,71,615,unique
+239803,489904,header,68,express boundary,Bay Pkwy,75,83,247|68|76,daytime route
+240001,490289,description,310,suspension boundary,96 St,21,26,157|310|396|475,daytime route
+240001,490289,description,436,suspension boundary,Harlem-148 St,31,44,436,unique
+240071,490426,header,215,local boundary,Tremont Av,41,51,215,unique
+240071,490426,header,604,local boundary,161 St-Yankee Stadium,55,76,604,unique
+240078,490435,header,420,express boundary,219 St,43,49,420,unique
+240078,490435,header,426,express boundary,E 180 St,53,61,426,unique
+240090,490456,description,636,reroute boundary,Jay St-MetroTech,67,83,636,unique
+240090,490456,description,167,reroute boundary,W 4 St-Wash Sq,87,101,167,unique
+240093,490460,header,310,express boundary,96 St,43,48,157|310|396|475,daytime route
+240093,490460,header,313,express boundary,72 St,52,57,160|313|477,daytime route
+240098,490472,header,622,suspension boundary,Chambers St,30,41,327|622|624,daytime route
+240098,490472,header,107,suspension boundary,Broad St,46,54,107,unique
+240098,490472,description,622,short turn,Chambers St,66,77,327|622|624,daytime route
+240101,490476,header,628,skipped,Fulton St,25,34,292|628,daytime route
+240106,490490,header,305,express boundary,137 St-City College,43,62,305,unique
+240106,490490,header,310,express boundary,96 St,66,71,157|310|396|475,daytime route
+240111,490500,header,602,local boundary,14 St-Union Sq,38,52,602,unique
+240111,490500,header,610,local boundary,Grand Central-42 St,56,75,610,unique
+240127,490543,description,630,short turn,Myrtle-Wyckoff Avs,67,85,630,unique
+240134,490563,header,611,local boundary,Times Sq-42 St,41,55,611,unique
+240134,490563,header,313,local boundary,72 St,59,64,160|313|477,daytime route
+240147,490584,header,318,local boundary,34 St-Penn Station,43,61,164|318,daytime route
+240147,490584,header,601,local boundary,14 St,65,70,601|618,daytime route
+240148,490586,header,310,local boundary,96 St,43,48,157|310|396|475,daytime route
+240148,490586,header,313,local boundary,72 St,52,57,160|313|477,daytime route
+240149,490587,description,610,express boundary,Grand Central-42 St,48,67,610,unique
+240149,490587,description,622,express boundary,Brooklyn Bridge-City Hall,71,96,622,unique
+240153,490593,header,313,express boundary,72 St,43,48,160|313|477,daytime route
+240153,490593,header,611,express boundary,Times Sq-42 St,52,66,611,unique
+240216,490692,description,261,short turn,Forest Hills-71 Av,62,80,261,unique
+240217,490695,header,614,reroute boundary,59 St-Columbus Circle,50,71,614,unique
+240217,490695,header,167,reroute boundary,W 4 St-Wash Sq,75,89,167,unique
+240219,490699,header,607,express boundary,34 St-Herald Sq,54,69,607,unique
+240219,490699,header,9,express boundary,57 St/7 Av,73,83,9,unique
+240222,490704,header,601,express boundary,14 St,58,63,601|618,daytime route
+240222,490704,header,327,express boundary,Chambers St,67,78,327|622|624,daytime route
+240224,490711,header,119,suspension boundary,1 Av,27,31,119,unique
+240224,490711,header,621,suspension boundary,Broadway Junction,36,53,621,unique
+240224,490711,description,118,short turn,3 Av,38,42,118,unique
+240224,490711,description,621,short turn,Broadway Junction,91,108,621,unique
+240244,490741,description,475,short turn,96 St,33,38,157|310|396|475,daytime route
+240248,490750,header,51,local boundary,Kings Hwy,39,48,250|51|77,daytime route
+240248,490750,header,42,local boundary,Prospect Park,52,65,42,unique
+240259,490768,description,614,express boundary,59 St-Columbus Circle,48,69,614,unique
+240259,490768,description,169,express boundary,Canal St,73,81,169|325|623,daytime route
+240261,490771,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+240261,490771,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+240271,490788,header,607,local boundary,34 St-Herald Sq,39,54,607,unique
+240271,490788,header,9,local boundary,57 St/7 Av,58,68,9,unique
+240278,490798,header,621,express boundary,Broadway Junction,41,58,621,unique
+240278,490798,header,175,express boundary,Hoyt-Schermerhorn Sts,62,83,175,unique
+240278,490798,description,179,boarding platform,Nostrand Av,120,131,179|343,daytime route
+240320,490873,header,259,express boundary,Kew Gardens-Union Tpke,45,67,259,unique
+240320,490873,header,261,express boundary,Forest Hills-71 Av,71,89,261,unique
+240331,490897,description,623,local boundary,Canal St,43,51,169|325|623,daytime route
+240331,490897,description,607,local boundary,34 St-Herald Sq,55,70,607,unique
+240341,490917,header,610,express boundary,Grand Central-42 St,56,75,610,unique
+240341,490917,header,602,express boundary,14 St-Union Sq,79,93,602,unique
+240364,490963,header,243,express boundary,Church Av,62,71,243|356|44,daytime route
+240364,490963,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+240382,490998,description,614,reroute boundary,59 St-Columbus Circle,54,75,614,unique
+240382,490998,description,167,reroute boundary,W 4 St-Wash Sq,79,93,167,unique
+240393,491022,header,68,express boundary,Bay Pkwy,41,49,247|68|76,daytime route
+240393,491022,header,615,express boundary,62 St,53,58,615,unique
+240397,491029,description,622,short turn,Chambers St,36,47,327|622|624,daytime route
+240412,491062,header,426,express boundary,E 180 St,50,58,426,unique
+240412,491062,header,434,express boundary,3 Av/149 St,62,73,434,unique
+240486,491211,header,616,express boundary,74 St-Broadway,70,84,616,unique
+240486,491211,header,447,express boundary,Flushing-Main St,88,104,447,unique
+240494,491224,header,327,express boundary,Chambers St,54,65,327|622|624,daytime route
+240494,491224,header,601,express boundary,14 St,69,74,601|618,daytime route
+240494,491224,description,601,local boundary,14 St,56,61,601|618,daytime route
+240494,491224,description,310,local boundary,96 St,65,70,157|310|396|475,daytime route
+240505,491243,header,605,express boundary,168 St,53,59,605,unique
+240505,491243,header,153,express boundary,125 St,63,69,153|306|392|439,daytime route
+240514,491259,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+240514,491259,header,243,express boundary,Church Av,90,99,243|356|44,daytime route
+240516,491262,description,261,short turn,Forest Hills-71 Av,55,73,261,unique
+240549,491325,header,610,express boundary,Grand Central-42 St,38,57,610,unique
+240549,491325,header,392,express boundary,125 St,61,67,153|306|392|439,daytime route
+240638,491531,header,611,local boundary,Times Sq-42 St,103,117,611,unique
+240638,491531,header,313,local boundary,72 St,121,126,160|313|477,daytime route
+240663,491592,description,133,short turn,Atlantic Av,55,66,133,unique
+240666,491599,description,463,short turn,Hunters Point Av,190,206,463,unique
+240672,491608,header,77,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+240672,491608,header,35,express boundary,59 St,54,59,35|613,daytime route
+240683,491628,header,167,local boundary,W 4 St-Wash Sq,41,55,167,unique
+240683,491628,header,607,local boundary,34 St-Herald Sq,59,74,607,unique
+240688,491642,header,151,express boundary,145 St,43,49,151|304|437,daytime route
+240688,491642,header,211,express boundary,Bedford Park Blvd,53,70,211,unique
+240756,491819,description,2,express boundary,Astoria Blvd,50,62,2,unique
+240756,491819,description,461,express boundary,Queensboro Plaza,66,82,461,unique
+240757,491825,header,153,local boundary,125 St,43,49,153|306|392|439,daytime route
+240757,491825,header,614,local boundary,59 St-Columbus Circle,53,74,614,unique
+240780,491890,header,,reroute boundary,36 St,50,55,272|32,unresolved
+240780,491890,header,167,reroute boundary,W 4 St-Wash Sq,59,73,167,unique
+240809,491948,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+240809,491948,header,623,express boundary,Canal St,64,72,169|325|623,daytime route
+240839,492015,header,619,suspension boundary,Broadway-Lafayette St,21,42,619,unique
+240839,492015,header,32,suspension boundary,36 St,47,52,272|32,daytime route
+240839,492015,description,32,short turn,36 St,45,50,272|32,daytime route
+240839,492015,description,232,short turn,2 Av,149,153,232,unique
+240864,492074,header,626,express boundary,Franklin Av-Medgar Evers College,43,75,626,unique
+240864,492074,header,617,express boundary,Atlantic Av-Barclays Ctr,79,103,617,unique
+240875,492096,description,602,express boundary,14 St-Union Sq,67,81,602,unique
+240875,492096,description,622,express boundary,Brooklyn Bridge-City Hall,85,110,622,unique
+240879,492100,header,8,express boundary,5 Av/59 St,45,55,8,unique
+240879,492100,header,10,express boundary,49 St,59,64,10,unique
+240882,492109,header,310,local boundary,96 St,43,48,157|310|396|475,daytime route
+240882,492109,header,313,local boundary,72 St,52,57,160|313|477,daytime route
+240883,492110,description,232,short turn,2 Av,146,150,232,unique
+240883,492110,description,608,short turn,4 Av/9 St,241,250,608,unique
+240920,492197,header,327,local boundary,Chambers St,41,52,327|622|624,daytime route
+240920,492197,header,310,local boundary,96 St,56,61,157|310|396|475,daytime route
+240931,492221,description,261,short turn,Forest Hills-71 Av,42,60,261,unique
+240962,492278,description,273,boarding platform,Queens Plaza,55,67,273,unique
+240966,492287,header,1,express boundary,Astoria-Ditmars Blvd,41,61,1,unique
+240966,492287,header,461,express boundary,Queensboro Plaza,65,81,461,unique
+240975,492302,header,610,express boundary,Grand Central-42 St,43,62,610,unique
+240975,492302,header,622,express boundary,Brooklyn Bridge-City Hall,66,91,622,unique
+240978,492307,header,175,express boundary,Hoyt-Schermerhorn Sts,50,71,175,unique
+240978,492307,header,621,express boundary,Broadway Junction,75,92,621,unique
+240978,492307,description,179,boarding platform,Nostrand Av,211,222,179|343,daytime route
+240992,492343,description,621,short turn,Broadway Junction,93,110,621,unique
+241020,492406,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+241020,492406,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+241052,492463,header,153,express boundary,125 St,56,62,153|306|392|439,daytime route
+241052,492463,header,614,express boundary,59 St-Columbus Circle,66,87,614,unique
+241059,492480,header,51,local boundary,Kings Hwy,48,57,250|51|77,daytime route
+241059,492480,header,42,local boundary,Prospect Park,61,74,42,unique
+241076,492524,header,167,express boundary,W 4 St-Wash Sq,43,57,167,unique
+241076,492524,header,607,express boundary,34 St-Herald Sq,61,76,607,unique
+241124,492612,description,426,local boundary,E 180 St,46,54,426,unique
+241124,492612,description,434,local boundary,3 Av/149 St,58,69,434,unique
+241143,492646,header,77,express boundary,Kings Hwy,38,47,250|51|77,daytime route
+241143,492646,header,35,express boundary,59 St,51,56,35|613,daytime route
+241167,492699,header,35,local boundary,59 St,39,44,35|613,daytime route
+241167,492699,header,32,local boundary,36 St,48,53,272|32,daytime route
+241175,492722,description,169,express boundary,Canal St,46,54,169|325|623,daytime route
+241175,492722,description,614,express boundary,59 St-Columbus Circle,58,79,614,unique
+241186,492750,header,153,express boundary,125 St,45,51,153|306|392|439,daytime route
+241186,492750,header,614,express boundary,59 St-Columbus Circle,55,76,614,unique
+241189,492755,header,391,skipped,138 St-Grand Concourse,32,54,391,unique
+241208,492792,header,601,local boundary,14 St,41,46,601|618,daytime route
+241208,492792,header,611,local boundary,Times Sq-42 St,50,64,611,unique
+241222,492820,header,615,express boundary,62 St,66,71,615,unique
+241222,492820,header,68,express boundary,Bay Pkwy,75,83,247|68|76,daytime route
+241231,492842,header,169,express boundary,Canal St,41,49,169|325|623,daytime route
+241231,492842,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+241231,492842,description,164,boarding platform,34 St-Penn Station,135,153,164|318,daytime route
+241233,492849,description,378,express boundary,Woodlawn,65,73,378,unique
+241233,492849,description,380,express boundary,Bedford Park Blvd-Lehman College,77,109,380,unique
+241276,492943,description,305,short turn,137 St-City College,35,54,305,unique
+241303,493006,header,169,express boundary,Canal St,40,48,169|325|623,daytime route
+241303,493006,header,611,express boundary,42 St-Port Authority Bus Terminal,52,85,611,unique
+241323,493073,header,1,express boundary,Astoria-Ditmars Blvd,45,65,1,unique
+241323,493073,header,461,express boundary,Queensboro Plaza,69,85,461,unique
+241335,493095,header,605,express boundary,168 St,43,49,605,unique
+241335,493095,header,151,express boundary,145 St,53,59,151|304|437,daytime route
+241342,493108,header,153,express boundary,125 St,45,51,153|306|392|439,daytime route
+241342,493108,header,614,express boundary,59 St-Columbus Circle,55,76,614,unique
+241471,493390,header,153,local boundary,125 St,43,49,153|306|392|439,daytime route
+241471,493390,header,614,local boundary,59 St-Columbus Circle,53,74,614,unique
+241644,493714,header,447,local boundary,Flushing-Main St,54,70,447,unique
+241644,493714,header,616,local boundary,74 St-Broadway,74,88,616,unique
+241646,493716,header,169,express boundary,Canal St,41,49,169|325|623,daytime route
+241646,493716,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+241669,493766,description,614,reroute boundary,59 St-Columbus Circle,178,199,614,unique
+241669,493766,description,167,reroute boundary,W 4 St-Wash Sq,203,217,167,unique
+241669,493766,description,232,short turn,2 Av,60,64,232,unique
+241674,493777,description,198,short turn,Howard Beach-JFK Airport,78,102,198,unique
+241695,493824,header,605,suspension boundary,168 St-Washington Hts,36,57,605,unique
+241695,493824,header,306,suspension boundary,125 St,62,68,153|306|392|439,daytime route
+241695,493824,description,605,short turn,168 St-Washington Hts,38,59,605,unique
+241695,493824,description,304,short turn,145 St,97,103,151|304|437,daytime route
+241704,493853,description,626,express boundary,Franklin Av-Medgar Evers College,61,93,626,unique
+241704,493853,description,617,express boundary,Atlantic Av-Barclays Ctr,97,121,617,unique
+241722,493886,header,605,local boundary,168 St,86,92,605,unique
+241722,493886,header,153,local boundary,125 St,96,102,153|306|392|439,daytime route
+241733,493919,header,153,express boundary,125 St,45,51,153|306|392|439,daytime route
+241733,493919,header,614,express boundary,59 St-Columbus Circle,55,76,614,unique
+241738,493933,header,461,express boundary,Queensboro Plaza,61,77,461,unique
+241738,493933,header,1,express boundary,Astoria-Ditmars Blvd,81,101,1,unique
+241764,493988,header,621,express boundary,Broadway Junction,49,66,621,unique
+241764,493988,header,97,express boundary,Myrtle Av,70,79,97,unique
+241769,494000,description,261,short turn,Forest Hills-71 Av,55,73,261,unique
+241773,494009,header,436,suspension boundary,Harlem-148 St,30,43,436,unique
+241773,494009,header,438,suspension boundary,135 St,48,54,152|438,daytime route
+241773,494009,description,438,short turn,135 St,133,139,152|438,daytime route
+241821,494099,header,250,express boundary,Kings Hwy,41,50,250|51|77,daytime route
+241821,494099,header,245,express boundary,18 Av,54,59,245|66|74,daytime route
+241832,494127,header,164,skipped,34 St-Penn Station,34,52,164|318,daytime route
+241837,494139,description,630,short turn,Myrtle-Wyckoff Avs,45,63,630,unique
+241841,494151,description,26,reroute boundary,DeKalb Av,53,62,127|26,daytime route
+241841,494151,description,623,reroute boundary,Canal St,66,74,169|325|623,daytime route
+241842,494153,description,167,reroute boundary,W 4 St-Wash Sq,55,69,167,unique
+241842,494153,description,58,reroute boundary,Coney Island-Stillwell Av,73,98,58,unique
+241846,494165,header,153,express boundary,125 St,43,49,153|306|392|439,daytime route
+241846,494165,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+241851,494175,header,438,suspension boundary,135 St,36,42,152|438,daytime route
+241851,494175,header,436,suspension boundary,Harlem-148 St,47,60,436,unique
+241871,494212,header,304,express boundary,145 St,43,49,151|304|437,daytime route
+241871,494212,header,310,express boundary,96 St,53,58,157|310|396|475,daytime route
+241899,494269,header,607,express boundary,34 St-Herald Sq,44,59,607,unique
+241899,494269,header,623,express boundary,Canal St,63,71,169|325|623,daytime route
+241929,494334,header,611,express boundary,Times Sq-42 St,43,57,611,unique
+241929,494334,header,313,express boundary,72 St,61,66,160|313|477,daytime route
+241931,494336,header,614,express boundary,59 St-Columbus Circle,41,62,614,unique
+241931,494336,header,153,express boundary,125 St,66,72,153|306|392|439,daytime route
+241939,494353,header,614,express boundary,59 St-Columbus Circle,54,75,614,unique
+241939,494353,header,153,express boundary,125 St,79,85,153|306|392|439,daytime route
+241958,494385,header,442,express boundary,Eastchester-Dyre Av,43,62,442,unique
+241958,494385,header,426,express boundary,E 180 St,66,74,426,unique
+242019,494501,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+242019,494501,header,169,express boundary,Canal St,68,76,169|325|623,daytime route
+242019,494501,description,164,boarding platform,34 St-Penn Station,121,139,164|318,daytime route
+242080,494632,description,310,short turn,96 St,118,123,157|310|396|475,daytime route
+242082,494639,header,610,express boundary,Grand Central-42 St,56,75,610,unique
+242082,494639,header,392,express boundary,125 St,79,85,153|306|392|439,daytime route
+242085,494649,header,392,express boundary,125 St,58,64,153|306|392|439,daytime route
+242085,494649,header,622,express boundary,Brooklyn Bridge-City Hall,68,93,622,unique
+242117,494690,description,607,express boundary,34 St-Herald Sq,63,78,607,unique
+242117,494690,description,9,express boundary,57 St/7 Av,82,92,9,unique
+242122,494702,description,614,reroute boundary,59 St-Columbus Circle,72,93,614,unique
+242122,494702,description,167,reroute boundary,W 4 St-Wash Sq,97,111,167,unique
+242122,494702,description,614,reroute boundary,59 St-Columbus Circle,215,236,614,unique
+242122,494702,description,167,reroute boundary,W 4 St-Wash Sq,240,254,167,unique
+242123,494703,header,188,local boundary,Euclid Av,48,57,188,unique
+242123,494703,header,621,local boundary,Broadway Junction,61,78,621,unique
+242129,494715,description,607,express boundary,34 St-Herald Sq,63,78,607,unique
+242129,494715,description,9,express boundary,57 St/7 Av,82,92,9,unique
+242134,494725,header,310,express boundary,96 St,43,48,157|310|396|475,daytime route
+242134,494725,header,313,express boundary,72 St,52,57,160|313|477,daytime route
+242194,494849,description,461,short turn,Queensboro Plaza,64,80,461,unique
+242199,494880,header,617,local boundary,Atlantic Av-Barclays Ctr,43,67,617,unique
+242199,494880,header,626,local boundary,Franklin Av-Medgar Evers College,71,103,626,unique
+242209,494905,header,152,skipped,135 St,29,35,152|438,daytime route
+242279,495059,header,97,suspension boundary,Myrtle Av,36,45,97,unique
+242279,495059,header,108,suspension boundary,Middle Village-Metropolitan Av,50,80,108,unique
+242279,495059,description,621,short turn,Broadway Junction,172,189,621,unique
+242280,495060,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+242280,495060,header,623,express boundary,Canal St,64,72,169|325|623,daytime route
+242282,495068,description,278,short turn,Jamaica Center-Parsons/Archer,72,101,278,unique
+242286,495077,header,26,local boundary,DeKalb Av,40,49,127|26,daytime route
+242286,495077,header,,local boundary,36 St,53,58,272|32,unresolved
+242286,495077,header,26,local boundary,DeKalb Av,100,109,127|26,daytime route
+242286,495077,header,35,local boundary,59 St,113,118,35|613,daytime route
+242287,495081,header,602,express boundary,14 St-Union Sq,41,55,602,unique
+242287,495081,header,610,express boundary,Grand Central-42 St,59,78,610,unique
+242315,495161,header,26,reroute boundary,DeKalb Av,52,61,127|26,daytime route
+242315,495161,header,623,reroute boundary,Canal St,65,73,169|325|623,daytime route
+242346,495277,header,153,express boundary,125 St,54,60,153|306|392|439,daytime route
+242346,495277,header,151,express boundary,145 St,64,70,151|304|437,daytime route
+242367,495315,header,153,local boundary,125 St,52,58,153|306|392|439,daytime route
+242367,495315,header,151,local boundary,145 St,62,68,151|304|437,daytime route
+242371,495322,header,602,express boundary,14 St-Union Sq,43,57,602,unique
+242371,495322,header,610,express boundary,Grand Central-42 St,61,80,610,unique
+242374,495328,header,617,express boundary,Atlantic Av-Barclays Ctr,65,89,617,unique
+242374,495328,header,626,express boundary,Franklin Av-Medgar Evers College,93,125,626,unique
+242437,495447,header,621,express boundary,Broadway Junction,41,58,621,unique
+242437,495447,header,175,express boundary,Hoyt-Schermerhorn Sts,62,83,175,unique
+242464,495505,header,602,local boundary,14 St-Union Sq,43,57,602,unique
+242464,495505,header,622,local boundary,Brooklyn Bridge-City Hall,61,86,622,unique
+242522,495623,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+242522,495623,header,243,express boundary,Church Av,90,99,243|356|44,daytime route
+242526,495634,header,414,suspension boundary,Bowling Green,27,40,414,unique
+242526,495634,header,337,suspension boundary,Nevins St,45,54,337,unique
+242526,495634,description,337,short turn,Nevins St,28,37,337,unique
+242526,495634,description,414,short turn,Bowling Green,70,83,414,unique
+242562,495692,description,392,local boundary,125 St,40,46,153|306|392|439,daytime route
+242562,495692,description,610,local boundary,Grand Central-42 St,50,69,610,unique
+242572,495711,header,442,express boundary,Eastchester-Dyre Av,43,62,442,unique
+242572,495711,header,426,express boundary,E 180 St,66,74,426,unique
+242573,495712,description,461,express boundary,Queensboro Plaza,69,85,461,unique
+242573,495712,description,1,express boundary,Astoria-Ditmars Blvd,89,109,1,unique
+242592,495757,header,211,short turn,Bedford Park Blvd,67,84,211,unique
+242650,495869,header,334,skipped,Clark St,25,33,334,unique
+242661,495905,description,629,short turn,Lorimer St,54,64,629|99,daytime route
+242661,495905,description,630,short turn,Myrtle-Wyckoff Avs,116,134,630,unique
+242671,495927,header,611,express boundary,Times Sq-42 St,43,57,611,unique
+242671,495927,header,,express boundary,DeKalb Av,61,70,127|26,unresolved
+242671,495927,description,623,boarding platform,Canal St,91,99,169|325|623,daytime route
+242671,495927,description,623,transfer,Canal St,336,344,169|325|623,daytime route
+242672,495929,description,232,short turn,2 Av,55,59,232,unique
+242680,495948,header,26,reroute boundary,DeKalb Av,50,59,127|26,daytime route
+242680,495948,header,623,reroute boundary,Canal St,63,71,169|325|623,daytime route
+242680,495948,description,623,boarding platform,Canal St,87,95,169|325|623,daytime route
+242705,495994,header,,local boundary,36 St,51,56,272|32,unresolved
+242705,495994,header,35,local boundary,59 St,60,65,35|613,daytime route
+242734,496059,header,32,express boundary,36 St,43,48,272|32,daytime route
+242734,496059,header,617,express boundary,Atlantic Av-Barclays Ctr,52,76,617,unique
+242739,496072,header,,reroute boundary,Wall St,50,57,333|413,unresolved
+242739,496072,header,337,reroute boundary,Nevins St,61,70,337,unique
+242741,496076,header,607,express boundary,34 St-Herald Sq,41,56,607,unique
+242741,496076,header,9,express boundary,57 St/7 Av,60,70,9,unique
+242798,496197,header,610,local boundary,Grand Central-42 St,41,60,610,unique
+242798,496197,header,392,local boundary,125 St,64,70,153|306|392|439,daytime route
+242801,496201,header,610,express boundary,Grand Central-42 St,54,73,610,unique
+242801,496201,header,392,express boundary,125 St,77,83,153|306|392|439,daytime route
+242810,496216,header,,reroute boundary,36 St,50,55,272|32,unresolved
+242810,496216,header,167,reroute boundary,W 4 St-Wash Sq,59,73,167,unique
+242812,496219,header,225,reroute boundary,47-50 Sts-Rockefeller Ctr,44,69,225,unique
+242812,496219,header,272,reroute boundary,36 St,73,78,272|32,daytime route
+242820,496232,header,621,express boundary,Broadway Junction,62,79,621,unique
+242820,496232,header,97,express boundary,Myrtle Av,83,92,97,unique
+242856,496282,header,602,local boundary,14 St-Union Sq,41,55,602,unique
+242856,496282,header,392,local boundary,125 St,59,65,153|306|392|439,daytime route
+242883,496331,description,9,reroute boundary,57 St/7 Av,69,79,9,unique
+242883,496331,description,,reroute boundary,96 St,83,88,157|310|396|475,unresolved
+242905,496371,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+242905,496371,header,607,express boundary,34 St-Herald Sq,55,70,607,unique
+242911,496386,header,623,local boundary,Canal St,66,74,169|325|623,daytime route
+242911,496386,header,26,local boundary,DeKalb Av,78,87,127|26,daytime route
+242912,496390,header,614,local boundary,59 St-Columbus Circle,41,62,614,unique
+242912,496390,header,153,local boundary,125 St,66,72,153|306|392|439,daytime route
+242918,496398,header,167,reroute boundary,W 4 St-Wash Sq,49,63,167,unique
+242918,496398,header,614,reroute boundary,59 St-Columbus Circle,67,88,614,unique
+242942,496449,header,169,express boundary,Canal St,41,49,169|325|623,daytime route
+242942,496449,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+242963,496492,header,59,express boundary,9 Av,79,83,59,unique
+242963,496492,header,615,express boundary,62 St,87,92,615,unique
+242969,496503,header,617,suspension boundary,Atlantic Av-Barclays Ctr,27,51,617,unique
+242969,496503,header,42,suspension boundary,Prospect Park,56,69,42,unique
+242976,496518,header,607,local boundary,34 St-Herald Sq,41,56,607,unique
+242976,496518,header,167,local boundary,W 4 St-Wash Sq,60,74,167,unique
+242980,496524,header,169,express boundary,Canal St,37,45,169|325|623,daytime route
+242980,496524,header,614,express boundary,59 St-Columbus Circle,49,70,614,unique
+242980,496524,header,169,express boundary,Canal St,109,117,169|325|623,daytime route
+242980,496524,header,611,express boundary,42 St-Port Authority Bus Terminal,121,154,611,unique
+242981,496529,header,310,express boundary,96 St,58,63,157|310|396|475,daytime route
+242981,496529,header,611,express boundary,Times Sq-42 St,67,81,611,unique
+242982,496534,header,313,local boundary,72 St,54,59,160|313|477,daytime route
+242982,496534,header,611,local boundary,Times Sq-42 St,63,77,611,unique
+243008,496581,header,623,local boundary,Canal St,41,49,169|325|623,daytime route
+243008,496581,header,607,local boundary,34 St-Herald Sq,53,68,607,unique
+243076,496720,description,366,express boundary,Parkchester,63,74,366,unique
+243076,496720,description,360,express boundary,Pelham Bay Park,78,93,360,unique
+243088,496753,header,461,express boundary,Queensboro Plaza,74,90,461,unique
+243088,496753,header,1,express boundary,Astoria-Ditmars Blvd,94,114,1,unique
+243094,496767,header,623,express boundary,Canal St,56,64,169|325|623,daytime route
+243094,496767,header,607,express boundary,34 St-Herald Sq,68,83,607,unique
+243111,496802,header,327,express boundary,Chambers St,41,52,327|622|624,daytime route
+243111,496802,header,601,express boundary,14 St,56,61,601|618,daytime route
+243151,496885,header,188,express boundary,Euclid Av,41,50,188,unique
+243151,496885,header,621,express boundary,Broadway Junction,54,71,621,unique
+243154,496894,header,153,express boundary,125 St,54,60,153|306|392|439,daytime route
+243154,496894,header,151,express boundary,145 St,64,70,151|304|437,daytime route
+243156,496897,header,313,local boundary,72 St,52,57,160|313|477,daytime route
+243156,496897,header,310,local boundary,96 St,61,66,157|310|396|475,daytime route
+243179,496975,description,392,express boundary,125 St,45,51,153|306|392|439,daytime route
+243179,496975,description,610,express boundary,Grand Central-42 St,55,74,610,unique
+243212,497050,header,58,reroute boundary,Coney Island-Stillwell Av,48,73,58,unique
+243212,497050,header,32,reroute boundary,36 St,77,82,272|32,daytime route
+243275,497183,header,610,express boundary,Grand Central-42 St,43,62,610,unique
+243275,497183,header,392,express boundary,125 St,66,72,153|306|392|439,daytime route
+243296,497235,description,26,reroute boundary,DeKalb Av,52,61,127|26,daytime route
+243296,497235,description,623,reroute boundary,Canal St,65,73,169|325|623,daytime route
+243350,497344,description,621,short turn,Broadway Junction,55,72,621,unique
+243389,497447,header,310,local boundary,96 St,43,48,157|310|396|475,daytime route
+243389,497447,header,313,local boundary,72 St,52,57,160|313|477,daytime route
+243398,497469,header,120,short turn,Bedford Av,149,159,120,unique
+243426,497520,description,107,boarding platform,Broad St,20,28,107,unique
+243435,497540,header,377,suspension boundary,3 Av/138 St,36,47,377,unique
+243435,497540,header,392,suspension boundary,125 St,52,58,153|306|392|439,daytime route
+243435,497540,description,377,short turn,3 Av/138 St,56,67,377,unique
+243443,497559,header,215,express boundary,Tremont Av,47,57,215,unique
+243443,497559,header,211,express boundary,Bedford Park Blvd,61,78,211,unique
+243459,497581,header,371,local boundary,Hunts Point Av,44,58,371,unique
+243459,497581,header,377,local boundary,3 Av/138 St,62,73,377,unique
+243483,497624,header,250,express boundary,Kings Hwy,66,75,250|51|77,daytime route
+243483,497624,header,253,express boundary,Neptune Av,79,89,253,unique
+243486,497629,description,623,reroute boundary,Canal St,69,77,169|325|623,daytime route
+243486,497629,description,26,reroute boundary,DeKalb Av,81,90,127|26,daytime route
+243534,497729,header,392,local boundary,125 St,56,62,153|306|392|439,daytime route
+243534,497729,header,610,local boundary,Grand Central-42 St,66,85,610,unique
+243538,497737,header,426,express boundary,E 180 St,60,68,426,unique
+243538,497737,header,421,express boundary,Gun Hill Rd,72,83,421|444,daytime route
+243543,497746,header,426,express boundary,E 180 St,70,78,426,unique
+243543,497746,header,421,express boundary,Gun Hill Rd,82,93,421|444,daytime route
+243555,497767,header,313,express boundary,72 St,54,59,160|313|477,daytime route
+243555,497767,header,310,express boundary,96 St,63,68,157|310|396|475,daytime route
+243556,497768,header,610,express boundary,Grand Central-42 St,56,75,610,unique
+243556,497768,header,602,express boundary,14 St-Union Sq,79,93,602,unique
+243594,497850,description,188,short turn,Euclid Av,64,73,188,unique
+243596,497852,description,624,short turn,World Trade Center,60,78,624,unique
+243596,497852,description,232,short turn,2 Av,184,188,232,unique
+243597,497853,description,232,short turn,2 Av,60,64,232,unique
+243598,497856,description,232,short turn,2 Av,65,69,232,unique
+243645,497959,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+243645,497959,header,623,express boundary,Canal St,64,72,169|325|623,daytime route
+243655,497991,header,327,express boundary,Chambers St,41,52,327|622|624,daytime route
+243655,497991,header,601,express boundary,14 St,56,61,601|618,daytime route
+243674,498026,header,610,express boundary,Grand Central-42 St,39,58,610,unique
+243674,498026,header,602,express boundary,14 St-Union Sq,62,76,602,unique
+243680,498039,header,153,local boundary,125 St,41,47,153|306|392|439,daytime route
+243680,498039,header,614,local boundary,59 St-Columbus Circle,51,72,614,unique
+243691,498075,header,153,express boundary,125 St,41,47,153|306|392|439,daytime route
+243691,498075,header,151,express boundary,145 St,51,57,151|304|437,daytime route
+243700,498094,header,313,express boundary,72 St,43,48,160|313|477,daytime route
+243700,498094,header,318,express boundary,34 St-Penn Station,52,70,164|318,daytime route
+243703,498098,header,32,local boundary,36 St,41,46,272|32,daytime route
+243703,498098,header,617,local boundary,Atlantic Av-Barclays Ctr,50,74,617,unique
+243708,498109,header,313,local boundary,72 St,41,46,160|313|477,daytime route
+243708,498109,header,310,local boundary,96 St,50,55,157|310|396|475,daytime route
+243721,498138,header,243,express boundary,Church Av,61,70,243|356|44,daytime route
+243721,498138,header,238,express boundary,Smith-9 Sts,74,85,238,unique
+243728,498153,header,318,express boundary,34 St-Penn Station,43,61,164|318,daytime route
+243728,498153,header,327,express boundary,Chambers St,65,76,327|622|624,daytime route
+243762,498234,header,9,suspension boundary,57 St/7 Av,27,37,9,unique
+243762,498234,header,,suspension boundary,96 St,42,47,157|310|396|475,unresolved
+243762,498234,description,9,short turn,57 St/7 Av,33,43,9,unique
+243768,498251,header,289,suspension boundary,Bedford-Nostrand Avs,27,47,289,unique
+243768,498251,header,606,suspension boundary,Court Sq,52,60,606,unique
+243769,498252,header,167,reroute boundary,W 4 St-Wash Sq,49,63,167,unique
+243769,498252,header,636,reroute boundary,Jay St-MetroTech,67,83,636,unique
+243784,498281,header,392,express boundary,125 St,46,52,153|306|392|439,daytime route
+243784,498281,header,610,express boundary,Grand Central-42 St,56,75,610,unique
+243795,498297,description,254,short turn,Jamaica-179 St,62,76,254,unique
+243818,498347,header,327,express boundary,Chambers St,41,52,327|622|624,daytime route
+243818,498347,header,601,express boundary,14 St,56,61,601|618,daytime route
+243821,498354,header,51,express boundary,Kings Hwy,66,75,250|51|77,daytime route
+243821,498354,header,54,express boundary,Sheepshead Bay,79,93,54,unique
+243845,498416,header,243,express boundary,Church Av,62,71,243|356|44,daytime route
+243845,498416,header,238,express boundary,Smith-9 Sts,75,86,238,unique
+243846,498420,header,,local boundary,125 St,43,49,153|306|392|439,unresolved
+243846,498420,header,610,local boundary,Grand Central-42 St,53,72,610,unique
+243849,498429,header,614,reroute boundary,59 St-Columbus Circle,52,73,614,unique
+243849,498429,header,636,reroute boundary,Jay St-MetroTech,77,93,636,unique
+244041,498864,header,310,express boundary,96 St,56,61,157|310|396|475,daytime route
+244041,498864,header,313,express boundary,72 St,65,70,160|313|477,daytime route
+244053,498884,header,153,express boundary,125 St,54,60,153|306|392|439,daytime route
+244053,498884,header,151,express boundary,145 St,64,70,151|304|437,daytime route
+244054,498886,header,151,local boundary,145 St,41,47,151|304|437,daytime route
+244054,498886,header,153,local boundary,125 St,51,57,153|306|392|439,daytime route
+244077,498926,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+244077,498926,header,153,express boundary,125 St,68,74,153|306|392|439,daytime route
+244106,498991,header,87,short turn,Crescent St,133,144,87,unique
+244180,499141,header,238,express boundary,Smith-9 Sts,79,90,238,unique
+244180,499141,header,250,express boundary,Kings Hwy,94,103,250|51|77,daytime route
+244182,499147,header,238,express boundary,Smith-9 Sts,63,74,238,unique
+244182,499147,header,243,express boundary,Church Av,78,87,243|356|44,daytime route
+244189,499160,header,164,express boundary,34 St-Penn Station,58,76,164|318,daytime route
+244189,499160,header,169,express boundary,Canal St,80,88,169|325|623,daytime route
+244231,499253,description,606,reroute boundary,Court Sq,55,63,606,unique
+244231,499253,description,236,reroute boundary,Bergen St,67,76,236|339,daytime route
+244239,499278,header,310,local boundary,96 St,43,48,157|310|396|475,daytime route
+244239,499278,header,313,local boundary,72 St,52,57,160|313|477,daytime route
+244252,499303,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+244252,499303,header,9,express boundary,57 St/7 Av,64,74,9,unique
+244253,499305,header,167,reroute boundary,W 4 St-Wash Sq,43,57,167,unique
+244253,499305,header,636,reroute boundary,Jay St-MetroTech,61,77,636,unique
+244256,499315,header,26,reroute boundary,DeKalb Av,48,57,127|26,daytime route
+244256,499315,header,623,reroute boundary,Canal St,61,69,169|325|623,daytime route
+244257,499320,header,392,express boundary,125 St,56,62,153|306|392|439,daytime route
+244257,499320,header,610,express boundary,Grand Central-42 St,66,85,610,unique
+244278,499369,header,153,express boundary,125 St,58,64,153|306|392|439,daytime route
+244278,499369,header,614,express boundary,59 St-Columbus Circle,68,89,614,unique
+244311,499435,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+244311,499435,header,169,express boundary,Canal St,68,76,169|325|623,daytime route
+244328,499466,header,384,express boundary,Burnside Av,43,54,384,unique
+244328,499466,header,388,express boundary,167 St,58,64,218|388,daytime route
+244340,499491,header,238,express boundary,Smith-9 Sts,88,99,238,unique
+244340,499491,header,243,express boundary,Church Av,103,112,243|356|44,daytime route
+244351,499512,description,426,short turn,E 180 St,52,60,426,unique
+244357,499529,description,238,express boundary,Smith-9 Sts,85,96,238,unique
+244357,499529,description,243,express boundary,Church Av,100,109,243|356|44,daytime route
+244362,499538,header,1,express boundary,Astoria-Ditmars Blvd,95,115,1,unique
+244362,499538,header,461,express boundary,Queensboro Plaza,119,135,461,unique
+244365,499542,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+244365,499542,header,623,express boundary,Canal St,64,72,169|325|623,daytime route
+244425,499655,header,602,express boundary,14 St-Union Sq,37,51,602,unique
+244425,499655,header,610,express boundary,Grand Central-42 St,55,74,610,unique
+244436,499682,description,461,short turn,Queensboro Plaza,51,67,461,unique
+244440,499688,header,392,express boundary,125 St,45,51,153|306|392|439,daytime route
+244440,499688,header,610,express boundary,Grand Central-42 St,55,74,610,unique
+244441,499691,header,310,local boundary,96 St,54,59,157|310|396|475,daytime route
+244441,499691,header,611,local boundary,Times Sq-42 St,63,77,611,unique
+244445,499700,header,181,express boundary,Utica Av,41,49,181,unique
+244445,499700,header,175,express boundary,Hoyt-Schermerhorn Sts,53,74,175,unique
+244445,499700,description,179,boarding platform,Nostrand Av,171,182,179|343,daytime route
+244452,499715,header,606,suspension boundary,Court Sq,50,58,606,unique
+244452,499715,header,289,suspension boundary,Bedford-Nostrand Avs,63,83,289,unique
+244452,499715,description,289,short turn,Bedford-Nostrand Avs,66,86,289,unique
+244453,499716,header,175,local boundary,Hoyt-Schermerhorn Sts,45,66,175,unique
+244453,499716,header,188,local boundary,Euclid Av,70,79,188,unique
+244456,499723,header,421,express boundary,Gun Hill Rd,49,60,421|444,daytime route
+244456,499723,header,426,express boundary,E 180 St,64,72,426,unique
+244466,499739,header,602,local boundary,14 St-Union Sq,41,55,602,unique
+244466,499739,header,392,local boundary,125 St,59,65,153|306|392|439,daytime route
+244469,499745,header,623,reroute boundary,Canal St,52,60,169|325|623,daytime route
+244469,499745,header,26,reroute boundary,DeKalb Av,64,73,127|26,daytime route
+244469,499745,description,623,boarding platform,Canal St,47,55,169|325|623,daytime route
+244510,499816,header,153,express boundary,125 St,41,47,153|306|392|439,daytime route
+244510,499816,header,605,express boundary,168 St,51,57,605,unique
+244521,499843,header,384,express boundary,Burnside Av,49,60,384,unique
+244521,499843,header,379,express boundary,Mosholu Pkwy,64,76,379,unique
+244539,499878,header,607,express boundary,34 St-Herald Sq,46,61,607,unique
+244539,499878,header,602,express boundary,14 St-Union Sq,65,79,602,unique
+244590,499982,header,169,express boundary,Canal St,180,188,169|325|623,daytime route
+244590,499982,header,611,express boundary,42 St-Port Authority Bus Terminal,192,225,611,unique
+244591,499984,header,169,express boundary,Canal St,179,187,169|325|623,daytime route
+244591,499984,header,611,express boundary,42 St-Port Authority Bus Terminal,191,224,611,unique
+244591,499984,header,167,reroute boundary,W 4 St-Wash Sq,47,61,167,unique
+244591,499984,header,225,reroute boundary,47-50 Sts-Rockefeller Ctr,65,90,225,unique
+244607,500008,description,58,reroute boundary,Coney Island-Stillwell Av,67,92,58,unique
+244607,500008,description,,reroute boundary,DeKalb Av,96,105,127|26,unresolved
+244636,500063,header,211,local boundary,Bedford Park Blvd,41,58,211,unique
+244636,500063,header,218,local boundary,167 St,62,68,218|388,daytime route
+244652,500088,header,169,local boundary,Canal St,39,47,169|325|623,daytime route
+244652,500088,header,614,local boundary,59 St-Columbus Circle,51,72,614,unique
+244657,500097,header,366,express boundary,Parkchester,90,101,366,unique
+244657,500097,header,371,express boundary,Hunts Point Av,105,119,371,unique
+244662,500106,header,614,local boundary,59 St-Columbus Circle,41,62,614,unique
+244662,500106,header,169,local boundary,Canal St,66,74,169|325|623,daytime route
+244668,500123,header,426,express boundary,E 180 St,43,51,426,unique
+244668,500123,header,434,express boundary,3 Av/149 St,55,66,434,unique
+244673,500133,header,621,local boundary,Broadway Junction,39,56,621,unique
+244673,500133,header,175,local boundary,Hoyt-Schermerhorn Sts,60,81,175,unique
+244732,500250,header,153,local boundary,125 St,54,60,153|306|392|439,daytime route
+244732,500250,header,614,local boundary,59 St-Columbus Circle,64,85,614,unique
+244735,500253,header,167,reroute boundary,W 4 St-Wash Sq,77,91,167,unique
+244735,500253,header,,reroute boundary,36 St,95,100,272|32,unresolved
+244739,500266,header,167,local boundary,W 4 St-Wash Sq,52,66,167,unique
+244739,500266,header,607,local boundary,34 St-Herald Sq,70,85,607,unique
+244781,500334,header,9,express boundary,57 St/7 Av,47,57,9,unique
+244781,500334,header,611,express boundary,Times Sq-42 St,61,75,611,unique
+244802,500374,header,610,express boundary,Grand Central-42 St,43,62,610,unique
+244802,500374,header,602,express boundary,14 St-Union Sq,66,80,602,unique
+244806,500382,header,175,local boundary,Hoyt-Schermerhorn Sts,45,66,175,unique
+244806,500382,header,621,local boundary,Broadway Junction,70,87,621,unique
+244808,500384,header,614,express boundary,59 St-Columbus Circle,43,64,614,unique
+244808,500384,header,169,express boundary,Canal St,68,76,169|325|623,daytime route
+244826,500425,header,604,local boundary,161 St-Yankee Stadium,46,67,604,unique
+244826,500425,header,218,local boundary,167 St,71,77,218|388,daytime route
+244827,500426,header,42,local boundary,Prospect Park,53,66,42,unique
+244827,500426,header,51,local boundary,Kings Hwy,70,79,250|51|77,daytime route
+244838,500450,header,26,reroute boundary,DeKalb Av,62,71,127|26,daytime route
+244838,500450,header,58,reroute boundary,Coney Island-Stillwell Av,75,100,58,unique
+244838,500450,description,26,reroute boundary,DeKalb Av,73,82,127|26,daytime route
+244838,500450,description,58,reroute boundary,Coney Island-Stillwell Av,86,111,58,unique
+244859,500494,header,360,express boundary,Pelham Bay Park,56,71,360,unique
+244859,500494,header,366,express boundary,Parkchester,75,86,366,unique
+244863,500506,description,164,boarding platform,34 St-Penn Station,90,108,164|318,daytime route
+244864,500508,header,169,express boundary,Canal St,41,49,169|325|623,daytime route
+244864,500508,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+244864,500508,description,164,boarding platform,34 St-Penn Station,102,120,164|318,daytime route
+244908,500593,header,327,express boundary,Chambers St,46,57,327|622|624,daytime route
+244908,500593,header,318,express boundary,34 St-Penn Station,61,79,164|318,daytime route
+244909,500596,description,327,short turn,Chambers St,119,130,327|622|624,daytime route
+244917,500611,header,9,local boundary,57 St/7 Av,41,51,9,unique
+244917,500611,header,607,local boundary,34 St-Herald Sq,55,70,607,unique
+244964,500710,header,610,express boundary,Grand Central-42 St,54,73,610,unique
+244964,500710,header,392,express boundary,125 St,77,83,153|306|392|439,daytime route
+244965,500712,header,604,local boundary,161 St-Yankee Stadium,46,67,604,unique
+244965,500712,header,218,local boundary,167 St,71,77,218|388,daytime route
+244970,500719,header,55,local boundary,Brighton Beach,39,53,55,unique
+244970,500719,header,51,local boundary,Kings Hwy,57,66,250|51|77,daytime route
+244991,500759,header,9,express boundary,57 St/7 Av,47,57,9,unique
+244991,500759,header,607,express boundary,34 St-Herald Sq,61,76,607,unique
+244998,500775,description,605,short turn,168 St,322,328,605,unique
+245020,500825,header,35,express boundary,59 St,46,51,35|613,daytime route
+245020,500825,header,617,express boundary,Atlantic Av-Barclays Ctr,55,79,617,unique
+245022,500827,description,167,boarding platform,W 4 St-Wash Sq,244,258,167,unique
+245070,500919,header,313,express boundary,72 St,41,46,160|313|477,daytime route
+245070,500919,header,310,express boundary,96 St,50,55,157|310|396|475,daytime route
+245090,500958,description,297,short turn,215 St,33,39,297,unique
+245164,501108,header,151,local boundary,145 St,43,49,151|304|437,daytime route
+245164,501108,header,153,local boundary,125 St,53,59,153|306|392|439,daytime route
+245241,501270,header,175,express boundary,Hoyt-Schermerhorn Sts,50,71,175,unique
+245241,501270,header,621,express boundary,Broadway Junction,75,92,621,unique
+245242,501271,header,238,express boundary,Smith-9 Sts,88,99,238,unique
+245242,501271,header,243,express boundary,Church Av,103,112,243|356|44,daytime route
+245244,501277,header,151,local boundary,145 St,39,45,151|304|437,daytime route
+245244,501277,header,605,local boundary,168 St,49,55,605,unique
+245250,501291,header,238,express boundary,Smith-9 Sts,88,99,238,unique
+245250,501291,header,243,express boundary,Church Av,103,112,243|356|44,daytime route
+245269,501332,header,607,express boundary,34 St-Herald Sq,41,56,607,unique
+245269,501332,header,9,express boundary,57 St/7 Av,60,70,9,unique
+245324,501454,header,607,express boundary,34 St-Herald Sq,41,56,607,unique
+245324,501454,header,9,express boundary,57 St/7 Av,60,70,9,unique
+245335,501479,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+245335,501479,header,9,express boundary,57 St/7 Av,55,65,9,unique
+245361,501542,header,610,skipped,Grand Central-42 St,32,51,610,unique
+245420,501718,header,360,express boundary,Pelham Bay Park,43,58,360,unique
+245420,501718,header,366,express boundary,Parkchester,62,73,366,unique
+245433,501751,description,617,short turn,Atlantic Av-Barclays Ctr,76,100,617,unique
+245446,501782,header,224,express boundary,57 St,45,50,224,unique
+245446,501782,header,623,express boundary,Canal St,54,62,169|325|623,daytime route
+245476,501851,header,244,express boundary,Ditmas Av,66,75,244,unique
+245476,501851,header,,express boundary,Kings Hwy,79,88,250|51|77,unresolved
+245522,501933,header,630,short turn,Myrtle-Wyckoff Avs,74,92,630,unique
+245607,502156,description,77,short turn,Kings Hwy,56,65,250|51|77,daytime route
+245636,502221,header,360,express boundary,Pelham Bay Park,43,58,360,unique
+245636,502221,header,366,express boundary,Parkchester,62,73,366,unique
+245654,502257,header,167,local boundary,W 4 St-Wash Sq,41,55,167,unique
+245654,502257,header,607,local boundary,34 St-Herald Sq,59,74,607,unique
+245658,502267,header,624,suspension boundary,World Trade Center,30,48,624,unique
+245658,502267,header,167,suspension boundary,W 4 St-Wash Sq,53,67,167,unique
+245662,502278,header,42,local boundary,Prospect Park,50,63,42,unique
+245662,502278,header,54,local boundary,Sheepshead Bay,67,81,54,unique
+245684,502349,description,414,short turn,Bowling Green,53,66,414,unique
+245690,502367,header,188,express boundary,Euclid Av,41,50,188,unique
+245690,502367,header,621,express boundary,Broadway Junction,54,71,621,unique
+245717,502416,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+245717,502416,header,607,express boundary,34 St-Herald Sq,55,70,607,unique
+245721,502427,header,623,reroute boundary,Canal St,50,58,169|325|623,daytime route
+245721,502427,header,26,reroute boundary,DeKalb Av,62,71,127|26,daytime route
+245721,502427,description,623,boarding platform,Canal St,243,251,169|325|623,daytime route
+245722,502431,description,622,short turn,Brooklyn Bridge-City Hall,65,90,622,unique
+245745,502472,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+245745,502472,header,167,express boundary,W 4 St-Wash Sq,64,78,167,unique
+245774,502539,header,636,reroute boundary,Jay St-MetroTech,50,66,636,unique
+245774,502539,header,167,reroute boundary,W 4 St-Wash Sq,70,84,167,unique
+245778,502547,header,461,express boundary,Queensboro Plaza,63,79,461,unique
+245778,502547,header,1,express boundary,Astoria-Ditmars Blvd,83,103,1,unique
+245781,502552,header,413,skipped,Wall St,25,32,333|413,daytime route
+245786,502560,header,327,express boundary,Chambers St,41,52,327|622|624,daytime route
+245786,502560,header,601,express boundary,14 St,56,61,601|618,daytime route
+245787,502561,header,196,express boundary,Aqueduct Racetrack,41,59,196,unique
+245787,502561,header,190,express boundary,80 St,63,68,190,unique
+245792,502568,description,232,short turn,2 Av,35,39,232,unique
+245826,502666,header,604,local boundary,161 St-Yankee Stadium,46,67,604,unique
+245826,502666,header,218,local boundary,167 St,71,77,218|388,daytime route
+245884,502761,description,623,boarding platform,Canal St,93,101,169|325|623,daytime route
+245912,502803,header,232,short turn,2 Av,141,145,232,unique
+245934,502847,header,377,express boundary,3 Av/138 St,56,67,377,unique
+245934,502847,header,366,express boundary,Parkchester,71,82,366,unique
+245936,502851,header,151,local boundary,145 St,43,49,151|304|437,daytime route
+245936,502851,header,153,local boundary,125 St,53,59,153|306|392|439,daytime route
+245954,502892,description,232,short turn,2 Av,48,52,232,unique
+245972,502931,header,617,express boundary,Atlantic Av-Barclays Ctr,76,100,617,unique
+245972,502931,header,626,express boundary,Franklin Av-Medgar Evers College,104,136,626,unique
+245974,502935,header,371,local boundary,Hunts Point Av,46,60,371,unique
+245974,502935,header,366,local boundary,Parkchester,64,75,366,unique
+246014,503000,header,252,express boundary,Avenue X,41,49,252,unique
+246014,503000,header,245,express boundary,18 Av,53,58,245|66|74,daytime route
+246063,503093,description,397,short turn,86 St,63,68,158|311|38|397|476|79,daytime route
+246066,503099,header,623,reroute boundary,Canal St,50,58,169|325|623,daytime route
+246066,503099,header,26,reroute boundary,DeKalb Av,62,71,127|26,daytime route
+246079,503138,header,366,local boundary,Parkchester,42,53,366,unique
+246079,503138,header,377,local boundary,3 Av/138 St,57,68,377,unique
+246098,503168,header,448,express boundary,Mets-Willets Point,59,77,448,unique
+246098,503168,header,616,express boundary,74 St-Broadway,81,95,616,unique
+246117,503208,description,461,short turn,Queensboro Plaza,51,67,461,unique
+246121,503215,description,461,short turn,Queensboro Plaza,51,67,461,unique
+246129,503230,header,371,express boundary,Hunts Point Av,130,144,371,unique
+246129,503230,header,366,express boundary,Parkchester,148,159,366,unique
+246129,503230,header,366,local boundary,Parkchester,55,66,366,unique
+246129,503230,header,371,local boundary,Hunts Point Av,70,84,371,unique
+246133,503238,header,151,express boundary,145 St,45,51,151|304|437,daytime route
+246133,503238,header,153,express boundary,125 St,55,61,153|306|392|439,daytime route
+246140,503250,header,377,express boundary,3 Av/138 St,52,63,377,unique
+246140,503250,header,371,express boundary,Hunts Point Av,67,81,371,unique
+246155,503283,header,318,local boundary,34 St-Penn Station,56,74,164|318,daytime route
+246155,503283,header,601,local boundary,14 St,78,83,601|618,daytime route
+246178,503328,header,215,local boundary,Tremont Av,53,63,215,unique
+246178,503328,header,211,local boundary,Bedford Park Blvd,67,84,211,unique
+246192,503350,header,313,express boundary,72 St,41,46,160|313|477,daytime route
+246192,503350,header,310,express boundary,96 St,50,55,157|310|396|475,daytime route
+246204,503378,header,611,local boundary,Times Sq-42 St,41,55,611,unique
+246204,503378,header,310,local boundary,96 St,59,64,157|310|396|475,daytime route
+246213,503401,header,327,local boundary,Chambers St,41,52,327|622|624,daytime route
+246213,503401,header,310,local boundary,96 St,56,61,157|310|396|475,daytime route
+246228,503421,header,384,express boundary,Burnside Av,49,60,384,unique
+246228,503421,header,379,express boundary,Mosholu Pkwy,64,76,379,unique
+246230,503432,header,250,express boundary,Kings Hwy,53,62,250|51|77,daytime route
+246230,503432,header,252,express boundary,Avenue X,66,74,252,unique
+246233,503439,header,384,express boundary,Burnside Av,49,60,384,unique
+246233,503439,header,379,express boundary,Mosholu Pkwy,64,76,379,unique
+246297,503553,header,42,local boundary,Prospect Park,53,66,42,unique
+246297,503553,header,51,local boundary,Kings Hwy,70,79,250|51|77,daytime route
+246308,503578,header,167,express boundary,W 4 St-Wash Sq,43,57,167,unique
+246308,503578,header,607,express boundary,34 St-Herald Sq,61,76,607,unique
+246310,503582,header,610,local boundary,Grand Central-42 St,43,62,610,unique
+246310,503582,header,602,local boundary,14 St-Union Sq,66,80,602,unique
+246335,503636,header,327,local boundary,Chambers St,41,52,327|622|624,daytime route
+246335,503636,header,611,local boundary,Times Sq-42 St,56,70,611,unique
+246363,503683,header,608,express boundary,4 Av/9 St,101,110,608,unique
+246363,503683,header,636,express boundary,Jay St-MetroTech,114,130,636,unique
+246363,503683,description,250,short turn,Kings Hwy,74,83,250|51|77,daytime route
+246390,503731,header,602,local boundary,14 St-Union Sq,41,55,602,unique
+246390,503731,header,610,local boundary,Grand Central-42 St,59,78,610,unique
+246394,503736,header,618,suspension boundary,8 Av,36,40,618|71,daytime route
+246394,503736,header,120,suspension boundary,Bedford Av,45,55,120,unique
+246394,503736,description,120,short turn,Bedford Av,40,50,120,unique
+246407,503762,header,360,express boundary,Pelham Bay Park,56,71,360,unique
+246407,503762,header,366,express boundary,Parkchester,75,86,366,unique
+246469,503890,header,218,express boundary,167 St,48,54,218|388,daytime route
+246469,503890,header,215,express boundary,Tremont Av,58,68,215,unique
+246472,503897,header,310,express boundary,96 St,41,46,157|310|396|475,daytime route
+246472,503897,header,305,express boundary,137 St-City College,50,69,305,unique
+246479,503914,header,310,local boundary,96 St,43,48,157|310|396|475,daytime route
+246479,503914,header,313,local boundary,72 St,52,57,160|313|477,daytime route
+246508,503977,header,327,express boundary,Chambers St,41,52,327|622|624,daytime route
+246508,503977,header,601,express boundary,14 St,56,61,601|618,daytime route
+246531,504022,header,614,express boundary,59 St-Columbus Circle,41,62,614,unique
+246531,504022,header,153,express boundary,125 St,66,72,153|306|392|439,daytime route
+246606,504204,header,259,reroute boundary,Kew Gardens-Union Tpke,62,84,259,unique
+246606,504204,header,278,reroute boundary,Jamaica Center-Parsons/Archer,88,117,278,unique
+246615,504225,header,623,express boundary,Canal St,43,51,169|325|623,daytime route
+246615,504225,header,607,express boundary,34 St-Herald Sq,55,70,607,unique
+246655,504295,header,608,express boundary,4 Av/9 St,41,50,608,unique
+246655,504295,header,636,express boundary,Jay St-MetroTech,54,70,636,unique
+246657,504298,header,627,local boundary,Franklin Av,47,58,627,unique
+246657,504298,header,181,local boundary,Utica Av,62,70,181,unique
+246660,504308,header,,reroute boundary,DeKalb Av,48,57,127|26,unresolved
+246660,504308,header,623,reroute boundary,Canal St,61,69,169|325|623,daytime route
+246660,504308,description,623,boarding platform,Canal St,3,11,169|325|623,daytime route
+246736,504460,header,361,skipped,Buhre Av,32,40,361,unique
+246800,504612,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+246800,504612,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+246802,504614,header,310,local boundary,96 St,43,48,157|310|396|475,daytime route
+246802,504614,header,313,local boundary,72 St,52,57,160|313|477,daytime route
+246808,504627,header,167,reroute boundary,W 4 St-Wash Sq,50,64,167,unique
+246808,504627,header,636,reroute boundary,Jay St-MetroTech,68,84,636,unique
+246811,504633,header,167,reroute boundary,W 4 St-Wash Sq,77,91,167,unique
+246811,504633,header,,reroute boundary,36 St,95,100,272|32,unresolved
+246913,504855,header,615,express boundary,62 St,66,71,615,unique
+246913,504855,header,68,express boundary,Bay Pkwy,75,83,247|68|76,daytime route
+246949,504926,header,169,express boundary,Canal St,41,49,169|325|623,daytime route
+246949,504926,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+246949,504926,description,164,boarding platform,34 St-Penn Station,240,258,164|318,daytime route
+246952,504934,header,167,local boundary,W 4 St-Wash Sq,39,53,167,unique
+246952,504934,header,607,local boundary,34 St-Herald Sq,57,72,607,unique
+246982,504984,header,51,express boundary,Kings Hwy,38,47,250|51|77,daytime route
+246982,504984,header,42,express boundary,Prospect Park,51,64,42,unique
+246998,505020,header,602,express boundary,14 St-Union Sq,41,55,602,unique
+246998,505020,header,610,express boundary,Grand Central-42 St,59,78,610,unique
+247010,505042,header,617,local boundary,Atlantic Av-Barclays Ctr,66,90,617,unique
+247010,505042,header,32,local boundary,36 St,94,99,272|32,daytime route
+247011,505043,header,,short turn,Chambers St,105,116,327|622|624,unresolved
+247019,505067,header,188,short turn,Euclid Av,49,58,188,unique
+247083,505226,header,169,express boundary,Canal St,41,49,169|325|623,daytime route
+247083,505226,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+247083,505226,description,164,boarding platform,34 St-Penn Station,241,259,164|318,daytime route
+247105,505280,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+247105,505280,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+247113,505302,header,305,express boundary,137 St-City College,43,62,305,unique
+247113,505302,header,310,express boundary,96 St,66,71,157|310|396|475,daytime route
+247116,505306,description,151,short turn,145 St,33,39,151|304|437,daytime route
+247128,505325,header,366,express boundary,Parkchester,43,54,366,unique
+247128,505325,header,371,express boundary,Hunts Point Av,58,72,371,unique
+247182,505433,header,611,local boundary,Times Sq-42 St,56,70,611,unique
+247182,505433,header,623,local boundary,Canal St,74,82,169|325|623,daytime route
+247188,505451,header,391,skipped,138 St-Grand Concourse,62,84,391,unique
+247203,505476,header,9,local boundary,57 St/7 Av,54,64,9,unique
+247203,505476,header,607,local boundary,34 St-Herald Sq,68,83,607,unique
+247208,505484,header,26,reroute boundary,DeKalb Av,49,58,127|26,daytime route
+247208,505484,header,623,reroute boundary,Canal St,62,70,169|325|623,daytime route
+247247,505563,header,256,express boundary,Parsons Blvd,43,55,256,unique
+247247,505563,header,259,express boundary,Kew Gardens-Union Tpke,59,81,259,unique
+247283,505617,description,199,short turn,Broad Channel,66,79,199,unique
+247288,505625,header,421,express boundary,Gun Hill Rd,43,54,421|444,daytime route
+247288,505625,header,426,express boundary,E 180 St,58,66,426,unique
+247299,505645,header,366,express boundary,Parkchester,56,67,366,unique
+247299,505645,header,371,express boundary,Hunts Point Av,71,85,371,unique
+247317,505683,description,434,local boundary,3 Av/149 St,66,77,434,unique
+247317,505683,description,426,local boundary,E 180 St,81,89,426,unique
+247318,505687,header,604,local boundary,161 St-Yankee Stadium,46,67,604,unique
+247318,505687,header,218,local boundary,167 St,71,77,218|388,daytime route
+247331,505702,header,349,suspension boundary,Junius St,36,45,349,unique
+247331,505702,header,352,suspension boundary,New Lots Av,50,61,136|352,daytime route
+247331,505702,header,349,short turn,Junius St,110,119,349,unique
+247352,505736,header,310,express boundary,96 St,56,61,157|310|396|475,daytime route
+247352,505736,header,313,express boundary,72 St,65,70,160|313|477,daytime route
+247379,505786,header,614,express boundary,59 St-Columbus Circle,41,62,614,unique
+247379,505786,header,151,express boundary,145 St,66,72,151|304|437,daytime route
+247389,505816,header,318,local boundary,34 St-Penn Station,43,61,164|318,daytime route
+247389,505816,header,601,local boundary,14 St,65,70,601|618,daytime route
+247412,505857,header,153,express boundary,125 St,43,49,153|306|392|439,daytime route
+247412,505857,header,614,express boundary,59 St-Columbus Circle,53,74,614,unique
+247440,505923,header,392,express boundary,125 St,43,49,153|306|392|439,daytime route
+247440,505923,header,610,express boundary,Grand Central-42 St,53,72,610,unique
+247497,506058,header,153,local boundary,125 St,43,49,153|306|392|439,daytime route
+247497,506058,header,614,local boundary,59 St-Columbus Circle,53,74,614,unique
+247558,506177,header,617,express boundary,Atlantic Av-Barclays Ctr,93,117,617,unique
+247558,506177,header,626,express boundary,Franklin Av-Medgar Evers College,121,153,626,unique
+247560,506180,header,414,short turn,Bowling Green,97,110,414,unique
+247585,506228,header,434,express boundary,3 Av/149 St,74,85,434,unique
+247585,506228,header,426,express boundary,E 180 St,89,97,426,unique
+247594,506245,description,426,express boundary,E 180 St,48,56,426,unique
+247594,506245,description,434,express boundary,3 Av/149 St,60,71,434,unique
+247627,506313,description,299,express boundary,Dyckman St,46,56,144|299,daytime route
+247627,506313,description,293,express boundary,Van Cortlandt Park-242 St,60,85,293,unique
+247631,506317,header,611,local boundary,Times Sq-42 St,43,57,611,unique
+247631,506317,header,601,local boundary,14 St,61,66,601|618,daytime route
+247640,506338,header,175,express boundary,Hoyt-Schermerhorn Sts,50,71,175,unique
+247640,506338,header,621,express boundary,Broadway Junction,75,92,621,unique
+247640,506338,description,179,boarding platform,Nostrand Av,117,128,179|343,daytime route
+247659,506380,header,610,express boundary,Grand Central-42 St,41,60,610,unique
+247659,506380,header,392,express boundary,125 St,64,70,153|306|392|439,daytime route
+247675,506407,header,601,express boundary,14 St,43,48,601|618,daytime route
+247675,506407,header,611,express boundary,Times Sq-42 St,52,66,611,unique
+247689,506448,header,426,local boundary,E 180 St,46,54,426,unique
+247689,506448,header,434,local boundary,3 Av/149 St,58,69,434,unique
+247720,506499,description,58,reroute boundary,Coney Island-Stillwell Av,52,77,58,unique
+247720,506499,description,619,reroute boundary,Broadway-Lafayette St,81,102,619,unique
+247746,506566,header,,express boundary,Gun Hill Rd,43,54,421|444,unresolved
+247746,506566,header,434,express boundary,3 Av/149 St,58,69,434,unique
+247767,506604,header,636,reroute boundary,Jay St-MetroTech,49,65,636,unique
+247767,506604,header,167,reroute boundary,W 4 St-Wash Sq,69,83,167,unique
+247792,506658,header,602,express boundary,14 St-Union Sq,43,57,602,unique
+247792,506658,header,622,express boundary,Brooklyn Bridge-City Hall,61,86,622,unique
+247812,506699,header,167,reroute boundary,W 4 St-Wash Sq,50,64,167,unique
+247812,506699,header,636,reroute boundary,Jay St-MetroTech,68,84,636,unique
+247847,506764,description,636,reroute boundary,Jay St-MetroTech,54,70,636,unique
+247847,506764,description,167,reroute boundary,W 4 St-Wash Sq,74,88,167,unique
+247950,507026,header,623,reroute boundary,Canal St,57,65,169|325|623,daytime route
+247950,507026,header,26,reroute boundary,DeKalb Av,69,78,127|26,daytime route
+248107,507349,header,607,express boundary,34 St-Herald Sq,45,60,607,unique
+248107,507349,header,623,express boundary,Canal St,64,72,169|325|623,daytime route

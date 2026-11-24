@@ -1,0 +1,63 @@
+event_id,complex_id,reviewed_role,parsed_roles,recovered
+236578,289,short turn,short turn|suspension boundary,1
+236578,606,suspension boundary,suspension boundary,1
+236597,617,boarding platform,boarding platform|express boundary,1
+236597,626,express boundary,express boundary,1
+236684,310,short turn,short turn,1
+236684,337,reroute boundary,,0
+236685,188,short turn,short turn|suspension boundary,1
+236685,209,suspension boundary,suspension boundary,1
+236738,414,transfer,short turn|suspension boundary|transfer,1
+236738,622,suspension boundary,suspension boundary,1
+236760,623,boarding platform,boarding platform|reroute boundary,1
+236760,26,reroute boundary,reroute boundary,1
+237046,179,boarding platform,,0
+237046,175,local boundary,,0
+237283,232,short turn,short turn,1
+237283,169,express boundary,express boundary,1
+237353,164,boarding platform,boarding platform,1
+237353,169,local boundary,local boundary,1
+237361,164,boarding platform,boarding platform,1
+237361,169,express boundary,,0
+237439,397,boarding platform,,0
+237439,392,express boundary,express boundary,1
+237622,167,boarding platform,boarding platform,1
+237622,636,reroute boundary,,0
+237764,397,boarding platform,,0
+237764,392,express boundary,express boundary,1
+237833,179,boarding platform,,0
+237833,175,local boundary,,0
+238093,397,short turn,short turn,1
+238093,371,express boundary,express boundary,1
+238436,179,boarding platform,boarding platform,1
+238436,175,local boundary,,0
+238755,179,boarding platform,boarding platform,1
+238755,175,local boundary,,0
+238846,87,short turn,short turn|suspension boundary,1
+238846,278,suspension boundary,suspension boundary,1
+238897,397,boarding platform,,0
+238897,392,local boundary,local boundary,1
+238901,9,short turn,short turn,1
+238901,1,suspension boundary,suspension boundary,1
+238930,603,short turn,,0
+238930,388,express boundary,express boundary,1
+238958,603,short turn,,0
+238958,381,express boundary,,0
+239163,289,short turn,short turn|suspension boundary,1
+239163,606,suspension boundary,suspension boundary,1
+239184,289,short turn,short turn|suspension boundary,1
+239184,606,suspension boundary,suspension boundary,1
+239236,475,short turn,short turn,1
+239236,9,reroute boundary,,0
+239297,397,boarding platform,,0
+239297,392,express boundary,express boundary|local boundary,1
+239362,179,boarding platform,boarding platform,1
+239362,175,local boundary,,0
+239592,167,boarding platform,boarding platform,1
+239592,614,reroute boundary,,0
+239713,232,short turn,short turn,1
+239713,624,suspension boundary,suspension boundary,1
+237454,628,alternative service,,0
+237454,167,reroute boundary,,0
+239197,209,alternative service,,0
+239197,192,suspension boundary,,0

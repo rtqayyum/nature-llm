@@ -1,0 +1,13 @@
+event_id,internal_text_review,first_location,first_instruction,second_location,second_instruction,qualification
+242801,different,Grand Central-42 St,express boundary,59 St,lower track arrival,also names 86 St
+242765,different,Broadway Junction,local boundary,Nostrand Av,lower level boarding,local between wording
+241851,different,135 St,short turn,Harlem-148 St,suspension boundary,135 St also bounds suspension
+242082,different,Grand Central-42 St,express boundary,59 St,lower track arrival,also names 86 St
+240666,segment,5 Av,boarding interval boundary,Hunters Point Av,possible short turn,boarding applies across interval and last stop is conditional
+241778,different,Broadway Junction,local boundary,Nostrand Av,lower level boarding,repeats notice wording
+246394,different,Bedford Av,short turn,8 Av,suspension boundary,Bedford Av also bounds suspension
+247832,single role,,,,,three named stations share the same boarding instruction
+245256,different,Broadway Junction,local boundary,Nostrand Av,lower level boarding,repeats notice wording
+244464,different,Broadway Junction,local boundary,Nostrand Av,lower level boarding,repeats notice wording
+247004,different,Howard Beach,short turn,Far Rockaway-Mott Av,suspension boundary,short alias and implicit suspension wording
+247331,different,Junius St,possible short turn,New Lots Av,suspension boundary,alternative short turn is also named
