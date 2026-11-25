@@ -1,0 +1,202 @@
+[
+  {
+    "event_id": "249202",
+    "alert_id": "509552",
+    "routes": "R | W",
+    "header": "Uptown W trains are running with delays.\nDowntown R trains are running with delays.",
+    "description": "What Happened?\nWe addressed a door problem on a train at Whitehall St-South Ferry.",
+    "date_utc": "2026-05-08T22:46:00.000",
+    "stratum": "other",
+    "stratum_size": 1490
+  },
+  {
+    "event_id": "249356",
+    "alert_id": "509867",
+    "routes": "1",
+    "header": "Downtown 1 trains are delayed while we investigate what caused a train's brakes to activate near 79 St.",
+    "description": "",
+    "date_utc": "2026-05-10T14:43:00.000",
+    "stratum": "other",
+    "stratum_size": 1490
+  },
+  {
+    "event_id": "248916",
+    "alert_id": "509032",
+    "routes": "3",
+    "header": "3 trains are delayed entering/leaving Harlem-148 St while we address a signal problem at that station.",
+    "description": "",
+    "date_utc": "2026-05-07T02:57:00.000",
+    "stratum": "other",
+    "stratum_size": 1490
+  },
+  {
+    "event_id": "250738",
+    "alert_id": "513242",
+    "routes": "A",
+    "header": "A trains are holding in stations in both directions while NYPD conducts an investigation at 190 St.",
+    "description": "",
+    "date_utc": "2026-05-20T12:30:00.000",
+    "stratum": "other",
+    "stratum_size": 1490
+  },
+  {
+    "event_id": "251596",
+    "alert_id": "514996",
+    "routes": "6",
+    "header": "Downtown 6 trains express from Grand Central-42 St to 14 St-Union Sq while we remove a train with a mechanical problem from service at Brooklyn Bridge-City Hall",
+    "description": "If your stop is skipped, use an uptown.",
+    "date_utc": "2026-05-27T10:47:00.000",
+    "stratum": "other instruction",
+    "stratum_size": 190
+  },
+  {
+    "event_id": "250633",
+    "alert_id": "513045",
+    "routes": "B | D",
+    "header": "Uptown B/D trains are running express from 145 St to 161 St-Yankee Stadium while we investigate what activated a train's brakes at 155 St.",
+    "description": "If your stop is skipped, take a downtown B/D train.",
+    "date_utc": "2026-05-19T20:19:00.000",
+    "stratum": "other instruction",
+    "stratum_size": 190
+  },
+  {
+    "event_id": "251150",
+    "alert_id": "514093",
+    "routes": "1",
+    "header": "Southbound 1 trains are running on the express track from 96 St to 72 St while we address a mechanical problem on a train at 86 St.",
+    "description": "For service to/from bypassed stations, take an uptown train.",
+    "date_utc": "2026-05-22T22:49:00.000",
+    "stratum": "other instruction",
+    "stratum_size": 190
+  },
+  {
+    "event_id": "250635",
+    "alert_id": "513050",
+    "routes": "4",
+    "header": "Downtown 4 trains are running express from Woodlawn to Bedford Park Blvd-Lehman College while we address a mechanical problem on a train near Woodlawn.",
+    "description": "For service to/from bypassed stations, take a Woodlawn-bound 4 train.",
+    "date_utc": "2026-05-19T20:41:00.000",
+    "stratum": "other instruction",
+    "stratum_size": 190
+  },
+  {
+    "event_id": "249364",
+    "alert_id": "509886",
+    "routes": "A | C",
+    "header": "A trains are running local in both directions between Hoyt-Schermerhorn Sts and Broadway Junction.\nBoard A trains on the lower level at Nostrand Av.",
+    "description": "What's Happening?\nWe're unable to move track switches near Hoyt-Schermerhorn Sts.\n\nExpect delays in C service while trains share the local track.",
+    "date_utc": "2026-05-10T16:04:00.000",
+    "stratum": "platform",
+    "stratum_size": 24
+  },
+  {
+    "event_id": "251574",
+    "alert_id": "514959",
+    "routes": "E",
+    "header": "Jamaica Center-Parsons/Archer bound E trains are running with delays while we perform a rail replacement near Sutphin Blvd/Archer Av-JFK Airport.",
+    "description": "Boarding Change:\n\nJamaica Center-Parsons/Archer bound E trains will arrive on the downtown track at Sutphin Blvd/Archer Av-JFK Airport and Jamaica-Van Wyck.",
+    "date_utc": "2026-05-27T07:40:00.000",
+    "stratum": "platform",
+    "stratum_size": 24
+  },
+  {
+    "event_id": "251281",
+    "alert_id": "514354",
+    "routes": "A | C",
+    "header": "A trains are running local between Hoyt-Schermerhorn Sts and Broadway Junction in both directions.",
+    "description": "What's Happening?\nWe are unable to move switches near Hoyt-Schermerhorn Sts.\n\nBoarding Change:\nA trains will board on the lower level at Nostrand Av.\n\nExpect C delays in both directions while they share tracks with rerouted trains.\n\nPlanned Work Reminder\n\nManhattan-bound A trains are stopping at Shepherd Av, Van Siclen Av, Liberty Av, Rockaway Av, and Ralph Av.",
+    "date_utc": "2026-05-24T11:47:00.000",
+    "stratum": "platform",
+    "stratum_size": 24
+  },
+  {
+    "event_id": "249915",
+    "alert_id": "511004",
+    "routes": "J",
+    "header": "J trains are running with delays in both directions while we address a mechanical problem on a train at Broad St.",
+    "description": "Boarding Change:\nJamaica Center-Parsons/Archer-bound J trains will depart from the Broad St-bound platform at Broad St.",
+    "date_utc": "2026-05-14T07:47:00.000",
+    "stratum": "platform",
+    "stratum_size": 24
+  },
+  {
+    "event_id": "250085",
+    "alert_id": "511709",
+    "routes": "J",
+    "header": "J trains are delayed in both directions while we perform track mainteance at Chambers St.",
+    "description": "Some Broad St-bound J trains will end at Chambers St\n.\nListen to announcements to hear how your train will operate.",
+    "date_utc": "2026-05-15T07:30:00.000",
+    "stratum": "short turn",
+    "stratum_size": 29
+  },
+  {
+    "event_id": "251377",
+    "alert_id": "514574",
+    "routes": "2 | 5",
+    "header": "2/5 trains are running with delays in both directions.\nWhat's Happening?\nWe are addressing a problem with our signaling system at E 180 St.",
+    "description": "Some uptown 2 trains will end at 145 St on the 1 line.\nSome uptown 5 trains will end at 149 St-Grand Concourse on the 4 line.\nListen for announcements to hear how your train will run.\n\nPlanned Work Reminder:\nNo 5 service between Grand Central-42 St and Bowling Green.",
+    "date_utc": "2026-05-25T15:30:00.000",
+    "stratum": "short turn",
+    "stratum_size": 29
+  },
+  {
+    "event_id": "249666",
+    "alert_id": "510466",
+    "routes": "G",
+    "header": "G service is disrupted in both directions, severely Court Sq-bound, because of multiple incidents along the line.",
+    "description": "What's Happening?\n\nNYPD responded to someone being disruptive on a train at Bergen St.\n\nWe are investigating what caused a train's brakes to activate near Court Sq.\n\nService Changes\n\nThe last stop on some Court Sq-bound G trains will be Bedford-Nostrand Avs, where they will turn back for Church Av-bound service. \n\nListen to announcements on your train to hear how it will run.",
+    "date_utc": "2026-05-12T17:34:00.000",
+    "stratum": "short turn",
+    "stratum_size": 29
+  },
+  {
+    "event_id": "251620",
+    "alert_id": "515042",
+    "routes": "L",
+    "header": "L trains are running with delays in both directions while we remove a train with a mechanical problem from service at 8 Av.",
+    "description": "Some 8 Av-bound trains will end at 14 St.\nListen for announcements to hear how your train will run.",
+    "date_utc": "2026-05-27T13:16:00.000",
+    "stratum": "short turn",
+    "stratum_size": 29
+  },
+  {
+    "event_id": "250867",
+    "alert_id": "513472",
+    "routes": "FS",
+    "header": "Franklin Av Shuttle trains are suspended in both directions while we address a signal problem at Park Place.",
+    "description": "Consider the nearby B48 or B49 local bus service.",
+    "date_utc": "2026-05-20T23:39:00.000",
+    "stratum": "suspension",
+    "stratum_size": 7
+  },
+  {
+    "event_id": "252026",
+    "alert_id": "516005",
+    "routes": "M",
+    "header": "M service is suspended.",
+    "description": "You may still see some M trains running, but there will be no more departures from the terminals.\n\nWhat's Happening?\nWe're requesting NYPD for an unauthorized person on the tracks near W 4 St-Wash Sq.",
+    "date_utc": "2026-05-29T22:52:00.000",
+    "stratum": "suspension",
+    "stratum_size": 7
+  },
+  {
+    "event_id": "250154",
+    "alert_id": "512003",
+    "routes": "C",
+    "header": "Euclid Av-bound C trains are not stopping at Kingston-Throop Avs while NYPD conducts an investigation at that station.",
+    "description": "For service to/from that station, take a Manhattan-bound train.",
+    "date_utc": "2026-05-15T16:58:00.000",
+    "stratum": "suspension",
+    "stratum_size": 7
+  },
+  {
+    "event_id": "252032",
+    "alert_id": "516016",
+    "routes": "B",
+    "header": "B service is suspended.\nThere are no B trains in Brooklyn.",
+    "description": "You may still see some B trains running, but there will be no more departures from the terminals.\nWhat's Happening?\nWe're requesting NYPD for an unauthorized person on the tracks near W 4 St-Wash Sq.",
+    "date_utc": "2026-05-29T23:37:00.000",
+    "stratum": "suspension",
+    "stratum_size": 7
+  }
+]

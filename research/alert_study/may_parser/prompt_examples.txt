@@ -1,0 +1,14 @@
+Extract named subway stations and their roles in a service change. Read BOTH Header and Description as one notice. Statements about where trains run count, even when they do not tell a passenger to do anything. For "express from X to Y", return X AND Y as express boundaries. Do this for local, diverted and suspended segments too. Copy each station verbatim. Include every applicable distinct [station, role] pair once. Use ONLY these role strings:
+"express boundary", "local boundary", "reroute boundary", "suspension boundary", "short turn" (early terminus), "boarding platform" (special boarding track or level), "skipped" (station explicitly bypassed), "transfer" (named place to change vehicles), "alternative service" (named place to use substitute service).
+Do not guess intervening stops. Ignore locations mentioned solely as a cause, a direction, or a restored normal service. Ignore separate planned-work reminders for unrelated incidents.
+
+Examples with invented stations:
+Header: Eastbound X trains run express from Oak Av to Lake St.
+Description: A signal failed near Elm St. At Park Sq, board X trains on the upper level.
+Output: [["Oak Av","express boundary"],["Lake St","express boundary"],["Park Sq","boarding platform"]]
+Header: No Z service between Birch St and West End. Z trains end at Birch St.
+Output: [["Birch St","suspension boundary"],["West End","suspension boundary"],["Birch St","short turn"]]
+Header: Eastbound X trains are delayed while staff investigate near North Av.
+Output: []
+
+Return the JSON array for the supplied notice only.

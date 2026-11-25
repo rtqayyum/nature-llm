@@ -1,0 +1,128 @@
+[
+  {
+    "event_id": "249468",
+    "alert_id": "510088",
+    "raw": "[[\"125 St\", \"express boundary\"], [\"59 St-Columbus Circle\", \"express boundary\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 25,
+      "prompt_tokens": 347,
+      "total_tokens": 372,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "250437",
+    "alert_id": "512668",
+    "raw": "```json\n[\n    [\"57 St/7 Av\", \"express boundary\"],\n    [\"49 St\", \"skipped\"]\n]\n```",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 30,
+      "prompt_tokens": 355,
+      "total_tokens": 385,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "250202",
+    "alert_id": "512114",
+    "raw": "[\n    [\"Essex St\", \"short turn\"],\n    [\"Marcy Av\", \"short turn\"],\n    [\"Myrtle Av\", \"short turn\"],\n    [\"Broadway Junction\", \"short turn\"]\n]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 43,
+      "prompt_tokens": 520,
+      "total_tokens": 563,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "250267",
+    "alert_id": "512303",
+    "raw": "```json\n[\n    [\"103 St\", \"skipped\"]\n]\n```",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 350,
+      "total_tokens": 368,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "250280",
+    "alert_id": "512338",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 349,
+      "total_tokens": 351,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "250611",
+    "alert_id": "512990",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 332,
+      "total_tokens": 334,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "251798",
+    "alert_id": "515430",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 330,
+      "total_tokens": 332,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "250697",
+    "alert_id": "513167",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 335,
+      "total_tokens": 337,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "251649",
+    "alert_id": "515127",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 370,
+      "total_tokens": 372,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  }
+]

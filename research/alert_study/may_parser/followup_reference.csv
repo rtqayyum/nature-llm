@@ -1,0 +1,24 @@
+event_id,station,role,complex_id
+251596,Grand Central-42 St,express boundary,610
+251596,14 St-Union Sq,express boundary,602
+250633,145 St,express boundary,151
+250633,161 St-Yankee Stadium,express boundary,604
+251150,96 St,express boundary,310
+251150,72 St,express boundary,313
+250635,Woodlawn,express boundary,378
+250635,Bedford Park Blvd-Lehman College,express boundary,380
+249364,Hoyt-Schermerhorn Sts,local boundary,175
+249364,Broadway Junction,local boundary,621
+249364,Nostrand Av,boarding platform,179
+251574,Sutphin Blvd/Archer Av-JFK Airport,boarding platform,279
+251574,Jamaica-Van Wyck,boarding platform,280
+251281,Hoyt-Schermerhorn Sts,local boundary,175
+251281,Broadway Junction,local boundary,621
+251281,Nostrand Av,boarding platform,179
+249915,Broad St,boarding platform,107
+250085,Chambers St,short turn,622
+251377,145 St,short turn,304
+251377,149 St-Grand Concourse,short turn,603
+249666,Bedford-Nostrand Avs,short turn,289
+251620,14 St,short turn,
+250154,Kingston-Throop Avs,skipped,180

@@ -30,5 +30,6 @@ if __name__=="__main__":
     p.add_argument("url")
     p.add_argument("output",type=Path)
     p.add_argument("--cases",type=Path,default=ROOT/"cases.json")
+    p.add_argument("--prompt",type=Path,default=ROOT/"prompt.txt")
     args=p.parse_args()
-    infer(json.loads(args.cases.read_text()),(ROOT/"prompt.txt").read_text().strip(),args.url,args.output)
+    infer(json.loads(args.cases.read_text()),args.prompt.read_text().strip(),args.url,args.output)

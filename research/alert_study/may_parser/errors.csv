@@ -1,0 +1,217 @@
+sample,event_id,method,level,error,station,role
+stratified,248718,qwen,mention,miss,167 st,express boundary
+stratified,248718,qwen,mention,miss,burnside av,express boundary
+stratified,248718,qwen,complex,miss,384,express boundary
+stratified,248718,qwen,complex,miss,388,express boundary
+stratified,248240,qwen,mention,miss,161 st-yankee stadium,local boundary
+stratified,248240,qwen,mention,miss,167 st,local boundary
+stratified,248240,qwen,complex,miss,218,local boundary
+stratified,248240,qwen,complex,miss,604,local boundary
+stratified,248915,qwen,mention,miss,kings hwy,express boundary
+stratified,248915,qwen,mention,miss,prospect park,express boundary
+stratified,248915,qwen,complex,miss,42,express boundary
+stratified,248915,qwen,complex,miss,51,express boundary
+stratified,248925,qwen,mention,miss,14 st-union sq,express boundary
+stratified,248925,qwen,mention,miss,brooklyn bridge-city hall,express boundary
+stratified,248925,qwen,complex,miss,602,express boundary
+stratified,248925,qwen,complex,miss,622,express boundary
+stratified,248364,qwen,mention,miss,145 st,express boundary
+stratified,248364,qwen,mention,miss,170 st,express boundary
+stratified,248364,qwen,complex,miss,151,express boundary
+stratified,248364,qwen,complex,miss,217,express boundary
+stratified,249452,qwen,mention,miss,72 st,local boundary
+stratified,249452,qwen,mention,miss,96 st,local boundary
+stratified,249452,qwen,complex,miss,310,local boundary
+stratified,249452,qwen,complex,miss,313,local boundary
+stratified,249844,qwen,mention,miss,kings hwy,express boundary
+stratified,249844,qwen,mention,miss,prospect park,express boundary
+stratified,249844,qwen,complex,miss,42,express boundary
+stratified,249844,qwen,complex,miss,51,express boundary
+stratified,249848,qwen,mention,miss,34 st-herald sq,express boundary
+stratified,249848,qwen,mention,miss,57 st/7 av,express boundary
+stratified,249848,qwen,complex,miss,607,express boundary
+stratified,249848,qwen,complex,miss,9,express boundary
+stratified,249599,rule,mention,miss,mets-willets point,express boundary
+stratified,249599,rule,mention,miss,woodside-61 st,express boundary
+stratified,249599,rule,complex,miss,448,express boundary
+stratified,249599,rule,complex,miss,456,express boundary
+stratified,249599,qwen,mention,miss,mets-willets point,express boundary
+stratified,249599,qwen,mention,miss,woodside-61 st,express boundary
+stratified,249599,qwen,complex,miss,448,express boundary
+stratified,249599,qwen,complex,miss,456,express boundary
+stratified,250939,rule,mention,miss,atlantic av,local boundary
+stratified,250939,rule,mention,miss,franklin av,local boundary
+stratified,250939,rule,mention,miss,utica av,local boundary
+stratified,250939,rule,complex,miss,345,local boundary
+stratified,250939,rule,complex,miss,617,local boundary
+stratified,250939,rule,complex,miss,626,local boundary
+stratified,250939,qwen,mention,miss,atlantic av,local boundary
+stratified,250939,qwen,mention,miss,bowling green,short turn
+stratified,250939,qwen,mention,miss,franklin av,local boundary
+stratified,250939,qwen,mention,miss,utica av,local boundary
+stratified,250939,qwen,complex,miss,345,local boundary
+stratified,250939,qwen,complex,miss,414,short turn
+stratified,250939,qwen,complex,miss,617,local boundary
+stratified,250939,qwen,complex,miss,626,local boundary
+stratified,250971,rule,mention,miss,14 st,express boundary
+stratified,250971,rule,mention,miss,brooklyn bridge-city hall,express boundary
+stratified,250971,rule,complex,miss,602,express boundary
+stratified,250971,rule,complex,miss,622,express boundary
+stratified,250971,qwen,mention,miss,14 st,express boundary
+stratified,250971,qwen,mention,miss,brooklyn bridge-city hall,express boundary
+stratified,250971,qwen,complex,miss,602,express boundary
+stratified,250971,qwen,complex,miss,622,express boundary
+stratified,250899,qwen,mention,miss,broadway junction,express boundary
+stratified,250899,qwen,mention,miss,utica av,express boundary
+stratified,250899,qwen,complex,miss,181,express boundary
+stratified,250899,qwen,complex,miss,621,express boundary
+stratified,250403,qwen,mention,miss,14 st-union sq,express boundary
+stratified,250403,qwen,mention,miss,brooklyn bridge-city hall,express boundary
+stratified,250403,qwen,complex,miss,602,express boundary
+stratified,250403,qwen,complex,miss,622,express boundary
+stratified,250702,qwen,mention,miss,14 st-union sq,express boundary
+stratified,250702,qwen,mention,miss,grand central-42 st,express boundary
+stratified,250702,qwen,complex,miss,602,express boundary
+stratified,250702,qwen,complex,miss,610,express boundary
+stratified,251483,rule,mention,miss,34 st-herald sq,express boundary
+stratified,251483,rule,mention,miss,w 4 st-wash sq,express boundary
+stratified,251483,rule,complex,miss,167,express boundary
+stratified,251483,rule,complex,miss,607,express boundary
+stratified,251483,qwen,mention,miss,34 st-herald sq,express boundary
+stratified,251483,qwen,mention,miss,w 4 st-wash sq,express boundary
+stratified,251483,qwen,complex,miss,167,express boundary
+stratified,251483,qwen,complex,miss,607,express boundary
+stratified,251880,qwen,mention,miss,36 st,reroute boundary
+stratified,251880,qwen,mention,miss,coney island-stillwell av,reroute boundary
+stratified,251880,qwen,complex,miss,32,reroute boundary
+stratified,251880,qwen,complex,miss,58,reroute boundary
+stratified,251180,rule,mention,miss,42 st-port authority bus terminal,express boundary
+stratified,251180,rule,mention,miss,59 st-columbus circle,express boundary
+stratified,251180,rule,mention,miss,canal st,express boundary
+stratified,251180,rule,complex,miss,169,express boundary
+stratified,251180,rule,complex,miss,611,express boundary
+stratified,251180,rule,complex,miss,614,express boundary
+stratified,251180,qwen,mention,miss,42 st-port authority bus terminal,express boundary
+stratified,251180,qwen,mention,miss,59 st-columbus circle,express boundary
+stratified,251180,qwen,mention,miss,canal st,express boundary
+stratified,251180,qwen,complex,miss,169,express boundary
+stratified,251180,qwen,complex,miss,611,express boundary
+stratified,251180,qwen,complex,miss,614,express boundary
+stratified,251991,qwen,mention,miss,125 st,express boundary
+stratified,251991,qwen,mention,miss,59 st-columbus circle,express boundary
+stratified,251991,qwen,complex,miss,153,express boundary
+stratified,251991,qwen,complex,miss,614,express boundary
+stratified,251647,rule,complex,extra,224,express boundary
+stratified,251647,rule,complex,miss,9,express boundary
+stratified,251647,qwen,mention,miss,34 st-herald sq,express boundary
+stratified,251647,qwen,mention,miss,57 st,express boundary
+stratified,251647,qwen,complex,miss,607,express boundary
+stratified,251647,qwen,complex,miss,9,express boundary
+challenge,250437,rule,mention,miss,49 st,skipped
+challenge,250437,rule,mention,miss,57 st/7 av,alternative service
+challenge,250437,rule,complex,miss,10,skipped
+challenge,250437,rule,complex,miss,9,alternative service
+challenge,250437,qwen,mention,miss,57 st/7 av,alternative service
+challenge,250437,qwen,mention,miss,times sq-42 st,express boundary
+challenge,250437,qwen,complex,miss,611,express boundary
+challenge,250437,qwen,complex,miss,9,alternative service
+challenge,250202,rule,mention,miss,14 st / 6 av,alternative service
+challenge,250202,rule,mention,miss,2 av,short turn
+challenge,250202,rule,mention,miss,broadway junction,alternative service
+challenge,250202,rule,mention,miss,broadway junction,short turn
+challenge,250202,rule,mention,miss,essex st,alternative service
+challenge,250202,rule,mention,miss,essex st,short turn
+challenge,250202,rule,mention,miss,marcy av,alternative service
+challenge,250202,rule,mention,miss,myrtle av,short turn
+challenge,250202,rule,mention,miss,myrtle-wyckoff avs,alternative service
+challenge,250202,rule,complex,miss,101,alternative service
+challenge,250202,rule,complex,miss,232,short turn
+challenge,250202,rule,complex,miss,601,alternative service
+challenge,250202,rule,complex,miss,621,alternative service
+challenge,250202,rule,complex,miss,621,short turn
+challenge,250202,rule,complex,miss,625,alternative service
+challenge,250202,rule,complex,miss,625,short turn
+challenge,250202,rule,complex,miss,630,alternative service
+challenge,250202,rule,complex,miss,97,short turn
+challenge,250202,qwen,mention,miss,14 st / 6 av,alternative service
+challenge,250202,qwen,mention,miss,2 av,short turn
+challenge,250202,qwen,mention,miss,broadway junction,alternative service
+challenge,250202,qwen,mention,miss,essex st,alternative service
+challenge,250202,qwen,mention,miss,marcy av,alternative service
+challenge,250202,qwen,mention,miss,myrtle-wyckoff avs,alternative service
+challenge,250202,qwen,complex,extra,<unresolved> essex st,short turn
+challenge,250202,qwen,complex,miss,101,alternative service
+challenge,250202,qwen,complex,miss,232,short turn
+challenge,250202,qwen,complex,miss,601,alternative service
+challenge,250202,qwen,complex,miss,621,alternative service
+challenge,250202,qwen,complex,miss,625,alternative service
+challenge,250202,qwen,complex,miss,625,short turn
+challenge,250202,qwen,complex,miss,630,alternative service
+challenge,250267,rule,mention,miss,59 st,boarding platform
+challenge,250267,rule,mention,miss,86 st,boarding platform
+challenge,250267,rule,complex,miss,397,boarding platform
+challenge,250267,rule,complex,miss,613,boarding platform
+challenge,250267,qwen,mention,extra,103 st,skipped
+challenge,250267,qwen,mention,miss,125 st,express boundary
+challenge,250267,qwen,mention,miss,59 st,boarding platform
+challenge,250267,qwen,mention,miss,86 st,boarding platform
+challenge,250267,qwen,mention,miss,grand central-42 st,express boundary
+challenge,250267,qwen,complex,extra,395,skipped
+challenge,250267,qwen,complex,miss,392,express boundary
+challenge,250267,qwen,complex,miss,397,boarding platform
+challenge,250267,qwen,complex,miss,610,express boundary
+challenge,250267,qwen,complex,miss,613,boarding platform
+challenge,250280,rule,mention,miss,broadway junction,local boundary
+challenge,250280,rule,mention,miss,hoyt-schermerhorn sts,local boundary
+challenge,250280,rule,mention,miss,nostrand av,boarding platform
+challenge,250280,rule,complex,miss,175,local boundary
+challenge,250280,rule,complex,miss,179,boarding platform
+challenge,250280,rule,complex,miss,621,local boundary
+challenge,250280,qwen,mention,miss,broadway junction,local boundary
+challenge,250280,qwen,mention,miss,hoyt-schermerhorn sts,local boundary
+challenge,250280,qwen,mention,miss,nostrand av,boarding platform
+challenge,250280,qwen,complex,miss,175,local boundary
+challenge,250280,qwen,complex,miss,179,boarding platform
+challenge,250280,qwen,complex,miss,621,local boundary
+challenge,250611,rule,mention,miss,brooklyn bridge-city hall,alternative service
+challenge,250611,rule,mention,miss,wall st,alternative service
+challenge,250611,rule,complex,miss,413,alternative service
+challenge,250611,rule,complex,miss,622,alternative service
+challenge,250611,qwen,mention,miss,broad st,suspension boundary
+challenge,250611,qwen,mention,miss,brooklyn bridge-city hall,alternative service
+challenge,250611,qwen,mention,miss,chambers st,short turn
+challenge,250611,qwen,mention,miss,chambers st,suspension boundary
+challenge,250611,qwen,mention,miss,wall st,alternative service
+challenge,250611,qwen,complex,miss,107,suspension boundary
+challenge,250611,qwen,complex,miss,413,alternative service
+challenge,250611,qwen,complex,miss,622,alternative service
+challenge,250611,qwen,complex,miss,622,short turn
+challenge,250611,qwen,complex,miss,622,suspension boundary
+challenge,251798,rule,mention,miss,57 st/7 av,reroute boundary
+challenge,251798,rule,mention,miss,96 st,reroute boundary
+challenge,251798,rule,complex,extra,<unresolved> 96 st,short turn
+challenge,251798,rule,complex,miss,475,reroute boundary
+challenge,251798,rule,complex,miss,475,short turn
+challenge,251798,rule,complex,miss,9,reroute boundary
+challenge,251798,qwen,mention,miss,57 st/7 av,reroute boundary
+challenge,251798,qwen,mention,miss,96 st,reroute boundary
+challenge,251798,qwen,mention,miss,96 st,short turn
+challenge,251798,qwen,complex,miss,475,reroute boundary
+challenge,251798,qwen,complex,miss,475,short turn
+challenge,251798,qwen,complex,miss,9,reroute boundary
+challenge,250697,qwen,mention,miss,brooklyn bridge-city hall,suspension boundary
+challenge,250697,qwen,mention,miss,grand central-42 st,short turn
+challenge,250697,qwen,mention,miss,grand central-42 st,suspension boundary
+challenge,250697,qwen,complex,miss,610,short turn
+challenge,250697,qwen,complex,miss,610,suspension boundary
+challenge,250697,qwen,complex,miss,622,suspension boundary
+challenge,251649,rule,mention,miss,168 st,short turn
+challenge,251649,rule,complex,miss,605,short turn
+challenge,251649,qwen,mention,miss,145 st,short turn
+challenge,251649,qwen,mention,miss,168 st,short turn
+challenge,251649,qwen,mention,miss,168 st,suspension boundary
+challenge,251649,qwen,mention,miss,inwood-207 st,suspension boundary
+challenge,251649,qwen,complex,miss,143,suspension boundary
+challenge,251649,qwen,complex,miss,151,short turn
+challenge,251649,qwen,complex,miss,605,short turn
+challenge,251649,qwen,complex,miss,605,suspension boundary

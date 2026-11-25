@@ -1,0 +1,26 @@
+[
+  {
+    "id": "synthetic-direct",
+    "input": "Uptown X trains are running express from Maple St to Cedar Av.",
+    "correct_template_fields": true,
+    "answer": "[]"
+  },
+  {
+    "id": "synthetic-delay",
+    "input": "Uptown X trains are delayed while police investigate near Maple St.",
+    "correct_template_fields": true,
+    "answer": "[]"
+  },
+  {
+    "id": "248718",
+    "input": "Affected routes: 4\nHeader: Downtown 4 trains are delayed while we address a mechanical problem on a train at Mt Eden Av.\nDescription: Some downtown 4 trains are running express from Burnside Av to 167 St\n.\nListen for announcements on how your train will run.",
+    "correct_template_fields": true,
+    "answer": "[]"
+  },
+  {
+    "id": "250267",
+    "input": "Affected routes: 4 | 6\nHeader: Uptown 4/6 trains are running express from Grand Central-42 St to 125 St.\nAt 59 St and 86 St, board trains on the lower level.\nDescription: For service to/from stops bypassed, take a downtown train.\n\nWhat's Happening?\nWe're conducting track maintenance at 103 St.",
+    "correct_template_fields": true,
+    "answer": "```json\n[\n    [\"103 St\", \"skipped\"]\n]\n```"
+  }
+]
