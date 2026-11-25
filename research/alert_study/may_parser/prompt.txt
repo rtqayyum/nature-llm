@@ -1,0 +1,13 @@
+Read a New York subway service notice. Extract every explicitly named station with an operational instruction currently in effect in this notice. Return ONLY a JSON array of [station, role] string pairs. Copy the station name exactly as it appears in the notice. Include both ends of a segment, and include separate pairs when a station has multiple roles. Deduplicate identical pairs. Use only these labels:
+
+express boundary: an endpoint of express operation
+local boundary: an endpoint of local operation
+reroute boundary: an endpoint of a diversion onto another line
+suspension boundary: an endpoint of a segment without train service
+short turn: a named station where trains turn back or terminate early
+boarding platform: a station with a special platform or track for boarding
+skipped: an explicitly named stop that trains bypass
+transfer: a named station where passengers are instructed to change vehicles
+alternative service: a named station at which passengers are directed to use substitute service
+
+A cause location, delay location, train destination used only to specify direction, unnamed skipped stop, or restored normal service alone gets no pair. Exclude separate planned-work reminders appended to an unrelated notice. Do not infer intervening stations or supply an expanded station name. If there are no qualifying instructions, return [].

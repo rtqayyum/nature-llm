@@ -1,0 +1,43 @@
+event_id,station,role,complex_id
+248718,Burnside Av,express boundary,384
+248718,167 St,express boundary,388
+248240,161 St-Yankee Stadium,local boundary,604
+248240,167 St,local boundary,218
+248915,Prospect Park,express boundary,42
+248915,Kings Hwy,express boundary,51
+248925,14 St-Union Sq,express boundary,602
+248925,Brooklyn Bridge-City Hall,express boundary,622
+248364,170 St,express boundary,217
+248364,145 St,express boundary,151
+249452,96 St,local boundary,310
+249452,72 St,local boundary,313
+249844,Prospect Park,express boundary,42
+249844,Kings Hwy,express boundary,51
+249848,57 St/7 Av,express boundary,9
+249848,34 St-Herald Sq,express boundary,607
+249599,Mets-Willets Point,express boundary,448
+249599,Woodside-61 St,express boundary,456
+250939,Atlantic Av,local boundary,617
+250939,Utica Av,local boundary,345
+250939,Franklin Av,local boundary,626
+250939,Bowling Green,short turn,414
+250971,Brooklyn Bridge-City Hall,express boundary,622
+250971,14 St,express boundary,602
+250899,Broadway Junction,express boundary,621
+250899,Utica Av,express boundary,181
+250403,14 St-Union Sq,express boundary,602
+250403,Brooklyn Bridge-City Hall,express boundary,622
+250702,14 St-Union Sq,express boundary,602
+250702,Grand Central-42 St,express boundary,610
+251483,W 4 St-Wash Sq,express boundary,167
+251483,34 St-Herald Sq,express boundary,607
+251880,36 St,reroute boundary,32
+251880,Coney Island-Stillwell Av,reroute boundary,58
+251180,59 St-Columbus Circle,express boundary,614
+251180,Canal St,express boundary,169
+251180,42 St-Port Authority Bus Terminal,express boundary,611
+251180,34 St-Penn Station,boarding platform,164
+251991,125 St,express boundary,153
+251991,59 St-Columbus Circle,express boundary,614
+251647,34 St-Herald Sq,express boundary,607
+251647,57 St,express boundary,9
