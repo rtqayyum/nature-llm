@@ -1,0 +1,282 @@
+{
+  "role-calls-232185.json": {
+    "bytes": 209,
+    "sha256": "995bd407ff536def28b82390fc36d09cf910932c7cc600c9e51f2749c8f4cceb",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-02%27+and+%272026-01-04%27+AND+gtfs_stop_id+in+%28%27235%27%2C%27239%27%2C%27D24%27%2C%27R31%27%2C%27S04%27%29+AND+trip_line+in+%28%274%27%2C%275%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-03T02%3A00%3A00%27+AND+departure_time+%3C+%272026-01-03T03%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-03T02%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-03T03%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-232187.json": {
+    "bytes": 209,
+    "sha256": "7d99c86f93c99fa647c22b8e549127922e86d72fe449638f28f58f41270eb26f",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-02%27+and+%272026-01-04%27+AND+gtfs_stop_id+in+%28%27639%27%2C%27M20%27%2C%27Q01%27%2C%27R23%27%2C%27R30%27%29+AND+trip_line+in+%28%27N%27%2C%27Q%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-03T03%3A00%3A00%27+AND+departure_time+%3C+%272026-01-03T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-03T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-03T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-232375.json": {
+    "bytes": 107,
+    "sha256": "77e3912c11b93d5a55baf338df1742db714e5e895d877e702ed3c5ed008bcf26",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-04%27+and+%272026-01-06%27+AND+gtfs_stop_id+in+%28%27718%27%2C%27A32%27%2C%27B08%27%2C%27D20%27%2C%27R09%27%29+AND+trip_line+in+%28%27N%27%2C%27Q%27%2C%27R%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-05T13%3A00%3A00%27+AND+departure_time+%3C+%272026-01-05T14%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-05T13%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-05T14%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-232461.json": {
+    "bytes": 266,
+    "sha256": "36fa4df8bcd4bc7748bf16c6c49dca6e2f900a2c07785b79a51731b5a0f77b0b",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-05%27+and+%272026-01-07%27+AND+gtfs_stop_id+in+%28%27D26%27%2C%27D40%27%2C%27D43%27%29+AND+trip_line+in+%28%27B%27%2C%27Q%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-06T12%3A00%3A00%27+AND+departure_time+%3C+%272026-01-06T13%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-06T12%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-06T13%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-232818.json": {
+    "bytes": 266,
+    "sha256": "a0c65dd89b1d06b76dd0b75bc35c48c87f424a01d722c6c36364bc6a87f559bf",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-08%27+and+%272026-01-10%27+AND+gtfs_stop_id+in+%28%27F14%27%2C%27M01%27%2C%27M11%27%2C%27M16%27%29+AND+trip_line+in+%28%27J%27%2C%27M%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-09T14%3A00%3A00%27+AND+departure_time+%3C+%272026-01-09T15%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-09T14%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-09T15%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234023.json": {
+    "bytes": 157,
+    "sha256": "9871b7db4e5cb5662dbf0bc8d31643a99124abf88df81f4d20717c18b2b8eb44",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-20%27+and+%272026-01-22%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A28%27%2C%27A34%27%29+AND+trip_line+in+%28%27A%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-21T03%3A00%3A00%27+AND+departure_time+%3C+%272026-01-21T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-21T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-21T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234598.json": {
+    "bytes": 105,
+    "sha256": "52ef5f2eabfaeeadd9e7fb43ae68347c6609c811756c344aefd1bd7717586332",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-24%27+and+%272026-01-26%27+AND+gtfs_stop_id+in+%28%27H04%27%2C%27H11%27%2C%27H15%27%29+AND+trip_line+in+%28%27A%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-25T09%3A00%3A00%27+AND+departure_time+%3C+%272026-01-25T10%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-25T09%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-25T10%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234600.json": {
+    "bytes": 159,
+    "sha256": "b2901b998d9e05d3ca6fcda76bb0d3e10c804971b4dd137dd01e7f09b7721fbf",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-24%27+and+%272026-01-26%27+AND+gtfs_stop_id+in+%28%27621%27%2C%27629%27%2C%27640%27%2C%27M21%27%2C%27R11%27%29+AND+trip_line+in+%28%274%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-25T09%3A00%3A00%27+AND+departure_time+%3C+%272026-01-25T10%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-25T09%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-25T10%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234629.json": {
+    "bytes": 107,
+    "sha256": "656f38c5b0fd6b2011f2cf6d76dd31e71e96c9969bc4414e65cb0c65305179e2",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-24%27+and+%272026-01-26%27+AND+gtfs_stop_id+in+%28%27D43%27%2C%27N08%27%29+AND+trip_line+in+%28%27N%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-25T12%3A00%3A00%27+AND+departure_time+%3C+%272026-01-25T13%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-25T12%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-25T13%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234643.json": {
+    "bytes": 105,
+    "sha256": "52ef5f2eabfaeeadd9e7fb43ae68347c6609c811756c344aefd1bd7717586332",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-24%27+and+%272026-01-26%27+AND+gtfs_stop_id+in+%28%27H04%27%2C%27H11%27%2C%27H15%27%29+AND+trip_line+in+%28%27A%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-25T13%3A00%3A00%27+AND+departure_time+%3C+%272026-01-25T14%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-25T13%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-25T14%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234658.json": {
+    "bytes": 159,
+    "sha256": "f08cb29f8e462431dcb72437b5050ccc232290e19cfe9a2abe4bd49e54592c5c",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-24%27+and+%272026-01-26%27+AND+gtfs_stop_id+in+%28%27A55%27%2C%27A61%27%2C%27A65%27%29+AND+trip_line+in+%28%27A%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-25T14%3A00%3A00%27+AND+departure_time+%3C+%272026-01-25T15%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-25T14%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-25T15%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234704.json": {
+    "bytes": 107,
+    "sha256": "4836724754e53edcdddb0ce57c1f82de46f61b35340d02e0a68be2e0fc072ee9",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-24%27+and+%272026-01-26%27+AND+gtfs_stop_id+in+%28%27718%27%2C%27R01%27%2C%27R09%27%29+AND+trip_line+in+%28%27N%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-25T17%3A00%3A00%27+AND+departure_time+%3C+%272026-01-25T18%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-25T17%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-25T18%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-234849.json": {
+    "bytes": 158,
+    "sha256": "00c06b1daa78961ef783c82c96367638364eb24023c39370156c163cf9ee9e1d",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-01-25%27+and+%272026-01-27%27+AND+gtfs_stop_id+in+%28%27A65%27%2C%27H03%27%2C%27H11%27%29+AND+trip_line+in+%28%27A%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-01-26T08%3A00%3A00%27+AND+departure_time+%3C+%272026-01-26T09%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-01-26T08%3A00%3A00%27+AND+arrival_time+%3C+%272026-01-26T09%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-236578.json": {
+    "bytes": 107,
+    "sha256": "53ac85f0958dea50c4652b643779f49c2deb38e3f4670313be7036da81c1e431",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-03%27+and+%272026-02-05%27+AND+gtfs_stop_id+in+%28%27719%27%2C%27F09%27%2C%27G22%27%2C%27G33%27%29+AND+trip_line+in+%28%27G%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-04T21%3A00%3A00%27+AND+departure_time+%3C+%272026-02-04T22%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-04T21%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-04T22%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-236597.json": {
+    "bytes": 209,
+    "sha256": "fba050e1df4dc0d3c6633163ca761393196730b547e776ce2ea7c5c52cb5d740",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-04%27+and+%272026-02-06%27+AND+gtfs_stop_id+in+%28%27235%27%2C%27239%27%2C%27D24%27%2C%27R31%27%2C%27S04%27%29+AND+trip_line+in+%28%272%27%2C%274%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-05T03%3A00%3A00%27+AND+departure_time+%3C+%272026-02-05T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-05T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-05T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-236685.json": {
+    "bytes": 107,
+    "sha256": "dee8fa4148ee8f38016f157be3d1a89926bd1228741adbc9dda4bb47ed9a16f0",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-04%27+and+%272026-02-06%27+AND+gtfs_stop_id+in+%28%27A55%27%2C%27H11%27%29+AND+trip_line+in+%28%27A%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-05T19%3A00%3A00%27+AND+departure_time+%3C+%272026-02-05T20%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-05T19%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-05T20%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-236738.json": {
+    "bytes": 54,
+    "sha256": "ce95d2b70244f93acd18e7f977beb18886a35bb262c27e4b9e9d3479ecc8f20c",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-05%27+and+%272026-02-07%27+AND+gtfs_stop_id+in+%28%27420%27%2C%27640%27%2C%27M21%27%29+AND+trip_line+in+%28%276%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-06T07%3A00%3A00%27+AND+departure_time+%3C+%272026-02-06T08%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-06T07%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-06T08%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-236760.json": {
+    "bytes": 160,
+    "sha256": "89b1e1c25f4681822dd5e43abdc8218352fd2cfae857071544c198c653d9c1b2",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-05%27+and+%272026-02-07%27+AND+gtfs_stop_id+in+%28%27639%27%2C%27M20%27%2C%27Q01%27%2C%27R23%27%2C%27R30%27%29+AND+trip_line+in+%28%27N%27%2C%27Q%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-06T12%3A00%3A00%27+AND+departure_time+%3C+%272026-02-06T13%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-06T12%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-06T13%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-237056.json": {
+    "bytes": 261,
+    "sha256": "1c916c0d4a60eebafb9f58e9c4fb88874c52b0636d2b5ae653ebf121d00c4e91",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-08%27+and+%272026-02-10%27+AND+gtfs_stop_id+in+%28%27132%27%2C%27137%27%2C%27142%27%2C%27D19%27%2C%27L02%27%2C%27R27%27%29+AND+trip_line+in+%28%271%27%2C%272%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-09T03%3A00%3A00%27+AND+departure_time+%3C+%272026-02-09T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-09T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-09T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-237283.json": {
+    "bytes": 209,
+    "sha256": "6a9504ae8a86829548f84a2bbf4c2d85f51f3009d3fef67795c7ecc641a1f316",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-09%27+and+%272026-02-11%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A34%27%2C%27F14%27%29+AND+trip_line+in+%28%27A%27%2C%27E%27%2C%27F%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-10T03%3A00%3A00%27+AND+departure_time+%3C+%272026-02-10T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-10T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-10T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-237353.json": {
+    "bytes": 637,
+    "sha256": "d58516be070f6650c649c7d44bea0e6bd1249a9ebf9e0c4a7a605683f69b35ff",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-09%27+and+%272026-02-11%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A28%27%2C%27A32%27%2C%27A34%27%2C%27D20%27%2C%27F12%27%29+AND+trip_line+in+%28%27A%27%2C%27C%27%2C%27E%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-10T13%3A00%3A00%27+AND+departure_time+%3C+%272026-02-10T14%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-10T13%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-10T14%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-237361.json": {
+    "bytes": 372,
+    "sha256": "fa174bb125dd68007d6e6038ea1a14e93c63a6bfbeb873464e553c552987a9ae",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-09%27+and+%272026-02-11%27+AND+gtfs_stop_id+in+%28%27A28%27%2C%27A32%27%2C%27D20%27%2C%27F12%27%29+AND+trip_line+in+%28%27A%27%2C%27C%27%2C%27E%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-10T14%3A00%3A00%27+AND+departure_time+%3C+%272026-02-10T15%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-10T14%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-10T15%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-238093.json": {
+    "bytes": 266,
+    "sha256": "c1b1fcc0a9502dab308a834369e671f34a3949fb9096dc88b56a1fce66f2db71",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-15%27+and+%272026-02-17%27+AND+gtfs_stop_id+in+%28%27613%27%2C%27619%27%2C%27626%27%29+AND+trip_line+in+%28%274%27%2C%276%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-16T15%3A00%3A00%27+AND+departure_time+%3C+%272026-02-16T16%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-16T15%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-16T16%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-238846.json": {
+    "bytes": 105,
+    "sha256": "d4e4ab79cbe76fa38c7070d5a90db1d147fdb7cec9d129b5e77313739e304d7c",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-22%27+and+%272026-02-24%27+AND+gtfs_stop_id+in+%28%27G05%27%2C%27J20%27%29+AND+trip_line+in+%28%27J%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-23T00%3A00%3A00%27+AND+departure_time+%3C+%272026-02-23T01%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-23T00%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-23T01%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-238901.json": {
+    "bytes": 160,
+    "sha256": "478c4479cfac7f9b4d4fdc5a0e1ecaf96ae5e788856ed1d5a223391addc74149",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-22%27+and+%272026-02-24%27+AND+gtfs_stop_id+in+%28%27718%27%2C%27R01%27%2C%27R09%27%2C%27R14%27%29+AND+trip_line+in+%28%27N%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-23T06%3A00%3A00%27+AND+departure_time+%3C+%272026-02-23T07%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-23T06%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-23T07%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-239163.json": {
+    "bytes": 107,
+    "sha256": "100d8b92630240d63837f902d858736bf93e74b45bb0b377215635ea0a8e7f5b",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-23%27+and+%272026-02-25%27+AND+gtfs_stop_id+in+%28%27719%27%2C%27F09%27%2C%27G22%27%2C%27G33%27%29+AND+trip_line+in+%28%27G%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-24T11%3A00%3A00%27+AND+departure_time+%3C+%272026-02-24T12%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-24T11%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-24T12%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-239184.json": {
+    "bytes": 107,
+    "sha256": "100d8b92630240d63837f902d858736bf93e74b45bb0b377215635ea0a8e7f5b",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-23%27+and+%272026-02-25%27+AND+gtfs_stop_id+in+%28%27719%27%2C%27F09%27%2C%27G22%27%2C%27G33%27%29+AND+trip_line+in+%28%27G%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-24T13%3A00%3A00%27+AND+departure_time+%3C+%272026-02-24T14%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-24T13%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-24T14%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-239713.json": {
+    "bytes": 107,
+    "sha256": "8c63b822593ecd362f88be0aa0ea1a1dbc744d7fd455924d1bb242bf8495c4bd",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-02-25%27+and+%272026-02-27%27+AND+gtfs_stop_id+in+%28%27228%27%2C%27A32%27%2C%27A36%27%2C%27D20%27%2C%27E01%27%2C%27F14%27%2C%27R25%27%29+AND+trip_line+in+%28%27E%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-02-26T20%3A00%3A00%27+AND+departure_time+%3C+%272026-02-26T21%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-02-26T20%3A00%3A00%27+AND+arrival_time+%3C+%272026-02-26T21%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-240098.json": {
+    "bytes": 107,
+    "sha256": "d4e439663613f4d35c3ca22f4843d25af263f79b60ac4718b3a89be3d74120a6",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-01%27+and+%272026-03-03%27+AND+gtfs_stop_id+in+%28%27640%27%2C%27M21%27%2C%27M23%27%29+AND+trip_line+in+%28%27J%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-02T09%3A00%3A00%27+AND+departure_time+%3C+%272026-03-02T10%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-02T09%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-02T10%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-240224.json": {
+    "bytes": 160,
+    "sha256": "6c07757195469f458a4f96902c4d7c42b3a75c463b22f9e4df6fd49394aef957",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-02%27+and+%272026-03-04%27+AND+gtfs_stop_id+in+%28%27A51%27%2C%27J27%27%2C%27L05%27%2C%27L06%27%2C%27L22%27%29+AND+trip_line+in+%28%27L%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-03T05%3A00%3A00%27+AND+departure_time+%3C+%272026-03-03T06%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-03T05%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-03T06%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-240278.json": {
+    "bytes": 319,
+    "sha256": "09d89c959bd2d5b190e55202ffd793ab5ed9ee38929ea18c87fda364b0ac4668",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-02%27+and+%272026-03-04%27+AND+gtfs_stop_id+in+%28%27A42%27%2C%27A46%27%2C%27A51%27%2C%27J27%27%2C%27L22%27%29+AND+trip_line+in+%28%27A%27%2C%27C%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-03T12%3A00%3A00%27+AND+departure_time+%3C+%272026-03-03T13%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-03T12%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-03T13%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-240494.json": {
+    "bytes": 160,
+    "sha256": "48d3c765fc6dfc601be98b990bb0b778bb3c58ea9fbd7dfc9dcb6e16a714f9f7",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-03%27+and+%272026-03-05%27+AND+gtfs_stop_id+in+%28%27120%27%2C%27132%27%2C%27137%27%2C%27D19%27%2C%27L02%27%29+AND+trip_line+in+%28%271%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-04T23%3A00%3A00%27+AND+departure_time+%3C+%272026-03-05T00%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-04T23%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-05T00%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-240839.json": {
+    "bytes": 107,
+    "sha256": "4230b4b0a95a1954a4c0e9d549f193671c4c4d3e3918ba5af4ee7b2721ea35f8",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-06%27+and+%272026-03-08%27+AND+gtfs_stop_id+in+%28%27637%27%2C%27D21%27%2C%27F14%27%2C%27R36%27%29+AND+trip_line+in+%28%27D%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-07T21%3A00%3A00%27+AND+departure_time+%3C+%272026-03-07T22%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-07T21%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-07T22%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-240978.json": {
+    "bytes": 160,
+    "sha256": "19a44cb245c2b6b61973380521edf59de0ccac865a95263935c5211f4998398e",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-08%27+and+%272026-03-10%27+AND+gtfs_stop_id+in+%28%27A42%27%2C%27A46%27%2C%27A51%27%2C%27J27%27%2C%27L22%27%29+AND+trip_line+in+%28%27C%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-09T11%3A00%3A00%27+AND+departure_time+%3C+%272026-03-09T12%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-09T11%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-09T12%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-241231.json": {
+    "bytes": 319,
+    "sha256": "057642bf6c6d57eed75ce3a30df0d2a6a886b1b62783bdeae64f440020f6609b",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-09%27+and+%272026-03-11%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A28%27%2C%27A34%27%29+AND+trip_line+in+%28%27A%27%2C%27C%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-10T21%3A00%3A00%27+AND+departure_time+%3C+%272026-03-10T22%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-10T21%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-10T22%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-241669.json": {
+    "bytes": 425,
+    "sha256": "ffb8e5c7ebc6cf597ab3aeb44dcfee69388bc39a50bc1463e30be22a04119d0a",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-12%27+and+%272026-03-14%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A32%27%2C%27D20%27%2C%27F14%27%29+AND+trip_line+in+%28%27A%27%2C%27B%27%2C%27C%27%2C%27D%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-13T11%3A00%3A00%27+AND+departure_time+%3C+%272026-03-13T12%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-13T11%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-13T12%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-241695.json": {
+    "bytes": 160,
+    "sha256": "dd1151adc674952688c2dd247f453521cdc249ee4c7f8ecf77e8910ecd0832e3",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-12%27+and+%272026-03-14%27+AND+gtfs_stop_id+in+%28%27112%27%2C%27114%27%2C%27116%27%2C%27A09%27%29+AND+trip_line+in+%28%271%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-13T16%3A00%3A00%27+AND+departure_time+%3C+%272026-03-13T17%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-13T16%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-13T17%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-241773.json": {
+    "bytes": 106,
+    "sha256": "365faf775f0a367d2357eb9c4fe49c9049459e8f5a0e7c8ba3670a0a463a9992",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-13%27+and+%272026-03-15%27+AND+gtfs_stop_id+in+%28%27224%27%2C%27301%27%29+AND+trip_line+in+%28%273%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-14T07%3A00%3A00%27+AND+departure_time+%3C+%272026-03-14T08%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-14T07%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-14T08%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-242019.json": {
+    "bytes": 160,
+    "sha256": "17d06edbcbcbb2809c21213cba5a26dc179d72d9931b56a1b68523f78825c74c",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-15%27+and+%272026-03-17%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A28%27%2C%27A34%27%29+AND+trip_line+in+%28%27C%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-16T18%3A00%3A00%27+AND+departure_time+%3C+%272026-03-16T19%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-16T18%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-16T19%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-242279.json": {
+    "bytes": 107,
+    "sha256": "55082479f0ad8ffe89dc971d0e95670f05cdb2e209a87c4c936b488c9b449555",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-17%27+and+%272026-03-19%27+AND+gtfs_stop_id+in+%28%27A51%27%2C%27J27%27%2C%27L22%27%2C%27M01%27%2C%27M11%27%29+AND+trip_line+in+%28%27M%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-18T09%3A00%3A00%27+AND+departure_time+%3C+%272026-03-18T10%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-18T09%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-18T10%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-242671.json": {
+    "bytes": 105,
+    "sha256": "6e3ab95e4ebe4c3504c2be1ed8855d44a29bf89945235f697a14f15933bc9b18",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-20%27+and+%272026-03-22%27+AND+gtfs_stop_id+in+%28%27127%27%2C%27639%27%2C%27725%27%2C%27902%27%2C%27A27%27%2C%27M20%27%2C%27Q01%27%2C%27R16%27%2C%27R23%27%29+AND+trip_line+in+%28%27N%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-21T03%3A00%3A00%27+AND+departure_time+%3C+%272026-03-21T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-21T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-21T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-242680.json": {
+    "bytes": 213,
+    "sha256": "de3c646cbe1edefdd7bed47cdf965a1c2e249a1a565ac449729702b165e38ea6",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-20%27+and+%272026-03-22%27+AND+gtfs_stop_id+in+%28%27639%27%2C%27M20%27%2C%27Q01%27%2C%27R23%27%2C%27R30%27%29+AND+trip_line+in+%28%27N%27%2C%27R%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-21T10%3A00%3A00%27+AND+departure_time+%3C+%272026-03-21T11%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-21T10%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-21T11%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-243435.json": {
+    "bytes": 105,
+    "sha256": "e49b3200f03c5c2918fed8095a7eeabffae66670c803a907f38a84b8ac005858",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-03-26%27+and+%272026-03-28%27+AND+gtfs_stop_id+in+%28%27619%27%2C%27621%27%29+AND+trip_line+in+%28%276%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-03-27T03%3A00%3A00%27+AND+departure_time+%3C+%272026-03-27T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-03-27T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-03-27T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-244445.json": {
+    "bytes": 157,
+    "sha256": "0f298ab3ca1d982b89d1d1fe1b8c6110dc47c539750289614fa4db7dbff9d592",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-03%27+and+%272026-04-05%27+AND+gtfs_stop_id+in+%28%27A42%27%2C%27A46%27%2C%27A48%27%29+AND+trip_line+in+%28%27A%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-04T04%3A00%3A00%27+AND+departure_time+%3C+%272026-04-04T05%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-04T04%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-04T05%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-244452.json": {
+    "bytes": 107,
+    "sha256": "42e8508e77a7af24725bf3578ab570a09c7903f64b041bf6f29f43a02ac05800",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-03%27+and+%272026-04-05%27+AND+gtfs_stop_id+in+%28%27719%27%2C%27F09%27%2C%27G22%27%2C%27G33%27%29+AND+trip_line+in+%28%27G%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-04T07%3A00%3A00%27+AND+departure_time+%3C+%272026-04-04T08%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-04T07%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-04T08%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-244469.json": {
+    "bytes": 266,
+    "sha256": "df7780c2cd25217078a644644f51b72fc22d1cb7fe9d3983e3bdd88a69d08717",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-03%27+and+%272026-04-05%27+AND+gtfs_stop_id+in+%28%27639%27%2C%27M20%27%2C%27Q01%27%2C%27R23%27%2C%27R30%27%29+AND+trip_line+in+%28%27N%27%2C%27Q%27%2C%27R%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-04T11%3A00%3A00%27+AND+departure_time+%3C+%272026-04-04T12%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-04T11%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-04T12%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-244591.json": {
+    "bytes": 469,
+    "sha256": "10ca91cffba0431a88569d8b44ea381d07f80f4586b602602fc548e7b90f24fe",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-05%27+and+%272026-04-07%27+AND+gtfs_stop_id+in+%28%27127%27%2C%27725%27%2C%27902%27%2C%27A27%27%2C%27A32%27%2C%27A34%27%2C%27D15%27%2C%27D20%27%2C%27R16%27%29+AND+trip_line+in+%28%27A%27%2C%27D%27%2C%27E%27%2C%27F%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-06T04%3A00%3A00%27+AND+departure_time+%3C+%272026-04-06T05%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-06T04%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-06T05%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-244864.json": {
+    "bytes": 261,
+    "sha256": "ad73599b43b246c2e76dc8aa61fb12b9156bc9bb4cc6e0a18630954badac88da",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-07%27+and+%272026-04-09%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A28%27%2C%27A34%27%29+AND+trip_line+in+%28%27A%27%2C%27E%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-08T03%3A00%3A00%27+AND+departure_time+%3C+%272026-04-08T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-08T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-08T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-245721.json": {
+    "bytes": 157,
+    "sha256": "853d000eceb1791a0032b59a20964e57f8277a92aead173a614bc23c6aae7153",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-13%27+and+%272026-04-15%27+AND+gtfs_stop_id+in+%28%27639%27%2C%27M20%27%2C%27Q01%27%2C%27R23%27%2C%27R30%27%29+AND+trip_line+in+%28%27D%27%2C%27Q%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-14T05%3A00%3A00%27+AND+departure_time+%3C+%272026-04-14T06%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-14T05%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-14T06%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-246363.json": {
+    "bytes": 213,
+    "sha256": "7653d938152526e88667df3f825be5aca6749424f9a7bf3f0c4410e3dc01144a",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-16%27+and+%272026-04-18%27+AND+gtfs_stop_id+in+%28%27A41%27%2C%27F23%27%2C%27F35%27%2C%27R29%27%2C%27R33%27%29+AND+trip_line+in+%28%27F%27%2C%27G%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-17T19%3A00%3A00%27+AND+departure_time+%3C+%272026-04-17T20%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-17T19%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-17T20%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-246394.json": {
+    "bytes": 107,
+    "sha256": "58e5d7c9a344613374294d263f3503ecc35e4d6a83fce82ca644d1bdf848db07",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-16%27+and+%272026-04-18%27+AND+gtfs_stop_id+in+%28%27A31%27%2C%27L01%27%2C%27L08%27%29+AND+trip_line+in+%28%27L%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-17T21%3A00%3A00%27+AND+departure_time+%3C+%272026-04-17T22%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-17T21%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-17T22%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-246949.json": {
+    "bytes": 261,
+    "sha256": "ad73599b43b246c2e76dc8aa61fb12b9156bc9bb4cc6e0a18630954badac88da",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-21%27+and+%272026-04-23%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A28%27%2C%27A34%27%29+AND+trip_line+in+%28%27A%27%2C%27E%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-22T03%3A00%3A00%27+AND+departure_time+%3C+%272026-04-22T04%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-22T03%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-22T04%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-247083.json": {
+    "bytes": 261,
+    "sha256": "ad73599b43b246c2e76dc8aa61fb12b9156bc9bb4cc6e0a18630954badac88da",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-22%27+and+%272026-04-24%27+AND+gtfs_stop_id+in+%28%27125%27%2C%27A24%27%2C%27A28%27%2C%27A34%27%29+AND+trip_line+in+%28%27A%27%2C%27E%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-23T02%3A00%3A00%27+AND+departure_time+%3C+%272026-04-23T03%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-23T02%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-23T03%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-247331.json": {
+    "bytes": 107,
+    "sha256": "2c78e85b9dce442d9077a59c6eac2e202a531783ead8779dce432bdc93752554",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-23%27+and+%272026-04-25%27+AND+gtfs_stop_id+in+%28%27254%27%2C%27257%27%29+AND+trip_line+in+%28%273%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-24T19%3A00%3A00%27+AND+departure_time+%3C+%272026-04-24T20%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-24T19%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-24T20%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "role-calls-247640.json": {
+    "bytes": 160,
+    "sha256": "b9abf1e3a34bc5d2f9615b87f55fcbfd3528fb746dbaa02cf0c7d4ff58194d1e",
+    "url": "https://data.ny.gov/resource/g8es-h7gb.json?%24where=service_date+between+%272026-04-26%27+and+%272026-04-28%27+AND+gtfs_stop_id+in+%28%27A42%27%2C%27A46%27%2C%27A51%27%2C%27J27%27%2C%27L22%27%29+AND+trip_line+in+%28%27C%27%29+AND+revenue_service%3D%271%27+AND+trip_type%3D%270%27+AND+%28%28departure_time+%3E%3D+%272026-04-27T20%3A00%3A00%27+AND+departure_time+%3C+%272026-04-27T21%3A00%3A00%27%29+OR+%28departure_time+IS+NULL+AND+arrival_time+%3E%3D+%272026-04-27T20%3A00%3A00%27+AND+arrival_time+%3C+%272026-04-27T21%3A00%3A00%27%29%29&%24select=gtfs_stop_id%2Ctrip_line%2Ccount%28%2A%29+as+calls&%24group=gtfs_stop_id%2Ctrip_line&%24order=gtfs_stop_id%2Ctrip_line&%24limit=1000"
+  },
+  "stations": {
+    "bytes": 285417,
+    "sha256": "40f829816b08434dfd23ddd6e2b75a98ad7bd9bc2c00861c9a257726435cb0cb",
+    "url": "https://data.ny.gov/resource/39hk-dx4f.json?"
+  }
+}

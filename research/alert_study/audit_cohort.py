@@ -63,10 +63,12 @@ def timetable(path, station_rows, places):
             hour = int(r["departure_time"].split(":")[0])
             calls[service, hour, route].add(parent[r["stop_id"]])
 
-    def stations(hour, routes):
+    def stations(hour, routes, service_before=None):
         served, active_routes = set(), set()
         for lag in range(1 + max(key[1] for key in calls) // 24):
             day = hour.date() - timedelta(days=lag)
+            if service_before is not None and day >= service_before:
+                continue
             date = day.strftime("%Y%m%d")
             weekday = day.strftime("%A").lower()
             active = {r["service_id"] for r in calendar
