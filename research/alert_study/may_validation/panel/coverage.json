@@ -1,0 +1,100 @@
+{
+  "coordinate_complexes": 424,
+  "mapped_complexes_with_docks": 295,
+  "observed_may_city_bike_hours": 744,
+  "primary": {
+    "before_mask": {
+      "complexes": 424,
+      "dates": 31,
+      "hours": 622,
+      "origins": 1611,
+      "station_hours": 66123
+    },
+    "both_targets": {
+      "complexes": 295,
+      "dates": 31,
+      "hours": 621,
+      "origins": 1593,
+      "station_hours": 46842
+    },
+    "both_targets_and_lags": {
+      "complexes": 295,
+      "dates": 31,
+      "hours": 621,
+      "origins": 1593,
+      "station_hours": 46621
+    },
+    "first_notices": 1743,
+    "notices_with_route_stations": 1731,
+    "overlapping_station_hours": 12650,
+    "paired_after_audit_exclusion": {
+      "complexes": 295,
+      "dates": 31,
+      "hours": 616,
+      "origins": 1534,
+      "station_hours": 44860
+    },
+    "paired_fault_response": {
+      "complexes": 295,
+      "dates": 31,
+      "hours": 543,
+      "origins": 1231,
+      "station_hours": 35791
+    },
+    "paired_rule_named": {
+      "complexes": 62,
+      "dates": 31,
+      "hours": 138,
+      "origins": 151,
+      "station_hours": 242
+    }
+  },
+  "schedule_excluded": {
+    "before_mask": {
+      "complexes": 359,
+      "dates": 1,
+      "hours": 15,
+      "origins": 29,
+      "station_hours": 1190
+    },
+    "both_targets": {
+      "complexes": 247,
+      "dates": 1,
+      "hours": 15,
+      "origins": 29,
+      "station_hours": 839
+    },
+    "both_targets_and_lags": {
+      "complexes": 241,
+      "dates": 1,
+      "hours": 15,
+      "origins": 29,
+      "station_hours": 832
+    },
+    "first_notices": 34,
+    "notices_with_route_stations": 34,
+    "overlapping_station_hours": 245,
+    "paired_after_audit_exclusion": {
+      "complexes": 241,
+      "dates": 1,
+      "hours": 15,
+      "origins": 29,
+      "station_hours": 832
+    },
+    "paired_fault_response": {
+      "complexes": 241,
+      "dates": 1,
+      "hours": 13,
+      "origins": 25,
+      "station_hours": 732
+    },
+    "paired_rule_named": {
+      "complexes": 6,
+      "dates": 1,
+      "hours": 4,
+      "origins": 5,
+      "station_hours": 8
+    }
+  },
+  "versions_of_may_origins": 4231
+}

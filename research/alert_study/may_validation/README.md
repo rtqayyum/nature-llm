@@ -38,4 +38,17 @@ python research/alert_study/may_validation/collect_text.py /path/to/jan-apr-noti
 The source directory holds 2026-01.json through 2026-04.json matching the [published hashes](../role_screen/sources.json). The May source is pinned separately. A receipt for a parser shard measures extraction coverage; forecast accuracy requires the later paired demand evaluation.
 
 
-The first completed batch contains 90 verified model inputs linked to 94 first notices. All 90 responses had a valid array shape and 13 were nonempty. The remaining 95 shards are pending. Valid array shape alone says nothing about correctness. [Raw shard](parser_shards/00.json.gz) · [Extraction receipt](parser_shards/receipt.json)
+The first completed batch contains 90 verified model inputs linked to 94 first notices. All 90 responses had a valid array shape and 13 were nonempty. This receipt covers shard 00. Valid array shape alone says nothing about correctness. [Raw shard](parser_shards/00.json.gz) · [Extraction receipt](parser_shards/receipt.json)
+
+The [May panel and frozen numerical controls](panel/README.md) record the outcome join, timetable sensitivity, assigned station-hours, independently verified May 27 trace and paired forecast keys.
+
+### Resume extraction and freeze the language-model forecasts
+
+The [verified extraction inventory](parser_shards/progress.json) records 184 of 8,310 distinct inputs in 2 completed shards. Its counts describe raw extraction and deterministic station resolution. The checker matches every stored output to its exact prompt/input key and the corresponding representative notice. It retains a station–role pair when the role is one of the nine defined labels and the normalized station name occurs at a word boundary in the original text and resolves in the frozen directory. An unresolved or invalid pair contributes no role features. The forecast population is fixed independently of this check.
+
+To resume, collect the missing shard numbers using the command above. Existing complete shards are checked on restart. After all 96 have been recovered, the following command validates the entire inventory and the non-Qwen prediction hashes before fitting the two Qwen arms and the within-notice role exchanges. It writes forecasts and their checksums before error analysis.
+
+```bash
+root=research/alert_study/may_validation
+python "$root/freeze_qwen.py" "$CACHE" "$NOTICE_CACHE" "$root/qwen_forecasts"
+```

@@ -1,0 +1,36 @@
+{
+  "evaluation_rows": 46621,
+  "files": {
+    "lag_free_bike.csv.gz": {
+      "bytes": 791718,
+      "sha256": "69229dd207204dec6c72e214c26042af581ecf8cbb889ddaab606aea3d3377f6"
+    },
+    "lag_free_rail.csv.gz": {
+      "bytes": 726490,
+      "sha256": "8a5cad46a69a63a7a94b7ba977e782da7abb8e7549bbb665034650891e8628bb"
+    },
+    "operator_bike.csv.gz": {
+      "bytes": 903627,
+      "sha256": "17f2b272f650cc60064daa49aa97a74bcaebff9dc9a20e02811e3ee72fbec5ca"
+    },
+    "operator_rail.csv.gz": {
+      "bytes": 1060117,
+      "sha256": "1ba1c41b7562235920c6f2718b09f1732eeae108b36771992ae6acd2d3c4857c"
+    }
+  },
+  "lag_free": {
+    "complete_label_cutoff": "2026-04-01T00:00:00-04:00",
+    "purged_rows": 0,
+    "training_origins": 4877,
+    "training_rows": 146434
+  },
+  "numpy": "2.3.5",
+  "operator": {
+    "complete_label_cutoff": "2026-05-01T00:00:00-04:00",
+    "purged_rows": 41,
+    "training_origins": 6379,
+    "training_rows": 190606
+  },
+  "pandas": "2.2.3",
+  "sklearn": "1.8.0"
+}

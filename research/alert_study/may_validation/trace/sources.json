@@ -1,0 +1,22 @@
+{
+  "202605.zip": {
+    "bytes": 916981226,
+    "sha256": "b9461221fb7ce806d5274b046b4de46414a1d1116ba2bc46c6a870b7bda71adf",
+    "url": "https://s3.amazonaws.com/tripdata/202605-citibike-tripdata.zip"
+  },
+  "trace-251649-rail-143.json": {
+    "bytes": 2660,
+    "sha256": "5839828c3ed6af698c9789a1fa29b38d8559ae21677be977c1eaf64776c76c47",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-27T16%3A00%3A00&station_complex_id=143&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+  },
+  "trace-251649-rail-151.json": {
+    "bytes": 2675,
+    "sha256": "bc16fa25a7fd320dcef8f5764e90ddd7b0de153b80cf2dcd833de317899d0ef1",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-27T16%3A00%3A00&station_complex_id=151&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+  },
+  "trace-251649-rail-605.json": {
+    "bytes": 2754,
+    "sha256": "c31cfefe446b6337799273e06b2c17de460a72bc50beff07bfd47e05a1210811",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-27T16%3A00%3A00&station_complex_id=605&%24order=payment_method%2Cfare_class_category&%24limit=1000"
+  }
+}

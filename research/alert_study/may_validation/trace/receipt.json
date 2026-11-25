@@ -1,0 +1,22 @@
+{
+  "complete_disjoint_incidents": 1,
+  "event_id": "251649",
+  "origin": "2026-05-27T15:03:00-04:00",
+  "hour": "2026-05-27T16:00:00-04:00",
+  "versions": [
+    {
+      "event_id": "251649",
+      "update_number": "0",
+      "alert_id": "515127",
+      "published_utc": "2026-05-27T19:03:00.000Z",
+      "used_as_input": "1"
+    },
+    {
+      "event_id": "251649",
+      "update_number": "1",
+      "alert_id": "515131",
+      "published_utc": "2026-05-27T19:15:00.000Z",
+      "used_as_input": "0"
+    }
+  ]
+}

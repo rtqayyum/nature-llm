@@ -1,0 +1,237 @@
+{
+  "2026-04-24.json": {
+    "bytes": 1114930,
+    "sha256": "2f93e5757c39966fbb512b7406fcbcbf77bc71787cccd86923f009b7e7788973",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-24T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-25T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-04-25.json": {
+    "bytes": 1045159,
+    "sha256": "aa9bf68a561fc572387e82d3edc733731d15897a73c8cef2193349d42761d1cd",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-25T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-26T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-04-26.json": {
+    "bytes": 1038246,
+    "sha256": "dc2bd1a6a96a71b064dc625cd17a16167ea95cc398b555c4964237adc8c73c9d",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-26T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-27T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-04-27.json": {
+    "bytes": 1103829,
+    "sha256": "3bbc5087051b3b5d3de4081df923dadee1759ba9765a7af5927b10cb4fb33dbd",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-27T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-28T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-04-28.json": {
+    "bytes": 1115947,
+    "sha256": "4986707a78619193477f4e6f75e06abe30deb4c51381bc636c8893bd5b8b3e90",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-28T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-29T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-04-29.json": {
+    "bytes": 1116669,
+    "sha256": "2c537dd43272c7837383fe58835028f0b0ab4068b28b9d642d469135ed53c601",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-29T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-30T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-04-30.json": {
+    "bytes": 1115756,
+    "sha256": "0f1db50fdbfd73542fe83a7e1e6a26aecb5a9703f49058b58aa25ae2510634fc",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-30T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-01T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-01.json": {
+    "bytes": 1117412,
+    "sha256": "be6893fddef8dcb174c3c376ede81c1049fd6b3397a197032198fcd5746fa9e2",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-01T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-02T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-02.json": {
+    "bytes": 1096100,
+    "sha256": "9cd9d125769cdd92354c0dce388b8ea47e78441c680c59ffaf75fb3f093d1dae",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-02T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-03T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-03.json": {
+    "bytes": 1093489,
+    "sha256": "b2a7e7493f529e0a59d04cd0e52bbdea9bfe5ad82a5d11e0bfd730c483a7d77c",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-03T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-04T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-04.json": {
+    "bytes": 1118133,
+    "sha256": "698f8441f1ef4a2a2d6f2c7e907e88f6a988b5517262c5485c0f2761f392a19d",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-04T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-05T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-05.json": {
+    "bytes": 1118951,
+    "sha256": "75a585986b0be1c6c7c714e38dc606aec02743e7c661f686c9ef78075f7f5f8b",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-05T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-06T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-06.json": {
+    "bytes": 1119814,
+    "sha256": "aeabc69471a7b9a93d7ed1e3b13dc091d5f7b9a53b56d80a460d12d4b534eaa0",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-06T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-07T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-07.json": {
+    "bytes": 1119206,
+    "sha256": "3045e827b3cf73bedf2cc5a7bcf9c84b88aa44d37e23dce40b317811d3d45bfb",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-07T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-08T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-08.json": {
+    "bytes": 1119376,
+    "sha256": "3c9fbb0138af848623f3e21f7f39ce7a3549cee112563e14773effdf474b14e1",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-08T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-09T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-09.json": {
+    "bytes": 1107998,
+    "sha256": "b7dec4513017850e3da74957d7d7f243aec71778899d14c1094ef78ca57030dd",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-09T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-10T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-10.json": {
+    "bytes": 1104562,
+    "sha256": "a0005e90a09a5830994b872ed848e06f276e48d4c26bf9e5c6da6adb749191a1",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-10T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-11T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-11.json": {
+    "bytes": 1116395,
+    "sha256": "6a01005b12b9bb534fb9bf1681dd0d3a45978c1336f6d1328bf53f30698f80e3",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-11T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-12T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-12.json": {
+    "bytes": 1117401,
+    "sha256": "2921fa9f38d3b151550f71298145dfaf004d47abf6249227746d606997d9414d",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-12T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-13T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-13.json": {
+    "bytes": 1119085,
+    "sha256": "c71f0b40f0666ef1be363dce6f2aa1fd43ebeecd16d8094b0c862ade3b4cb586",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-13T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-14T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-14.json": {
+    "bytes": 1119095,
+    "sha256": "1000c5fbea870c799ee8a92b5942686d238e747f0bcaec019bbf60a4a63c3ed3",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-14T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-15T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-15.json": {
+    "bytes": 1119338,
+    "sha256": "6a737e56bb557d7a5419edfadf1e85af1d277bd32d73ba7ac4c48e15082154c0",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-15T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-16T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-16.json": {
+    "bytes": 1088827,
+    "sha256": "39412e6034f232eefdd7304d7cce3b404d0298b47a3969c15de5502addd53100",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-16T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-17T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-17.json": {
+    "bytes": 1085757,
+    "sha256": "6b28085cd16fa535b474d1df262bfd01ff8d76531aaa2994f60f699147c5e367",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-17T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-18T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-18.json": {
+    "bytes": 1119033,
+    "sha256": "51fa8cc49774b780994f39ec078161bee9e52393a9c7756fee3864d5522ad874",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-18T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-19T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-19.json": {
+    "bytes": 1119263,
+    "sha256": "bc5b837ab0c35c9bac00b801ccc2dacadaa52b9c9f4e8afc2ddefac2e97ecd28",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-19T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-20T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-20.json": {
+    "bytes": 1117492,
+    "sha256": "20fbc30bdb333ae7e359d116a576feee2fc178d980f4b459d5274654aa278f60",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-20T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-21T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-21.json": {
+    "bytes": 1118933,
+    "sha256": "a5def7b0c0710abbc013df6dbeb74db42396d827a6a7397bb8240e6b5fc99629",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-21T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-22T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-22.json": {
+    "bytes": 1118440,
+    "sha256": "93793449becf9b1e45dd2ba488ae9d339d4f91612fb8b77cca5f4813424d5d54",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-22T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-23T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-23.json": {
+    "bytes": 1072587,
+    "sha256": "4b723b03840e9311122b62362c50e3f7895596b4b997314c9c254716aa70a781",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-23T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-24T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-24.json": {
+    "bytes": 1066658,
+    "sha256": "65a18c80f7942917b98743f1589837ee95c224d685ff3fb49c50d00f479fc3ba",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-24T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-25T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-25.json": {
+    "bytes": 1077965,
+    "sha256": "219ccd609586fbde9c785a2c94aef9069b7c10bda54425fb68dcc0e5f6e86a46",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-25T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-26T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-26.json": {
+    "bytes": 1112448,
+    "sha256": "eca2ef10375a5748f72cd90644c37eef99426d1b6026cc79124fce01a8944349",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-26T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-27T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-27.json": {
+    "bytes": 1119017,
+    "sha256": "660d5d8d4afda8f9ccd889e3124e24d0d9686e42d55a3948c6f0d18ec922031c",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-27T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-28T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-28.json": {
+    "bytes": 1115775,
+    "sha256": "c093e653083891b4cacd59c4c4fe18603973983e43d633fdb14f1e4ad89abf8c",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-28T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-29T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-29.json": {
+    "bytes": 1118481,
+    "sha256": "e9f846d1efb5a975d24b74f1279a25f0cfa67f329f6cedfa66b9d9efb9eb2637",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-29T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-30T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-30.json": {
+    "bytes": 1083268,
+    "sha256": "404d888c7f3fc93ecee903c685a88bdf3fa05d9d18bde829ff24e900596c842e",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-30T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-31T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-31.json": {
+    "bytes": 1074384,
+    "sha256": "617822601e6c09eaa0cc10f04ef6858e670d8d6386f04f78eda876d961c94fd6",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-31T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-06-01T00%3A00%3A00%27&%24select=transit_timestamp%2Cstation_complex_id%2Csum%28ridership%29+as+entries%2Ccount%28%2A%29+as+categories&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "20260227082256.zip": {
+    "bytes": 5566687,
+    "sha256": "f17612e9586f2f621af0e2c1f987d7a8eda01abb52769ee0599a975514ec59a1",
+    "url": "https://web.archive.org/web/20260227082256id_/https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip"
+  },
+  "202604.zip": {
+    "bytes": 164592563,
+    "sha256": "fefc1fca369818baeb9206792e02a098b71b59f263064b6627b42317965e2ffb",
+    "url": "https://s3.amazonaws.com/tripdata/202604-citibike-tripdata.zip"
+  },
+  "202605.zip": {
+    "bytes": 916981226,
+    "sha256": "b9461221fb7ce806d5274b046b4de46414a1d1116ba2bc46c6a870b7bda71adf",
+    "url": "https://s3.amazonaws.com/tripdata/202605-citibike-tripdata.zip"
+  },
+  "geo-2026-04-29-08.json": {
+    "bytes": 48570,
+    "sha256": "ff39eef76452a9cfa282e79bbcb6a6b45fbb61b8636b42ba55acc859e58ee758",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=distinct+station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&transit_mode=subway&transit_timestamp=2026-04-29T08%3A00%3A00&%24order=station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&%24limit=5000"
+  },
+  "geo-2026-04-29-17.json": {
+    "bytes": 48684,
+    "sha256": "3e68a3de1e2ec0091d4e203971cfe4c6934975dce59f6da44741f5d6b976f7ad",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=distinct+station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&transit_mode=subway&transit_timestamp=2026-04-29T17%3A00%3A00&%24order=station_complex_id%2Cstation_complex%2Clatitude%2Clongitude&%24limit=5000"
+  },
+  "may-base.zip": {
+    "bytes": 5793709,
+    "sha256": "bf7a36d35d4707d9981c9b18920ac44e7a83b5192fa513ac092c531312480f12",
+    "url": "https://web.archive.org/web/20260518002620id_/https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip"
+  },
+  "may_notices.json": {
+    "bytes": 553981,
+    "sha256": "445a8c24ddb86c507f61c4aa0ba10f0f1b1a46861a741f9d386f22d2d1ee275a",
+    "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+update_number%3D0+AND+date+%3E%3D+%272026-05-01T04%3A00%3A00%27+AND+date+%3C+%272026-06-01T04%3A00%3A00%27&%24order=date%2Cevent_id%2Calert_id&%24limit=20000"
+  },
+  "stations": {
+    "bytes": 285417,
+    "sha256": "40f829816b08434dfd23ddd6e2b75a98ad7bd9bc2c00861c9a257726435cb0cb",
+    "url": "https://data.ny.gov/resource/39hk-dx4f.json?"
+  },
+  "versions-2026-05.json": {
+    "bytes": 1597201,
+    "sha256": "f0a960a6366261d04e0892625ce16eec0318089f14b402805068be7bfe9ce1ba",
+    "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+date+%3E%3D+%272026-05-01T04%3A00%3A00%27+AND+date+%3C+%272026-06-01T04%3A00%3A00%27&%24order=date%2Cevent_id%2Cupdate_number%2Calert_id&%24limit=50000"
+  }
+}

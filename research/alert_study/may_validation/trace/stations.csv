@@ -1,0 +1,4 @@
+complex_id,station,rule_roles,fare_records,rail_entries,assigned_docks,bike_starts
+143,Inwood-207 St (A),suspension boundary,7,358.0,4,7
+151,"145 St (A,C,B,D)",short turn,7,904.0,7,26
+605,"168 St-Washington Hts (1,A,C)",suspension boundary,7,2114.0,8,21
