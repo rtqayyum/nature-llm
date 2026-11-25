@@ -57,26 +57,33 @@ def evaluate(station_file,out):
         raise ValueError("Station directory differs from the earlier rule baseline")
     dictionary=StationDictionary(json.loads(station_file.read_bytes()))
     scores,detail,errors=[],[],[]
-    for sample,cases_name,prefix in (("stratified","cases",""),("challenge","challenge","challenge_")):
+    for sample,cases_name,prefix in (("stratified","cases",""),("challenge","challenge","challenge_"),
+                                    ("followup","followup","followup_")):
         cases=json.loads((ROOT/(cases_name+".json")).read_text())
         gold=defaultdict(list)
         with (ROOT/(prefix+"reference.csv")).open() as f:
             for r in csv.DictReader(f):
                 gold[r["event_id"]].append((r["station"],r["role"],r["complex_id"]))
         qwen={r["event_id"]:r for r in json.loads((ROOT/(prefix+"qwen.json")).read_text())}
-        if set(qwen)!={r["event_id"] for r in cases}:
+        methods = {"rule":None,"qwen":qwen}
+        if sample=="followup":
+            methods["qwen_examples"]={r["event_id"]:r for r in json.loads((ROOT/"followup_examples.json").read_text())}
+        if any(set(v)!={r["event_id"] for r in cases} for v in methods.values() if v is not None):
             raise ValueError("Different prediction inventory")
         for c in cases:
             eid=c["event_id"]
             text=c["header"]+"\n"+c["description"]
             if any(station not in text for station,_,_ in gold[eid]) or qwen[eid]["alert_id"]!=c["alert_id"]:
                 raise ValueError("Source mismatch")
-            for method in ("rule","qwen"):
-                pairs,valid=(rule_output(c,dictionary),True) if method=="rule" else decode(qwen[eid])
+            for method,outputs in methods.items():
+                pairs,valid=(rule_output(c,dictionary),True) if method=="rule" else decode(outputs[eid])
                 for level in ("mention","complex"):
-                    reference={(norm(s) if level=="mention" else cid,role) for s,role,cid in gold[eid]}
+                    reference={(norm(s) if level=="mention" else cid,role) for s,role,cid in gold[eid] if level=="mention" or cid}
+                    ambiguous={(norm(s),role) for s,role,cid in gold[eid] if not cid}
                     pred=set()
                     for s,role in pairs:
+                        if level=="complex" and (norm(s),norm(role)) in ambiguous:
+                            continue
                         if norm(s) not in norm(text):
                             key="<ungrounded> "+norm(s)
                         elif level=="mention":
@@ -90,7 +97,7 @@ def evaluate(station_file,out):
                     for kind,diff in (("extra",pred-reference),("miss",reference-pred)):
                         for station,role in sorted(diff):
                             errors.append(dict(sample=sample,event_id=eid,method=method,level=level,error=kind,station=station,role=role))
-        for method in ("rule","qwen"):
+        for method in methods:
             for level in ("mention","complex"):
                 d=[r for r in detail if (r["sample"],r["method"],r["level"])==(sample,method,level)]
                 tp,fp,fn=[sum(r[k] for r in d) for k in ("tp","fp","fn")]

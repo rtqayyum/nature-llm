@@ -1,0 +1,18 @@
+{
+  "shard": 0,
+  "shard_count": 96,
+  "unique_inputs": 90,
+  "event_links": 94,
+  "events_by_issue_utc_month": {
+    "2026-01": 20,
+    "2026-02": 23,
+    "2026-03": 18,
+    "2026-04": 19,
+    "2026-05": 14
+  },
+  "valid_arrays": 90,
+  "nonempty_valid_arrays": 13,
+  "sha256": "3849bb870837e66ac5149fff366b100ce52c238f300d381709ca2f596e35a826",
+  "model": "Qwen/Qwen2.5-7B-Instruct-GGUF@bb5d59e06d9551d752d08b292a50eb208b07ab1f/Q4_K_M/llama.cpp-b12721",
+  "scope": "local CPU extraction only"
+}

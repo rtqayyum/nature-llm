@@ -1,0 +1,282 @@
+[
+  {
+    "event_id": "249202",
+    "alert_id": "509552",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 395,
+      "total_tokens": 397,
+      "prompt_tokens_details": {
+        "cached_tokens": 3
+      }
+    }
+  },
+  {
+    "event_id": "249356",
+    "alert_id": "509867",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 379,
+      "total_tokens": 381,
+      "prompt_tokens_details": {
+        "cached_tokens": 3
+      }
+    }
+  },
+  {
+    "event_id": "248916",
+    "alert_id": "509032",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 381,
+      "total_tokens": 383,
+      "prompt_tokens_details": {
+        "cached_tokens": 3
+      }
+    }
+  },
+  {
+    "event_id": "250738",
+    "alert_id": "513242",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 376,
+      "total_tokens": 378,
+      "prompt_tokens_details": {
+        "cached_tokens": 3
+      }
+    }
+  },
+  {
+    "event_id": "251596",
+    "alert_id": "514996",
+    "raw": "[[\"Grand Central-42 St\",\"express boundary\"],[\"14 St-Union Sq\",\"express boundary\"],[\"Brooklyn Bridge-City Hall\",\"suspension boundary\"],[\"Brooklyn Bridge-City Hall\",\"skipped\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 45,
+      "prompt_tokens": 404,
+      "total_tokens": 449,
+      "prompt_tokens_details": {
+        "cached_tokens": 344
+      }
+    }
+  },
+  {
+    "event_id": "250633",
+    "alert_id": "513045",
+    "raw": "[[\"145 St\",\"express boundary\"],[\"161 St-Yankee Stadium\",\"express boundary\"],[\"155 St\",\"skipped\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 31,
+      "prompt_tokens": 410,
+      "total_tokens": 441,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "251150",
+    "alert_id": "514093",
+    "raw": "[[\"96 St\",\"express boundary\"],[\"72 St\",\"express boundary\"],[\"86 St\",\"skipped\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 24,
+      "prompt_tokens": 405,
+      "total_tokens": 429,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "250635",
+    "alert_id": "513050",
+    "raw": "[[\"Woodlawn\",\"express boundary\"],[\"Bedford Park Blvd-Lehman College\",\"express boundary\"],[\"Woodlawn\",\"suspension boundary\"],[\"Woodlawn\",\"skipped\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 38,
+      "prompt_tokens": 406,
+      "total_tokens": 444,
+      "prompt_tokens_details": {
+        "cached_tokens": 344
+      }
+    }
+  },
+  {
+    "event_id": "249364",
+    "alert_id": "509886",
+    "raw": "[[\"Hoyt-Schermerhorn Sts\",\"local boundary\"],[\"Broadway Junction\",\"local boundary\"],[\"Nostrand Av\",\"boarding platform\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 30,
+      "prompt_tokens": 423,
+      "total_tokens": 453,
+      "prompt_tokens_details": {
+        "cached_tokens": 344
+      }
+    }
+  },
+  {
+    "event_id": "251574",
+    "alert_id": "514959",
+    "raw": "[[\"Sutphin Blvd/Archer Av-JFK Airport\",\"reroute boundary\"],[\"Jamaica-Van Wyck\",\"reroute boundary\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 31,
+      "prompt_tokens": 430,
+      "total_tokens": 461,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "251281",
+    "alert_id": "514354",
+    "raw": "[[\"Hoyt-Schermerhorn Sts\",\"local boundary\"],[\"Broadway Junction\",\"local boundary\"],[\"Nostrand Av\",\"boarding platform\"],[\"Shepherd Av\",\"skipped\"],[\"Van Siclen Av\",\"skipped\"],[\"Liberty Av\",\"skipped\"],[\"Rockaway Av\",\"skipped\"],[\"Ralph Av\",\"skipped\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 66,
+      "prompt_tokens": 462,
+      "total_tokens": 528,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "249915",
+    "alert_id": "511004",
+    "raw": "[[\"Broad St\",\"boarding platform\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 9,
+      "prompt_tokens": 405,
+      "total_tokens": 414,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "250085",
+    "alert_id": "511709",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 396,
+      "total_tokens": 398,
+      "prompt_tokens_details": {
+        "cached_tokens": 350
+      }
+    }
+  },
+  {
+    "event_id": "251377",
+    "alert_id": "514574",
+    "raw": "[\n    [\"145 St\",\"suspension boundary\"],\n    [\"149 St-Grand Concourse\",\"suspension boundary\"]\n]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 31,
+      "prompt_tokens": 468,
+      "total_tokens": 499,
+      "prompt_tokens_details": {
+        "cached_tokens": 344
+      }
+    }
+  },
+  {
+    "event_id": "249666",
+    "alert_id": "510466",
+    "raw": "[[\"Bergen St\",\"reroute boundary\"],[\"Court Sq\",\"suspension boundary\"],[\"Bedford-Nostrand Avs\",\"short turn\"],[\"Church Av\",\"transfer\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 35,
+      "prompt_tokens": 455,
+      "total_tokens": 490,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "251620",
+    "alert_id": "515042",
+    "raw": "[[\"8 Av\",\"suspension boundary\"],[\"14 St\",\"short turn\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 404,
+      "total_tokens": 422,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "250867",
+    "alert_id": "513472",
+    "raw": "[[\"Franklin Av\",\"suspension boundary\"],[\"Park Place\",\"suspension boundary\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 387,
+      "total_tokens": 407,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "252026",
+    "alert_id": "516005",
+    "raw": "[[\"W 4 St-Wash Sq\",\"suspension boundary\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 405,
+      "total_tokens": 421,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "250154",
+    "alert_id": "512003",
+    "raw": "[[\"Kingston-Throop Avs\",\"skipped\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 392,
+      "total_tokens": 406,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  },
+  {
+    "event_id": "252032",
+    "alert_id": "516016",
+    "raw": "[[\"Brooklyn\",\"suspension boundary\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 413,
+      "total_tokens": 424,
+      "prompt_tokens_details": {
+        "cached_tokens": 343
+      }
+    }
+  }
+]

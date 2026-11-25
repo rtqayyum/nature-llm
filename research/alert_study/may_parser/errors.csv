@@ -215,3 +215,136 @@ challenge,251649,qwen,complex,miss,143,suspension boundary
 challenge,251649,qwen,complex,miss,151,short turn
 challenge,251649,qwen,complex,miss,605,short turn
 challenge,251649,qwen,complex,miss,605,suspension boundary
+followup,251596,rule,mention,miss,14 st-union sq,express boundary
+followup,251596,rule,mention,miss,grand central-42 st,express boundary
+followup,251596,rule,complex,miss,602,express boundary
+followup,251596,rule,complex,miss,610,express boundary
+followup,251596,qwen,mention,miss,14 st-union sq,express boundary
+followup,251596,qwen,mention,miss,grand central-42 st,express boundary
+followup,251596,qwen,complex,miss,602,express boundary
+followup,251596,qwen,complex,miss,610,express boundary
+followup,251596,qwen_examples,mention,extra,brooklyn bridge-city hall,skipped
+followup,251596,qwen_examples,mention,extra,brooklyn bridge-city hall,suspension boundary
+followup,251596,qwen_examples,complex,extra,622,skipped
+followup,251596,qwen_examples,complex,extra,622,suspension boundary
+followup,250633,qwen,mention,extra,155 st,skipped
+followup,250633,qwen,complex,extra,220,skipped
+followup,250633,qwen_examples,mention,extra,155 st,skipped
+followup,250633,qwen_examples,complex,extra,220,skipped
+followup,251150,qwen,mention,miss,72 st,express boundary
+followup,251150,qwen,mention,miss,96 st,express boundary
+followup,251150,qwen,complex,miss,310,express boundary
+followup,251150,qwen,complex,miss,313,express boundary
+followup,251150,qwen_examples,mention,extra,86 st,skipped
+followup,251150,qwen_examples,complex,extra,311,skipped
+followup,250635,qwen,mention,miss,bedford park blvd-lehman college,express boundary
+followup,250635,qwen,mention,miss,woodlawn,express boundary
+followup,250635,qwen,complex,miss,378,express boundary
+followup,250635,qwen,complex,miss,380,express boundary
+followup,250635,qwen_examples,mention,extra,woodlawn,skipped
+followup,250635,qwen_examples,mention,extra,woodlawn,suspension boundary
+followup,250635,qwen_examples,complex,extra,378,skipped
+followup,250635,qwen_examples,complex,extra,378,suspension boundary
+followup,249364,rule,mention,miss,broadway junction,local boundary
+followup,249364,rule,mention,miss,hoyt-schermerhorn sts,local boundary
+followup,249364,rule,mention,miss,nostrand av,boarding platform
+followup,249364,rule,complex,miss,175,local boundary
+followup,249364,rule,complex,miss,179,boarding platform
+followup,249364,rule,complex,miss,621,local boundary
+followup,249364,qwen,mention,miss,broadway junction,local boundary
+followup,249364,qwen,mention,miss,hoyt-schermerhorn sts,local boundary
+followup,249364,qwen,mention,miss,nostrand av,boarding platform
+followup,249364,qwen,complex,miss,175,local boundary
+followup,249364,qwen,complex,miss,179,boarding platform
+followup,249364,qwen,complex,miss,621,local boundary
+followup,251574,rule,mention,miss,jamaica-van wyck,boarding platform
+followup,251574,rule,mention,miss,sutphin blvd/archer av-jfk airport,boarding platform
+followup,251574,rule,complex,miss,279,boarding platform
+followup,251574,rule,complex,miss,280,boarding platform
+followup,251574,qwen,mention,miss,jamaica-van wyck,boarding platform
+followup,251574,qwen,mention,miss,sutphin blvd/archer av-jfk airport,boarding platform
+followup,251574,qwen,complex,miss,279,boarding platform
+followup,251574,qwen,complex,miss,280,boarding platform
+followup,251574,qwen_examples,mention,extra,jamaica-van wyck,reroute boundary
+followup,251574,qwen_examples,mention,extra,sutphin blvd/archer av-jfk airport,reroute boundary
+followup,251574,qwen_examples,mention,miss,jamaica-van wyck,boarding platform
+followup,251574,qwen_examples,mention,miss,sutphin blvd/archer av-jfk airport,boarding platform
+followup,251574,qwen_examples,complex,extra,279,reroute boundary
+followup,251574,qwen_examples,complex,extra,280,reroute boundary
+followup,251574,qwen_examples,complex,miss,279,boarding platform
+followup,251574,qwen_examples,complex,miss,280,boarding platform
+followup,251281,rule,mention,miss,broadway junction,local boundary
+followup,251281,rule,mention,miss,hoyt-schermerhorn sts,local boundary
+followup,251281,rule,mention,miss,nostrand av,boarding platform
+followup,251281,rule,complex,miss,175,local boundary
+followup,251281,rule,complex,miss,179,boarding platform
+followup,251281,rule,complex,miss,621,local boundary
+followup,251281,qwen,mention,extra,liberty av,skipped
+followup,251281,qwen,mention,extra,ralph av,skipped
+followup,251281,qwen,mention,extra,rockaway av,skipped
+followup,251281,qwen,mention,extra,shepherd av,skipped
+followup,251281,qwen,mention,extra,van siclen av,skipped
+followup,251281,qwen,mention,miss,broadway junction,local boundary
+followup,251281,qwen,complex,extra,182,skipped
+followup,251281,qwen,complex,extra,183,skipped
+followup,251281,qwen,complex,extra,185,skipped
+followup,251281,qwen,complex,extra,186,skipped
+followup,251281,qwen,complex,extra,187,skipped
+followup,251281,qwen,complex,miss,621,local boundary
+followup,251281,qwen_examples,mention,extra,liberty av,skipped
+followup,251281,qwen_examples,mention,extra,ralph av,skipped
+followup,251281,qwen_examples,mention,extra,rockaway av,skipped
+followup,251281,qwen_examples,mention,extra,shepherd av,skipped
+followup,251281,qwen_examples,mention,extra,van siclen av,skipped
+followup,251281,qwen_examples,complex,extra,182,skipped
+followup,251281,qwen_examples,complex,extra,183,skipped
+followup,251281,qwen_examples,complex,extra,185,skipped
+followup,251281,qwen_examples,complex,extra,186,skipped
+followup,251281,qwen_examples,complex,extra,187,skipped
+followup,249915,rule,mention,miss,broad st,boarding platform
+followup,249915,rule,complex,miss,107,boarding platform
+followup,249915,qwen,mention,miss,broad st,boarding platform
+followup,249915,qwen,complex,miss,107,boarding platform
+followup,250085,qwen,mention,miss,chambers st,short turn
+followup,250085,qwen,complex,miss,622,short turn
+followup,250085,qwen_examples,mention,miss,chambers st,short turn
+followup,250085,qwen_examples,complex,miss,622,short turn
+followup,251377,rule,mention,miss,149 st-grand concourse,short turn
+followup,251377,rule,complex,extra,<unresolved> 145 st,short turn
+followup,251377,rule,complex,miss,304,short turn
+followup,251377,rule,complex,miss,603,short turn
+followup,251377,qwen,mention,miss,145 st,short turn
+followup,251377,qwen,mention,miss,149 st-grand concourse,short turn
+followup,251377,qwen,complex,miss,304,short turn
+followup,251377,qwen,complex,miss,603,short turn
+followup,251377,qwen_examples,mention,extra,145 st,suspension boundary
+followup,251377,qwen_examples,mention,extra,149 st-grand concourse,suspension boundary
+followup,251377,qwen_examples,mention,miss,145 st,short turn
+followup,251377,qwen_examples,mention,miss,149 st-grand concourse,short turn
+followup,251377,qwen_examples,complex,extra,<unresolved> 145 st,suspension boundary
+followup,251377,qwen_examples,complex,extra,<unresolved> 149 st-grand concourse,suspension boundary
+followup,251377,qwen_examples,complex,miss,304,short turn
+followup,251377,qwen_examples,complex,miss,603,short turn
+followup,249666,qwen,mention,miss,bedford-nostrand avs,short turn
+followup,249666,qwen,complex,miss,289,short turn
+followup,249666,qwen_examples,mention,extra,bergen st,reroute boundary
+followup,249666,qwen_examples,mention,extra,church av,transfer
+followup,249666,qwen_examples,mention,extra,court sq,suspension boundary
+followup,249666,qwen_examples,complex,extra,236,reroute boundary
+followup,249666,qwen_examples,complex,extra,243,transfer
+followup,249666,qwen_examples,complex,extra,606,suspension boundary
+followup,251620,qwen,mention,miss,14 st,short turn
+followup,251620,qwen_examples,mention,extra,8 av,suspension boundary
+followup,251620,qwen_examples,complex,extra,618,suspension boundary
+followup,250867,qwen_examples,mention,extra,franklin av,suspension boundary
+followup,250867,qwen_examples,mention,extra,park place,suspension boundary
+followup,250867,qwen_examples,complex,extra,624,suspension boundary
+followup,250867,qwen_examples,complex,extra,627,suspension boundary
+followup,252026,qwen_examples,mention,extra,w 4 st-wash sq,suspension boundary
+followup,252026,qwen_examples,complex,extra,167,suspension boundary
+followup,250154,rule,mention,miss,kingston-throop avs,skipped
+followup,250154,rule,complex,miss,180,skipped
+followup,250154,qwen,mention,miss,kingston-throop avs,skipped
+followup,250154,qwen,complex,miss,180,skipped
+followup,252032,qwen_examples,mention,extra,brooklyn,suspension boundary
+followup,252032,qwen_examples,complex,extra,<unresolved> brooklyn,suspension boundary

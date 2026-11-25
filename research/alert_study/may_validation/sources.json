@@ -1,0 +1,17 @@
+{
+  "may-base.zip": {
+    "bytes": 5793709,
+    "sha256": "bf7a36d35d4707d9981c9b18920ac44e7a83b5192fa513ac092c531312480f12",
+    "url": "https://web.archive.org/web/20260518002620id_/https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip"
+  },
+  "may-cdx": {
+    "bytes": 461,
+    "sha256": "ecdb0df9d850590ccda6686b5b90aad8684b27dab69fa819e4be763d3a891583",
+    "url": "https://web.archive.org/cdx/search/cdx?url=rrgtfsfeeds.s3.amazonaws.com%2Fgtfs_subway.zip&from=20260415&to=20260601&output=json&filter=statuscode%3A200"
+  },
+  "may_notices.json": {
+    "bytes": 553981,
+    "sha256": "445a8c24ddb86c507f61c4aa0ba10f0f1b1a46861a741f9d386f22d2d1ee275a",
+    "url": "https://data.ny.gov/resource/7kct-peq7.json?%24where=agency%3D%27NYCT+Subway%27+AND+update_number%3D0+AND+date+%3E%3D+%272026-05-01T04%3A00%3A00%27+AND+date+%3C+%272026-06-01T04%3A00%3A00%27&%24order=date%2Cevent_id%2Calert_id&%24limit=20000"
+  }
+}

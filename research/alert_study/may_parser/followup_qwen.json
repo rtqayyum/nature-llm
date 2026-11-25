@@ -1,0 +1,282 @@
+[
+  {
+    "event_id": "249202",
+    "alert_id": "509552",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 314,
+      "total_tokens": 316,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "249356",
+    "alert_id": "509867",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 298,
+      "total_tokens": 300,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "248916",
+    "alert_id": "509032",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 300,
+      "total_tokens": 302,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "250738",
+    "alert_id": "513242",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 295,
+      "total_tokens": 297,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    }
+  },
+  {
+    "event_id": "251596",
+    "alert_id": "514996",
+    "raw": "```json\n[\"Brooklyn Bridge-City Hall\", \"skipped\"]\n```",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 323,
+      "total_tokens": 340,
+      "prompt_tokens_details": {
+        "cached_tokens": 263
+      }
+    }
+  },
+  {
+    "event_id": "250633",
+    "alert_id": "513045",
+    "raw": "[[\"145 St\", \"express boundary\"], [\"155 St\", \"skipped\"], [\"161 St-Yankee Stadium\", \"express boundary\"]]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 36,
+      "prompt_tokens": 329,
+      "total_tokens": 365,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "251150",
+    "alert_id": "514093",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 324,
+      "total_tokens": 326,
+      "prompt_tokens_details": {
+        "cached_tokens": 263
+      }
+    }
+  },
+  {
+    "event_id": "250635",
+    "alert_id": "513050",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 325,
+      "total_tokens": 327,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "249364",
+    "alert_id": "509886",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 342,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 263
+      }
+    }
+  },
+  {
+    "event_id": "251574",
+    "alert_id": "514959",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 349,
+      "total_tokens": 351,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "251281",
+    "alert_id": "514354",
+    "raw": "[\n    [\"Hoyt-Schermerhorn Sts\", \"local boundary\"],\n    [\"Nostrand Av\", \"boarding platform\"],\n    [\"Shepherd Av\", \"skipped\"],\n    [\"Van Siclen Av\", \"skipped\"],\n    [\"Liberty Av\", \"skipped\"],\n    [\"Rockaway Av\", \"skipped\"],\n    [\"Ralph Av\", \"skipped\"]\n]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 80,
+      "prompt_tokens": 381,
+      "total_tokens": 461,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "249915",
+    "alert_id": "511004",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 324,
+      "total_tokens": 326,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "250085",
+    "alert_id": "511709",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 315,
+      "total_tokens": 317,
+      "prompt_tokens_details": {
+        "cached_tokens": 269
+      }
+    }
+  },
+  {
+    "event_id": "251377",
+    "alert_id": "514574",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 387,
+      "total_tokens": 389,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "249666",
+    "alert_id": "510466",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 374,
+      "total_tokens": 376,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "251620",
+    "alert_id": "515042",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 323,
+      "total_tokens": 325,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "250867",
+    "alert_id": "513472",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 306,
+      "total_tokens": 308,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "252026",
+    "alert_id": "516005",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 324,
+      "total_tokens": 326,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "250154",
+    "alert_id": "512003",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 311,
+      "total_tokens": 313,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  },
+  {
+    "event_id": "252032",
+    "alert_id": "516016",
+    "raw": "[]",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 332,
+      "total_tokens": 334,
+      "prompt_tokens_details": {
+        "cached_tokens": 262
+      }
+    }
+  }
+]
