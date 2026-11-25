@@ -1,6 +1,5 @@
 """Run the frozen May text-only comparison against a local llama.cpp chat server."""
 import argparse
-import hashlib
 import json
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -30,5 +29,6 @@ if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument("url")
     p.add_argument("output",type=Path)
+    p.add_argument("--cases",type=Path,default=ROOT/"cases.json")
     args=p.parse_args()
-    infer(json.loads((ROOT/"cases.json").read_text()),(ROOT/"prompt.txt").read_text().strip(),args.url,args.output)
+    infer(json.loads(args.cases.read_text()),(ROOT/"prompt.txt").read_text().strip(),args.url,args.output)

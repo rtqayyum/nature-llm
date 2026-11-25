@@ -1,0 +1,39 @@
+event_id,station,role,complex_id
+249468,125 St,express boundary,153
+249468,59 St-Columbus Circle,express boundary,614
+250437,57 St/7 Av,express boundary,9
+250437,Times Sq-42 St,express boundary,611
+250437,49 St,skipped,10
+250437,57 St/7 Av,alternative service,9
+250202,Essex St,short turn,625
+250202,Marcy Av,short turn,101
+250202,Myrtle Av,short turn,97
+250202,Broadway Junction,short turn,621
+250202,2 Av,short turn,232
+250202,Broadway Junction,alternative service,621
+250202,14 St / 6 Av,alternative service,601
+250202,Myrtle-Wyckoff Avs,alternative service,630
+250202,Essex St,alternative service,625
+250202,Marcy Av,alternative service,101
+250267,Grand Central-42 St,express boundary,610
+250267,125 St,express boundary,392
+250267,59 St,boarding platform,613
+250267,86 St,boarding platform,397
+250280,Hoyt-Schermerhorn Sts,local boundary,175
+250280,Broadway Junction,local boundary,621
+250280,Nostrand Av,boarding platform,179
+250611,Chambers St,suspension boundary,622
+250611,Broad St,suspension boundary,107
+250611,Chambers St,short turn,622
+250611,Brooklyn Bridge-City Hall,alternative service,622
+250611,Wall St,alternative service,413
+251798,57 St/7 Av,reroute boundary,9
+251798,96 St,reroute boundary,475
+251798,96 St,short turn,475
+250697,Grand Central-42 St,suspension boundary,610
+250697,Brooklyn Bridge-City Hall,suspension boundary,622
+250697,Grand Central-42 St,short turn,610
+251649,168 St,suspension boundary,605
+251649,Inwood-207 St,suspension boundary,143
+251649,145 St,short turn,151
+251649,168 St,short turn,605
