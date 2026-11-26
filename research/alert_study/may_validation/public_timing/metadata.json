@@ -1,0 +1,315 @@
+{
+  "bike": {
+    "202603.zip": {
+      "bytes": 574841304,
+      "etag": "\"b8db89fc0f746259e5d73ac462df98a6-34\"",
+      "last_modified": "Fri, 03 Apr 2026 19:07:03 GMT",
+      "sha256": "358bf569d44f5e69a5453e98ed813b3de2b93b4b1262867f49be72b80fa334ce",
+      "url": "https://s3.amazonaws.com/tripdata/202603-citibike-tripdata.zip"
+    },
+    "202604.zip": {
+      "bytes": 164592563,
+      "etag": "\"eb6ce6ba4fea17e0ce63aa82ccd0122b-10\"",
+      "last_modified": "Mon, 04 May 2026 19:04:39 GMT",
+      "sha256": "fefc1fca369818baeb9206792e02a098b71b59f263064b6627b42317965e2ffb",
+      "url": "https://s3.amazonaws.com/tripdata/202604-citibike-tripdata.zip"
+    },
+    "202605.zip": {
+      "bytes": 916981226,
+      "etag": "\"def70d12053da452bce43685337cfc1f-54\"",
+      "last_modified": "Thu, 04 Jun 2026 15:24:19 GMT",
+      "sha256": "b9461221fb7ce806d5274b046b4de46414a1d1116ba2bc46c6a870b7bda71adf",
+      "url": "https://s3.amazonaws.com/tripdata/202605-citibike-tripdata.zip"
+    }
+  },
+  "rail": {
+    "2026-04-24": {
+      "fare_rows": "59278",
+      "first_created": "2026-05-06T14:38:01.921Z",
+      "first_updated": "2026-08-26T14:32:08.290Z",
+      "last_created": "2026-07-22T14:34:34.025Z",
+      "last_updated": "2026-08-26T14:32:08.290Z",
+      "sha256": "68a76b097117c3e36d19b1400bf1649e1d98bc6d99d826bbeede0fdea2d4001f",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-24T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-25T00%3A00%3A00%27"
+    },
+    "2026-04-25": {
+      "fare_rows": "50536",
+      "first_created": "2026-05-06T14:38:01.921Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-08-05T14:38:24.989Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "e07b64844ac1aadda0fecfe3031f8d847b185a5f0b944737cb9e1374d74abf61",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-25T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-26T00%3A00%3A00%27"
+    },
+    "2026-04-26": {
+      "fare_rows": "49275",
+      "first_created": "2026-05-06T14:38:01.921Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-07-29T14:38:10.449Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "799e5e8f646c12f3036a79a02a403a70625221797b54b7e27cff70a4f04bf3c6",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-26T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-27T00%3A00%3A00%27"
+    },
+    "2026-04-27": {
+      "fare_rows": "58193",
+      "first_created": "2026-05-06T14:38:01.921Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-07-08T14:33:48.731Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "6aaf782e8fe7893f838b095c4d97e2efaaeb450ef5d88285dc86ca9dfafb43b0",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-27T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-28T00%3A00%3A00%27"
+    },
+    "2026-04-28": {
+      "fare_rows": "59085",
+      "first_created": "2026-05-06T14:38:01.921Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-07-01T14:37:09.813Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "761a2f1e66186cc4b70578da84c93a50e9972018972cdd8f8836417c5e1e5dfe",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-28T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-29T00%3A00%3A00%27"
+    },
+    "2026-04-29": {
+      "fare_rows": "59157",
+      "first_created": "2026-05-06T14:38:01.921Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-06-17T14:34:41.100Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "0d0dba9465261f6e1bb2ba7e612966d3ecf6bd03be4f03ae11adaee70cb2568f",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-29T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-30T00%3A00%3A00%27"
+    },
+    "2026-04-30": {
+      "fare_rows": "58983",
+      "first_created": "2026-05-13T15:18:20.342Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-09-02T14:35:32.072Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "568af48620357d4ced1f166f236f4029c3583559f09d342e0c2c523d4503b587",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-30T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-01T00%3A00%3A00%27"
+    },
+    "2026-05-01": {
+      "fare_rows": "59071",
+      "first_created": "2026-05-13T15:18:20.342Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-09-02T14:35:32.072Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "2a38401388ebfb774b9f7f79ae3e51e592afe7ed6e2c1b74e568df4eb555706d",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-01T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-02T00%3A00%3A00%27"
+    },
+    "2026-05-02": {
+      "fare_rows": "54256",
+      "first_created": "2026-05-13T15:18:20.342Z",
+      "first_updated": "2026-09-09T14:37:06.995Z",
+      "last_created": "2026-09-02T14:35:32.072Z",
+      "last_updated": "2026-09-09T14:37:06.995Z",
+      "sha256": "e0d7f0aec042f0e452a1d33878a4a44dd44978a59e2896145054bfd49cce4f9d",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-02T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-03T00%3A00%3A00%27"
+    },
+    "2026-05-03": {
+      "fare_rows": "52490",
+      "first_created": "2026-05-13T15:18:20.342Z",
+      "first_updated": "2026-09-09T14:37:06.995Z",
+      "last_created": "2026-09-02T14:35:32.072Z",
+      "last_updated": "2026-09-09T14:37:06.995Z",
+      "sha256": "4b57b38d86c9104bf47c368f0d0ace82ef2b719beb6187b60cfee68dfd8d5469",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-03T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-04T00%3A00%3A00%27"
+    },
+    "2026-05-04": {
+      "fare_rows": "58201",
+      "first_created": "2026-05-13T15:18:20.342Z",
+      "first_updated": "2026-09-09T14:37:06.995Z",
+      "last_created": "2026-09-02T14:35:32.072Z",
+      "last_updated": "2026-09-09T14:37:06.995Z",
+      "sha256": "249cee540d13ec2ef36646cfa42781da73cd10d69477edeb0f24f13bfaa69abc",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-04T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-05T00%3A00%3A00%27"
+    },
+    "2026-05-05": {
+      "fare_rows": "59082",
+      "first_created": "2026-05-13T15:18:20.342Z",
+      "first_updated": "2026-09-09T14:37:06.995Z",
+      "last_created": "2026-09-02T14:35:32.072Z",
+      "last_updated": "2026-09-09T14:37:06.995Z",
+      "sha256": "f61fb4c1172ae74eb1e4257c088ae743b9d41b078d85f7487a306bcaabe97fd9",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-05T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-06T00%3A00%3A00%27"
+    },
+    "2026-05-06": {
+      "fare_rows": "58860",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-09T14:37:06.995Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-09T14:37:06.995Z",
+      "sha256": "cb5f557a15f9775da6a77e27ce4122b8a74a44e59ebe3115cc60439a4a624835",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-06T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-07T00%3A00%3A00%27"
+    },
+    "2026-05-07": {
+      "fare_rows": "59125",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-09T14:37:06.995Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-09T14:37:06.995Z",
+      "sha256": "743056a639063d78e1fdced36695e69ff0333db40bc1b0535ec2d16d09cb8249",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-07T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-08T00%3A00%3A00%27"
+    },
+    "2026-05-08": {
+      "fare_rows": "59078",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-09T14:37:06.995Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-09T14:37:06.995Z",
+      "sha256": "6a9ee0366b7cf7f80cc6e62d30b86c4b535ca1173a5f8d56c56b2c9a557ff08a",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-08T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-09T00%3A00%3A00%27"
+    },
+    "2026-05-09": {
+      "fare_rows": "54020",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-16T14:35:29.494Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-16T14:35:29.494Z",
+      "sha256": "6f30b11e1041a464af9a53d83c49b3f55273859fcc6fcd34448b5692431af14f",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-09T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-10T00%3A00%3A00%27"
+    },
+    "2026-05-10": {
+      "fare_rows": "52272",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-16T14:35:29.494Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-16T14:35:29.494Z",
+      "sha256": "de5c893add7fa4831ce1388b491f110304ef4cb4cca50b3450c0c54ad01b28c2",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-10T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-11T00%3A00%3A00%27"
+    },
+    "2026-05-11": {
+      "fare_rows": "58321",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-16T14:35:29.494Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-16T14:35:29.494Z",
+      "sha256": "6a2ee6b8da948a64a2c71424ca15a5607d14f1ab02875f8537daeb5ca3f89dc8",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-11T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-12T00%3A00%3A00%27"
+    },
+    "2026-05-12": {
+      "fare_rows": "59086",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-16T14:35:29.494Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-16T14:35:29.494Z",
+      "sha256": "3f9f88ce055bfce00a5bf4892f093ded01c5946fe23c50fad5a0b09839c2566f",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-12T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-13T00%3A00%3A00%27"
+    },
+    "2026-05-13": {
+      "fare_rows": "59027",
+      "first_created": "2026-05-20T14:49:21.483Z",
+      "first_updated": "2026-09-16T14:35:29.494Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-16T14:35:29.494Z",
+      "sha256": "6ee100374f2562a37f60abab860b4a2d574f67f27d33735884630cd79a9bc9ca",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-13T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-14T00%3A00%3A00%27"
+    },
+    "2026-05-14": {
+      "fare_rows": "58966",
+      "first_created": "2026-05-27T14:43:42.414Z",
+      "first_updated": "2026-09-16T14:35:29.494Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-16T14:35:29.494Z",
+      "sha256": "9074b2545d43647a240b78555927aae044fe4ecad01fbd746a02edc3f107fb94",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-14T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-15T00%3A00%3A00%27"
+    },
+    "2026-05-15": {
+      "fare_rows": "59194",
+      "first_created": "2026-05-27T14:43:42.414Z",
+      "first_updated": "2026-09-16T14:35:29.494Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-16T14:35:29.494Z",
+      "sha256": "eb873e3ae9c6d4b40fe5d1d020e9fe915afd00eb7af9aa7b5f3e6ec2d3427e03",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-15T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-16T00%3A00%3A00%27"
+    },
+    "2026-05-16": {
+      "fare_rows": "54024",
+      "first_created": "2026-05-27T14:43:42.414Z",
+      "first_updated": "2026-09-23T14:34:35.606Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-23T14:34:35.606Z",
+      "sha256": "59e23b9e609085821d4e9834cb444f3f127d9edfa5cc421649fe53524b665ad1",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-16T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-17T00%3A00%3A00%27"
+    },
+    "2026-05-17": {
+      "fare_rows": "52266",
+      "first_created": "2026-05-27T14:43:42.414Z",
+      "first_updated": "2026-09-23T14:34:35.606Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-23T14:34:35.606Z",
+      "sha256": "7536230b4fb5b523eb03b149e64dc71e8f714673f45a240b749a872cf5d3bd44",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-17T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-18T00%3A00%3A00%27"
+    },
+    "2026-05-18": {
+      "fare_rows": "58431",
+      "first_created": "2026-05-27T14:43:42.414Z",
+      "first_updated": "2026-07-29T14:38:10.449Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-23T14:34:35.606Z",
+      "sha256": "2ab2c3234dc595ae39c4e4f4bc6c5c71c6f2b7a6b46938d2e23ff300bbc328b0",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-18T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-19T00%3A00%3A00%27"
+    },
+    "2026-05-19": {
+      "fare_rows": "58871",
+      "first_created": "2026-05-27T14:43:42.414Z",
+      "first_updated": "2026-09-23T14:34:35.606Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-23T14:34:35.606Z",
+      "sha256": "73445133b4f5cf8da68d575ef32c3ad06c6807d2eb4f79f9861ba454060393d5",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-19T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-20T00%3A00%3A00%27"
+    },
+    "2026-05-20": {
+      "fare_rows": "58573",
+      "first_created": "2026-05-27T14:43:42.414Z",
+      "first_updated": "2026-09-23T14:34:35.606Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-23T14:34:35.606Z",
+      "sha256": "79ed63bdfe65113d2cf3c9a77734420c9e66d8c5f45a5a0c4201bdeb2d17026a",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-20T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-21T00%3A00%3A00%27"
+    },
+    "2026-05-21": {
+      "fare_rows": "58640",
+      "first_created": "2026-06-03T14:39:28.253Z",
+      "first_updated": "2026-09-23T14:34:35.606Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-23T14:34:35.606Z",
+      "sha256": "5f7f9cf513729099551e4507ff0729de692f5e04476a417e7a8ca5d1300c9222",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-21T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-22T00%3A00%3A00%27"
+    },
+    "2026-05-22": {
+      "fare_rows": "58505",
+      "first_created": "2026-06-03T14:39:28.253Z",
+      "first_updated": "2026-09-23T14:34:35.606Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-23T14:34:35.606Z",
+      "sha256": "dfa9c3d5df7990a80f3457b6516894cef3a6987ff6981276bcbb90a8ac97baa1",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-22T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-23T00%3A00%3A00%27"
+    },
+    "2026-05-23": {
+      "fare_rows": "50933",
+      "first_created": "2026-06-03T14:39:28.253Z",
+      "first_updated": "2026-09-30T14:34:53.743Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-30T14:34:53.743Z",
+      "sha256": "f94f46cf32b054cf7ceab938770b29e5764c40c2e347214efc95c5db71e6cfb1",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-23T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-24T00%3A00%3A00%27"
+    },
+    "2026-05-24": {
+      "fare_rows": "48785",
+      "first_created": "2026-06-03T14:39:28.253Z",
+      "first_updated": "2026-09-30T14:34:53.743Z",
+      "last_created": "2026-09-09T14:37:06.995Z",
+      "last_updated": "2026-09-30T14:34:53.743Z",
+      "sha256": "9230a5a2f7dadbd7ab8c7d299ad0f2983b00a6bd32e2df007b6627372274ff0e",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-24T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-25T00%3A00%3A00%27"
+    },
+    "geometry": {
+      "fare_rows": "5920",
+      "first_created": "2026-05-06T14:38:01.921Z",
+      "first_updated": "2026-09-02T14:35:32.072Z",
+      "last_created": "2026-06-17T14:34:41.100Z",
+      "last_updated": "2026-09-02T14:35:32.072Z",
+      "sha256": "42e1a6b5c8e99c5514d54406d7fa8c3a0ef654f81a9246408d0e07e8037f70e4",
+      "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=min%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+IN+%28%272026-04-29T08%3A00%3A00%27%2C%272026-04-29T17%3A00%3A00%27%29"
+    }
+  }
+}

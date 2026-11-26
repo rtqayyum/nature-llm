@@ -1,0 +1,36 @@
+{
+  "complete_geometry_first_row_times": {
+    "2026-03-25": "2026-04-08T14:39:52.588000+00:00",
+    "2026-04-29": "2026-05-06T14:38:01.921000+00:00"
+  },
+  "dock_maps": {
+    "april_complexes": 294,
+    "april_docks": 1546,
+    "dropped_ids": 17,
+    "may_complexes": 295,
+    "may_complexes_with_identical_docks": 269,
+    "may_docks": 1544,
+    "new_ids": 15,
+    "retained_ids": 1529,
+    "retained_ids_changing_complex": 0
+  },
+  "origins_with_any_passing_row": {
+    "bike_map_object": 1406,
+    "bike_weekly_object": 216,
+    "both_weekly_and_mapping": 34,
+    "geometry_first_rows_created": 1293,
+    "rail_weekly_rows_created": 99,
+    "rail_weekly_rows_last_updated": 0
+  },
+  "paired_origins": 1593,
+  "paired_rows": 46621,
+  "rows_with_changed_dock_set": 3499,
+  "station_hours": {
+    "bike_map_object": 41419,
+    "bike_weekly_object": 6225,
+    "both_weekly_and_mapping": 801,
+    "geometry_first_rows_created": 38061,
+    "rail_weekly_rows_created": 2627,
+    "rail_weekly_rows_last_updated": 0
+  }
+}

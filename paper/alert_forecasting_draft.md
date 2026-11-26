@@ -1,6 +1,6 @@
 # Forecasting subway entries and nearby bike departures after service alerts
 
-Working results section, 24 November 2026
+Working results section, 26 November 2026
 
 ## Data and forecast task
 
@@ -45,6 +45,10 @@ After inspecting those results, we fixed an example-based prompt and a separate 
 We applied the registered timetable-availability filter to 1,777 original May notices. The 1,743 eligible notices yielded 66,123 distinct alert-exposed station-hours before the outcome mask. Both target counts were observed for 46,842 station-hours. Both weekly lags were also observed for 46,621 station-hours from 1,593 incidents on 31 dates. Removing notices linked to the text audit by ID, exact input or recurrence group left 44,860 station-hours from 1,534 incidents. A separately retained group of 34 notices preceded verified availability of the succeeding timetable.
 
 Rules assigned a local station role on 242 paired rows from 151 incidents. Only one incident retained two stations with disjoint extracted roles. On May 27, a 15:03 notice reported an A-train suspension and turnbacks. A 15:15 revision announced delays after removal of a train. In the 16:00 target hour, Inwood–207 St, 145 St and 168 St recorded 358, 904 and 2,114 subway entries, respectively. Their assigned docks recorded seven, 26 and 21 departures. We verified all six counts from fare-category records and individual trip starts. The revision illustrates that the service described at issue can change before the forecast hour. The number of comparable station pairs recovered by the language model and their forecast errors remain open. [Validation panel, source records and forecast files](../research/alert_study/may_validation/panel/README.md)
+
+### Availability of public inputs at issue time
+
+Only 801 of the 46,621 paired May station-hours (1.72%), from 34 first notices on May 6, passed a necessary public-source timing check. At issue, the trip objects used for both the dock map and weekly bike count had to predate the notice, a source row for each station location had to exist, and all current fare rows contributing to the weekly rail count had to exist. At least one contributing fare row in every matched weekly total was updated after issue. The data therefore support an operator-access comparison. Public replay of either the weekly counts or the contemporaneous mapping requires dated source vintages. Moving to the preceding month's dock map would change the set of contributing docks for 3,499 paired station-hours, even though every dock present in both maps retained its complex assignment. [Source timing, denominators and map comparison](../research/alert_study/may_validation/public_timing/README.md)
 
 ### Revisions between forecast issue and the target hour
 

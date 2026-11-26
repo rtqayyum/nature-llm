@@ -37,3 +37,5 @@ python "$root/build_panel.py" "$CACHE" "$root/panel"
 python "$root/trace_pair.py" "$CACHE" "$root/trace"
 python "$root/freeze_controls.py" "$CACHE" "$root/controls"
 ```
+
+[Public-source timing at the original issue for the 46,621 paired rows](../public_timing/README.md)

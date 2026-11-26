@@ -1,0 +1,27 @@
+{
+  "2026-03-25-geometry": {
+    "groups": 424,
+    "sha256": "ec1fbaa0945f64801800d2122a5a8d9f654953a3cffed3cf74209c8b2490c0dd",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=station_complex_id%2Clatitude%2Clongitude%2Cmin%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+IN+%28%272026-03-25T08%3A00%3A00%27%2C%272026-03-25T17%3A00%3A00%27%29&%24group=station_complex_id%2Clatitude%2Clongitude&%24order=station_complex_id%2Clatitude%2Clongitude&%24limit=15000"
+  },
+  "2026-04-29": {
+    "groups": 10111,
+    "sha256": "a5383be7bb83f1470ef3f6ed6ee6ba893eaa5f44e644f45d762e4d75a04599a0",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=transit_timestamp%2Cstation_complex_id%2Cmin%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-04-29T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-04-30T00%3A00%3A00%27&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-04-29-geometry": {
+    "groups": 424,
+    "sha256": "e60b43093658b650c0a7060dd385d9cc393b1e41f7430eb539858d1b2b81b929",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=station_complex_id%2Clatitude%2Clongitude%2Cmin%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+IN+%28%272026-04-29T08%3A00%3A00%27%2C%272026-04-29T17%3A00%3A00%27%29&%24group=station_complex_id%2Clatitude%2Clongitude&%24order=station_complex_id%2Clatitude%2Clongitude&%24limit=15000"
+  },
+  "2026-05-13": {
+    "groups": 10132,
+    "sha256": "cb5207055d222aafe214b8eb30ded58ecdf773111903770c444135a7ba4e9543",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=transit_timestamp%2Cstation_complex_id%2Cmin%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-13T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-14T00%3A00%3A00%27&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  },
+  "2026-05-20": {
+    "groups": 10118,
+    "sha256": "8f5b817fbb966226415ea65e71c4b874f2631d4bc983ea92b59c71680e58dac8",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?%24select=transit_timestamp%2Cstation_complex_id%2Cmin%28%3Acreated_at%29+as+first_created%2Cmax%28%3Acreated_at%29+as+last_created%2Cmin%28%3Aupdated_at%29+as+first_updated%2Cmax%28%3Aupdated_at%29+as+last_updated%2Ccount%28%2A%29+as+fare_rows&%24where=transit_mode%3D%27subway%27+AND+transit_timestamp+%3E%3D+%272026-05-20T00%3A00%3A00%27+AND+transit_timestamp+%3C+%272026-05-21T00%3A00%3A00%27&%24group=transit_timestamp%2Cstation_complex_id&%24order=transit_timestamp%2Cstation_complex_id&%24limit=15000"
+  }
+}
