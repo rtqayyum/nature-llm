@@ -1,0 +1,22 @@
+{
+  "alerts.parquet": {
+    "bytes": 134908396,
+    "sha256": "a3a2e3248c99af52eda8f57d43c65b3827f431049cdbcb26511c370551960ffc",
+    "url": "https://performancedata.mbta.com/lamp/tableau/alerts/LAMP_RT_ALERTS.parquet"
+  },
+  "bikes.zip": {
+    "bytes": 18495452,
+    "sha256": "62da4b066b6f8c2ba6de6b1b60b4a86afc1a9ef9263ecb37af128b135522c866",
+    "url": "https://s3.amazonaws.com/hubway-data/202505-bluebikes-tripdata.zip"
+  },
+  "gates.zip": {
+    "bytes": 75569990,
+    "sha256": "dad37d15e0edc299d38a55d003406bb215d374370e2f76e9d2b8883c8b64b5ac",
+    "url": "https://www.arcgis.com/sharing/rest/content/items/7859894afb5641ce91a2bb03599fdf5b/data"
+  },
+  "stops.parquet": {
+    "bytes": 1094880,
+    "sha256": "e69953744f63bb9f20fa51245829447312faefdc410e8c37694f8f5edb6beeb4",
+    "url": "https://performancedata.mbta.com/lamp/gtfs_archive/2025/stops.parquet"
+  }
+}

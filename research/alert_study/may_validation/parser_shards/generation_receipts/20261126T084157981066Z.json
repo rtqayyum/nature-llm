@@ -1,0 +1,37 @@
+{
+  "checkpoint_utc": "2026-11-26T08:56:29.195940+00:00",
+  "collector_sha256": "d8fb70d5cdd2c4666fd12299f6ba6641250ab89c16a9bf0fca3a6dac8bc02773",
+  "generated_files": {
+    "07.json.gz": {
+      "inputs": 77,
+      "sha256": "467daa89b8a5697a89fc973bdead41b3db5be617cbb3219d164a22fafb9b8ec4"
+    },
+    "08.json.gz": {
+      "inputs": 68,
+      "sha256": "7af30450a6f96d9b5af49f86d87833e21a886fbb9e751e40eec2753b7ef220a8"
+    },
+    "09.json.gz": {
+      "inputs": 102,
+      "sha256": "b887346fed7b169f1ff94e6b2c42fb5f394ae721cc0a466ae60ceca7f53adeb5"
+    },
+    "10.json.gz": {
+      "inputs": 103,
+      "sha256": "ec437e99ce9940334a0dcfa2b034d7439f505ef4b27ec8801df6ca1b2cbfc756"
+    },
+    "11.json.gz": {
+      "inputs": 82,
+      "sha256": "b3aa0bb91308124fd6e871d18cdb612ffd6a7a9be067fe5139ca7672ed8ec0e6"
+    }
+  },
+  "inference_sha256": "ec5cd7a89609aec7583e5d613e3af625c34319d965afe6e740a03e828061b27a",
+  "job_id": null,
+  "model": "Qwen/Qwen2.5-7B-Instruct-GGUF@bb5d59e06d9551d752d08b292a50eb208b07ab1f/Q4_K_M/llama.cpp-b12721",
+  "prompt_sha256": "82afac0b8f25ea2723d06b6dd2284f6a31579c3d2e47f34b043d4fb05f8b1eb5",
+  "runner_sha256": "08b61a20defbb412d8a1de2601d6af19c9bac70b7210edd3bfcb0a9a29d26e6a",
+  "runtime_sha256": "ab56524ce899526e51c04e77f089a5792c59282b49736b239900970d3947be47",
+  "started_utc": "2026-11-26T08:41:57.981010+00:00",
+  "weight_sha256": [
+    "dfce12e3862a5283ccfb88221b48480e58745165de856439950d0f22590580db",
+    "539cf93f78e887edea1c04e2d7d8cdaca9d01dae9c9025bcb8accbe29df3d72a"
+  ]
+}

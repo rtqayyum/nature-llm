@@ -1,0 +1,8 @@
+alert_id,modified_local,push_local,closed,rows,header,description,routes,stop_ids
+643641,2025-05-14T05:41:20-04:00,2025-05-14T05:41:20-04:00,0,1,Orange Line: Delays of about 15 minutes due to a signal problem near Chinatown. Trains may stand by at stations.,,Orange,
+643641,2025-05-14T06:12:33-04:00,2025-05-14T06:12:33-04:00,1,1,Orange Line: Delays of about 15 minutes due to a signal problem near Chinatown. Trains may stand by at stations.,,Orange,
+643648,2025-05-14T06:43:00-04:00,2025-05-14T06:43:00-04:00,0,1,Orange Line: Delays of about 15 minutes due to an ongoing signal problem near Chinatown. Trains may stand by at stations.,,Orange,
+643648,2025-05-14T07:21:37-04:00,2025-05-14T07:21:37-04:00,1,1,Orange Line: Delays of about 15 minutes due to an ongoing signal problem near Chinatown. Trains may stand by at stations.,,Orange,
+643879,2025-05-14T19:45:20-04:00,2025-05-14T19:45:20-04:00,0,1,Red Line: Delays of about 15 minutes due to a medical emergency at Central. Trains may stand by at stations.,,Red,
+643879,2025-05-14T20:00:17-04:00,2025-05-14T20:00:17-04:00,0,1,Red Line: Delays of about 15 minutes due to an earlier medical emergency at Central. Service is proceeding.,,Red,
+643879,2025-05-14T20:37:31-04:00,2025-05-14T20:00:17-04:00,1,1,Red Line: Delays of about 15 minutes due to an earlier medical emergency at Central. Service is proceeding.,,Red,

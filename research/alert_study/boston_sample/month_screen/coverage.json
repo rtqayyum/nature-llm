@@ -1,0 +1,14 @@
+{
+  "service_ids": 95,
+  "first_at_created": 95,
+  "screened_ids": 11,
+  "immediate_ids": 4,
+  "immediate_dates": 2,
+  "reviewed_station_hours": 12,
+  "complete_station_hours": 10,
+  "complete_by_id": {
+    "645679": 2,
+    "645688": 4,
+    "645706": 4
+  }
+}

@@ -6,6 +6,8 @@
 
 **26 November, alert study.** Among the 1,593 May incidents with paired rows, 989 had a revision before the target hour. An internal review of 28 cases with identical native route/status fields and a changed rule role at a retained station found four segment endpoint edits. Two had complete rail and bike data and weekly lags at both old and new endpoints. This supports a secondary update-time feasibility analysis. Original-issue scoring still requires the full Qwen forecast freeze. The checkpointed CPU runner packages verified outputs after each shard. [Version-pair evidence](alert_study/may_validation/revision_timing/README.md) · [Resumable extraction and scoring](alert_study/may_validation/README.md)
 
+**26 November, Boston feasibility.** Three May 14, 2025 first notices linked to named stations, assigned Bluebikes docks, hourly gated entries and weekly lags. A May-wide text screen of 95 non-facility heavy-rail originals found four immediate service-change notices among 11 candidates. Ten of 12 reviewed station-hours were complete in both modes, all from three notices about the same May 22 flood. Boston source linkage is demonstrated. Replication requires independent disruptions and gate-coverage evidence. [Boston version, station, dock and outcome traces](alert_study/boston_sample/README.md)
+
 ## Completed transfer campaign
 
 | Milestone | Evidence presently available | Status |

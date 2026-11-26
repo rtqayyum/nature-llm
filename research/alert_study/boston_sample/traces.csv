@@ -1,0 +1,4 @@
+alert_id,issue,target,complex_id,station,assigned_docks,gate_status,gate_entries,bike_starts,weekly_gate_entries,weekly_bike_starts
+643641,2025-05-14T05:41:20-04:00,2025-05-14T06:00:00-04:00,place-chncl,Chinatown,2,unknown,64,6,71,1
+643648,2025-05-14T06:43:00-04:00,2025-05-14T07:00:00-04:00,place-chncl,Chinatown,2,unknown,104,5,113,4
+643879,2025-05-14T19:45:20-04:00,2025-05-14T20:00:00-04:00,place-cntsq,Central,5,unknown,320,37,345,38

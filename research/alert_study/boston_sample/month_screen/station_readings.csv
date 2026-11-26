@@ -1,0 +1,13 @@
+alert_id,station,instruction
+644968,Braintree,Replacement shuttle endpoint
+644968,Quincy Adams,Replacement shuttle endpoint
+645679,Ruggles,Replacement shuttle endpoint
+645679,Jackson Square,Replacement shuttle endpoint
+645688,North Station,Suspension boundary and transfer to Green Line
+645688,Copley,Leave Green Line and walk to Back Bay
+645688,Back Bay,Board replacement shuttle after the walk
+645688,Jackson Square,Suspension boundary and shuttle destination
+645706,North Station,Suspension boundary and origin of alternative itinerary
+645706,Back Bay,Suspension boundary and transfer between shuttles
+645706,Copley,Change from Green Line to shuttle
+645706,Forest Hills,Destination of connecting shuttle

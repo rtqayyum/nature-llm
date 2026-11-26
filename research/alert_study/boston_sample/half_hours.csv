@@ -1,0 +1,13 @@
+complex_id,interval,line,entries
+place-chncl,2025-05-14T06:00:00-04:00,Orange Line,22
+place-chncl,2025-05-14T06:30:00-04:00,Orange Line,42
+place-chncl,2025-05-14T07:00:00-04:00,Orange Line,47
+place-chncl,2025-05-14T07:30:00-04:00,Orange Line,57
+place-cntsq,2025-05-14T20:00:00-04:00,Red Line,173
+place-cntsq,2025-05-14T20:30:00-04:00,Red Line,147
+place-chncl,2025-05-07T06:00:00-04:00,Orange Line,30
+place-chncl,2025-05-07T06:30:00-04:00,Orange Line,41
+place-chncl,2025-05-07T07:00:00-04:00,Orange Line,60
+place-chncl,2025-05-07T07:30:00-04:00,Orange Line,53
+place-cntsq,2025-05-07T20:00:00-04:00,Red Line,191
+place-cntsq,2025-05-07T20:30:00-04:00,Red Line,154
