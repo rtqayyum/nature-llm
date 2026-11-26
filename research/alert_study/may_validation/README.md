@@ -52,3 +52,30 @@ To resume, collect the missing shard numbers using the command above. Existing c
 root=research/alert_study/may_validation
 python "$root/freeze_qwen.py" "$CACHE" "$NOTICE_CACHE" "$root/qwen_forecasts"
 ```
+
+### Run the extractor on a persistent CPU allocation
+
+The [batch runner](run_extraction_job.py) uses the fixed CPU model, binary, prompt and serving settings. It verifies model and source hashes, imports published shards and resumes from the first missing shard. After each batch it writes a complete, independently verifiable checkpoint to `may_extractions.tar.gz` in the work directory. The bundle holds raw outputs, their hashes, the number of exact inputs covered, any Slurm job ID supplied by the scheduler, and the shards produced in this invocation. Generation receipts retain the per-shard hashes and job identifiers across restarts. A returned Slurm ID can be reconciled with scheduler accounting. The weights and travel outcomes are outside the bundle. A partial bundle can be shared and checked before all batches finish.
+
+On the UAEU login node, the following requests one CPU job. The existing bootstrap requires no Git executable. It installs the source in a dedicated alert-study directory. The compute node needs Python 3.9+, curl, tar, outbound access for uncached files, and Linux x86-64 compatibility with the pinned llama.cpp release. The requested time and memory are allocation settings.
+
+```bash
+module load slurm python/3.10.20
+cd /home/tariq.qayyum/nature-llm
+(
+  set -eu
+  work="$PWD/work/alert_study/may_extraction"
+  rev=$(python3 -c 'import json,urllib.request as u; print(json.load(u.urlopen("https://api.github.com/repos/rtqayyum/nature-llm/commits/main"))["sha"])')
+  python3 scripts/bootstrap_hpc.py --project "$work/bootstrap" --revision "$rev" --sync-only
+  runner="$work/bootstrap/work/code_versions/$rev/research/alert_study/may_validation/run_extraction_job.py"
+  sbatch --parsable -p longq --cpus-per-task=6 --mem=16G --time=16:00:00 \
+    --job-name=may-alert-7b --output="$work/slurm-%j.log" \
+    --wrap="exec python3 '$runner' '$work'"
+)
+```
+
+The same work directory can be reused after an interruption. To verify existing files and package them without starting inference, run `python3 "$runner" "$work" --limit 0`. For a returned bundle, compare any duplicate shards to the published hashes before combining them. Preserve any discrepancy for review. Use [read_extractions.py](read_extractions.py) to validate all exact keys against the five original-notice archives and the frozen dictionary.
+
+Pass `--shards "$work/parser_shards"` to both forecast freezing and scoring to use a returned checkpoint in place.
+
+After running [freeze_qwen.py](freeze_qwen.py), use `python "$root/score_frozen.py" "$root/qwen_forecasts" "$root/scores"`. The [scorer](score_frozen.py) verifies the raw shard hashes and both sets of frozen prediction files before joining outcomes. It reports the primary and lag-free errors on identical rows, the roles-versus-names and role-exchange contrasts, audit exclusions, fault/response subsets, and paired three- and seven-day resampling. The separate [revision timing audit](revision_timing/README.md) describes later information and leaves the primary features and population intact.

@@ -36,9 +36,16 @@ def indicators(tags, vocab):
     return np.asarray([[role in record for role in vocab] for record in tags],dtype=float)
 
 
-def run(cache, notice_cache, out):
+def run(cache, notice_cache, out, shards=None):
     cases = inputs(notice_cache,cache/"may_notices.json")
-    mapping, extraction = read(cases,cache/"stations",HERE/"parser_shards")
+    published = HERE/"parser_shards"
+    if shards is None:
+        shards = published
+    if shards.resolve()!=published.resolve():
+        for path in published.glob("[0-9][0-9].json.gz"):
+            if sha(shards/path.name)!=sha(path):
+                raise ValueError(f"Returned batch differs from published checkpoint: {path.name}")
+    mapping, extraction = read(cases,cache/"stations",shards)
     train,test,docs,splits = get_split(cache)
     controls = HERE/"controls"
     frozen = json.loads((controls/"receipt.json").read_text())
@@ -96,6 +103,7 @@ if __name__ == "__main__":
     p.add_argument("cache",type=Path)
     p.add_argument("notice_cache",type=Path)
     p.add_argument("output",type=Path)
+    p.add_argument("--shards",type=Path,help="Verified raw extraction directory from the returned bundle")
     a=p.parse_args()
     with threadpool_limits(limits=1):
-        run(a.cache,a.notice_cache,a.output)
+        run(a.cache,a.notice_cache,a.output,a.shards)

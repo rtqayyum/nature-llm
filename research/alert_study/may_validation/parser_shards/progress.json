@@ -1,10 +1,10 @@
 {
-  "completed_shards": 4,
+  "completed_shards": 7,
   "counts_per_unique_input": {
-    "accepted_complex_role_pairs": 129,
-    "inputs_with_accepted_pairs": 53,
+    "accepted_complex_role_pairs": 271,
+    "inputs_with_accepted_pairs": 105,
     "ungrounded_pairs": 4,
-    "unresolved_pairs": 15
+    "unresolved_pairs": 34
   },
   "files": {
     "00.json.gz": {
@@ -22,12 +22,24 @@
     "03.json.gz": {
       "inputs": 70,
       "sha256": "f66109d4175ac9a96cbaa61b8505c19b09e0733040a9a911fae840a4d728feaa"
+    },
+    "04.json.gz": {
+      "inputs": 75,
+      "sha256": "0fc424a1cc82cf7ce7f9ce7c38736d75de0ba72e207f2e2bc198bfa61d784175"
+    },
+    "05.json.gz": {
+      "inputs": 93,
+      "sha256": "250dbe31560fed8d4b3adb22b086c8185f07e71ba160921fafc08dc834ec143b"
+    },
+    "06.json.gz": {
+      "inputs": 100,
+      "sha256": "4bc12b0cd3dc0127695723ff8643d69c1c4b19adddb2e5fff61aea4125df49ce"
     }
   },
-  "linked_notices": 350,
+  "linked_notices": 632,
   "model": "Qwen/Qwen2.5-7B-Instruct-GGUF@bb5d59e06d9551d752d08b292a50eb208b07ab1f/Q4_K_M/llama.cpp-b12721",
   "total_inputs": 8310,
   "total_notices": 9050,
   "total_shards": 96,
-  "verified_inputs": 336
+  "verified_inputs": 604
 }

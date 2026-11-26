@@ -1,0 +1,30 @@
+{
+  "primary": {
+    "origins": 1743,
+    "paired_station_hours": 46621,
+    "revised_origins": 1066,
+    "revised_paired_station_hours": 29998,
+    "at_target_start_only": 28,
+    "revised_same_native": 792,
+    "changed_roles": 211,
+    "changed_roles_same_native": 47,
+    "changes_on_paired_stations": 144,
+    "changed_paired_rows": 239,
+    "same_native_changes_on_paired_stations": 28,
+    "same_native_changed_paired_rows": 40
+  },
+  "paired": {
+    "origins": 1593,
+    "paired_station_hours": 46621,
+    "revised_origins": 989,
+    "revised_paired_station_hours": 29998,
+    "at_target_start_only": 24,
+    "revised_same_native": 732,
+    "changed_roles": 194,
+    "changed_roles_same_native": 43,
+    "changes_on_paired_stations": 144,
+    "changed_paired_rows": 239,
+    "same_native_changes_on_paired_stations": 28,
+    "same_native_changed_paired_rows": 40
+  }
+}

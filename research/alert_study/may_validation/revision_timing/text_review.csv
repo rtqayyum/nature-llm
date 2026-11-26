@@ -1,0 +1,29 @@
+event_id,first_alert_id,latest_alert_id,reading,interpretation,old_endpoint,new_endpoint,both_endpoints_paired
+248186,507487,507492,instruction added,The revision adds an uptown express segment from 167 St to Tremont Av.,,,
+248198,507517,507529,explicit resumption,The reroute disappears and scheduled F stops resume.,,,
+248408,507965,507966,instruction omitted,The revision drops the 145 St turnback after a train was moved. It does not explicitly restore that turnback service.,,,
+248662,508497,508508,instruction added,The revision adds an F-line diversion from Jay St to W 4 St.,,,
+248718,508617,508622,instruction omitted,The later delay notice drops the express segment after a train was removed.,,,
+248765,508718,508719,instruction omitted,The later delay notice drops the express segment after the fire department responded.,,,
+248819,508821,508825,instruction added,Some trains in the opposite direction now terminate at Atlantic Av or Broadway Junction.,,,
+248866,508921,508932,instruction added,The revision adds a Queensboro Plaza turnback.,,,
+248935,509075,509076,instruction added,The later notice introduces a Bowling Green turnback.,,,
+249208,509564,509566,instruction added,The later notice specifies express service from Hunts Point Av to 3 Av/138 St.,,,
+249439,510044,510046,restored track parsed as a role,The new local-track wording describes resumed service.,,,
+249576,510294,510300,restored track parsed as a role,The later notice describes local-track service having resumed.,,,
+249655,510446,510448,instruction added,The revision adds a Bedford-Nostrand Avs turnback.,,,
+249986,511148,511150,segment endpoint moved,The local segment still begins at Euclid Av. Its stated end moves from Broadway Junction to Hoyt-Schermerhorn Sts.,621,175,1
+250006,511218,511232,instruction added,The revision adds two possible early termini for westbound 7 trains.,,,
+250053,511469,511480,instruction added,The revision adds a route diversion and a Wall St turnback.,,,
+250085,511709,511720,explicit resumption,The later notice reports service restored between Chambers St and Broad St.,,,
+250152,511997,512002,instruction added,New diversion and turnback instructions include Chambers St and Wall St.,,,
+250239,512233,512239,explicit resumption,Scheduled stops resume on the previously described local segment.,,,
+250287,512354,512357,segment endpoint moved,The express segment still begins at Bay Pkwy. Its stated end moves from 62 St to 9 Av.,615,59,0
+251048,513872,513876,instruction added,The revision adds a diversion from DeKalb Av to Canal St.,,,
+251094,513949,513955,instruction added,The revision adds directions for diverted R and N/W trains.,,,
+251221,514240,514241,explicit resumption,The revision says scheduled Q stops in Brooklyn have resumed.,,,
+251371,514557,514560,instruction added,The later notice keeps the diversion and adds two possible earlier turnbacks.,,,
+251483,514805,514816,existing segment extended to another line,The express endpoints were already present for F trains. The revision also applies the segment to M trains.,,,
+251760,515359,515361,instruction added,The revision adds an express segment between Franklin Av and Atlantic Av.,,,
+251853,515548,515560,segment endpoint moved,The suspension now starts at Pennsylvania Av instead of Crown Heights-Utica Av. New Lots Av remains the other endpoint.,345,350,0
+251909,515708,515738,segment endpoint moved,The express segment still begins at Chambers St. Its stated end moves from 14 St to 34 St-Penn Station.,601,318,1
