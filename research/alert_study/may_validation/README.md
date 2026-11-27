@@ -57,20 +57,31 @@ python "$root/freeze_qwen.py" "$CACHE" "$NOTICE_CACHE" "$root/qwen_forecasts"
 
 The [batch runner](run_extraction_job.py) uses the fixed CPU model, binary, prompt and serving settings. It verifies model and source hashes, imports published shards and resumes from the first missing shard. After each batch it writes a complete, independently verifiable checkpoint to `may_extractions.tar.gz` in the work directory. The bundle holds raw outputs, their hashes, the number of exact inputs covered, any Slurm job ID supplied by the scheduler, and the shards produced in this invocation. Generation receipts retain the per-shard hashes and job identifiers across restarts. A returned Slurm ID can be reconciled with scheduler accounting. The weights and travel outcomes are outside the bundle. A partial bundle can be shared and checked before all batches finish.
 
-On the UAEU login node, the following requests one CPU job. The existing bootstrap requires no Git executable. It installs the source in a dedicated alert-study directory. The compute node needs Python 3.9+, curl, tar, outbound access for uncached files, and Linux x86-64 compatibility with the pinned llama.cpp release. The requested time and memory are allocation settings.
+From any directory on the UAEU login node, this block downloads and verifies the bootstrap for the pinned extraction run. It installs the snapshot under the alert-study work directory, checks for an active job and requests one CPU job. The compute node needs Python 3.9+, curl, tar, outbound access for uncached files, and Linux x86-64 compatibility with the pinned llama.cpp release. The requested time and memory are allocation settings.
 
 ```bash
-module load slurm python/3.10.20
-cd /home/tariq.qayyum/nature-llm
 (
-  set -eu
-  work="$PWD/work/alert_study/may_extraction"
-  rev=$(python3 -c 'import json,urllib.request as u; print(json.load(u.urlopen("https://api.github.com/repos/rtqayyum/nature-llm/commits/main"))["sha"])')
-  python3 scripts/bootstrap_hpc.py --project "$work/bootstrap" --revision "$rev" --sync-only
+  set -e
+  module load slurm python/3.10.20
+  work="$HOME/nature-llm/work/alert_study/may_extraction"
+  rev=57a979ff5f0a91f899403994607c7a4533a1b39b
+  active=$(squeue -h -u "$USER" -n may-alert-7b -o '%i %T')
+  if [ -n "$active" ]; then
+    printf 'Existing job: %s\n' "$active"
+    exit 0
+  fi
+  mkdir -p "$work"
+  setup="$work/bootstrap-$rev.py"
+  curl -fsSL --retry 3 -o "$setup" \
+    "https://raw.githubusercontent.com/rtqayyum/nature-llm/$rev/scripts/bootstrap_hpc.py"
+  printf '%s  %s\n' f19d2e2a6fd438162e1bba587557cc43215e682683aa1f7dc4d1d9b1b7d3b443 "$setup" | sha256sum -c -
+  TRAFFIC_WORK_ROOT="$work/bootstrap/work" python3 "$setup" \
+    --project "$work/bootstrap" --revision "$rev" --sync-only
   runner="$work/bootstrap/work/code_versions/$rev/research/alert_study/may_validation/run_extraction_job.py"
+  test -s "$runner"
   sbatch --parsable -p longq --cpus-per-task=6 --mem=16G --time=16:00:00 \
     --job-name=may-alert-7b --output="$work/slurm-%j.log" \
-    --wrap="exec python3 '$runner' '$work'"
+    --wrap="exec python3 -u '$runner' '$work'"
 )
 ```
 
