@@ -1,0 +1,7 @@
+{
+  "may23-fare-components.json": {
+    "bytes": 8803,
+    "sha256": "8f6d95549396f03dc2a8d1288c72b6d2bbd33b3b7897cd0b1471d1bed7b12b3e",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-23T15%3A00%3A00&%24where=station_complex_id+in+%28%27392%27%2C%27397%27%2C%27610%27%29&%24order=station_complex_id%2Cpayment_method%2Cfare_class_category&%24limit=1000"
+  }
+}

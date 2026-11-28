@@ -18,3 +18,26 @@ Run from the repository root using the two files pinned in the [source inventory
 root=research/alert_study/may_validation
 python "$root/name_support.py" "$CACHE/may_notices.json" "$CACHE/stations" "$root/name_support/events.csv"
 ```
+
+## How many mentions describe different instructions?
+
+One internal AI-assisted reader reviewed 32 notices selected by a fixed hash ordering of the 166 candidates. The protocol was written before displaying the selected texts. The reader saw the original wording and eligible station identities. The 32 decisions were saved before joining any counts or later revisions for this audit. Five notices were already linked to earlier parser-audit exposure. The sample was drawn from an exposed development month.
+
+| Reading of eligible stations in the first notice | Notices |
+|---|---:|
+| Two stations had disjoint, nonempty role sets | 3 |
+| Two or more stations had roles, all sharing a role | 20 |
+| Only one station had a current role | 5 |
+| No station had a current role under the reminder exclusion | 4 |
+
+Three of 32 (9.4%) supported the exchange. Two of the three belonged to the five previously flagged notices. Of the other 27, one supported an exchange. In one negative case the connection between a planned-work reminder and the reported disruption was unclear. All four stations in that reminder had the same skipped role, so either reading yields the same exchange decision. These are single-reader annotations under the study vocabulary. Qwen's actual assignments and their predictive value require the frozen comparison. [Selection and reading protocol](review_protocol.md) · [All 32 readings and IDs](review.csv)
+
+The three qualifying notices all received a revision before the full forecast hour. The two versions in each event history explicitly described a return to at least part of the scheduled service. Minutes below are elapsed times; all times are local to New York.
+
+| Date | Initial and revised alert IDs | Original distinction | Minutes to revision | Forecast hour begins |
+|---|---|---|---:|---|
+| May 2 | 507774 → 507777 | Local segment boundary at Hoyt-Schermerhorn Sts and lower-level boarding at Nostrand Av | 25 | 10:00 |
+| May 23 | 514250 → 514251 | Express segment boundaries at 125 St and Grand Central-42 St and lower-level boarding at 86 St | 4 | 15:00 |
+| May 27 | 515127 → 515131 | Suspension boundary at Inwood-207 St and short turn at 145 St | 12 | 16:00 |
+
+On May 23 the revision reported local service and upper-level boarding at 14:20, forty minutes before the forecast hour. The 15:00 hour recorded 668, 1,969 and 3,814 entries at 125 St, 86 St and Grand Central-42 St, respectively. Reaggregating 23 fare-category records reproduced all three values. The existing paired panel recorded 5, 5 and 17 departures from the 9, 4 and 10 assigned bike docks at these stations. The trace reads those bike counts from the panel. The counts describe observed use; the contrast between initial and revised instructions does not identify a causal demand change. [Version IDs, station IDs, dock IDs and counts for all three notices](review_traces.csv) · [Fare query and checksum](may23_fare_source.json)

@@ -1,0 +1,33 @@
+event_id,alert_id,target_date,previous_audit_exposed,eligible_complex_ids,roles_at_eligible_complexes,disjoint_pair,reading
+250907,513576,2026-05-21,0,151|153,"{""151"": [""express boundary""], ""153"": [""express boundary""]}",0,Both stations bound the same express segment.
+250271,512312,2026-05-16,0,167|222|225|232|607,"{""167"": [""express boundary""]}",0,Herald Sq locates maintenance. Other eligible names occur in a planned-work reminder.
+249844,510838,2026-05-13,1,42|44,"{""42"": [""express boundary""]}",0,Church Av locates the debris removal.
+251649,515127,2026-05-27,1,143|151|605,"{""143"": [""suspension boundary""], ""151"": [""short turn""], ""605"": [""suspension boundary"", ""short turn""]}",1,The suspension runs from 168 St to Inwood-207 St. Trains terminate at 145 St or 168 St. Substitute modes are offered for the segment without a specific boarding location.
+251061,513894,2026-05-22,0,143|169|181|624|627,{},0,Franklin Av locates the medical request. Other named stations occur in a separate reminder.
+251894,515633,2026-05-29,0,167|636,"{""167"": [""reroute boundary""], ""636"": [""reroute boundary""]}",0,Both stations bound the same reroute.
+250558,512890,2026-05-19,0,9|611,"{""611"": [""express boundary""], ""9"": [""express boundary""]}",0,Both stations bound the same express segment.
+251699,515242,2026-05-27,0,371|377,"{""371"": [""local boundary""], ""377"": [""local boundary""]}",0,Both stations bound the same local segment.
+251731,515302,2026-05-28,0,323|327|601,"{""327"": [""express boundary""], ""601"": [""express boundary""]}",0,Christopher St-Stonewall locates maintenance.
+249059,509297,2026-05-07,0,97|100|101,"{""101"": [""express boundary""], ""97"": [""express boundary""]}",0,Hewes St locates the medical request.
+248329,507774,2026-05-02,1,175|179,"{""175"": [""local boundary""], ""179"": [""boarding platform""]}",1,Hoyt-Schermerhorn Sts bounds the local service segment. Nostrand Av has a lower-level boarding instruction.
+248945,509094,2026-05-07,0,238|243,"{""238"": [""express boundary""], ""243"": [""express boundary""]}",0,Church Av is both a direction and the explicit endpoint.
+250579,512932,2026-05-19,0,232|636,"{""636"": [""reroute boundary""]}",0,Jay St-MetroTech is a reroute endpoint. The investigation is near 2 Av.
+252062,516079,2026-05-30,0,167|607,"{""167"": [""local boundary""], ""607"": [""local boundary""]}",0,Both stations bound the same local segment.
+250842,513431,2026-05-20,0,26|623,"{""26"": [""reroute boundary""], ""623"": [""reroute boundary""]}",0,Both stations bound the same reroute.
+250701,513181,2026-05-20,0,602|610|613,"{""602"": [""express boundary""], ""610"": [""express boundary""]}",0,59 St locates the rail replacement.
+250899,513560,2026-05-21,1,181|621,"{""181"": [""express boundary""], ""621"": [""express boundary""]}",0,Both stations bound the same express segment.
+251228,514250,2026-05-23,0,392|397|610,"{""392"": [""express boundary""], ""397"": [""boarding platform""], ""610"": [""express boundary""]}",1,125 St and Grand Central-42 St bound the express segment. 86 St has a lower-level boarding instruction.
+250930,513634,2026-05-21,0,602|610,"{""602"": [""express boundary""], ""610"": [""express boundary""]}",0,Both stations bound the same express segment.
+248349,507826,2026-05-02,0,610|622,"{""610"": [""local boundary""], ""622"": [""local boundary""]}",0,Both stations bound the same local segment.
+248531,508249,2026-05-04,0,14|623,"{""623"": [""express boundary""]}",0,Canal St bounds the express segment. 23 St locates the request for assistance.
+251703,515255,2026-05-27,0,242|619,"{""619"": [""reroute boundary""]}",0,Broadway-Lafayette St bounds the reroute. Fort Hamilton Pkwy locates the power issue.
+249651,510440,2026-05-12,0,151|153|605,"{""153"": [""local boundary""], ""605"": [""local boundary""]}",0,145 St locates the mechanical problem.
+251063,513898,2026-05-22,0,143|169|181|618|624,{},0,14 St locates the brake investigation. Other eligible names occur in a separate reminder.
+249249,509636,2026-05-09,0,610|622,"{""610"": [""express boundary""], ""622"": [""express boundary""]}",0,Both stations bound the same express segment.
+252233,516450,2026-05-31,0,221|222|232|624,{},0,2 Av locates a cleaning incident. Other instructions appear in a planned-work reminder.
+248997,509180,2026-05-07,0,93|94|95|96,{},0,The four named stops occur only in a planned-work reminder. Its relation to the current track work is unclear; even if included all four would have the same skipped role.
+248605,508393,2026-05-04,0,9|607|611,"{""607"": [""local boundary""], ""9"": [""local boundary""]}",0,Times Sq-42 St locates the mechanical problem.
+248142,507412,2026-05-01,0,392|393|610,"{""392"": [""express boundary""], ""610"": [""express boundary""]}",0,116 St locates the fire response.
+248925,509049,2026-05-07,1,602|622,"{""602"": [""express boundary""], ""622"": [""express boundary""]}",0,Both stations bound the same express segment.
+251414,514661,2026-05-26,0,151|153|614,"{""151"": [""express boundary""], ""614"": [""express boundary""]}",0,125 St locates urgent maintenance.
+248179,507470,2026-05-01,0,1|5|461,"{""1"": [""express boundary""], ""461"": [""express boundary""]}",0,36 Av locates the door problem; the direction-only closing sentence adds no role.
