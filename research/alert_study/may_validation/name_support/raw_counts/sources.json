@@ -1,0 +1,42 @@
+{
+  "202604.zip": {
+    "bytes": 164592563,
+    "sha256": "fefc1fca369818baeb9206792e02a098b71b59f263064b6627b42317965e2ffb",
+    "url": "https://s3.amazonaws.com/tripdata/202604-citibike-tripdata.zip"
+  },
+  "202605.zip": {
+    "bytes": 916981226,
+    "sha256": "b9461221fb7ce806d5274b046b4de46414a1d1116ba2bc46c6a870b7bda71adf",
+    "url": "https://s3.amazonaws.com/tripdata/202605-citibike-tripdata.zip"
+  },
+  "review-fares-2026-04-25-10.json": {
+    "bytes": 5375,
+    "sha256": "8d55aea104a7be288fa95f44392fb930df775d3487c88468f32e8f0ff2f9abfb",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-04-25T10%3A00%3A00&%24where=station_complex_id+in+%28%27175%27%2C%27179%27%29&%24order=station_complex_id%2Cpayment_method%2Cfare_class_category&%24limit=1000"
+  },
+  "review-fares-2026-05-02-10.json": {
+    "bytes": 4207,
+    "sha256": "913c22a71357f4a39df41c541bfbde1756be8c29d28b32872ac6b595e6e038a8",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-02T10%3A00%3A00&%24where=station_complex_id+in+%28%27175%27%2C%27179%27%29&%24order=station_complex_id%2Cpayment_method%2Cfare_class_category&%24limit=1000"
+  },
+  "review-fares-2026-05-16-15.json": {
+    "bytes": 9204,
+    "sha256": "729fe9aaa7008739b40901b0cd6b504b26455f7b672e8d1c329c2235e450f1db",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-16T15%3A00%3A00&%24where=station_complex_id+in+%28%27392%27%2C%27397%27%2C%27610%27%29&%24order=station_complex_id%2Cpayment_method%2Cfare_class_category&%24limit=1000"
+  },
+  "review-fares-2026-05-20-16.json": {
+    "bytes": 8087,
+    "sha256": "f7da794ac83f17484d9b60bab9d3f6bf95f7af501152715ec7ac29f0b1f3abb1",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-20T16%3A00%3A00&%24where=station_complex_id+in+%28%27143%27%2C%27151%27%2C%27605%27%29&%24order=station_complex_id%2Cpayment_method%2Cfare_class_category&%24limit=1000"
+  },
+  "review-fares-2026-05-23-15.json": {
+    "bytes": 8803,
+    "sha256": "8f6d95549396f03dc2a8d1288c72b6d2bbd33b3b7897cd0b1471d1bed7b12b3e",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-23T15%3A00%3A00&%24where=station_complex_id+in+%28%27392%27%2C%27397%27%2C%27610%27%29&%24order=station_complex_id%2Cpayment_method%2Cfare_class_category&%24limit=1000"
+  },
+  "review-fares-2026-05-27-16.json": {
+    "bytes": 8087,
+    "sha256": "eef41b2e624e6c505ae9bcb22dffdcdc54fac77049b88268275e3a547ec8fdf3",
+    "url": "https://data.ny.gov/resource/5wq4-mkjj.json?transit_mode=subway&transit_timestamp=2026-05-27T16%3A00%3A00&%24where=station_complex_id+in+%28%27143%27%2C%27151%27%2C%27605%27%29&%24order=station_complex_id%2Cpayment_method%2Cfare_class_category&%24limit=1000"
+  }
+}

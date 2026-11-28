@@ -40,4 +40,13 @@ The three qualifying notices all received a revision before the full forecast ho
 | May 23 | 514250 → 514251 | Express segment boundaries at 125 St and Grand Central-42 St and lower-level boarding at 86 St | 4 | 15:00 |
 | May 27 | 515127 → 515131 | Suspension boundary at Inwood-207 St and short turn at 145 St | 12 | 16:00 |
 
-On May 23 the revision reported local service and upper-level boarding at 14:20, forty minutes before the forecast hour. The 15:00 hour recorded 668, 1,969 and 3,814 entries at 125 St, 86 St and Grand Central-42 St, respectively. Reaggregating 23 fare-category records reproduced all three values. The existing paired panel recorded 5, 5 and 17 departures from the 9, 4 and 10 assigned bike docks at these stations. The trace reads those bike counts from the panel. The counts describe observed use; the contrast between initial and revised instructions does not identify a causal demand change. [Version IDs, station IDs, dock IDs and counts for all three notices](review_traces.csv) · [Fare query and checksum](may23_fare_source.json)
+On May 23 the revision reported local service and upper-level boarding at 14:20, forty minutes before the forecast hour. The 15:00 hour recorded 668, 1,969 and 3,814 entries at 125 St, 86 St and Grand Central-42 St, respectively. Reaggregating 23 fare-category records reproduced all three values. Recounting distinct rides in the May Citi Bike trip archive reproduced five, five and 17 departures from the nine, four and ten assigned docks at these stations. The counts describe observed use; the contrast between initial and revised instructions does not identify a causal demand change. [Version IDs, station IDs, dock IDs and counts for all three notices](review_traces.csv) · [Fare query and checksum](may23_fare_source.json)
+
+### Replaying the observed counts and weekly inputs
+
+Across the eight traced station-hours, 55 fare-category records and 123 distinct bike starts reproduced all 16 target values. At the same local hours a week earlier, 59 fare records and 263 distinct rides reproduced the 16 weekly inputs. The eight stations account for 51 mapped docks. The check used the fixed May dock assignment in both weeks, deduplicated by ride ID, and included mapped docks with zero starts. All 32 values agreed exactly with the frozen panel. The weekly replay uses retrospective captures; public availability at the first issue time remains subject to the separate [timing audit](../public_timing/README.md). [Station totals](raw_counts/counts.csv) · [Departures per dock](raw_counts/docks.csv) · [Six fare queries and two trip archives](raw_counts/sources.json)
+
+```bash
+root=research/alert_study/may_validation
+python "$root/check_review_counts.py" "$CACHE" "$root/name_support/raw_counts"
+```
