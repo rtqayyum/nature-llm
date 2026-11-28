@@ -1,6 +1,6 @@
 # Forecasting subway entries and nearby bike departures after service alerts
 
-Working results section, 26 November 2026
+Working results section, 28 November 2026
 
 ## Data and forecast task
 
@@ -45,6 +45,10 @@ After inspecting those results, we fixed an example-based prompt and a separate 
 We applied the registered timetable-availability filter to 1,777 original May notices. The 1,743 eligible notices yielded 66,123 distinct alert-exposed station-hours before the outcome mask. Both target counts were observed for 46,842 station-hours. Both weekly lags were also observed for 46,621 station-hours from 1,593 incidents on 31 dates. Removing notices linked to the text audit by ID, exact input or recurrence group left 44,860 station-hours from 1,534 incidents. A separately retained group of 34 notices preceded verified availability of the succeeding timetable.
 
 Rules assigned a local station role on 242 paired rows from 151 incidents. Only one incident retained two stations with disjoint extracted roles. On May 27, a 15:03 notice reported an A-train suspension and turnbacks. A 15:15 revision announced delays after removal of a train. In the 16:00 target hour, Inwood–207 St, 145 St and 168 St recorded 358, 904 and 2,114 subway entries, respectively. Their assigned docks recorded seven, 26 and 21 departures. We verified all six counts from fare-category records and individual trip starts. The revision illustrates that the service described at issue can change before the forecast hour. The number of comparable station pairs recovered by the language model and their forecast errors remain open. [Validation panel, source records and forecast files](../research/alert_study/may_validation/panel/README.md)
+
+### How many notices can distinguish two station roles?
+
+Across the 46,621 paired May station-hours, 1,254 (2.69%) had a station name in the original message that resolved to the assigned complex. Of the 1,593 notices, 597 mentioned no retained station and 830 mentioned one. This leaves at most 166 notices (10.4%) for the within-notice role exchange, or 137 after excluding parser-audited notices and linked cases. The full set of 166 spans all 31 dates. The exchange requires different role assignments at two stations, so realized support may be smaller. We counted all resolvable mentions, including background references in planned-work reminders. [Calculation and per-notice inventory](../research/alert_study/may_validation/name_support/README.md)
 
 ### Availability of public inputs at issue time
 
